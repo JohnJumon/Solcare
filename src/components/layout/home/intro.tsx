@@ -56,7 +56,7 @@ const Intro = () => {
             </div>
             <img className={`
                 object-cover ${currentFade} h-[24rem] opacity-40 z-0 w-screen
-                xl:w-[52rem] xl:h-[34rem] xl:rounded-bl-[200px] xl:opacity-100
+                xl:w-[48rem] xl:h-[34rem] xl:rounded-bl-[200px] xl:opacity-100
                 `} src={images[currentIndex]} />
         </article>
     );
