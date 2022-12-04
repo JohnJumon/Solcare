@@ -15,3 +15,7 @@ body {
     opacity: 0 !important;
     transition: opacity 1.5s ease !important;
 }
+
+.mat-expansion-panel-body {
+    visibility: visible;
+}

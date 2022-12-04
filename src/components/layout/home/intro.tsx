@@ -40,7 +40,7 @@ const Intro = () => {
                     xl:text-6xl 
                     ">SOLCARE</h1>
                 <p className="
-                    font-light text-black text-l mb-6 text-left
+                    font-light text-black text-lg mb-6 text-left
                     xl:text-3xl xl:mb-12
                     ">SOLANA BLOCKCHAIN CROWDFUNDING <br /> PLATFORM</p>
                 <p className="
