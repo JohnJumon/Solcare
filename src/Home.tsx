@@ -1,6 +1,7 @@
 import Intro from './components/layout/home/intro';
 import ConnectWallet from './components/layout/home/connectWallet';
 import BestCampaigns from './components/layout/home/bestCampaigns';
+import Footer from './components/footer';
 
 const Home = () => {
     return (
@@ -8,6 +9,7 @@ const Home = () => {
             <Intro/>
             <ConnectWallet/>
             <BestCampaigns/>
+            <Footer />
         </main>
     );
 };
