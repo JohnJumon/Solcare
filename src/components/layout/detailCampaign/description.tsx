@@ -18,7 +18,7 @@ const Description = () => {
     return (
         <div className="
             mt-2 text-[8px] text-right
-            md:mt-6 text-[15px]">
+            md:mt-6 md:text-[15px]">
             <h2 className="
                 text-xs font-bold text-left mb-1
                 md:text-xl md:mb-2">Deskripsi</h2>

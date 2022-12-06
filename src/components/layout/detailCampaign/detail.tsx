@@ -6,6 +6,7 @@ import FunderList from "./funderList";
 import Donation from "./donation";
 import FundraiserInfo from "./fundraiserInfo";
 import Voting from "./voting";
+import Claim from "./claim";
 
 const Detail = () => {
     return (
@@ -24,6 +25,7 @@ const Detail = () => {
                     <FundraiserInfo />
                     <Donation/>
                     <Voting/>
+                    <Claim/>
                 </div>
                 <Description />
                 <FunderList />
@@ -33,6 +35,7 @@ const Detail = () => {
                 <FundraiserInfo/>
                 <Donation/>
                 <Voting/>
+                <Claim/>
             </aside>
         </div>
     );
