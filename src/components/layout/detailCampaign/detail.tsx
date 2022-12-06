@@ -5,6 +5,7 @@ import Description from "./description";
 import FunderList from "./funderList";
 import Donation from "./donation";
 import FundraiserInfo from "./fundraiserInfo";
+import Voting from "./voting";
 
 const Detail = () => {
     return (
@@ -22,6 +23,7 @@ const Detail = () => {
                 <div className="md:hidden">
                     <FundraiserInfo />
                     <Donation/>
+                    <Voting/>
                 </div>
                 <Description />
                 <FunderList />
@@ -30,6 +32,7 @@ const Detail = () => {
                 md:block">
                 <FundraiserInfo/>
                 <Donation/>
+                <Voting/>
             </aside>
         </div>
     );
