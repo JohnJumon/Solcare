@@ -20,8 +20,8 @@ const MainProfile = () => {
                     ">Status</p>
             </div>
             <div className="divider"></div>
-            <p className="text-left font-bold text-xs sm:text-lg">Saldo Saat Ini</p>
-            <div className="font-bold shadow-[0px_4px_6px_2px_rgba(0,123,199,0.5)] p-4 rounded-[10px] mb-4 text-center">
+            <p className="text-left font-bold text-xs sm:text-lg mb-2 sm:mb-4">Saldo Saat Ini</p>
+            <div className="font-bold shadow-[0px_4px_6px_2px_rgba(0,123,199,0.5)] p-4 rounded-[10px] mb-6 text-center">
                 <p className="text-[#007BC7] text-3xl sm:text-6xl">1.985<span className="text-3xl max-[639px]:hidden">USDC</span></p>
                 <p className="sm:hidden text-[15px] text-[#007BC7]">USDC</p>
             </div>

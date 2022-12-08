@@ -61,11 +61,11 @@ const ProfileDrawer = () => {
         currentDrawerStatus == false ? setDrawerStatus(true) : setDrawerStatus(false)
     };
     return (
-        <div className='lg:mt-[50px]'>
+        <div className='lg:pt-[50px]'>
             <h1 className='font-bold max-[1023px]:hidden text-3xl text-[#007BC7]'>{currentPage}</h1>
             <div className="drawer drawer-mobile">
                 <input type="checkbox" className="drawer-toggle" checked={currentDrawerStatus} />
-                <div className="drawer-content flex flex-col items-start justify-start ml-12 mr-12 max-[1023px]:mt-[25px] lg:pl-6">
+                <div className="drawer-content flex flex-col items-start justify-start ml-12 mr-12 max-[1023px]:pt-[25px] lg:pl-6">
                     <ProfileContent handleClick={handleClick} page={currentPage} />
                 </div>
                 <div className="drawer-side" onClick={handleClick}>

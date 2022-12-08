@@ -1,5 +1,6 @@
 import React from "react";
 import MainProfile from "./mainProfile";
+import CampaignList from "./campaignList";
 
 interface ProfileContentProps {
     handleClick: () => void
@@ -9,6 +10,9 @@ const ProfileContent: React.FC<ProfileContentProps> = (props) => {
     const generatePage = () => {
         if(props.page === "Profil"){
             return <MainProfile/>
+        }
+        else if(props.page === "Campaign Anda"){
+            return <CampaignList/>
         }
     }
     return (

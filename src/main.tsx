@@ -10,7 +10,7 @@ import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
-        <Header/>
-        <Profile/>
+        <Header />
+        <Profile />
     </React.StrictMode>
 );

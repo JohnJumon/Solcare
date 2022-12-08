@@ -2,7 +2,7 @@ import Thumbnail from '../../../../image/placeholder.svg';
 
 const BestCampaignCard = () => {
     return (
-        <div className="mx-3 rounded-[20px] text-black h-max shadow-[2px_2px_3px_1px_rgba(0,0,0,0.25)] hover:shadow-[6px_6px_6px_2px_rgba(0,0,0,0.25)] mb-4">
+        <div className="mx-3 rounded-[20px] text-black h-max shadow-[0px_4px_4px_0px_rgba(0,123,199,0.25)] hover:shadow-[0px_10px_10px_0px_rgba(0,123,199,0.5)] mb-4">
             <img className="
                 w-screen max-h-[200px] object-cover rounded-[20px]
                 xl:max-h-[300px]" src={Thumbnail} />
