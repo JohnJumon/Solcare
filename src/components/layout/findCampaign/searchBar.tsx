@@ -1,6 +1,6 @@
 const SearchBar = () => {
     return(
-        <div className="relative mt-[50px] rounded-[10px]">
+        <div className="relative mt-[25px] xl:mt-[50px] rounded-[10px]">
             <input type="text" className="
                 w-full text-xs placeholder:text-gray-700 font-regular p-2 rounded-r-[10px] border-solid border-2 border-white border-b-[#007BC7] focus:outline-none
                 xl:text-xl xl:p-4" placeholder="Cari nama campaign..." aria-label="Search"/>
