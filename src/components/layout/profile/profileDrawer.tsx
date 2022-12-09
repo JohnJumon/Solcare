@@ -71,7 +71,7 @@ const ProfileDrawer = () => {
                 <div className="drawer-side" onClick={handleClick}>
                     <label className="drawer-overlay"></label>
                     <ul className="menu p-4 w-64 sm:w-80 bg-base-100 text-base-content">
-                        {generateLinks()};
+                        {generateLinks()}
                     </ul>
                 </div>
             </div>

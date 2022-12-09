@@ -1,6 +1,7 @@
 import React from "react";
 import MainProfile from "./mainProfile";
 import CampaignList from "./campaignList";
+import HistoryTransaction from "./historyTransaction";
 
 interface ProfileContentProps {
     handleClick: () => void
@@ -13,6 +14,9 @@ const ProfileContent: React.FC<ProfileContentProps> = (props) => {
         }
         else if(props.page === "Campaign Anda"){
             return <CampaignList/>
+        }
+        else if(props.page === "Riwayat Transaksi"){
+            return <HistoryTransaction/>
         }
     }
     return (
