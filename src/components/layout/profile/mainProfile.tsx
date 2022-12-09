@@ -5,7 +5,7 @@ const MainProfile = () => {
         <div className="flex flex-col">
             <div className="
                 flex flex-col
-                md:flex-row items-center shadow-[0px_4px_6px_2px_rgba(0,123,199,0.5)] p-4 rounded-[10px] py-8">
+                md:flex-row items-center shadow-[0px_4px_6px_2px_rgba(0,123,199,0.5)] p-8 rounded-[10px]">
                 <img className="
                         md:basis-1/12 w-24 h-24 rounded-full
                         md:w-28 md:h-28" src={ProfilePlaceholder} alt="placeholder" />
