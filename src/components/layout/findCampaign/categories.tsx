@@ -20,14 +20,14 @@ const Category = () => {
                 <div className="mr-5 max-w-56 w-56">
                     <button className="
                         bg-white border-solid border-2 border-transparent text-xs font-bold text-[#007BC7] rounded-[10px] p-2 focus:text-white focus:bg-[#007BC7] hover:border-solid hover:border-2 hover:border-[#007BC7]
-                        xl:p-4 xl:text-xl">{categories[i]}</button>
+                        md:p-4 md:text-xl">{categories[i]}</button>
                 </div>  
             );
         }
         return components;
     }
     return (
-        <div className="w-full mt-6">
+        <div className="w-full">
             <Slider {...settings}>
                 {generateCategory()}
             </Slider>

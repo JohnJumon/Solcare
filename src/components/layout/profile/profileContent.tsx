@@ -1,12 +1,17 @@
 import React from "react";
+import { useState } from "react";
 import MainProfile from "./mainProfile";
 import CampaignList from "./campaignList";
 import HistoryTransaction from "./historyTransaction";
 import AccountSetting from "./accountSetting";
+import CreateCampaign from "./createCampaign";
+import DetailCampaign from "./detailCampaign";
 
 interface ProfileContentProps {
     handleClick: () => void
     page: string
+    status: string
+    changePage: (page:string, status:string) => void
 }
 const ProfileContent: React.FC<ProfileContentProps> = (props) => {
     const generatePage = () => {
@@ -14,7 +19,13 @@ const ProfileContent: React.FC<ProfileContentProps> = (props) => {
             return <MainProfile/>
         }
         else if(props.page === "Campaign Anda"){
-            return <CampaignList/>
+            return <CampaignList changePage={props.changePage}/>
+        }
+        else if(props.page === "Buat Campaign"){
+            return <CreateCampaign/>
+        }
+        else if(props.page === "Detail Campaign"){
+            return <DetailCampaign status={props.status}/>
         }
         else if(props.page === "Riwayat Transaksi"){
             return <HistoryTransaction/>

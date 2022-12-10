@@ -43,3 +43,7 @@ input[type=number] {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+
+.front {
+    z-index: 20 !important;
+}

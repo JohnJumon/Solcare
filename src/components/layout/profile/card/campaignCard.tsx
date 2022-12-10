@@ -4,6 +4,7 @@ import IsSuccess from "./info/isSuccess";
 
 interface CampaignCardProps {
     status: string
+    changePage: (page:string, status:string) => void
 }
 
 const CampaignCard:React.FC<CampaignCardProps> = (props) => {
@@ -21,7 +22,7 @@ const CampaignCard:React.FC<CampaignCardProps> = (props) => {
     };
 
     return (
-        <div className="my-2 sm:my-4 flex flex-col text-xs sm:text-lg font-bold">
+        <div className="my-2 sm:my-4 flex flex-col text-xs sm:text-lg font-bold" onClick={() => {props.changePage("Detail Campaign", props.status)}}>
             <div className="flex flex-row justify-between bg-white rounded-t-[5px] sm:rounded-t-[10px]">
                 <p className="line-clamp-1 p-2 sm:p-4">Judul</p>
                 <p className="bg-[#007BC7] text-white p-2 px-3 sm:p-4 sm:px-6 rounded-t-[5px] sm:rounded-t-[10px]">Status</p>
