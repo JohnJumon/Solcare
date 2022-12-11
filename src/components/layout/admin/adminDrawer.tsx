@@ -152,7 +152,7 @@ const AdminDrawer = () => {
             <h1 className='font-bold max-[1023px]:hidden text-3xl text-[#007BC7]'>{currentPage}</h1>
             <div className="drawer drawer-mobile max-h-[36rem] w-full">
                 <input type="checkbox" className="drawer-toggle" checked={currentDrawerStatus} />
-                <div className="drawer-content flex flex-col items-start justify-start ml-12 mr-12 max-[1023px]:pt-[25px] lg:pl-6 lg:pr-4 lg:z-20">
+                <div className="drawer-content flex flex-col items-start justify-start ml-12 mr-12 max-[1023px]:pt-[25px] pr-4 lg:pl-6 lg:z-20">
                     <AdminContent handleClick={handleClick} page={currentPage} changePage={changePage} />
                 </div>
                 <div className="drawer-side">
