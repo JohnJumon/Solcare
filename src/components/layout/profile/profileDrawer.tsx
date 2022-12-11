@@ -2,7 +2,7 @@ import { useState } from 'react';
 import ProfileContent from './profileContent';
 
 const ProfileDrawer = () => {
-    const [currentDrawerStatus, setDrawerStatus] = useState(true);
+    const [currentDrawerStatus, setDrawerStatus] = useState(false);
     const [currentPage, setCurrentPage] = useState("Profil");
     const [currentStatus, setCurrentStatus] = useState("");
     const links = ["Profil", "Campaign Anda", "Riwayat Transaksi", "Pengaturan Akun"]
@@ -36,15 +36,15 @@ const ProfileDrawer = () => {
         let components = [];
         for (const link of links) {
             if (link == currentPage) {
-                components.push(<li><a className='active:bg-[#007BC7] text-lg font-bold stroke-black active:stroke-white' onClick={() => { changePage(link, "") }}>
+                components.push(<li><a className='active:bg-[#007BC7] text-lg font-bold stroke-black active:stroke-white' onClick={() => { changePage(link, "");handleClick(); }}>
                     <span>
                         {icons[index]}
                     </span>
                     {link}
                 </a></li>);
             }
-            else if(link == "Campaign Anda" && (currentPage == "Buat Campaign" || currentPage == "Detail Campaign" )) {
-                components.push(<li><a className='active:bg-[#007BC7] text-lg font-bold stroke-black active:stroke-white' onClick={() => { changePage(link, "") }}>
+            else if (link == "Campaign Anda" && (currentPage == "Buat Campaign" || currentPage == "Detail Campaign")) {
+                components.push(<li><a className='active:bg-[#007BC7] text-lg font-bold stroke-black active:stroke-white' onClick={() => { changePage(link, ""); handleClick(); }}>
                     <span>
                         {icons[index]}
                     </span>
@@ -52,7 +52,7 @@ const ProfileDrawer = () => {
                 </a></li>);
             }
             else {
-                components.push(<li><a className='active:bg-[#007BC7] text-lg stroke-black active:stroke-white' onClick={() => { changePage(link, "") }}>
+                components.push(<li><a className='active:bg-[#007BC7] text-lg stroke-black active:stroke-white' onClick={() => { changePage(link, ""); handleClick();}}>
                     <span>
                         {icons[index]}
                     </span>
@@ -63,15 +63,15 @@ const ProfileDrawer = () => {
         };
         return components;
     };
-    const changePage = (page: string, status:string) => {
+    const changePage = (page: string, status: string) => {
         setCurrentPage(page)
         setCurrentStatus(status)
     };
     const handleClick = () => {
-        if(window.matchMedia("(min-width: 1024px)").matches){
+        if (window.matchMedia("(min-width: 1024px)").matches) {
             setDrawerStatus(false);
         }
-        else{
+        else {
             currentDrawerStatus == false ? setDrawerStatus(true) : setDrawerStatus(false)
         }
     };
@@ -80,12 +80,20 @@ const ProfileDrawer = () => {
             <h1 className='font-bold max-[1023px]:hidden text-3xl text-[#007BC7]'>{currentPage}</h1>
             <div className="drawer drawer-mobile h-full">
                 <input type="checkbox" className="drawer-toggle" checked={currentDrawerStatus} />
-                <div className="drawer-content flex flex-col items-start justify-start ml-12 mr-12 max-[1023px]:pt-[25px] lg:pl-6 lg:z-20">
-                    <ProfileContent handleClick={handleClick} status={currentStatus} page={currentPage} changePage={changePage}/>
+                <div className="drawer-content flex flex-col items-start justify-start ml-12 mr-12 max-[1023px]:pt-[25px] lg:pl-6 lg:!z-20">
+                    <ProfileContent handleClick={handleClick} status={currentStatus} page={currentPage} changePage={changePage} />
                 </div>
-                <div className="drawer-side" onClick={handleClick}>
+                <div className="drawer-side">
                     <label className="drawer-overlay"></label>
                     <ul className="menu p-4 w-64 sm:w-80 bg-base-100 text-base-content">
+                        <li onClick={handleClick} className="w-12 h-12 lg:hidden">
+                            <a className='active:bg-[#007BC7] active:stroke-white stroke-black'>
+                                <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M25 7L7 25" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M25 25L7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </a>
+                        </li>
                         {generateLinks()}
                     </ul>
                 </div>

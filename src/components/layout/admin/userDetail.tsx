@@ -1,6 +1,6 @@
 import ProfilePlaceholder from "../../../image/profilePic.png";
 
-const MainProfile = () => {
+const UserDetail = () => {
     return (
         <div className="flex flex-col">
             <div className="
@@ -20,11 +20,6 @@ const MainProfile = () => {
                     ">Status</p>
             </div>
             <div className="divider"></div>
-            <p className="text-left font-bold text-xs sm:text-lg mb-2 sm:mb-4">Saldo Saat Ini</p>
-            <div className="font-bold shadow-[0px_4px_6px_2px_rgba(0,123,199,0.5)] p-4 rounded-[10px] mb-6 text-center">
-                <p className="text-[#007BC7] text-3xl sm:text-6xl">1.985<span className="text-3xl max-[639px]:hidden">USDC</span></p>
-                <p className="sm:hidden text-[15px] text-[#007BC7]">USDC</p>
-            </div>
             <div className="grid grid-cols-1 gap-6 font-bold text-xs sm:text-lg md:grid-cols-2 md:grid-rows-2 md:gap-4 items-center">
                 <div className="col-span-1">
                     <p>Total Donasi</p>
@@ -55,8 +50,13 @@ const MainProfile = () => {
                     </div>
                 </div>
             </div>
+            <button className="
+                    mt-4 self-end bg-[#007BC7] text-xs w-full p-2 border border-[2px] border-[#007BC7] text-white font-bold rounded-[5px]
+                    md:text-xl md:p-4 md:rounded-[10px]">
+                Cabut Verifikasi
+            </button>
         </div>
     );
 };
 
-export default MainProfile;
+export default UserDetail;

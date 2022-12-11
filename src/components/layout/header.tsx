@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Connection, clusterApiUrl } from '@solana/web3.js';
-
+import Logo from "../../image/Logo.png";
 const Header = () => {
     const connection = new Connection(clusterApiUrl('devnet'));
 
@@ -13,7 +13,7 @@ const Header = () => {
     }, []);
 
     return (
-        <div className="navbar sticky top-0 z-50">
+        <div className="navbar sticky top-0 z-50 bg-white py-4 lg:px-12">
             <div className="navbar-start">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -66,7 +66,9 @@ const Header = () => {
                         </li>
                     </ul>
                 </div>
-                <a className="btn btn-ghost normal-case text-xl">Solcare</a>
+                <a className="pt-3 lg:pt-1 btn btn-ghost hover:bg-white hover:brightness-125 hidden sm:block">
+                    <img className='sm:w-[62.5px] sm:h-[20px] lg:w-[125px] lg:h-[40px]' src={Logo}/>
+                </a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
@@ -101,7 +103,7 @@ const Header = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Get started</a>
+                <a className="btn text-xs lg:text-xl capitalize border-none bg-[#007BC7]">Connect Wallet</a>
             </div>
         </div>
     );

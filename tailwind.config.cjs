@@ -13,6 +13,5 @@ module.exports = {
   ],
   daisyui: {
     themes: false,
-  },
-  important:true,
+  }
 }

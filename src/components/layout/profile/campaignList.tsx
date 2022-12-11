@@ -2,7 +2,7 @@ import CampaignCard from "./card/campaignCard";
 
 interface CampaignListProps {
     changePage: (page:string, status:string) => void
-}
+} 
 
 const CampaignList:React.FC<CampaignListProps> = (props) => {
     return (
