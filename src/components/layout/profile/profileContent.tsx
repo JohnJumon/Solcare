@@ -16,13 +16,7 @@ interface ProfileContentProps {
 const ProfileContent: React.FC<ProfileContentProps> = (props) => {
     const generatePage = () => {
         if(props.page === "Profil"){
-            // return <MainProfile/>
-            return (
-                <>
-                <MainProfile/>
-                <MainProfile/>
-                </>
-            )
+            return <MainProfile/>
         }
         else if(props.page === "Campaign Anda"){
             return <CampaignList changePage={props.changePage}/>
