@@ -1,6 +1,6 @@
 import Slider from 'react-slick';
-import './slick.css';
-import './slick-theme.css';
+import '../../../../../src/slick.css';
+import '../../../../../src/slick-theme.css';
 import BestCampaignCard from '../card/bestCampaignCard';
 
 const BestCampaignsSlider = () => {
