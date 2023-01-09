@@ -1,13 +1,13 @@
-import { defaultProps } from "react-select/dist/declarations/src/Select";
-import UserTable from "./table/userTable";
+import { defaultProps } from 'react-select/dist/declarations/src/Select';
+import UserTable from './table/userTable';
 
 interface UserListProps {
-    changePage:(page:string, status:string) => void
+    changePage: (page: string, status: string) => void;
 }
-const UserList:React.FC<UserListProps> = (props) => {
-    return(
+const UserList: React.FC<UserListProps> = (props) => {
+    return (
         <div>
-            <UserTable changePage={props.changePage}/>
+            <UserTable changePage={props.changePage} />
         </div>
     );
 };

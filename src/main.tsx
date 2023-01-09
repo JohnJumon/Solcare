@@ -1,17 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Header from './components/layout/header';
-import Home from './Home';
-import FindCampaign from './FindCampaign';
-import DetailCampaign from './DetailCampaign';
-import Profile from './Profile';
-import Admin from './Admin';
+import Home from './views/Home';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Admin from './views/admin/Admin';
 
 import './index.css';
+import App from './App';
+import FindCampaign from './views/FindCampaign';
+import DetailCampaign from './views/DetailCampaign';
+import Profile from './views/Profile';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
-        <Header />
-        <Admin />
+        <Router>
+            <App>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/admin" element={<Admin />} />
+                    <Route path="/campaign/:id" element={<DetailCampaign />} />
+                    <Route path="/explore" element={<FindCampaign />} />
+                    <Route path="/profile" element={<Profile />} />
+                </Routes>
+            </App>
+        </Router>
     </React.StrictMode>
 );

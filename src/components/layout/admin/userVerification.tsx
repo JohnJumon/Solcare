@@ -1,9 +1,9 @@
-import VerificationTable from "./table/verificationTable";
+import VerificationTable from './table/verificationTable';
 
 const UserVerification = () => {
-    return(
+    return (
         <div>
-            <VerificationTable/>
+            <VerificationTable />
         </div>
     );
 };

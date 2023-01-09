@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Connection, clusterApiUrl } from '@solana/web3.js';
-import Logo from "../../image/Logo.png";
+import Logo from '../../image/Logo.png';
+import { Link } from 'react-router-dom';
 const Header = () => {
     const connection = new Connection(clusterApiUrl('devnet'));
 
@@ -36,9 +37,6 @@ const Header = () => {
                         tabIndex={0}
                         className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
                     >
-                        <li>
-                            <a>{time}</a>
-                        </li>
                         <li tabIndex={0}>
                             <a className="justify-between">
                                 Parent
@@ -67,43 +65,29 @@ const Header = () => {
                     </ul>
                 </div>
                 <a className="pt-3 lg:pt-1 btn btn-ghost hover:bg-white hover:brightness-125 hidden sm:block">
-                    <img className='sm:w-[62.5px] sm:h-[20px] lg:w-[125px] lg:h-[40px]' src={Logo}/>
+                    <img
+                        className="sm:w-[62.5px] sm:h-[20px] lg:w-[125px] lg:h-[40px]"
+                        src={Logo}
+                    />
                 </a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
                     <li>
-                        <a>Item 1</a>
-                    </li>
-                    <li tabIndex={0}>
-                        <a>
-                            Parent
-                            <svg
-                                className="fill-current"
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="20"
-                                height="20"
-                                viewBox="0 0 24 24"
-                            >
-                                <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-                            </svg>
-                        </a>
-                        <ul className="p-2">
-                            <li>
-                                <a>Submenu 1</a>
-                            </li>
-                            <li>
-                                <a>Submenu 2</a>
-                            </li>
-                        </ul>
+                        <Link to="/">Home</Link>
                     </li>
                     <li>
-                        <a>Item 3</a>
+                        <Link to="/profile">Buat Campaign</Link>
+                    </li>
+                    <li>
+                        <Link to="/explore">Cari Campaign</Link>
                     </li>
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn text-xs lg:text-xl capitalize border-none bg-[#007BC7]">Connect Wallet</a>
+                <a className="btn text-xs lg:text-xl capitalize border-none bg-[#007BC7]">
+                    Connect Wallet
+                </a>
             </div>
         </div>
     );

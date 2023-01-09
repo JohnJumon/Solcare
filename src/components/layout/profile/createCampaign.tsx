@@ -1,19 +1,21 @@
-import Category from "../findCampaign/categories";
-import TargetValue from "./createCampaign/targetValue";
-import Deadline from "./createCampaign/deadline";
-import Title from "./createCampaign/title";
-import Description from "./createCampaign/description";
-import UploadThumbnail from "./createCampaign/uploadThumbnail";
+import Category from '../findCampaign/categories';
+import TargetValue from './createCampaign/targetValue';
+import Deadline from './createCampaign/deadline';
+import Title from './createCampaign/title';
+import Description from './createCampaign/description';
+import UploadThumbnail from './createCampaign/uploadThumbnail';
 const CreateCampaign = () => {
     return (
         <div className="flex flex-col">
             <div className="flex flex-col">
-                <p className="font-bold text-xs md:text-lg">Isi Informasi Campaign</p>
+                <p className="font-bold text-xs md:text-lg">
+                    Isi Informasi Campaign
+                </p>
                 <div className="mt-2">
-                    <Title/>
+                    <Title />
                 </div>
                 <div className="mt-2">
-                    <Description/>
+                    <Description />
                 </div>
                 <div className="mt-2">
                     <p className="text-xs md:text-lg">Kategori</p>
@@ -21,18 +23,20 @@ const CreateCampaign = () => {
                 </div>
                 <div className="mt-4 flex flex-col md:flex-row gap-4">
                     <div className="basis-1/2">
-                        <TargetValue/>
+                        <TargetValue />
                     </div>
                     <div className="basis-1/2">
-                        <Deadline/>
+                        <Deadline />
                     </div>
                 </div>
                 <div className="mt-2">
-                    <UploadThumbnail/>
+                    <UploadThumbnail />
                 </div>
-                <button className="
+                <button
+                    className="
                     mt-4 self-end bg-[#007BC7] text-xs w-full p-2 border border-[2px] border-[#007BC7] text-white font-bold rounded-[5px]
-                    md:text-xl md:p-4 md:rounded-[10px]">
+                    md:text-xl md:p-4 md:rounded-[10px]"
+                >
                     Buat Campaign
                 </button>
             </div>

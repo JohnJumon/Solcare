@@ -1,16 +1,22 @@
 const Deadline = () => {
     return (
-        <div className="
+        <div
+            className="
             mb-[3px]
-            md:mb-[9px]">
-            <p className="
+            md:mb-[9px]"
+        >
+            <p
+                className="
                 text-md leading-none
-                md:text-3xl">
+                md:text-3xl"
+            >
                 <b>20</b>
             </p>
-            <p className="
+            <p
+                className="
                 text-[8px]
-                md:text-[15px]">
+                md:text-[15px]"
+            >
                 Hari tersisa
             </p>
         </div>

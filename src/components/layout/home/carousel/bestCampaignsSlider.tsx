@@ -20,9 +20,9 @@ const BestCampaignsSlider = () => {
                     slidesToScroll: 1,
                     dots: true,
                     infinite: true,
-                }
+                },
             },
-        ]
+        ],
     };
 
     const generateCard = (count: number) => {
@@ -31,12 +31,10 @@ const BestCampaignsSlider = () => {
             components.push(<BestCampaignCard />);
         }
         return components;
-    }
+    };
     return (
         <div className="w-full">
-            <Slider {...settings}>
-                {generateCard(6)}
-            </Slider>
+            <Slider {...settings}>{generateCard(6)}</Slider>
         </div>
     );
 };

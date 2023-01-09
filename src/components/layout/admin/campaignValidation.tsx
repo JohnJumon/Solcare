@@ -1,9 +1,9 @@
-import CampaignValidationTable from "./table/campaignValidationTable";
+import CampaignValidationTable from './table/campaignValidationTable';
 
 const CampaignValidation = () => {
-    return(
+    return (
         <div>
-            <CampaignValidationTable/>
+            <CampaignValidationTable />
         </div>
     );
 };

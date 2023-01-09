@@ -1,4 +1,4 @@
-import CampaignCard from "./card/campaignCard";
+import CampaignCard from './card/campaignCard';
 
 const CampaignList = () => {
     const generateCard = (count: number) => {
@@ -7,13 +7,15 @@ const CampaignList = () => {
             components.push(<CampaignCard />);
         }
         return components;
-    }
+    };
 
     return (
-        <div className="
+        <div
+            className="
             grid grid-cols-1 gap-6 mt-6
             md:grid-cols-2
-            xl:grid-cols-3">
+            xl:grid-cols-3"
+        >
             {generateCard(12)}
         </div>
     );
