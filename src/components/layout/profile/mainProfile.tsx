@@ -1,6 +1,9 @@
+import { useWallet } from '@solana/wallet-adapter-react';
 import ProfilePlaceholder from '../../../image/profilePic.png';
 
 const MainProfile = () => {
+    const { connected, publicKey } = useWallet();
+
     return (
         <div className="flex flex-col">
             <div
@@ -26,7 +29,7 @@ const MainProfile = () => {
                         className="text-sm
                         md:text-base"
                     >
-                        Wallet Address
+                        {connected ? publicKey?.toBase58() : 'Wallet address'}
                     </p>
                 </div>
                 <p

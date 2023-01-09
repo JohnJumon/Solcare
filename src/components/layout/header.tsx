@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import { Connection, clusterApiUrl } from '@solana/web3.js';
 import Logo from '../../image/Logo.png';
 import { Link } from 'react-router-dom';
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import '@solana/wallet-adapter-react-ui/styles.css';
+
 const Header = () => {
     const connection = new Connection(clusterApiUrl('devnet'));
 
@@ -64,12 +67,14 @@ const Header = () => {
                         </li>
                     </ul>
                 </div>
-                <a className="pt-3 lg:pt-1 btn btn-ghost hover:bg-white hover:brightness-125 hidden sm:block">
-                    <img
-                        className="sm:w-[62.5px] sm:h-[20px] lg:w-[125px] lg:h-[40px]"
-                        src={Logo}
-                    />
-                </a>
+                <Link to="/">
+                    <a className="pt-3 lg:pt-1 btn btn-ghost hover:bg-white hover:brightness-125 hidden sm:block">
+                        <img
+                            className="sm:w-[62.5px] sm:h-[20px] lg:w-[125px] lg:h-[40px]"
+                            src={Logo}
+                        />
+                    </a>
+                </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
@@ -85,9 +90,10 @@ const Header = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn text-xs lg:text-xl capitalize border-none bg-[#007BC7]">
-                    Connect Wallet
-                </a>
+                <WalletMultiButton
+                    style={{ backgroundColor: '#007BC7' }}
+                    className="btn text-xs lg:text-xl capitalize border-none bg-[#007BC7]"
+                />
             </div>
         </div>
     );

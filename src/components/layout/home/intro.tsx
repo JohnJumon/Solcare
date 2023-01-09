@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import IntroPic1 from '../../../image/intro.jpg';
 import IntroPic2 from '../../../image/intro2.jpg';
 import IntroPic3 from '../../../image/intro3.jpg';
@@ -70,14 +71,16 @@ const Intro = () => {
                     <i>campaign</i>. Dengan teknologi <i>blockchain</i>,
                     transaksi menjadi transparan dan aman.
                 </p>
-                <button
-                    className="
+                <Link to={'/explore'}>
+                    <button
+                        className="
                     bg-[#007BC7] text-xs w-[11rem] h-8 text-white font-bold rounded-[5px]
                     xl:w-[22rem] xl:rounded-[10px] xl:h-16 xl:text-xl
                     "
-                >
-                    Cari Campaign
-                </button>
+                    >
+                        Cari Campaign
+                    </button>
+                </Link>
             </div>
             <img
                 className={`
