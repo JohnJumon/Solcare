@@ -3,6 +3,16 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+}
+
+/* untuk break address */
+#address-tag {
+    overflow-wrap: anywhere;
+}
+
 body {
     font-family: "Montserrat";
 }

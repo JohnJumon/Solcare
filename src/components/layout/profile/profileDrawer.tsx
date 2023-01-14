@@ -19,7 +19,7 @@ const ProfileDrawer = (props: any) => {
             <h1 className="font-bold max-[1023px]:hidden text-3xl text-[#007BC7]">
                 {props.page}
             </h1>
-            <div className="drawer drawer-mobile max-h-[36rem] w-full">
+            <div className="drawer drawer-mobile lg:max-h-[32rem] w-full">
                 <input
                     type="checkbox"
                     className="drawer-toggle"
