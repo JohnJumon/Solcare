@@ -1,39 +1,22 @@
-import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-import {
-    ConnectionProvider,
-    WalletProvider,
-} from '@solana/wallet-adapter-react';
-import {
-    WalletDisconnectButton,
-    WalletModalProvider,
-    WalletMultiButton,
-} from '@solana/wallet-adapter-react-ui';
-import {
-    PhantomWalletAdapter,
-    TrustWalletAdapter,
-    UnsafeBurnerWalletAdapter,
-} from '@solana/wallet-adapter-wallets';
-import { clusterApiUrl } from '@solana/web3.js';
+import { WalletProvider } from '@solana/wallet-adapter-react';
+import { ConnectionProvider } from './context/connection';
+import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
+import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
 import { useMemo } from 'react';
 import Footer from './components/footer';
 import Header from './components/layout/header';
+import { ToastContainer } from 'react-toastify';
 
 function App(props: any) {
-    // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
-    const network = WalletAdapterNetwork.Devnet;
-
-    // You can also provide a custom RPC endpoint.
-    const endpoint = useMemo(() => clusterApiUrl(network), [network]);
-
     const wallets = useMemo(
         () => [new PhantomWalletAdapter()],
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [network]
+        []
     );
 
     return (
         <>
-            <ConnectionProvider endpoint={endpoint}>
+            <ConnectionProvider>
                 <WalletProvider wallets={wallets} autoConnect>
                     <WalletModalProvider>
                         <Header />
@@ -41,6 +24,18 @@ function App(props: any) {
                         <Footer />
                     </WalletModalProvider>
                 </WalletProvider>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                />
             </ConnectionProvider>
         </>
     );

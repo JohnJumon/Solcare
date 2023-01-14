@@ -1,20 +1,46 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Connection, clusterApiUrl } from '@solana/web3.js';
 import Logo from '../../image/Logo.png';
 import { Link } from 'react-router-dom';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import '@solana/wallet-adapter-react-ui/styles.css';
+import { useWallet } from '@solana/wallet-adapter-react';
+import axios from 'axios';
+import { API_BASE_URL, LOGIN_MESSAGE } from '../../utils';
+import base58 from 'bs58';
+import { useSmartContract } from '../../context/connection';
 
 const Header = () => {
-    const connection = new Connection(clusterApiUrl('devnet'));
+    const { connected, signMessage, publicKey, disconnect } = useWallet();
+    const { smartContract } = useSmartContract();
 
-    const [time, setTime] = useState(0);
+    const signIn = async () => {
+        if (signMessage && publicKey) {
+            try {
+                const message = new TextEncoder().encode(LOGIN_MESSAGE);
+                const signature = await signMessage(message);
+
+                const resp = await axios.post(
+                    API_BASE_URL + '/v1/users/login',
+                    {
+                        address: publicKey.toBase58(),
+                        signedMessage: base58.encode(signature),
+                    }
+                );
+
+                localStorage.setItem('token', resp.data.data.token);
+            } catch (e) {
+                console.log(e);
+                await disconnect();
+            }
+        }
+    };
 
     useEffect(() => {
-        connection.onSlotChange(async (slot) => {
-            setTime((await connection.getBlockTime(slot.slot)) || 0);
-        });
-    }, []);
+        if (connected) {
+            signIn();
+        }
+    }, [connected]);
 
     return (
         <div className="navbar sticky top-0 z-50 bg-white py-4 lg:px-12">
@@ -82,7 +108,9 @@ const Header = () => {
                         <Link to="/">Home</Link>
                     </li>
                     <li>
-                        <Link to="/profile">Buat Campaign</Link>
+                        <Link to="/profile/my-campaign/create">
+                            Buat Campaign
+                        </Link>
                     </li>
                     <li>
                         <Link to="/explore">Cari Campaign</Link>

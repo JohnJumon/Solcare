@@ -8,21 +8,18 @@ import CreateCampaign from './createCampaign';
 import DetailCampaign from './detailCampaign';
 
 interface ProfileContentProps {
-    handleClick: () => void;
     page: string;
-    status: string;
-    changePage: (page: string, status: string) => void;
 }
 const ProfileContent: React.FC<ProfileContentProps> = (props) => {
     const generatePage = () => {
         if (props.page === 'Profil') {
             return <MainProfile />;
         } else if (props.page === 'Campaign Anda') {
-            return <CampaignList changePage={props.changePage} />;
+            return <CampaignList />;
         } else if (props.page === 'Buat Campaign') {
             return <CreateCampaign />;
         } else if (props.page === 'Detail Campaign') {
-            return <DetailCampaign status={props.status} />;
+            return <DetailCampaign status={' '} />;
         } else if (props.page === 'Riwayat Transaksi') {
             return <HistoryTransaction />;
         } else {
@@ -33,7 +30,7 @@ const ProfileContent: React.FC<ProfileContentProps> = (props) => {
         <div className="flex flex-col w-full">
             <div className="flex flex-row items-center mb-2">
                 <button
-                    onClick={props.handleClick}
+                    // onClick={props.handleClick}
                     className="drawer-button lg:hidden p-0 m-2 ml-0 bg-none"
                 >
                     <svg

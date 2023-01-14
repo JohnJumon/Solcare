@@ -1,4 +1,8 @@
-const IsSuccess = () => {
+interface CampaignIsSuccessCardProps {
+    collected: number;
+}
+
+const IsSuccess: React.FC<CampaignIsSuccessCardProps> = (props) => {
     return (
         <div className="text-white flex flex-col">
             <div className="text-center bg-[#007BC7] rounded-[5px] rounded-tr-none sm:rounded-[10px] sm:rounded-tr-none p-2 sm:p-4">
