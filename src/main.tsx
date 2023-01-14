@@ -25,7 +25,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                     <Route
                         path="/profile"
                         element={
-                            <Profile>
+                            <Profile page="Profil">
                                 <ProfileContent page="Profil" />
                             </Profile>
                         }
@@ -33,7 +33,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                     <Route
                         path="/profile/my-campaign"
                         element={
-                            <Profile>
+                            <Profile page="Campaign Anda">
                                 <ProfileContent page="Campaign Anda" />
                             </Profile>
                         }
@@ -41,7 +41,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                     <Route
                         path="/profile/my-campaign/create"
                         element={
-                            <Profile>
+                            <Profile page="Buat Campaign">
                                 <ProfileContent page="Buat Campaign" />
                             </Profile>
                         }
@@ -49,7 +49,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                     <Route
                         path="/profile/transaction-history"
                         element={
-                            <Profile>
+                            <Profile page="Riwayat Transaksi">
                                 <ProfileContent page="Riwayat Transaksi" />
                             </Profile>
                         }
@@ -57,7 +57,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                     <Route
                         path="/profile/settings"
                         element={
-                            <Profile>
+                            <Profile page="Pengaturan Akun">
                                 <ProfileContent page="Pengaturan Akun" />
                             </Profile>
                         }

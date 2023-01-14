@@ -4,11 +4,7 @@ import ProfileContent from './profileContent';
 
 const ProfileDrawer = (props: any) => {
     const [currentDrawerStatus, setDrawerStatus] = useState(false);
-    const [currentPage, setCurrentPage] = useState('Profil');
 
-    const changePage = (page: string, status: string) => {
-        setCurrentPage(page);
-    };
     const handleClick = () => {
         if (window.matchMedia('(min-width: 1024px)').matches) {
             setDrawerStatus(false);
@@ -21,7 +17,7 @@ const ProfileDrawer = (props: any) => {
     return (
         <div className="lg:pt-[50px]">
             <h1 className="font-bold max-[1023px]:hidden text-3xl text-[#007BC7]">
-                {currentPage}
+                {props.page}
             </h1>
             <div className="drawer drawer-mobile max-h-[36rem] w-full">
                 <input
@@ -30,7 +26,32 @@ const ProfileDrawer = (props: any) => {
                     checked={currentDrawerStatus}
                 />
                 <div className="drawer-content flex flex-col items-start justify-start ml-12 mr-12 max-[1023px]:pt-[25px] pr-4 lg:pl-6 lg:!z-20">
-                    {props.children}
+                    <div className="flex flex-col w-full">
+                        <div className="flex flex-row items-center mb-2">
+                            <button
+                                onClick={handleClick}
+                                className="drawer-button lg:hidden p-0 m-2 ml-0 bg-none"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    className="text-[#007BC7] inline-block w-6 h-6 stroke-current"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M4 6h16M4 12h16M4 18h16"
+                                    ></path>
+                                </svg>
+                            </button>
+                            <h1 className="font-bold text-2xl lg:hidden text-[#007BC7]">
+                                {props.page}
+                            </h1>
+                        </div>
+                        {props.children}
+                    </div>
                 </div>
                 <div className="drawer-side">
                     <label className="drawer-overlay"></label>
@@ -63,9 +84,9 @@ const ProfileDrawer = (props: any) => {
                             </a>
                         </li>
                         <li>
-                            <Link to="/profile">
-                                <a className="active:bg-[#007BC7] text-lg font-bold stroke-black active:stroke-white">
-                                    <span>
+                            <Link to="/profile" onClick={handleClick}>
+                                <a className="active:bg-[#007BC7] text-lg font-bold stroke-black active:stroke-white flex items-center">
+                                    <span className='pr-1'>
                                         <svg
                                             width="24"
                                             height="24"
@@ -98,9 +119,9 @@ const ProfileDrawer = (props: any) => {
                             </Link>
                         </li>
                         <li>
-                            <Link to="/profile/my-campaign">
-                                <a className="active:bg-[#007BC7] text-lg font-bold stroke-black active:stroke-white">
-                                    <span>
+                            <Link to="/profile/my-campaign" onClick={handleClick}>
+                                <a className="active:bg-[#007BC7] text-lg font-bold stroke-black active:stroke-white flex items-center">
+                                    <span className='pr-1'>
                                         <svg
                                             width="24"
                                             height="24"
@@ -139,9 +160,9 @@ const ProfileDrawer = (props: any) => {
                             </Link>
                         </li>
                         <li>
-                            <Link to="/profile/transaction-history">
-                                <a className="active:bg-[#007BC7] text-lg font-bold stroke-black active:stroke-white">
-                                    <span>
+                            <Link to="/profile/transaction-history" onClick={handleClick}>
+                                <a className="active:bg-[#007BC7] text-lg font-bold stroke-black active:stroke-white flex items-center">
+                                    <span className='pr-1'>
                                         <svg
                                             width="24"
                                             height="24"
@@ -180,9 +201,9 @@ const ProfileDrawer = (props: any) => {
                             </Link>
                         </li>
                         <li>
-                            <Link to="/profile/settings">
-                                <a className="active:bg-[#007BC7] text-lg font-bold stroke-black active:stroke-white">
-                                    <span>
+                            <Link to="/profile/settings" onClick={handleClick}>
+                                <a className="active:bg-[#007BC7] text-lg font-bold stroke-black active:stroke-white flex items-center">
+                                    <span className='pr-1'>
                                         <svg
                                             className=""
                                             width="24"
