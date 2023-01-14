@@ -1,8 +1,8 @@
 import * as anchor from '@project-serum/anchor';
 
 export const LOGIN_MESSAGE = 's3cretseedsforlogin';
-// export const API_BASE_URL = 'http://34.238.156.194';
-export const API_BASE_URL = 'http://localhost:8000';
+export const API_BASE_URL = 'http://34.238.156.194';
+// export const API_BASE_URL = 'http://localhost:8000';
 export const RPC_API_KEY =
     'https://solana-devnet.g.alchemy.com/v2/bIPuobg6X0eDu34Afyg_24zQsQAjPoLE';
 
