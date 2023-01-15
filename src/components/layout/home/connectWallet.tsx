@@ -1,3 +1,5 @@
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+
 const ConnectWallet = () => {
     return (
         <article
@@ -19,14 +21,11 @@ const ConnectWallet = () => {
                 >
                     Langsung akses saja seluruh fitur Solcare
                 </h1>
-                <button
-                    className="
-                        bg-[#007BC7] text-xs w-[11rem] h-8 text-white font-bold rounded-[5px]
-                        xl:w-[22rem] xl:rounded-[10px] xl:h-16 xl:text-xl
-                        "
-                >
-                    Hubungkan Wallet
-                </button>
+                <WalletMultiButton
+                    style={{ backgroundColor: '#007BC7' }}
+                    className="btn !text-xs capitalize !bg-[#007BC7] !rounded-[5px] !h-14 xl:!h-16 !w-[11rem] xl:!rounded-[10px] xl:!w-[22rem] xl:!text-xl mx-auto"
+                >Hubungkan Wallet
+                </WalletMultiButton>
             </div>
         </article>
     );

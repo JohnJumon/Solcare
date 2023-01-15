@@ -106,7 +106,7 @@ const Header = () => {
             <div className="navbar-end">
                 <WalletMultiButton
                     style={{ backgroundColor: '#007BC7' }}
-                    className="btn !text-xs lg:!h-16 lg:!text-xl capitalize !border-none !bg-[#007BC7]"
+                    className="btn !text-xs lg:!h-16 lg:!text-lg capitalize !border-none !bg-[#007BC7]"
                 />
             </div>
         </div>
