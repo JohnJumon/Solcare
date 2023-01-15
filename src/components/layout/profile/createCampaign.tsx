@@ -70,6 +70,9 @@ const CreateCampaign = () => {
     };
 
     const submitForm = async () => {
+        if(input.title === '' || input.description === '' || input.banner === null)
+            return toast.error('Mohon isi seluruh informasi yang dibutuhkan!');
+        
         if (!connected || !publicKey || toastId.current) return;
 
         toastId.current = toast('Memproses campaign baru kamu!', {

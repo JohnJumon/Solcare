@@ -82,7 +82,7 @@ const CampaignList = (props: any) => {
         <div className="flex flex-col max-[369px]:flex-col-reverse">
             <Link
                 to="/profile/my-campaign/create"
-                className="btn self-end bg-[#007BC7] text-xs text-white font-bold rounded-[5px] max-[369px]:w-full sm:text-base sm:rounded-[10px]"
+                className="btn self-end bg-[#007BC7] text-xs text-white font-bold rounded-[5px] max-[369px]:w-full sm:text-base sm:rounded-[10px] capitalize border-none"
             >
                 Buat Campaign
             </Link>
