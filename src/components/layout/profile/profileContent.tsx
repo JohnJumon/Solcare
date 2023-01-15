@@ -26,10 +26,6 @@ const ProfileContent: React.FC<ProfileContentProps> = (props) => {
             return <AccountSetting />;
         }
     };
-    return (
-        <div>
-            {generatePage()}
-        </div>
-    );
+    return <div>{generatePage()}</div>;
 };
 export default ProfileContent;

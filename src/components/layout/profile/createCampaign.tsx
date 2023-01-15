@@ -1,6 +1,6 @@
 import * as anchor from '@project-serum/anchor';
 import * as spl from '@solana/spl-token';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import {
     API_BASE_URL,
@@ -15,11 +15,12 @@ import {
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useSmartContract } from '../../../context/connection';
 import { Transaction } from '@solana/web3.js';
-import { toast } from 'react-toastify';
+import { toast, Id } from 'react-toastify';
 
 const CreateCampaign = () => {
     const { publicKey, connected, sendTransaction } = useWallet();
     const { smartContract } = useSmartContract();
+    const toastId = useRef<Id | null>(null);
 
     const [input, setInput] = useState<{ [string: string]: any }>({
         title: '',
@@ -40,6 +41,21 @@ const CreateCampaign = () => {
         fetchCategories();
     }, []);
 
+    const toastDone = () => {
+        if (toastId.current) toast.done(toastId.current);
+        toastId.current = null;
+    };
+
+    const resetForm = () => {
+        setInput({
+            title: '',
+            description: '',
+            targetAmount: 1,
+            category: 1,
+            banner: null,
+        });
+    };
+
     const handleInputChange = (e: any) => {
         const target = e.target;
         const name = target.name;
@@ -54,8 +70,15 @@ const CreateCampaign = () => {
     };
 
     const submitForm = async () => {
-        if (!connected || !publicKey) return;
+        if (!connected || !publicKey || toastId.current) return;
 
+        toastId.current = toast('Memproses campaign baru kamu!', {
+            progress: 0.1,
+            autoClose: false,
+            closeButton: false,
+            draggable: false,
+            closeOnClick: false,
+        });
         let i = 1;
         let campaignDerivedAccount: DerivedAccount;
         for (; i <= 1000; i++) {
@@ -71,6 +94,8 @@ const CreateCampaign = () => {
                 break;
             }
         }
+
+        toast.update(toastId.current, { progress: 0.3 });
 
         const campaignAuthorityDerivedAccount = getDerivedAccount(
             [CAMPAIGN_AUTHORITY_SEED, campaignDerivedAccount!.publicKey],
@@ -101,10 +126,13 @@ const CreateCampaign = () => {
             );
 
             if (resp.data.status !== 200) {
+                toastDone();
                 toast.error(`Campaign gagal dibuat!`);
                 return;
             }
+            toast.update(toastId.current, { progress: 0.5 });
         } catch (e) {
+            toastDone();
             console.log('Error: ', e);
             toast.error(`Campaign gagal dibuat!`);
             return;
@@ -134,7 +162,11 @@ const CreateCampaign = () => {
             new Transaction().add(ix),
             smartContract.provider.connection
         );
+        toast.update(toastId.current, { progress: 1 });
+        toastDone();
         toast(`🚀 Campaign berhasil dibuat! Signature transaksi: ${tx}`);
+
+        resetForm();
     };
 
     return (
@@ -147,6 +179,7 @@ const CreateCampaign = () => {
                     <p className="text-xs md:text-lg">Judul</p>
                     <input
                         onChange={handleInputChange}
+                        value={input.title}
                         name="title"
                         className="
                     text-xs p-2 w-full rounded-[5px] border border-gray-300 hover:bg-gray-100 hover:text-gray-700 focus:outline-none
@@ -158,6 +191,7 @@ const CreateCampaign = () => {
                     <p className="text-xs md:text-lg">Deskripsi</p>
                     <textarea
                         onChange={handleInputChange}
+                        value={input.description}
                         name="description"
                         className="
                             text-xs p-2 w-full rounded-[5px] border border-gray-300 hover:bg-gray-100 hover:text-gray-700 focus:outline-none
@@ -170,6 +204,7 @@ const CreateCampaign = () => {
                         className="select select-bordered w-full max-w-xs"
                         name="category"
                         onChange={handleInputChange}
+                        value={input.category}
                         defaultValue={input.category}
                     >
                         {categories?.map((e) => {
@@ -195,6 +230,7 @@ const CreateCampaign = () => {
                                     min="1"
                                     defaultValue="1"
                                     name="targetAmount"
+                                    value={input.targetAmount}
                                     onChange={handleInputChange}
                                 />
                                 <p
@@ -238,6 +274,7 @@ const CreateCampaign = () => {
                                 id="dropzone-file"
                                 type="file"
                                 className="hidden"
+                                value={input.banner}
                                 onChange={handleInputChange}
                             />
                         </div>

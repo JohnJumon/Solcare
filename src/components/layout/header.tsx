@@ -93,7 +93,7 @@ const Header = () => {
                     <li>
                         <Link to="/">Home</Link>
                     </li>
-                    <li className='px-4'>
+                    <li className="px-4">
                         <Link to="/profile/my-campaign/create">
                             Buat Campaign
                         </Link>

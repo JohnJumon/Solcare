@@ -37,7 +37,8 @@ const AccountSetting = () => {
                     >
                         Nama
                     </h2>
-                    <p id='address-tag'
+                    <p
+                        id="address-tag"
                         className="text-sm
                         md:text-base"
                     >
