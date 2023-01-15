@@ -274,7 +274,7 @@ const CreateCampaign = () => {
                                 id="dropzone-file"
                                 type="file"
                                 className="hidden"
-                                value={input.banner}
+                                value={input.banner?.webkitRelativePath}
                                 onChange={handleInputChange}
                             />
                         </div>
