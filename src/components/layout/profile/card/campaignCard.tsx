@@ -13,11 +13,11 @@ interface CampaignCardProps {
 
 const CampaignCard: React.FC<CampaignCardProps> = (props) => {
     return (
-        <div className="my-2 sm:my-4 flex flex-col text-xs sm:text-lg font-bold">
+        <div className="my-2 sm:my-4 flex flex-col text-xs sm:text-lg font-bold border-2 rounded-[10px]">
             <div className="flex flex-row justify-between bg-white rounded-t-[5px] sm:rounded-t-[10px]">
                 <p className="line-clamp-1 p-2 sm:p-4">{props.title}</p>
                 <p className="bg-[#007BC7] text-white p-2 px-3 sm:p-4 sm:px-6 rounded-t-[5px] sm:rounded-t-[10px]">
-                    Status
+                    {props.status}
                 </p>
             </div>
             {props.status === 'Aktif' ? (
