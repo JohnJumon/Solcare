@@ -36,46 +36,63 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                             </PrivateRoute>
                         }
                     />
-                    <Route path="/explore" element={<PrivateRoute><FindCampaign /></PrivateRoute>} />
-                    <Route path="/campaign/:id" element={<DetailCampaign />} />
+                    <Route path="/explore" element={<FindCampaign />} />
+                    <Route
+                        path="/campaign/:id"
+                        element={
+                            <PrivateRoute>
+                                <DetailCampaign />
+                            </PrivateRoute>
+                        }
+                    />
                     <Route
                         path="/profile"
                         element={
-                            <Profile page="Profil">
-                                <ProfileContent page="Profil" />
-                            </Profile>
+                            <PrivateRoute>
+                                <Profile page="Profil">
+                                    <ProfileContent page="Profil" />
+                                </Profile>
+                            </PrivateRoute>
                         }
                     />
                     <Route
                         path="/profile/my-campaign"
                         element={
-                            <Profile page="Campaign Anda">
-                                <ProfileContent page="Campaign Anda" />
-                            </Profile>
+                            <PrivateRoute>
+                                <Profile page="Campaign Anda">
+                                    <ProfileContent page="Campaign Anda" />
+                                </Profile>
+                            </PrivateRoute>
                         }
                     />
                     <Route
                         path="/profile/my-campaign/create"
                         element={
-                            <Profile page="Buat Campaign">
-                                <ProfileContent page="Buat Campaign" />
-                            </Profile>
+                            <PrivateRoute>
+                                <Profile page="Buat Campaign">
+                                    <ProfileContent page="Buat Campaign" />
+                                </Profile>
+                            </PrivateRoute>
                         }
                     />
                     <Route
                         path="/profile/transaction-history"
                         element={
-                            <Profile page="Riwayat Transaksi">
-                                <ProfileContent page="Riwayat Transaksi" />
-                            </Profile>
+                            <PrivateRoute>
+                                <Profile page="Riwayat Transaksi">
+                                    <ProfileContent page="Riwayat Transaksi" />
+                                </Profile>
+                            </PrivateRoute>
                         }
                     />
                     <Route
                         path="/profile/settings"
                         element={
-                            <Profile page="Pengaturan Akun">
-                                <ProfileContent page="Pengaturan Akun" />
-                            </Profile>
+                            <PrivateRoute>
+                                <Profile page="Pengaturan Akun">
+                                    <ProfileContent page="Pengaturan Akun" />
+                                </Profile>
+                            </PrivateRoute>
                         }
                     />
                 </Routes>

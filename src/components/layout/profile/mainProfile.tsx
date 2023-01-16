@@ -5,11 +5,6 @@ import ProfilePlaceholder from '../../../image/profilePic.png';
 const MainProfile = () => {
     const { connected, publicKey } = useWallet();
 
-    const navigate = useNavigate();
-    if (!connected) {
-        navigate('/');
-    }
-
     return (
         <div className="flex flex-col">
             <div
