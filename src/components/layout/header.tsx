@@ -71,6 +71,9 @@ const Header = () => {
                             <Link to="/">Home</Link>
                         </li>
                         <li>
+                            <Link to="/explore">Cari Campaign</Link>
+                        </li>
+                        <li>
                             {connected ? (
                                 <Link to="/profile/my-campaign/create">
                                     Buat Campaign
@@ -80,7 +83,11 @@ const Header = () => {
                             )}
                         </li>
                         <li>
-                            <Link to="/explore">Cari Campaign</Link>
+                            {connected ? (
+                                <Link to="/profile">Profile</Link>
+                            ) : (
+                                <></>
+                            )}
                         </li>
                     </ul>
                 </div>
@@ -99,6 +106,9 @@ const Header = () => {
                         <Link to="/">Home</Link>
                     </li>
                     <li>
+                        <Link to="/explore">Cari Campaign</Link>
+                    </li>
+                    <li>
                         {connected ? (
                             <Link to="/profile/my-campaign/create">
                                 Buat Campaign
@@ -108,7 +118,7 @@ const Header = () => {
                         )}
                     </li>
                     <li>
-                        <Link to="/explore">Cari Campaign</Link>
+                        {connected ? <Link to="/profile">Profile</Link> : <></>}
                     </li>
                 </ul>
             </div>
