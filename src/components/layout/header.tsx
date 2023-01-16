@@ -98,7 +98,7 @@ const Header = () => {
                     <li>
                         <Link to="/">Home</Link>
                     </li>
-                    <li className="px-4">
+                    <li>
                         {connected ? (
                             <Link to="/profile/my-campaign/create">
                                 Buat Campaign
