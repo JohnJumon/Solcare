@@ -11,7 +11,8 @@ import base58 from 'bs58';
 import { useSmartContract } from '../../context/connection';
 
 const Header = () => {
-    const { connected, signMessage, publicKey, disconnect } = useWallet();
+    const { connected, connecting, signMessage, publicKey, disconnect } =
+        useWallet();
     const { smartContract } = useSmartContract();
 
     const signIn = async () => {

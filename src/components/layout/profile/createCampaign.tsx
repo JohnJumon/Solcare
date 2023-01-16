@@ -70,9 +70,13 @@ const CreateCampaign = () => {
     };
 
     const submitForm = async () => {
-        if(input.title === '' || input.description === '' || input.banner === null)
+        if (
+            input.title === '' ||
+            input.description === '' ||
+            input.banner === null
+        )
             return toast.error('Mohon isi seluruh informasi yang dibutuhkan!');
-        
+
         if (!connected || !publicKey || toastId.current) return;
 
         toastId.current = toast('Memproses campaign baru kamu!', {
@@ -141,33 +145,42 @@ const CreateCampaign = () => {
             return;
         }
 
-        const ix = await smartContract.methods
-            .initCampaign(
-                i,
-                new anchor.BN(10)
-                    .pow(new anchor.BN(USDC_DECIMALS))
-                    .imuln(Number.parseInt(input.targetAmount))
-            )
-            .accounts({
-                owner: publicKey,
-                campaign: campaignDerivedAccount!.publicKey,
-                campaignAuthority: campaignAuthorityDerivedAccount.publicKey,
-                usdcMint: USDC_MINT,
-                campaignVault: campaignVault,
-                clock: anchor.web3.SYSVAR_CLOCK_PUBKEY,
-                associatedTokenProgram: spl.ASSOCIATED_TOKEN_PROGRAM_ID,
-                tokenProgram: spl.TOKEN_PROGRAM_ID,
-                systemProgram: anchor.web3.SystemProgram.programId,
-            })
-            .instruction();
+        try {
+            const ix = await smartContract.methods
+                .initCampaign(
+                    i,
+                    new anchor.BN(10)
+                        .pow(new anchor.BN(USDC_DECIMALS))
+                        .imuln(Number.parseInt(input.targetAmount))
+                )
+                .accounts({
+                    owner: publicKey,
+                    campaign: campaignDerivedAccount!.publicKey,
+                    campaignAuthority:
+                        campaignAuthorityDerivedAccount.publicKey,
+                    usdcMint: USDC_MINT,
+                    campaignVault: campaignVault,
+                    clock: anchor.web3.SYSVAR_CLOCK_PUBKEY,
+                    associatedTokenProgram: spl.ASSOCIATED_TOKEN_PROGRAM_ID,
+                    tokenProgram: spl.TOKEN_PROGRAM_ID,
+                    systemProgram: anchor.web3.SystemProgram.programId,
+                })
+                .instruction();
 
-        const tx = await sendTransaction(
-            new Transaction().add(ix),
-            smartContract.provider.connection
-        );
-        toast.update(toastId.current, { progress: 1 });
-        toastDone();
-        toast(`🚀 Campaign berhasil dibuat! Signature transaksi: ${tx}`);
+            const tx = await sendTransaction(
+                new Transaction().add(ix),
+                smartContract.provider.connection
+            );
+
+            toast.update(toastId.current, { progress: 1 });
+            toastDone();
+            toast(`🚀 Campaign berhasil dibuat! Signature transaksi: ${tx}`);
+        } catch (e) {
+            toastDone();
+            console.log('Error: ', e);
+            toast.error(`Campaign gagal dibuat!`);
+            return;
+        }
 
         resetForm();
     };

@@ -91,10 +91,14 @@ const CampaignList = (props: any) => {
             </p>
             <div className="flex flex-col">
                 {campaignList?.length === 0 ? (
-                    <p className='text-center my-5'>Belum ada campaign ...</p>
+                    <p className="text-center my-5">Belum ada campaign ...</p>
                 ) : (
                     campaignList?.map((e) => {
-                        return <CampaignCard key={e.address} {...e} />;
+                        return (
+                            <Link to={`/campaign/${e.address}`}>
+                                <CampaignCard key={e.address} {...e} />
+                            </Link>
+                        );
                     })
                 )}
             </div>
