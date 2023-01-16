@@ -1,5 +1,6 @@
 import Select from 'react-select';
-
+import { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 const options = [
     {
         label: 'Terbaru',
@@ -20,17 +21,32 @@ const options = [
 ];
 
 const Sort = () => {
-    const generateOption = () => {
-        let components = [];
-        for (let i = 0; i < options.length; i++) {
-            components.push(
-                <option className="" value={options[i].value}>
-                    {options[i].label}
-                </option>
-            );
-        }
-        return components;
+    let { category, search, filter } = useParams();
+    if (search === undefined) {
+        search = '';
+    }
+    if (category === undefined) {
+        category = "Semua";
+    }
+
+    let defaultOption = 0;
+    if (filter === "old") {
+        defaultOption = 1;
+    }
+    else if (filter === "target"){
+        defaultOption = 2;
+    }
+    else if (filter === "deadline"){
+        defaultOption = 3;
+    }
+    else {
+        defaultOption = 0;
+    }
+
+    const handleInputChange = (e: any) => {
+        window.location.href = `/explore/${category}/${(search !== '') ? search : ''}/${e.value}`
     };
+
     return (
         <div
             className="
@@ -65,7 +81,7 @@ const Sort = () => {
                     className="w-[200px] text-xs
                         xl:text-xl xl:w-[300px]"
                     options={options}
-                    defaultValue={options[0]}
+                    defaultValue={options[defaultOption]}
                     isSearchable={false}
                     styles={{
                         control: (baseStyles, state) => ({
@@ -95,6 +111,7 @@ const Sort = () => {
                             },
                         }),
                     }}
+                    onChange={(choice) => handleInputChange(choice)}
                 />
             </div>
         </div>
