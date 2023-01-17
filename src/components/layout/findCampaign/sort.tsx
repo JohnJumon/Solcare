@@ -14,7 +14,7 @@ const options = [
 
 const Sort = () => {
     let [ searchParams, setSearchParams ] = useSearchParams();
-    let filter = searchParams.get("filter")
+    let filter = searchParams.get("order")
     let search = searchParams.get("search")
     let category = searchParams.get("categoryId")
     
