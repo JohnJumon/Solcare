@@ -10,14 +10,6 @@ const options = [
         label: 'Terlama',
         value: 'old',
     },
-    // {
-    //     label: 'Persen Target',
-    //     value: 'target',
-    // },
-    // {
-    //     label: 'Tenggat Waktu',
-    //     value: 'deadline',
-    // },
 ];
 
 const Sort = () => {
@@ -26,48 +18,28 @@ const Sort = () => {
         search = '';
     }
     if (category === undefined) {
-        category = "Semua";
+        category = 'Semua';
     }
 
     let defaultOption = 0;
-    if (filter === "old") {
+    if (filter === 'old') {
         defaultOption = 1;
-    }
-    // else if (filter === "target"){
-    //     defaultOption = 2;
-    // }
-    // else if (filter === "deadline"){
-    //     defaultOption = 3;
-    // }
-    else {
+    } else {
         defaultOption = 0;
     }
 
     const handleInputChange = (e: any) => {
-        window.location.href = `/explore/${category}/${e.value}/${search}`
+        window.location.href = `/explore/${category}/${e.value}/${search}`;
     };
 
     return (
         <div
             className="
-            flex flex-col mt-6 flex-col-reverse
-            xl:flex-row xl:items-center"
+            flex flex-col mt-6 flex-col-reverse"
         >
-            <div className="mt-5 xl:basis-1/2 xl:mt-0">
-                <p
-                    className="
-                    text-xs
-                    xl:text-xl
-                    "
-                >
-                    Jelajahi <b>12345 campaign</b>
-                </p>
-            </div>
             <div
                 className="
-                flex flex-row items-center justify-between
-                xl:basis-1/2 xl:justify-end
-                "
+                flex flex-row flex-end items-center justify-end"
             >
                 <label
                     htmlFor="sortFilter"

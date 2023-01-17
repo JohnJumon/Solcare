@@ -5,7 +5,6 @@ import Thumbnail from '../../../../image/placeholder.svg';
 import { API_BASE_URL } from '../../../../utils';
 
 const CampaignCard = (props: any) => {
-    console.log(props.campaign);
     let content = props.campaign;
 
     const imageBanner = content.banner;
