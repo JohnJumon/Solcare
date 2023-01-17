@@ -15,7 +15,7 @@ const Category = (props: any) => {
 
     let { category, search, filter } = useParams();
     if (search === undefined) {
-        search = 'z';
+        search = '';
     }
     if (filter === undefined) {
         filter = "new";
@@ -25,7 +25,7 @@ const Category = (props: any) => {
         if (category === undefined || category === "Semua") {
             components.push(
                 <div className="mr-5 max-w-56 w-56">
-                    <Link to={`/explore/Semua/${(search !== '') ? search : ''}/${filter}`}>
+                    <Link to={`/explore/Semua/${filter}/${search}`}>
                         <button
                             className="
                             border-solid border-2 border-transparent text-xs font-bold rounded-[10px] p-2 text-white bg-[#007BC7] hover:border-solid hover:border-2 hover:border-[#007BC7]
@@ -41,7 +41,7 @@ const Category = (props: any) => {
         else {
             components.push(
                 <div className="mr-5 max-w-56 w-56">
-                    <Link to={`/explore/Semua/${(search !== '') ? search : ''}/${filter}`}>
+                    <Link to={`/explore/Semua/${filter}/${search}`}>
                         <button
                             className="
                             border-solid border-2 border-transparent text-xs font-bold rounded-[10px] p-2 text-[#007BC7] bg-white hover:border-solid hover:border-2 hover:border-[#007BC7]
@@ -59,7 +59,7 @@ const Category = (props: any) => {
             if (category === e.name) {
                 components.push(
                     <div className="mr-5 max-w-56 w-56">
-                        <Link to={`/explore/${e.name}/${(search !== '') ? search : ''}/${filter}`}>
+                        <Link to={`/explore/${e.name}/${filter}/${search}`}>
                             <button
                                 className="
                             border-solid border-2 border-transparent text-xs font-bold rounded-[10px] p-2 text-white bg-[#007BC7] hover:border-solid hover:border-2 hover:border-[#007BC7]
@@ -75,7 +75,7 @@ const Category = (props: any) => {
             else {
                 components.push(
                     <div className="mr-5 max-w-56 w-56">
-                        <Link to={`/explore/${e.name}/${(search !== '') ? search : ''}/${filter}`}>
+                        <Link to={`/explore/${e.name}/${filter}/${search}`}>
                             <button
                                 className="
                             border-solid border-2 border-transparent text-xs font-bold rounded-[10px] p-2 text-[#007BC7] bg-white hover:border-solid hover:border-2 hover:border-[#007BC7]

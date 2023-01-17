@@ -44,7 +44,7 @@ const Sort = () => {
     }
 
     const handleInputChange = (e: any) => {
-        window.location.href = `/explore/${category}/${(search !== '') ? search : ''}/${e.value}`
+        window.location.href = `/explore/${category}/${e.value}/${search}`
     };
 
     return (

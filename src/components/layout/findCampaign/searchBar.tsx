@@ -28,7 +28,7 @@ const SearchBar = () => {
                 aria-label="Search"
                 onChange={handleInputChange}
             />
-            <Link to={`/explore/${category}/${searchTarget}/${filter}`}>
+            <Link to={`/explore/${category}/${filter}/${searchTarget}`}>
                 <button
                     type="submit"
                     className="
