@@ -1,24 +1,30 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { API_BASE_URL } from '../../../utils';
 import CampaignCard from './card/campaignCard';
 
 const CampaignList = () => {
-    const generateCard = (count: number) => {
-        let components = [];
-        for (let i = 0; i < count; i++) {
-            components.push(<CampaignCard />);
-        }
-        return components;
+    const [allCampaigns, setAllCampaigns] = useState([]);
+
+    const fetchAllCampaign = async () => {
+        const response = await axios.get(API_BASE_URL + '/v1/campaign');
+        const campaigns = response.data.data;
+        setAllCampaigns(campaigns);
     };
 
-    return (
-        <div
-            className="
-            grid grid-cols-1 gap-6 mt-6
-            md:grid-cols-2
-            xl:grid-cols-3"
-        >
-            {generateCard(12)}
-        </div>
-    );
+    useEffect(() => {
+        fetchAllCampaign();
+    }, []);
+
+    let content = allCampaigns.map((campaign) => {
+        return (
+            <div className="gap-6 mt-6">
+                <CampaignCard campaign={campaign} />
+            </div>
+        );
+    });
+
+    return <>{content}</>;
 };
 
 export default CampaignList;

@@ -26,7 +26,14 @@ const FindCampaign = () => {
             <SearchBar />
             <Category categories={categories}/>
             <Sort />
-            <CampaignList />
+            <div
+                className="
+                grid grid-cols-1 gap-6 mt-6
+                md:grid-cols-2
+                xl:grid-cols-3"
+            >
+                <CampaignList />
+            </div>
         </main>
     );
 };
