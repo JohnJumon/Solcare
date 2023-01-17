@@ -15,7 +15,7 @@ const Category = (props: any) => {
 
     let { category, search, filter } = useParams();
     if (search === undefined) {
-        search = '';
+        search = 'z';
     }
     if (filter === undefined) {
         filter = "new";

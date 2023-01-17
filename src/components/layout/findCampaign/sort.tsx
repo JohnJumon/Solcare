@@ -10,14 +10,14 @@ const options = [
         label: 'Terlama',
         value: 'old',
     },
-    {
-        label: 'Persen Target',
-        value: 'target',
-    },
-    {
-        label: 'Tenggat Waktu',
-        value: 'deadline',
-    },
+    // {
+    //     label: 'Persen Target',
+    //     value: 'target',
+    // },
+    // {
+    //     label: 'Tenggat Waktu',
+    //     value: 'deadline',
+    // },
 ];
 
 const Sort = () => {
@@ -33,12 +33,12 @@ const Sort = () => {
     if (filter === "old") {
         defaultOption = 1;
     }
-    else if (filter === "target"){
-        defaultOption = 2;
-    }
-    else if (filter === "deadline"){
-        defaultOption = 3;
-    }
+    // else if (filter === "target"){
+    //     defaultOption = 2;
+    // }
+    // else if (filter === "deadline"){
+    //     defaultOption = 3;
+    // }
     else {
         defaultOption = 0;
     }
