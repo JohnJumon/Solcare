@@ -103,14 +103,14 @@ const Header = () => {
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
                     <li>
-                        <Link to="/">Home</Link>
+                        <Link to="/" className='rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white'>Home</Link>
                     </li>
                     <li>
-                        <Link to="/explore">Cari Campaign</Link>
+                        <Link to="/explore" className='rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white'>Cari Campaign</Link>
                     </li>
                     {connected ? (
                         <li>
-                            <Link to="/profile/my-campaign/create">
+                            <Link to="/profile/my-campaign/create" className='rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white'>
                                 Buat Campaign
                             </Link>
                         </li>
@@ -119,7 +119,7 @@ const Header = () => {
                     )}
                     {connected ? (
                         <li>
-                            <Link to="/profile">Profile</Link>
+                            <Link to="/profile" className='rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white'>Profile</Link>
                         </li>
                     ) : (
                         <></>
@@ -129,7 +129,7 @@ const Header = () => {
             <div className="navbar-end">
                 <WalletMultiButton
                     style={{ backgroundColor: '#007BC7' }}
-                    className="btn !text-xs lg:!h-16 lg:!text-lg capitalize !border-none !bg-[#007BC7]"
+                    className="btn !text-xs rounded-[5px] lg:!rounded-[10px] lg:!text-lg capitalize !border-none !bg-[#007BC7]"
                 />
             </div>
         </div>

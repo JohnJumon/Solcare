@@ -84,8 +84,8 @@ const ProfileDrawer = (props: any) => {
                             </a>
                         </li>
                         <li>
-                            <Link to="/profile" onClick={handleClick}>
-                                <a className="active:bg-[#007BC7] text-lg font-bold stroke-black active:stroke-white flex items-center">
+                            <Link to="/profile" onClick={handleClick} className="active:bg-[#007BC7] stroke-black active:stroke-white">
+                                <a className="text-lg font-bold flex items-center">
                                     <span className="pr-1">
                                         <svg
                                             width="24"
@@ -122,8 +122,9 @@ const ProfileDrawer = (props: any) => {
                             <Link
                                 to="/profile/my-campaign"
                                 onClick={handleClick}
+                                className="active:bg-[#007BC7] stroke-black active:stroke-white"
                             >
-                                <a className="active:bg-[#007BC7] text-lg font-bold stroke-black active:stroke-white flex items-center">
+                                <a className="text-lg font-bold flex items-center">
                                     <span className="pr-1">
                                         <svg
                                             width="24"
@@ -166,8 +167,9 @@ const ProfileDrawer = (props: any) => {
                             <Link
                                 to="/profile/transaction-history"
                                 onClick={handleClick}
+                                className="active:bg-[#007BC7] stroke-black active:stroke-white"
                             >
-                                <a className="active:bg-[#007BC7] text-lg font-bold stroke-black active:stroke-white flex items-center">
+                                <a className="text-lg font-bold flex items-center">
                                     <span className="pr-1">
                                         <svg
                                             width="24"
@@ -207,8 +209,8 @@ const ProfileDrawer = (props: any) => {
                             </Link>
                         </li>
                         <li>
-                            <Link to="/profile/settings" onClick={handleClick}>
-                                <a className="active:bg-[#007BC7] text-lg font-bold stroke-black active:stroke-white flex items-center">
+                            <Link to="/profile/settings" onClick={handleClick} className="active:bg-[#007BC7] stroke-black active:stroke-white">
+                                <a className="text-lg font-bold flex items-center">
                                     <span className="pr-1">
                                         <svg
                                             className=""
