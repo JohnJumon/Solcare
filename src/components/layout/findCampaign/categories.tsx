@@ -1,7 +1,7 @@
 import Slider from 'react-slick';
 import '../../../../src/slick.css';
 import '../../../../src/slick-theme.css';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 const Category = (props: any) => {
     const settings = {
@@ -13,19 +13,21 @@ const Category = (props: any) => {
         swipeToSlide: true,
     };
 
-    let { category, search, filter } = useParams();
-    if (search === undefined) {
-        search = '';
+    let [ searchParams , setSearchParams ] = useSearchParams();
+
+    let search = searchParams.get("search")
+    let filter = searchParams.get("filter")
+    if (filter === null) {
+        filter = "newest";
     }
-    if (filter === undefined) {
-        filter = "new";
-    }
+    let category = searchParams.get("categoryId")
+
     const generateCategory = () => {
         let components: JSX.Element[] = []
-        if (category === undefined || category === "Semua") {
+        if (category === null || category === "0") {
             components.push(
                 <div className="mr-5 max-w-56 w-56">
-                    <Link to={`/explore/0/${filter}/${search}`}>
+                    <Link to={`/explore?categoryId=0&order=${filter}&search=${search}`}>
                         <button
                             className="
                             border-solid border-2 border-transparent text-xs font-bold rounded-[10px] p-2 text-white bg-[#007BC7] hover:border-solid hover:border-2 hover:border-[#007BC7]
@@ -41,7 +43,7 @@ const Category = (props: any) => {
         else {
             components.push(
                 <div className="mr-5 max-w-56 w-56">
-                    <Link to={`/explore/0/${filter}/${search}`}>
+                    <Link to={`/explore?categoryId=0&order=${filter}&search=${search}`}>
                         <button
                             className="
                             border-solid border-2 border-transparent text-xs font-bold rounded-[10px] p-2 text-[#007BC7] bg-white hover:border-solid hover:border-2 hover:border-[#007BC7]
@@ -56,10 +58,10 @@ const Category = (props: any) => {
         }
 
         props.categories?.map((e: any) => {
-            if (category === e.name) {
+            if (category === e.id.toString()) {
                 components.push(
                     <div className="mr-5 max-w-56 w-56">
-                        <Link to={`/explore/${e.id}/${filter}/${search}`}>
+                        <Link to={`/explore?categoryId=${e.id}&order=${filter}&search=${search}`}>
                             <button
                                 className="
                             border-solid border-2 border-transparent text-xs font-bold rounded-[10px] p-2 text-white bg-[#007BC7] hover:border-solid hover:border-2 hover:border-[#007BC7]
@@ -75,7 +77,7 @@ const Category = (props: any) => {
             else {
                 components.push(
                     <div className="mr-5 max-w-56 w-56">
-                        <Link to={`/explore/${e.id}/${filter}/${search}`}>
+                        <Link to={`/explore?categoryId=${e.id}&order=${filter}&search=${search}`}>
                             <button
                                 className="
                             border-solid border-2 border-transparent text-xs font-bold rounded-[10px] p-2 text-[#007BC7] bg-white hover:border-solid hover:border-2 hover:border-[#007BC7]

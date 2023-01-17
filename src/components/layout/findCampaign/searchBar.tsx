@@ -1,13 +1,15 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
 
 const SearchBar = () => {
-    let { category, search, filter } = useParams();
-    if (category === undefined) {
-        category = "Semua";
+    let [ searchParams, setSearchParams ] = useSearchParams();
+    let filter = searchParams.get("filter")
+    let category = searchParams.get("categoryId")
+    if (category === null) {
+        category = "0";
     }
     if (filter === undefined) {
-        filter = "new";
+        filter = "newest";
     }
 
     const [searchTarget, setSearch] = useState(String);
@@ -28,7 +30,7 @@ const SearchBar = () => {
                 aria-label="Search"
                 onChange={handleInputChange}
             />
-            <Link to={`/explore/${category}/${filter}/${searchTarget}`}>
+            <Link to={`/explore?categoryId=${category}&order=${filter}&search=${searchTarget}`}>
                 <button
                     type="submit"
                     className="

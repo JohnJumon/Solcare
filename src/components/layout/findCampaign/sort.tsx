@@ -1,35 +1,35 @@
 import Select from 'react-select';
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 const options = [
     {
         label: 'Terbaru',
-        value: 'new',
+        value: 'newest',
     },
     {
         label: 'Terlama',
-        value: 'old',
+        value: 'oldest',
     },
 ];
 
 const Sort = () => {
-    let { category, search, filter } = useParams();
-    if (search === undefined) {
-        search = '';
-    }
-    if (category === undefined) {
-        category = 'Semua';
+    let [ searchParams, setSearchParams ] = useSearchParams();
+    let filter = searchParams.get("filter")
+    let search = searchParams.get("search")
+    let category = searchParams.get("categoryId")
+    if (category === null) {
+        category = '0';
     }
 
     let defaultOption = 0;
-    if (filter === 'old') {
+    if (filter === 'oldest') {
         defaultOption = 1;
     } else {
         defaultOption = 0;
     }
 
     const handleInputChange = (e: any) => {
-        window.location.href = `/explore/${category}/${e.value}/${search}`;
+        window.location.href = `/explore?categoryId=${category}&order=${e.value}&search=${search}`;
     };
 
     return (
