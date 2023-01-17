@@ -9,11 +9,17 @@ const CampaignList = () => {
 
     const [ searchParams, setSearchParams ] = useSearchParams();
     let category = searchParams.get('categoryId');
+    if(category === null){
+        category = "0";
+    }
     let filter = searchParams.get('order');
+    if(filter === null){
+        filter = "newest";
+    }
     let search = searchParams.get('search');
 
     const fetchAllCampaign = async () => {
-        const response = await axios.get(API_BASE_URL + '/v1/campaign?' + `categoryId=${category}&order=${filter}`);
+        const response = await axios.get(API_BASE_URL + '/v1/campaign?' + `categoryId=${category}&order=${filter}` + (search !== "null" ? `&search=${search}` : ''));
         const responseData = response.data.data;
         setAllCampaigns(responseData);
     };

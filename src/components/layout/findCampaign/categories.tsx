@@ -16,10 +16,11 @@ const Category = (props: any) => {
     let [ searchParams , setSearchParams ] = useSearchParams();
 
     let search = searchParams.get("search")
-    let filter = searchParams.get("filter")
+    let filter = searchParams.get("order")
     if (filter === null) {
         filter = "newest";
     }
+
     let category = searchParams.get("categoryId")
 
     const generateCategory = () => {
