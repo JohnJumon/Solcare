@@ -2,10 +2,32 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Thumbnail from '../../../../image/placeholder.svg';
-import { API_BASE_URL } from '../../../../utils';
+import { API_BASE_URL, now } from '../../../../utils';
 
 const CampaignCard = (props: any) => {
     let content = props.campaign;
+
+    const countRemainingTime = () => {
+        const remainingTime = Math.max(
+            content.createdAt + content.duration - now(),
+            0
+        );
+        return remainingTime;
+    };
+
+    const showRemainingDays = () => {
+        const DAY_IN_SECOND = 60 * 60 * 24;
+
+        if (countRemainingTime() > 0) {
+            if (countRemainingTime() > DAY_IN_SECOND) {
+                return Math.floor(countRemainingTime() / DAY_IN_SECOND);
+            } else {
+                return '< 1';
+            }
+        } else {
+            return '0';
+        }
+    };
 
     return (
         <Link to={`/campaign/${content.address}`}>
@@ -35,7 +57,15 @@ const CampaignCard = (props: any) => {
                                 className="
                             bg-[#007BC7] h-2 rounded-full
                             xl:h-4"
-                                style={{ width: '50%' }}
+                                style={{
+                                    width:
+                                        Math.min(
+                                            100,
+                                            (content.collected /
+                                                content.target) *
+                                                100
+                                        ).toString() + '%',
+                                }}
                             />
                         </div>
                         <p
@@ -43,7 +73,11 @@ const CampaignCard = (props: any) => {
                         font-bold text-xs text-center
                         xl:text-lg"
                         >
-                            50%
+                            {Math.min(
+                                100,
+                                (content.collected / content.target) * 100
+                            )}
+                            %
                         </p>
                     </div>
                     <p
@@ -52,7 +86,7 @@ const CampaignCard = (props: any) => {
                     xl:text-base
                     "
                     >
-                        <b>0</b> hari tersisa
+                        <b>{showRemainingDays()}</b> hari tersisa
                     </p>
 
                     <p

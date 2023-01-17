@@ -1,13 +1,28 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { API_BASE_URL } from '../../../utils';
+import { API_BASE_URL, USDC_DECIMALS } from '../../../utils';
 import CampaignCard from './card/campaignCard';
 import { useSearchParams, useLocation } from 'react-router-dom';
+import { useSmartContract } from '../../../context/connection';
+import { BN } from 'bn.js';
+
+interface CampaignInfo {
+    title: string;
+    description: string;
+    banner: string;
+
+    target: number;
+    collected: number;
+
+    createdAt: number;
+    duration: number;
+}
 
 const CampaignList = () => {
-    const [allCampaigns, setAllCampaigns] = useState([]);
+    const [allCampaigns, setAllCampaigns] = useState<CampaignInfo[]>();
 
     const [searchParams, setSearchParams] = useSearchParams();
+    const { smartContract } = useSmartContract();
     let category = searchParams.get('categoryId');
     if (!category) {
         category = '';
@@ -29,7 +44,35 @@ const CampaignList = () => {
                 `categoryId=${category}&order=${filter}&search=${search}`
         );
         const responseData = response.data.data;
-        setAllCampaigns(responseData);
+        const campaigns: CampaignInfo[] = [];
+
+        for (let i = 0; i < (responseData?.length || 0); i++) {
+            const e = responseData[i];
+            const campaign = await smartContract.account.campaign.fetchNullable(
+                e.address
+            );
+            if (!campaign) return;
+
+            const data: CampaignInfo = {
+                title: e.title,
+                description: e.description,
+                banner: e.banner,
+
+                target: campaign.targetAmount
+                    .div(new BN(Math.pow(10, USDC_DECIMALS)))
+                    .toNumber(),
+                collected: campaign.fundedAmount
+                    .div(new BN(Math.pow(10, USDC_DECIMALS)))
+                    .toNumber(),
+
+                createdAt: campaign.createdAt.toNumber(),
+                duration: campaign.heldDuration.toNumber(),
+            };
+
+            campaigns.push(data);
+        }
+
+        setAllCampaigns(campaigns);
     };
 
     const location = useLocation();
@@ -39,10 +82,10 @@ const CampaignList = () => {
     }, [location]);
 
     const content =
-        allCampaigns.length === 0 ? (
+        allCampaigns?.length === 0 ? (
             <p>Belum ada campaign</p>
         ) : (
-            allCampaigns.map((campaign) => {
+            allCampaigns?.map((campaign) => {
                 return (
                     <div className="gap-6 mt-6">
                         <CampaignCard campaign={campaign} />
