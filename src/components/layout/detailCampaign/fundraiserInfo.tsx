@@ -1,6 +1,19 @@
+import { useEffect, useState } from 'react';
 import ProfilePlaceholder from '../../../image/profilePic.png';
 
-const FundraiserInfo = () => {
+const FundraiserInfo = (props: any) => {
+    const [initializing, setInitializing] = useState(true);
+
+    useEffect(() => {
+        setInitializing(false);
+    }, []);
+
+    const fundraiserName = '';
+    const fundraiserEmail = '';
+
+    if (initializing === true) {
+        return null;
+    }
     return (
         <div
             className="
@@ -45,25 +58,34 @@ const FundraiserInfo = () => {
                     md:pl-0 md:self-start"
                 >
                     <p
+                        id="address-tag"
                         className="
                         text-xs font-bold
                         md:text-xl"
                     >
-                        Nama Fundraiser
+                        {/* Nama Fundraiser */}
+                        {fundraiserName === ''
+                            ? props.campaign.ownerAddress
+                            : fundraiserName}
+                    </p>
+                    <p
+                        id="address-tag"
+                        className="
+                        text-[8px]
+                        md:text-[15px]"
+                    >
+                        {/* Wallet Fundraiser */}
+                        {props.campaign.ownerAddress}
                     </p>
                     <p
                         className="
                         text-[8px]
                         md:text-[15px]"
                     >
-                        Wallet Fundraiser
-                    </p>
-                    <p
-                        className="
-                        text-[8px]
-                        md:text-[15px]"
-                    >
-                        E-mail Fundraiser
+                        {/* E-mail Fundraiser */}
+                        {fundraiserEmail === ''
+                            ? 'Email : -'
+                            : fundraiserEmail}
                     </p>
                 </div>
             </div>

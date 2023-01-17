@@ -7,9 +7,6 @@ import { API_BASE_URL } from '../../../../utils';
 const CampaignCard = (props: any) => {
     let content = props.campaign;
 
-    const imageBanner = content.banner;
-    const banner = `${API_BASE_URL}/${imageBanner}`;
-
     return (
         <Link to={`/campaign/${content.address}`}>
             <div className="w-full h-[100%] rounded-[20px] shadow-[0px_4px_4px_0px_rgba(0,123,199,0.25)] hover:shadow-[0px_10px_10px_0px_rgba(0,123,199,0.5)]">
@@ -17,7 +14,7 @@ const CampaignCard = (props: any) => {
                     className="
                 w-screen h-[200px] object-cover rounded-[20px]
                 xl:max-h-[300px]"
-                    src={banner}
+                    src={`${API_BASE_URL}/${content.banner}`}
                 />
                 <div className="p-6">
                     <h1

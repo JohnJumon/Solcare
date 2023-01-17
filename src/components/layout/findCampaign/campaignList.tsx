@@ -8,8 +8,8 @@ const CampaignList = () => {
 
     const fetchAllCampaign = async () => {
         const response = await axios.get(API_BASE_URL + '/v1/campaign');
-        const campaigns = response.data.data;
-        setAllCampaigns(campaigns);
+        const responseData = response.data.data;
+        setAllCampaigns(responseData);
     };
 
     useEffect(() => {
