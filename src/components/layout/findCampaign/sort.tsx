@@ -17,6 +17,7 @@ const Sort = () => {
     let filter = searchParams.get("filter")
     let search = searchParams.get("search")
     let category = searchParams.get("categoryId")
+    
     if (category === null) {
         category = '0';
     }
@@ -29,7 +30,8 @@ const Sort = () => {
     }
 
     const handleInputChange = (e: any) => {
-        window.location.href = `/explore?categoryId=${category}&order=${e.value}&search=${search}`;
+        setSearchParams(`categoryId=${category}&order=${e.value}&search=${search}`)
+        // window.location.href = `/explore?categoryId=${category}&order=${e.value}&search=${search}`;
     };
 
     return (
