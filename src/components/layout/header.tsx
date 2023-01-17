@@ -73,22 +73,22 @@ const Header = () => {
                         <li>
                             <Link to="/explore">Cari Campaign</Link>
                         </li>
-                        <li>
-                            {connected ? (
+                        {connected ? (
+                            <li>
                                 <Link to="/profile/my-campaign/create">
                                     Buat Campaign
                                 </Link>
-                            ) : (
-                                <></>
-                            )}
-                        </li>
-                        <li>
-                            {connected ? (
+                            </li>
+                        ) : (
+                            <></>
+                        )}
+                        {connected ? (
+                            <li>
                                 <Link to="/profile">Profile</Link>
-                            ) : (
-                                <></>
-                            )}
-                        </li>
+                            </li>
+                        ) : (
+                            <></>
+                        )}
                     </ul>
                 </div>
                 <Link to="/">
@@ -108,18 +108,22 @@ const Header = () => {
                     <li>
                         <Link to="/explore">Cari Campaign</Link>
                     </li>
-                    <li>
-                        {connected ? (
+                    {connected ? (
+                        <li>
                             <Link to="/profile/my-campaign/create">
                                 Buat Campaign
                             </Link>
-                        ) : (
-                            <></>
-                        )}
-                    </li>
-                    <li>
-                        {connected ? <Link to="/profile">Profile</Link> : <></>}
-                    </li>
+                        </li>
+                    ) : (
+                        <></>
+                    )}
+                    {connected ? (
+                        <li>
+                            <Link to="/profile">Profile</Link>
+                        </li>
+                    ) : (
+                        <></>
+                    )}
                 </ul>
             </div>
             <div className="navbar-end">
