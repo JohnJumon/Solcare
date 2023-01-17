@@ -1,10 +1,10 @@
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
 
 const Action = () => {
     function saveURL() {
         let url = window.location.href;
         navigator.clipboard.writeText(url);
-        toast.success('URL copied to clipboard')
+        toast.success('URL copied to clipboard');
     }
     return (
         <div className="flex flex-row mb-3 pl-12 md:mb-6">

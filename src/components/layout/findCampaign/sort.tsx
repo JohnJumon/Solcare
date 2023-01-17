@@ -21,14 +21,8 @@ const options = [
 ];
 
 const Sort = () => {
-    let [ searchParams, setSearchParams ] = useSearchParams();
-    let filter = searchParams.get("order")
-    let search = searchParams.get("search")
-    let category = searchParams.get("categoryId")
-    
-    if (category === null) {
-        category = '0';
-    }
+    let [searchParams, setSearchParams] = useSearchParams();
+    let filter = searchParams.get('order');
 
     let defaultOption = 0;
     if (filter === 'oldest') {
@@ -38,8 +32,8 @@ const Sort = () => {
     }
 
     const handleInputChange = (e: any) => {
-        setSearchParams(`categoryId=${category}&order=${e.value}&search=${search}`)
-        // window.location.href = `/explore?categoryId=${category}&order=${e.value}&search=${search}`;
+        searchParams.set('order', e.value);
+        setSearchParams(searchParams);
     };
 
     return (

@@ -17,40 +17,39 @@ const MyDetailCampaign = (props: any) => {
     const changeButton = (status: number) => {
         if (status === 0) {
             return <MoneyProposalButton />;
-        }
-        else if (status == 9) {
+        } else if (status == 9) {
             return <EvidenceProposalButton />;
         }
     };
     return (
         <div className="w-[100%] px-12 md:pl-12 mx-auto">
-            <div className='md:basis-10/12'>
-            <img
-                className="
+            <div className="md:basis-10/12">
+                <img
+                    className="
                 w-screen max-h-[300px] object-cover mb-1
                 md:max-h-[500px] md:rounded-b-[20px] md:mb-2"
-                src={`${API_BASE_URL}/${props.campaign.banner}`}
-            />
-            <h1
-                className="
+                    src={`${API_BASE_URL}/${props.campaign.banner}`}
+                />
+                <h1
+                    className="
                 text-md font-bold mb-2
                 md:text-3xl md:mb-6"
-            >
-                {props.campaign.title}
-            </h1>
-            <p
-                className="
+                >
+                    {props.campaign.title}
+                </h1>
+                <p
+                    className="
                 text-xs
                 md:text-xl"
-            >
-                Dibantu <b>100</b> funders
-            </p>
-            <Progress />
-            <CollectedFund />
-            <Deadline />
-            <Description campaign={props.campaign}/>
-            <FunderList />
-            {changeButton(props.campaign.status)}
+                >
+                    Dibantu <b>100</b> funders
+                </p>
+                <Progress />
+                <CollectedFund />
+                <Deadline />
+                <Description campaign={props.campaign} />
+                <FunderList />
+                {changeButton(props.campaign.status)}
             </div>
         </div>
     );

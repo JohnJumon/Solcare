@@ -39,7 +39,6 @@ const Header = () => {
                 localStorage.setItem('token', resp.data.data.token);
                 setIsConnected(false);
             } catch (e) {
-                
                 console.log(e);
 
                 setIsConnected(true);

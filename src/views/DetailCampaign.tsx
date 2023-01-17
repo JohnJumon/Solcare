@@ -24,8 +24,8 @@ const DetailCampaign = () => {
         setInitializing(false);
     }, [id]);
 
-    if(initializing === true || detail === undefined) {
-        return <progress className="progress w-[90%] flex mx-auto my-20" />
+    if (initializing === true || detail === undefined) {
+        return <progress className="progress w-[90%] flex mx-auto my-20" />;
     }
 
     return (

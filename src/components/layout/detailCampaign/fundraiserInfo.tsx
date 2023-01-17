@@ -83,9 +83,7 @@ const FundraiserInfo = (props: any) => {
                         md:text-[15px]"
                     >
                         {/* E-mail Fundraiser */}
-                        {fundraiserEmail === ''
-                            ? 'Email : -'
-                            : fundraiserEmail}
+                        {fundraiserEmail === '' ? 'Email : -' : fundraiserEmail}
                     </p>
                 </div>
             </div>

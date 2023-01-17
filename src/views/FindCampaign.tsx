@@ -14,6 +14,11 @@ const FindCampaign = () => {
 
     const fetchCategories = async () => {
         const categories = await axios.get(API_BASE_URL + '/v1/categories');
+        categories.data.data.unshift({
+            id: 0,
+            name: 'Semua',
+            description: '',
+        });
         setCategories(categories.data.data);
     };
 
@@ -24,7 +29,7 @@ const FindCampaign = () => {
     return (
         <main className="max-w-screen-xl mx-auto px-12">
             <SearchBar />
-            <Category categories={categories}/>
+            <Category categories={categories} />
             <Sort />
             <div
                 className="

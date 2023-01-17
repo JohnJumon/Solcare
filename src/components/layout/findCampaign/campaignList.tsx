@@ -6,34 +6,30 @@ import { useSearchParams, useLocation } from 'react-router-dom';
 
 const CampaignList = () => {
     const [allCampaigns, setAllCampaigns] = useState([]);
-    const [allCampaignsFilter, setAllCampaignsFilter] = useState([]);
 
     const [searchParams, setSearchParams] = useSearchParams();
     let category = searchParams.get('categoryId');
-    if (category === null) {
-        category = '0';
+    if (!category) {
+        category = '';
     }
     let filter = searchParams.get('order');
-    if (filter === null) {
+    if (!filter) {
         filter = 'newest';
     }
+
     let search = searchParams.get('search');
+    if (!search) {
+        search = '';
+    }
 
     const fetchAllCampaign = async () => {
-        const responseCampaign = await axios.get(API_BASE_URL + '/v1/campaign');
-        const responseDataCampaign = responseCampaign.data.data;
-        setAllCampaigns(responseDataCampaign);
-
-        const responseCampaignFilter = await axios.get(
+        const response = await axios.get(
             API_BASE_URL +
                 '/v1/campaign?' +
-                `categoryId=${category}&order=${filter}` +
-                (search !== 'null' ? `&search=${search}` : '')
+                `categoryId=${category}&order=${filter}&search=${search}`
         );
-        const responseDataCampaignFilter = responseCampaignFilter.data.data;
-        console.log(responseDataCampaignFilter);
-
-        setAllCampaignsFilter(responseDataCampaignFilter);
+        const responseData = response.data.data;
+        setAllCampaigns(responseData);
     };
 
     const location = useLocation();
@@ -42,21 +38,11 @@ const CampaignList = () => {
         fetchAllCampaign();
     }, [location]);
 
-    let content =
-        allCampaignsFilter.length === 0 ? (
-            allCampaigns.length === 0 ? (
-                <p>Belum ada campaign</p>
-            ) : (
-                allCampaigns.map((campaign) => {
-                    return (
-                        <div className="gap-6 mt-6">
-                            <CampaignCard campaign={campaign} />
-                        </div>
-                    );
-                })
-            )
+    const content =
+        allCampaigns.length === 0 ? (
+            <p>Belum ada campaign</p>
         ) : (
-            allCampaignsFilter.map((campaign) => {
+            allCampaigns.map((campaign) => {
                 return (
                     <div className="gap-6 mt-6">
                         <CampaignCard campaign={campaign} />
