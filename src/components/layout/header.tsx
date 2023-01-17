@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, useRef } from 'react';
+import { useCallback, useEffect, useState, useRef, useMemo } from 'react';
 import { Connection, clusterApiUrl } from '@solana/web3.js';
 import Logo from '../../image/Logo.png';
 import { Link } from 'react-router-dom';
@@ -14,6 +14,13 @@ const Header = () => {
     const { connected, connecting, signMessage, publicKey, disconnect } =
         useWallet();
     const { smartContract } = useSmartContract();
+    const [isConnected, setIsConnected] = useState(false);
+    const connectionValue = useMemo(() => {
+        return {
+            isConnected,
+            setIsConnected,
+        };
+    }, [isConnected]);
 
     const signIn = async () => {
         if (signMessage && publicKey) {
@@ -30,17 +37,24 @@ const Header = () => {
                 );
 
                 localStorage.setItem('token', resp.data.data.token);
+                setIsConnected(false);
             } catch (e) {
+                
                 console.log(e);
+
+                setIsConnected(true);
                 await disconnect();
             }
         }
     };
 
     useEffect(() => {
-        if (connected) {
+        if (isConnected) {
             signIn();
         }
+        return () => {
+            setIsConnected(false);
+        };
     }, [connected]);
 
     return (
@@ -92,25 +106,38 @@ const Header = () => {
                     </ul>
                 </div>
                 <Link to="/">
-                    <a className="pt-3 lg:pt-1 btn btn-ghost hover:bg-white hover:brightness-125 hidden sm:block">
+                    <div className="pt-3 lg:pt-1 btn btn-ghost hover:bg-white hover:brightness-125 hidden sm:block">
                         <img
                             className="sm:w-[62.5px] sm:h-[20px] lg:w-[125px] lg:h-[40px]"
                             src={Logo}
                         />
-                    </a>
+                    </div>
                 </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
                     <li>
-                        <Link to="/" className='rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white'>Home</Link>
+                        <Link
+                            to="/"
+                            className="rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white"
+                        >
+                            Home
+                        </Link>
                     </li>
                     <li>
-                        <Link to="/explore" className='rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white'>Cari Campaign</Link>
+                        <Link
+                            to="/explore"
+                            className="rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white"
+                        >
+                            Cari Campaign
+                        </Link>
                     </li>
                     {connected ? (
                         <li>
-                            <Link to="/profile/my-campaign/create" className='rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white'>
+                            <Link
+                                to="/profile/my-campaign/create"
+                                className="rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white"
+                            >
                                 Buat Campaign
                             </Link>
                         </li>
@@ -119,7 +146,12 @@ const Header = () => {
                     )}
                     {connected ? (
                         <li>
-                            <Link to="/profile" className='rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white'>Profile</Link>
+                            <Link
+                                to="/profile"
+                                className="rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white"
+                            >
+                                Profile
+                            </Link>
                         </li>
                     ) : (
                         <></>

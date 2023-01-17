@@ -2,7 +2,7 @@ import { WalletProvider } from '@solana/wallet-adapter-react';
 import { ConnectionProvider } from './context/connection';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
-import { useMemo } from 'react';
+import { createContext, useMemo } from 'react';
 import Footer from './components/layout/footer';
 import Header from './components/layout/header';
 import { ToastContainer } from 'react-toastify';
