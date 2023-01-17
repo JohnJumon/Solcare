@@ -19,18 +19,12 @@ const CampaignCard = (props: any) => {
                 <div className="p-6">
                     <h1
                         className="
-                    h-[50px] line-clamp-1 text-md font-bold mb-2
+                    line-clamp-1 text-md font-bold mb-2
                     xl:text-2xl xl:my-4"
                     >
                         {content.title}
                     </h1>
-                    <p
-                        className="
-                    h-[100px] line-clamp-4 text-xs text-justify mb-6
-                    xl:text-base "
-                    >
-                        {content.description}
-                    </p>
+
                     <div className="grid grid-cols-5 gap-4 mb-3 items-center">
                         <div
                             className="
@@ -59,6 +53,14 @@ const CampaignCard = (props: any) => {
                     "
                     >
                         <b>0</b> hari tersisa
+                    </p>
+
+                    <p
+                        className="
+                    line-clamp-4 text-xs text-justify my-6
+                    xl:text-base "
+                    >
+                        {content.description}
                     </p>
                 </div>
             </div>
