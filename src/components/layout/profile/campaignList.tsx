@@ -95,9 +95,10 @@ const CampaignList = (props: any) => {
                 ) : (
                     campaignList?.map((e) => {
                         return (
-                            <Link to={`/campaign/${e.address}`}>
-                                <CampaignCard key={e.address} {...e} />
-                            </Link>
+                            // <Link to={`/profile/my-campaign/detail/${e.address}`}>
+                            //     <CampaignCard key={e.address} {...e} />
+                            // </Link>
+                            <CampaignCard key={e.address} {...e} />
                         );
                     })
                 )}

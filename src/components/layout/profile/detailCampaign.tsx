@@ -7,36 +7,36 @@ import Thumbnail from '../../../image/placeholder.svg';
 import MoneyProposalButton from './button/moneyProposalBtn';
 import EvidenceProposalButton from './button/evidenceProposalButton';
 import TimeProposal from './button/timeProposal';
+import { API_BASE_URL } from '../../../utils';
 
 interface DetailCampaignProps {
     status: string;
 }
-const DetailCampaign: React.FC<DetailCampaignProps> = (props) => {
-    const changeButton = (status: string) => {
-        if (status == 'Aktif') {
+// const MyDetailCampaign: React.FC<DetailCampaignProps> = (props) => {
+const MyDetailCampaign = (props: any) => {
+    const changeButton = (status: number) => {
+        if (status === 0) {
             return <MoneyProposalButton />;
         }
-        if (status == 'Voting') {
-            return <TimeProposal />;
-        }
-        if (status == 'Akhir') {
+        else if (status == 9) {
             return <EvidenceProposalButton />;
         }
     };
     return (
-        <div>
+        <div className="w-[100%] px-12 md:pl-12 mx-auto">
+            <div className='md:basis-10/12'>
             <img
                 className="
-                    w-full h-[175px] rounded-[10px] object-cover mb-2
-                    md:h-[350px] md:rounded-[20px] md:mb-4"
-                src={Thumbnail}
+                w-screen max-h-[300px] object-cover mb-1
+                md:max-h-[500px] md:rounded-b-[20px] md:mb-2"
+                src={`${API_BASE_URL}/${props.campaign.banner}`}
             />
             <h1
                 className="
                 text-md font-bold mb-2
                 md:text-3xl md:mb-6"
             >
-                Judul
+                {props.campaign.title}
             </h1>
             <p
                 className="
@@ -48,11 +48,12 @@ const DetailCampaign: React.FC<DetailCampaignProps> = (props) => {
             <Progress />
             <CollectedFund />
             <Deadline />
-            <Description />
+            <Description campaign={props.campaign}/>
             <FunderList />
-            {changeButton(props.status)}
+            {changeButton(props.campaign.status)}
+            </div>
         </div>
     );
 };
 
-export default DetailCampaign;
+export default MyDetailCampaign;

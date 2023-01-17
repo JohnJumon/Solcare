@@ -13,6 +13,7 @@ import ProfileContent from './components/layout/profile/profileContent';
 
 import 'react-toastify/dist/ReactToastify.min.css';
 import PrivateRoute from './components/routes/privateRoute';
+import FundraiserDetailCampaign from './views/FundraiserDetailCampaign';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
@@ -36,7 +37,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                             </PrivateRoute>
                         }
                     />
-                    <Route path="/explore/*" element={<FindCampaign/>} />
+                    <Route path="/explore/*" element={<FindCampaign />} />
                     <Route
                         path="/campaign/:id"
                         element={
@@ -94,6 +95,15 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                                 <Profile page="Pengaturan Akun">
                                     <ProfileContent page="Pengaturan Akun" />
                                 </Profile>
+                            </PrivateRoute>
+                        }
+                    />
+
+                    <Route
+                        path="/profile/my-campaign/detail/:id"
+                        element={
+                            <PrivateRoute>
+                                <FundraiserDetailCampaign />
                             </PrivateRoute>
                         }
                     />

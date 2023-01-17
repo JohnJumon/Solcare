@@ -16,13 +16,18 @@ const CampaignList = () => {
         fetchAllCampaign();
     }, []);
 
-    let content = allCampaigns.map((campaign) => {
-        return (
-            <div className="gap-6 mt-6">
-                <CampaignCard campaign={campaign} />
-            </div>
+    let content =
+        allCampaigns.length === 0 ? (
+            <p>Belum ada campaign</p>
+        ) : (
+            allCampaigns.map((campaign) => {
+                return (
+                    <div className="gap-6 mt-6">
+                        <CampaignCard campaign={campaign} />
+                    </div>
+                );
+            })
         );
-    });
 
     return <>{content}</>;
 };

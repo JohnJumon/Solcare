@@ -14,11 +14,21 @@ const Detail = (props: any) => {
 
     useEffect(() => {
         setInitializing(false);
-    },[])
-    
-    if(initializing === true) {
-        return null
+    }, []);
+
+    if (initializing === true) {
+        return null;
     }
+
+    const changeButton = (status: number) => {
+        if (status === 0) {
+            return <Donation />;
+        } else if (status == 8) {
+            return <Voting />;
+        } else if (status == 9) {
+            return <Claim />;
+        }
+    };
 
     return (
         <div className="w-full px-12 md:flex md:flex-row md:pl-12">
@@ -41,12 +51,14 @@ const Detail = (props: any) => {
                 <CollectedFund />
                 <Deadline />
                 <div className="md:hidden">
-                    <FundraiserInfo campaign={props.campaign}/>
-                    <Donation />
+                    <FundraiserInfo campaign={props.campaign} />
+                    {changeButton(props.campaign.status)}
+
+                    {/* <Donation />
                     <Voting />
-                    <Claim />
+                    <Claim /> */}
                 </div>
-                <Description campaign={props.campaign}/>
+                <Description campaign={props.campaign} />
                 <FunderList />
             </div>
             <aside
@@ -54,9 +66,11 @@ const Detail = (props: any) => {
                 md:block"
             >
                 <FundraiserInfo campaign={props.campaign} />
-                <Donation />
+                {changeButton(props.campaign.status)}
+
+                {/* <Donation />
                 <Voting />
-                <Claim />
+                <Claim /> */}
             </aside>
         </div>
     );
