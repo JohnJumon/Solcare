@@ -23,7 +23,11 @@ const CampaignList = () => {
     const [allCampaigns, setAllCampaigns] = useState<CampaignInfo[]>();
 
     const [searchParams, setSearchParams] = useSearchParams();
+
+    const [initializing, setInitializing] = useState(true);
+
     const { smartContract } = useSmartContract();
+
     let category = searchParams.get('categoryId');
     if (!category) {
         category = '';
@@ -74,6 +78,7 @@ const CampaignList = () => {
             campaigns.push(data);
         }
 
+        setInitializing(false);
         setAllCampaigns(campaigns);
     };
 
@@ -82,18 +87,24 @@ const CampaignList = () => {
     useEffect(() => {
         fetchAllCampaign();
     }, [location]);
-    
+
+    if (initializing === true) {
+        return <progress className="progress w-[90%] flex mx-auto my-20" />;
+    }
+
     const content =
         allCampaigns?.length === 0 ? (
             <p>Belum ada campaign</p>
         ) : (
-            allCampaigns?.map((campaign) => {
-                return (
-                    <div className="gap-6 mt-6">
-                        <CampaignCard campaign={campaign} />
-                    </div>
-                );
-            })
+            <div className="grid grid-cols-1 gap-6 mt-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3">
+                {allCampaigns?.map((campaign) => {
+                    return (
+                        <div className="gap-6 mt-6">
+                            <CampaignCard campaign={campaign} />
+                        </div>
+                    );
+                })}
+            </div>
         );
     return <>{content}</>;
 };

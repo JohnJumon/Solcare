@@ -35,8 +35,10 @@ const CampaignCard = (props: any) => {
         setInitializing(false);
     }, []);
     
+    console.log(initializing);
+    
     if (initializing === true) {
-        return (<p>Loading</p>);
+        return <progress className="progress w-[90%] flex mx-auto my-20" />;
     }
 
     return (

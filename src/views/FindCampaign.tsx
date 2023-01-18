@@ -31,15 +31,7 @@ const FindCampaign = () => {
             <SearchBar />
             <Category categories={categories} />
             <Sort />
-            <div
-                className="
-                grid grid-cols-1 gap-6 mt-6
-                sm:grid-cols-2
-                md:grid-cols-3
-                xl:grid-cols-3"
-            >
-                <CampaignList />
-            </div>
+            <CampaignList />
         </main>
     );
 };
