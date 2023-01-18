@@ -3,7 +3,7 @@ import ProfilePlaceholder from '../../../image/profilePic.png';
 
 const FundraiserInfo = (props: any) => {
     const [initializing, setInitializing] = useState(true);
-    
+
     let content = props.campaign;
 
     useEffect(() => {

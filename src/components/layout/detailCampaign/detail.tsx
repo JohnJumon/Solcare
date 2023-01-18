@@ -7,6 +7,8 @@ import FundraiserInfo from './fundraiserInfo';
 import Voting from './voting';
 import Claim from './claim';
 import { useEffect, useState } from 'react';
+import { now } from '../../../utils';
+import { PublicKey } from '@solana/web3.js';
 
 const Detail = (props: any) => {
     let content = props.campaign;
@@ -21,9 +23,35 @@ const Detail = (props: any) => {
         return null;
     }
 
+    const campaign = props.campaign;
+
+    const countRemainingTime = () => {
+        const remainingTime = Math.max(
+            campaign.createdAt + campaign.duration - now(),
+            0
+        );
+        return remainingTime;
+    };
+
+    const showRemainingDays = () => {
+        const DAY_IN_SECOND = 60 * 60 * 24;
+
+        if (countRemainingTime() > 0) {
+            if (countRemainingTime() > DAY_IN_SECOND) {
+                return Math.floor(countRemainingTime() / DAY_IN_SECOND);
+            } else {
+                return '< 1';
+            }
+        } else {
+            return '0';
+        }
+    };
+
     const changeButton = (status: number) => {
         if (status === 0) {
-            return <Donation />;
+            return (
+                <Donation campaignAddress={new PublicKey(campaign.address)} />
+            );
         } else if (status == 8) {
             return <Voting />;
         } else if (status == 9) {
@@ -48,8 +76,65 @@ const Detail = (props: any) => {
                 >
                     Dibantu <b>XXX</b> funders
                 </p>
-                <Progress campaign={content} />
-                <CollectedFund campaign={content} />
+                <Progress
+                    percentage={Math.min(
+                        100,
+                        (campaign.collected / campaign.target) * 100
+                    )}
+                />
+                <div
+                    className="
+            mb-[3px]
+            md:mb-3"
+                >
+                    <p
+                        className="
+                text-base leading-none
+                md:text-3xl"
+                    >
+                        <b>
+                            {campaign.collected.toLocaleString()}
+                            <span
+                                className="
+                    text-[8px]
+                    md:text-[15px]"
+                            >
+                                USDC
+                            </span>
+                        </b>
+                    </p>
+                    <p
+                        className="
+                text-[8px]
+                md:text-[15px]"
+                    >
+                        Dana terkumpul dari{' '}
+                        <b>
+                            {campaign.target.toLocaleString()}
+                            <span className="text-[7.5px]">USDC</span>
+                        </b>
+                    </p>
+                </div>
+                <div
+                    className="
+            mb-[3px]
+            md:mb-[9px]"
+                >
+                    <p
+                        className="
+                text-md leading-none
+                md:text-3xl"
+                    >
+                        <b>{showRemainingDays()}</b>
+                    </p>
+                    <p
+                        className="
+                text-[8px]
+                md:text-[15px]"
+                    >
+                        Hari tersisa
+                    </p>
+                </div>
                 <div className="md:hidden">
                     <FundraiserInfo campaign={content} />
                     {changeButton(content.status)}

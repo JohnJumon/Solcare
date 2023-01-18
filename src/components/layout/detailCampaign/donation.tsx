@@ -1,4 +1,105 @@
-const Donation = () => {
+import { web3 } from '@project-serum/anchor';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { PublicKey, SystemProgram } from '@solana/web3.js';
+import { BN } from 'bn.js';
+import * as spl from '@solana/spl-token';
+import { useState } from 'react';
+import { useSmartContract } from '../../../context/connection';
+import {
+    CAMPAIGN_AUTHORITY_SEED,
+    DONOR_SEED,
+    getDerivedAccount,
+    USDC_DECIMALS,
+    USDC_MINT,
+} from '../../../utils';
+import { toast } from 'react-toastify';
+
+const Donation = ({ campaignAddress }: { campaignAddress: PublicKey }) => {
+    console.log(campaignAddress);
+    const { connected, publicKey, sendTransaction } = useWallet();
+    const { smartContract } = useSmartContract();
+    const [amount, setAmount] = useState(1);
+
+    const submitDonation = async (e: any) => {
+        if (!connected || !publicKey) return;
+
+        const tokenAddress = spl.getAssociatedTokenAddressSync(
+            USDC_MINT,
+            publicKey
+        );
+        if (
+            (await smartContract.provider.connection.getAccountInfo(
+                tokenAddress
+            )) === null
+        ) {
+            toast.error('Kamu tidak memiliki USDC!');
+            return;
+        }
+
+        const donorDerivedAccount = getDerivedAccount(
+            [DONOR_SEED, campaignAddress, publicKey],
+            smartContract.programId
+        );
+
+        const preIxs = new Array<web3.TransactionInstruction>();
+        if (
+            (await smartContract.provider.connection.getAccountInfo(
+                donorDerivedAccount.publicKey
+            )) === null
+        ) {
+            const initDonor = await smartContract.methods
+                .initDonor()
+                .accounts({
+                    authority: publicKey,
+                    campaign: campaignAddress,
+                    donor: donorDerivedAccount.publicKey,
+                    systemProgram: SystemProgram.programId,
+                })
+                .instruction();
+            preIxs.push(initDonor);
+        }
+
+        const campaignAuthorityDerivedAccount = getDerivedAccount(
+            [CAMPAIGN_AUTHORITY_SEED, campaignAddress],
+            smartContract.programId
+        );
+
+        const campaignVault = await spl.getAssociatedTokenAddress(
+            USDC_MINT,
+            campaignAuthorityDerivedAccount.publicKey,
+            true
+        );
+
+        const ix = await smartContract.methods
+            .donate(new BN(amount * Math.pow(10, USDC_DECIMALS)))
+            .accounts({
+                authority: publicKey,
+                campaign: campaignAddress,
+                campaignAuthority: campaignAuthorityDerivedAccount.publicKey,
+                campaignVault: campaignVault,
+                usdcMint: USDC_MINT,
+                donor: donorDerivedAccount.publicKey,
+                donorToken: tokenAddress,
+                clock: web3.SYSVAR_CLOCK_PUBKEY,
+                tokenProgram: spl.TOKEN_PROGRAM_ID,
+                associatedTokenProgram: spl.ASSOCIATED_TOKEN_PROGRAM_ID,
+                systemProgram: web3.SystemProgram.programId,
+            })
+            .instruction();
+
+        const tx = new web3.Transaction();
+        if (preIxs.length) {
+            tx.add(...preIxs);
+        }
+        tx.add(ix);
+        const txSignature = await sendTransaction(
+            tx,
+            smartContract.provider.connection
+        );
+
+        toast(`Donasi berhasil!\nTx signature: ${txSignature}`);
+    };
+
     return (
         <div
             className="
@@ -22,6 +123,8 @@ const Donation = () => {
                     text-xs basis-11/12 text-center p-2 mr-2 min-w-[100px] rounded-[5px] border border-gray-300 hover:bg-gray-100 hover:text-gray-700 focus:outline-none
                     md:text-xl md:p-4 md:mr-4 md:rounded-[10px]"
                     type="number"
+                    value={amount}
+                    onChange={(e) => setAmount(parseInt(e.target.value))}
                     min="1"
                 />
                 <p
@@ -33,6 +136,7 @@ const Donation = () => {
                 </p>
             </div>
             <button
+                onClick={submitDonation}
                 className="
                     bg-[#007BC7] text-xs w-full h-8 text-white font-bold rounded-[5px]
                     md:text-xl md:h-16 md:rounded-[10px]"

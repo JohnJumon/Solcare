@@ -163,16 +163,7 @@ export type Solcare = {
                     isSigner: false;
                 }
             ];
-            args: [
-                {
-                    name: 'campaignOwner';
-                    type: 'publicKey';
-                },
-                {
-                    name: 'index';
-                    type: 'u32';
-                }
-            ];
+            args: [];
         },
         {
             name: 'initProposal';
@@ -203,12 +194,7 @@ export type Solcare = {
                     isSigner: false;
                 }
             ];
-            args: [
-                {
-                    name: 'index';
-                    type: 'u32';
-                }
-            ];
+            args: [];
         },
         {
             name: 'donate';
@@ -271,14 +257,6 @@ export type Solcare = {
             ];
             args: [
                 {
-                    name: 'campaignOwner';
-                    type: 'publicKey';
-                },
-                {
-                    name: 'index';
-                    type: 'u32';
-                },
-                {
                     name: 'amount';
                     type: 'u64';
                 }
@@ -324,14 +302,6 @@ export type Solcare = {
                 }
             ];
             args: [
-                {
-                    name: 'campaignOwner';
-                    type: 'publicKey';
-                },
-                {
-                    name: 'index';
-                    type: 'u32';
-                },
                 {
                     name: 'agree';
                     type: 'bool';
@@ -397,12 +367,7 @@ export type Solcare = {
                     isSigner: false;
                 }
             ];
-            args: [
-                {
-                    name: 'index';
-                    type: 'u32';
-                }
-            ];
+            args: [];
         },
         {
             name: 'refund';
@@ -463,16 +428,7 @@ export type Solcare = {
                     isSigner: false;
                 }
             ];
-            args: [
-                {
-                    name: 'campaignOwner';
-                    type: 'publicKey';
-                },
-                {
-                    name: 'index';
-                    type: 'u32';
-                }
-            ];
+            args: [];
         }
     ];
     accounts: [
@@ -830,16 +786,7 @@ export const IDL: Solcare = {
                     isSigner: false,
                 },
             ],
-            args: [
-                {
-                    name: 'campaignOwner',
-                    type: 'publicKey',
-                },
-                {
-                    name: 'index',
-                    type: 'u32',
-                },
-            ],
+            args: [],
         },
         {
             name: 'initProposal',
@@ -870,12 +817,7 @@ export const IDL: Solcare = {
                     isSigner: false,
                 },
             ],
-            args: [
-                {
-                    name: 'index',
-                    type: 'u32',
-                },
-            ],
+            args: [],
         },
         {
             name: 'donate',
@@ -938,14 +880,6 @@ export const IDL: Solcare = {
             ],
             args: [
                 {
-                    name: 'campaignOwner',
-                    type: 'publicKey',
-                },
-                {
-                    name: 'index',
-                    type: 'u32',
-                },
-                {
                     name: 'amount',
                     type: 'u64',
                 },
@@ -991,14 +925,6 @@ export const IDL: Solcare = {
                 },
             ],
             args: [
-                {
-                    name: 'campaignOwner',
-                    type: 'publicKey',
-                },
-                {
-                    name: 'index',
-                    type: 'u32',
-                },
                 {
                     name: 'agree',
                     type: 'bool',
@@ -1064,12 +990,7 @@ export const IDL: Solcare = {
                     isSigner: false,
                 },
             ],
-            args: [
-                {
-                    name: 'index',
-                    type: 'u32',
-                },
-            ],
+            args: [],
         },
         {
             name: 'refund',
@@ -1130,16 +1051,7 @@ export const IDL: Solcare = {
                     isSigner: false,
                 },
             ],
-            args: [
-                {
-                    name: 'campaignOwner',
-                    type: 'publicKey',
-                },
-                {
-                    name: 'index',
-                    type: 'u32',
-                },
-            ],
+            args: [],
         },
     ],
     accounts: [

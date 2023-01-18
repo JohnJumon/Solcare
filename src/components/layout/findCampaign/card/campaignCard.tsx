@@ -6,7 +6,7 @@ import { API_BASE_URL, now } from '../../../../utils';
 
 const CampaignCard = (props: any) => {
     let content = props.campaign;
-    
+
     const countRemainingTime = () => {
         const remainingTime = Math.max(
             content.createdAt + content.duration - now(),
@@ -34,7 +34,7 @@ const CampaignCard = (props: any) => {
     useEffect(() => {
         setInitializing(false);
     }, []);
-    
+
     if (initializing === true) {
         return <progress className="progress w-[90%] flex mx-auto my-20" />;
     }
@@ -69,11 +69,13 @@ const CampaignCard = (props: any) => {
                             xl:h-4"
                                 style={{
                                     width:
-                                        Math.min(
-                                            100,
-                                            (content.collected /
-                                                content.target) *
-                                                100
+                                        Math.floor(
+                                            Math.min(
+                                                100,
+                                                (content.collected /
+                                                    content.target) *
+                                                    100
+                                            )
                                         ).toString() + '%',
                                 }}
                             />
@@ -83,9 +85,11 @@ const CampaignCard = (props: any) => {
                         font-bold text-xs text-center
                         xl:text-lg"
                         >
-                            {Math.min(
-                                100,
-                                (content.collected / content.target) * 100
+                            {Math.floor(
+                                Math.min(
+                                    100,
+                                    (content.collected / content.target) * 100
+                                )
                             )}
                             %
                         </p>

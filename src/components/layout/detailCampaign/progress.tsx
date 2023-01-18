@@ -1,5 +1,4 @@
-const Progress = (props: any) => {
-    let content = props.campaign;
+const Progress = ({ percentage }: { percentage: number }) => {
     return (
         <div
             className="
@@ -15,13 +14,7 @@ const Progress = (props: any) => {
                     className="
                             bg-[#007BC7] h-2.5 rounded-full
                             md:h-4"
-                    style={{
-                        width:
-                            Math.min(
-                                100,
-                                (content.collected / content.target) * 100
-                            ).toString() + '%',
-                    }}
+                    style={{ width: Math.floor(percentage).toString() + '%' }}
                 />
             </div>
             <p
@@ -29,7 +22,7 @@ const Progress = (props: any) => {
                         font-bold text-md text-center
                         md:text-3xl"
             >
-                {Math.min(100, (content.collected / content.target) * 100)}%
+                {Math.floor(percentage)}%
             </p>
         </div>
     );

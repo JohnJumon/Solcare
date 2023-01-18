@@ -10,13 +10,14 @@ const Home = () => {
     return (
         <main className="flex flex-col items-center">
             <Intro />
-            { connected ? 
-              <>
-                <Campaigns type="Voting"/>
-                <Campaigns type="Helped"/>
-              </> :
-              <ConnectWallet/>
-            }
+            {connected ? (
+                <>
+                    <Campaigns type="Voting" />
+                    <Campaigns type="Helped" />
+                </>
+            ) : (
+                <ConnectWallet />
+            )}
             <BestCampaigns />
         </main>
     );

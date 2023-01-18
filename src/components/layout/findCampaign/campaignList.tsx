@@ -100,7 +100,10 @@ const CampaignList = () => {
                 {allCampaigns?.map((campaign) => {
                     return (
                         <div className="gap-6 mt-6">
-                            <CampaignCard campaign={campaign} />
+                            <CampaignCard
+                                key={campaign.address}
+                                campaign={campaign}
+                            />
                         </div>
                     );
                 })}

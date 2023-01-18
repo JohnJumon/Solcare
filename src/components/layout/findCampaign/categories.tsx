@@ -20,7 +20,7 @@ const Category = (props: any) => {
             <Slider {...settings}>
                 {props.categories?.map((e: any) => {
                     return (
-                        <div className="mr-5 max-w-56 w-56">
+                        <div key={e.id} className="mr-5 max-w-56 w-56">
                             <button
                                 className={`
                                 border-solid border-2 border-transparent text-xs font-bold rounded-[10px] p-2 ${

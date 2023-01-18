@@ -1,6 +1,6 @@
 import Thumbnail from '../../../../image/placeholder.svg';
 
-const CampaignCard = (props:any) => {
+const CampaignCard = (props: any) => {
     return (
         <div className="mx-3 rounded-[20px] text-black h-max shadow-[0px_4px_4px_0px_rgba(0,123,199,0.25)] hover:shadow-[0px_10px_10px_0px_rgba(0,123,199,0.5)] mb-4">
             <img
@@ -17,24 +17,30 @@ const CampaignCard = (props:any) => {
                 >
                     Judul
                 </h1>
-                {
-                    props.type === "Voting" ?
-                    <p className='text-xs xl:text-base text-center'>
+                {props.type === 'Voting' ? (
+                    <p className="text-xs xl:text-base text-center">
                         <p>Sisa waktu</p>
-                        <p className='font-bold'>3H 12J 30M 10D</p>
-                    </p> :
-                    <p className='text-xs xl:text-base'>
+                        <p className="font-bold">3H 12J 30M 10D</p>
+                    </p>
+                ) : (
+                    <p className="text-xs xl:text-base">
                         <p>
-                            <span className='font-bold'>100<span className='text-[6px] xl:text-[8px]'>USDC</span></span> terkumpulkan
+                            <span className="font-bold">
+                                100
+                                <span className="text-[6px] xl:text-[8px]">
+                                    USDC
+                                </span>
+                            </span>{' '}
+                            terkumpulkan
                         </p>
                         <p>
-                            <span className='font-bold'>90%</span> terpenuhi
+                            <span className="font-bold">90%</span> terpenuhi
                         </p>
                         <p>
-                            <span className='font-bold'>10</span> hari tersisa
+                            <span className="font-bold">10</span> hari tersisa
                         </p>
                     </p>
-                }
+                )}
             </div>
         </div>
     );

@@ -6,6 +6,7 @@ const FunderList = () => {
 
     const generateTable = (page: number) => {
         let rows = [];
+        // for (var i = 5 * page - 5; i < Math.min(5 * page, props.donor.length); i++) {
         for (var i = 5 * page - 5; i < 5 * page; i++) {
             rows.push(
                 <tr className="bg-white border-b">

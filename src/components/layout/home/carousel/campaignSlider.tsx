@@ -3,7 +3,7 @@ import '../../../../../src/slick.css';
 import '../../../../../src/slick-theme.css';
 import CampaignCard from '../card/campaignCard';
 
-const CampaignSlider = (props:any) => {
+const CampaignSlider = (props: any) => {
     const settings = {
         arrows: false,
         dots: true,
@@ -20,22 +20,22 @@ const CampaignSlider = (props:any) => {
                     slidesToScroll: 2,
                     dots: true,
                     infinite: true,
-                }
+                },
             },
             {
                 breakpoint: 480,
                 settings: {
                     slidesToShow: 1,
                     slidesToScroll: 1,
-                }
-            }
+                },
+            },
         ],
     };
 
     const generateCard = (count: number, type: string) => {
         let components = [];
         for (let i = 0; i < count; i++) {
-            components.push(<CampaignCard type={type}/>);
+            components.push(<CampaignCard type={type} />);
         }
         return components;
     };

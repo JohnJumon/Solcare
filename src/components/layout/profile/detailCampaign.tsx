@@ -10,7 +10,7 @@ import TimeProposal from './button/timeProposal';
 import { API_BASE_URL } from '../../../utils';
 
 const MyDetailCampaign = (props: any) => {
-    let content = props.campaign;    
+    let content = props.campaign;
 
     const changeButton = (status: number) => {
         if (status === 0) {
@@ -42,7 +42,7 @@ const MyDetailCampaign = (props: any) => {
                 >
                     Dibantu <b>YYY</b> funders
                 </p>
-                <Progress campaign={content}/>
+                <Progress campaign={content} />
                 <CollectedFund campaign={content} />
                 <Description campaign={content} />
                 <FunderList />

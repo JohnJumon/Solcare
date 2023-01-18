@@ -58,9 +58,11 @@ const InProgress: React.FC<CampaignInProgressCardProps> = (props) => {
                                     sm:h-4"
                         style={{
                             width:
-                                Math.min(
-                                    100,
-                                    (props.collected / props.target) * 100
+                                Math.floor(
+                                    Math.min(
+                                        100,
+                                        (props.collected / props.target) * 100
+                                    )
                                 ).toString() + '%',
                         }}
                     />
@@ -68,9 +70,11 @@ const InProgress: React.FC<CampaignInProgressCardProps> = (props) => {
                 <div className="grid sm:grid-cols-3 sm:grid-rows-1 gap-4 text-center max-[369px]:gap-2 max-[369px]:text-[8px] grid-rows-3 grid-cols-1">
                     <div>
                         <p className="text-lg sm:text-3xl">
-                            {Math.min(
-                                100,
-                                (props.collected / props.target) * 100
+                            {Math.floor(
+                                Math.min(
+                                    100,
+                                    (props.collected / props.target) * 100
+                                )
                             )}
                             %
                         </p>

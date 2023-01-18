@@ -19,3 +19,12 @@ export const USDC_MINT = new anchor.web3.PublicKey(
 );
 
 export const USDC_DECIMALS = 9;
+
+export const STATUS_ACTIVE = 0;
+export const STATUS_FILLED = 1;
+export const STATUS_NOT_FILLED = 2;
+export const STATUS_VOTING = 3;
+export const STATUS_FUNDED = 4;
+export const STATUS_NOT_FUNDED = 5;
+export const STATUS_SUCCESS = 6;
+export const STATUS_FAILED = 7;
