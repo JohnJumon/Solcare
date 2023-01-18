@@ -12,6 +12,7 @@ const SearchBar = () => {
 
     const onSubmitHandler = (e: any) => {
         e.preventDefault();
+        
         searchParams.set('search', searchTarget);
         setSearchParams(searchParams);
     }
