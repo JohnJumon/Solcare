@@ -48,15 +48,15 @@ const DetailCampaign = () => {
             description: e.description,
             banner: e.banner,
 
-            target: campaign.targetAmount
+            target: campaign!!.targetAmount
                 .div(new BN(Math.pow(10, USDC_DECIMALS)))
                 .toNumber(),
-            collected: campaign.fundedAmount
+            collected: campaign!!.fundedAmount
                 .div(new BN(Math.pow(10, USDC_DECIMALS)))
                 .toNumber(),
 
-            createdAt: campaign.createdAt.toNumber(),
-            duration: campaign.heldDuration.toNumber(),
+            createdAt: campaign!!.createdAt.toNumber(),
+            duration: campaign!!.heldDuration.toNumber(),
             status: e.status,
         };
 
