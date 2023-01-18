@@ -1,6 +1,5 @@
 import Progress from './progress';
 import CollectedFund from './collectedFund';
-import Deadline from './deadline';
 import Description from './description';
 import FunderList from './funderList';
 import Donation from './donation';
@@ -10,6 +9,8 @@ import Claim from './claim';
 import { useEffect, useState } from 'react';
 
 const Detail = (props: any) => {
+    let content = props.campaign;
+
     const [initializing, setInitializing] = useState(true);
 
     useEffect(() => {
@@ -38,35 +39,34 @@ const Detail = (props: any) => {
                     text-md font-bold mb-2
                     md:text-3xl md:mb-6"
                 >
-                    {props.campaign.title}
+                    {content.title}
                 </h1>
                 <p
                     className="
                     text-xs
                     md:text-xl"
                 >
-                    Dibantu <b>100</b> funders
+                    Dibantu <b>XXX</b> funders
                 </p>
-                <Progress />
-                <CollectedFund />
-                <Deadline />
+                <Progress campaign={content} />
+                <CollectedFund campaign={content} />
                 <div className="md:hidden">
-                    <FundraiserInfo campaign={props.campaign} />
-                    {changeButton(props.campaign.status)}
+                    <FundraiserInfo campaign={content} />
+                    {changeButton(content.status)}
 
                     {/* <Donation />
                     <Voting />
                     <Claim /> */}
                 </div>
-                <Description campaign={props.campaign} />
+                <Description campaign={content} />
                 <FunderList />
             </div>
             <aside
                 className="hidden ml-6 flex flex-col basis-3/12
                 md:block"
             >
-                <FundraiserInfo campaign={props.campaign} />
-                {changeButton(props.campaign.status)}
+                <FundraiserInfo campaign={content} />
+                {changeButton(content.status)}
 
                 {/* <Donation />
                 <Voting />

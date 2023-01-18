@@ -3,6 +3,8 @@ import ProfilePlaceholder from '../../../image/profilePic.png';
 
 const FundraiserInfo = (props: any) => {
     const [initializing, setInitializing] = useState(true);
+    
+    let content = props.campaign;
 
     useEffect(() => {
         setInitializing(false);
@@ -65,7 +67,7 @@ const FundraiserInfo = (props: any) => {
                     >
                         {/* Nama Fundraiser */}
                         {fundraiserName === ''
-                            ? props.campaign.ownerAddress
+                            ? content.ownerAddress
                             : fundraiserName}
                     </p>
                     <p
@@ -75,7 +77,7 @@ const FundraiserInfo = (props: any) => {
                         md:text-[15px]"
                     >
                         {/* Wallet Fundraiser */}
-                        {props.campaign.ownerAddress}
+                        {content.ownerAddress}
                     </p>
                     <p
                         className="

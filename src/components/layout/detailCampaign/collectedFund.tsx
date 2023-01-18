@@ -1,4 +1,28 @@
-const CollectedFund = () => {
+import { now } from '../../../utils';
+
+const CollectedFund = (props: any) => {
+    let content = props.campaign;
+    const countRemainingTime = () => {
+        const remainingTime = Math.max(
+            content.createdAt + content.duration - now(),
+            0
+        );
+        return remainingTime;
+    };
+
+    const showRemainingDays = () => {
+        const DAY_IN_SECOND = 60 * 60 * 24;
+
+        if (countRemainingTime() > 0) {
+            if (countRemainingTime() > DAY_IN_SECOND) {
+                return Math.floor(countRemainingTime() / DAY_IN_SECOND);
+            } else {
+                return '< 1';
+            }
+        } else {
+            return '0';
+        }
+    };
     return (
         <div
             className="
@@ -11,7 +35,7 @@ const CollectedFund = () => {
                 md:text-3xl"
             >
                 <b>
-                    1.000
+                    {content.collected}
                     <span
                         className="
                     text-[8px]
@@ -27,10 +51,31 @@ const CollectedFund = () => {
                 md:text-[15px]"
             >
                 Dana terkumpul dari{' '}
-                <b>
-                    2.000<span className="text-[7.5px]">USDC</span>
+                <b className="text-xl">
+                    {content.target}
+                    <span className="text-[7.5px]">USDC</span>
                 </b>
             </p>
+            <div
+                className="
+            mb-[3px]
+            md:mb-[9px]"
+            >
+                <p
+                    className="
+                text-md leading-none
+                md:text-3xl"
+                >
+                    <b>{showRemainingDays()}</b>
+                </p>
+                <p
+                    className="
+                text-[8px]
+                md:text-[15px]"
+                >
+                    Hari tersisa
+                </p>
+            </div>
         </div>
     );
 };
