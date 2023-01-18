@@ -23,7 +23,7 @@ interface CampaignInfo {
 
 const FundraiserDetailCampaign = () => {
     const { id } = useParams();
-    const [detail, setDetail] = useState<CampaignInfo[]>();
+    const [detail, setDetail] = useState<CampaignInfo>();
     const [initializing, setInitializing] = useState(true);
 
     const { smartContract } = useSmartContract();
@@ -33,7 +33,6 @@ const FundraiserDetailCampaign = () => {
         const responseData = response.data.data;
         const e = responseData;
 
-        const container: CampaignInfo[] = [];
         const campaign = await smartContract.account.campaign.fetchNullable(
             e.address
         );
@@ -57,8 +56,7 @@ const FundraiserDetailCampaign = () => {
             status: e.status,
         };
 
-        container.push(data);
-        setDetail(container);
+        setDetail(data);
     };
 
     useEffect(() => {
@@ -71,17 +69,11 @@ const FundraiserDetailCampaign = () => {
     }
 
     return (
-        <>
-            {detail?.map((campaign) => {
-                return (
-                    <main className="max-w-screen-xl mx-auto">
-                        <div>
-                            <MyDetailCampaign campaign={campaign} />
-                        </div>
-                    </main>
-                );
-            })}
-        </>
+        <main className="max-w-screen-xl mx-auto">
+            <div>
+                <MyDetailCampaign campaign={detail} />
+            </div>
+        </main>
     );
 };
 

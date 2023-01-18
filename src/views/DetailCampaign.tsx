@@ -19,7 +19,8 @@ import { useEffect, useState } from 'react';
 import BannerContainer from '../components/layout/detailCampaign/bannerContainer';
 import { useSmartContract } from '../context/connection';
 import { BN } from 'bn.js';
-import { web3 } from '@project-serum/anchor';
+import { ACCOUNT_DISCRIMINATOR_SIZE, utils, web3 } from '@project-serum/anchor';
+import { FunderInfo } from '../components/layout/detailCampaign/funderList';
 
 interface DetailCampaign {
     address: string;
@@ -38,13 +39,13 @@ interface DetailCampaign {
 const DetailCampaign = () => {
     const { id } = useParams();
     const [detail, setDetail] = useState<DetailCampaign>();
+    const [funders, setFunders] = useState<FunderInfo[]>([]);
     const [initializing, setInitializing] = useState(true);
     const { smartContract } = useSmartContract();
 
     const fetchCampaignDetail = async () => {
         const response = await axios.get(API_BASE_URL + '/v1/campaign/' + id);
         const responseData = response.data.data;
-        const e = responseData;
 
         const campaign = await smartContract.account.campaign.fetchNullable(
             responseData.address
@@ -108,10 +109,38 @@ const DetailCampaign = () => {
         });
     };
 
+    const fetchFunders = async () => {
+        const donors = await smartContract.account.donor.all([
+            {
+                memcmp: {
+                    offset: ACCOUNT_DISCRIMINATOR_SIZE + 32 /*donor: Pubkey*/,
+                    bytes: utils.bytes.bs58.encode(
+                        new web3.PublicKey(id!).toBuffer()
+                    ),
+                },
+            },
+        ]);
+
+        setFunders(
+            donors.map((e) => {
+                return {
+                    address: e.publicKey.toBase58(),
+                    owner: e.account.donor.toBase58(),
+                    name: '-',
+                    amount: e.account.donatedAmount
+                        .div(new BN(Math.pow(10, USDC_DECIMALS)))
+                        .toNumber(),
+                    date: e.account.updatedAt.toNumber(),
+                };
+            })
+        );
+    };
+
     useEffect(() => {
         fetchCampaignDetail();
+        fetchFunders();
         setInitializing(false);
-    }, [id]);
+    }, []);
 
     if (initializing === true || detail === undefined) {
         return <progress className="progress w-[90%] flex mx-auto my-20" />;
@@ -122,7 +151,11 @@ const DetailCampaign = () => {
             <div>
                 <BannerContainer campaign={detail} />
                 <Action />
-                <Detail campaign={detail} refetch={fetchCampaignDetail} />
+                <Detail
+                    campaign={detail}
+                    funders={funders}
+                    refetch={fetchCampaignDetail}
+                />
             </div>
         </main>
     );

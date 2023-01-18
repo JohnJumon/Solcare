@@ -1,13 +1,21 @@
 import CollectedFund from '../detailCampaign/collectedFund';
 import Deadline from '../detailCampaign/deadline';
 import Description from '../detailCampaign/description';
-import FunderList from '../detailCampaign/funderList';
+import FunderList, { FunderInfo } from '../detailCampaign/funderList';
 import Progress from '../detailCampaign/progress';
 import Thumbnail from '../../../image/placeholder.svg';
 import MoneyProposalButton from './button/moneyProposalBtn';
 import EvidenceProposalButton from './button/evidenceProposalButton';
 import TimeProposal from './button/timeProposal';
-import { API_BASE_URL } from '../../../utils';
+import { API_BASE_URL, USDC_DECIMALS } from '../../../utils';
+import { useEffect, useState } from 'react';
+import { useSmartContract } from '../../../context/connection';
+import {
+    ACCOUNT_DISCRIMINATOR_SIZE,
+    BN,
+    utils,
+    web3,
+} from '@project-serum/anchor';
 
 const MyDetailCampaign = (props: any) => {
     let content = props.campaign;
@@ -19,6 +27,41 @@ const MyDetailCampaign = (props: any) => {
             return <EvidenceProposalButton />;
         }
     };
+
+    const [funders, setFunders] = useState<FunderInfo[]>([]);
+    const { smartContract } = useSmartContract();
+
+    const fetchFunders = async () => {
+        const donors = await smartContract.account.donor.all([
+            {
+                memcmp: {
+                    offset: ACCOUNT_DISCRIMINATOR_SIZE + 32 /*donor: Pubkey*/,
+                    bytes: utils.bytes.bs58.encode(
+                        new web3.PublicKey(props.campaign.address).toBuffer()
+                    ),
+                },
+            },
+        ]);
+
+        setFunders(
+            donors.map((e) => {
+                return {
+                    address: e.publicKey.toBase58(),
+                    owner: e.account.donor.toBase58(),
+                    name: '-',
+                    amount: e.account.donatedAmount
+                        .div(new BN(Math.pow(10, USDC_DECIMALS)))
+                        .toNumber(),
+                    date: e.account.updatedAt.toNumber(),
+                };
+            })
+        );
+    };
+
+    useEffect(() => {
+        fetchFunders();
+    }, []);
+
     return (
         <div className="w-[100%] px-12 md:pl-12 mx-auto">
             <div className="md:basis-10/12">
@@ -40,12 +83,17 @@ const MyDetailCampaign = (props: any) => {
                 text-xs
                 md:text-xl"
                 >
-                    Dibantu <b>YYY</b> funders
+                    Dibantu <b>{funders.length}</b> funders
                 </p>
-                <Progress campaign={content} />
+                <Progress
+                    percentage={Math.min(
+                        100,
+                        (content.collected / content.target) * 100
+                    )}
+                />
                 <CollectedFund campaign={content} />
                 <Description campaign={content} />
-                <FunderList />
+                <FunderList funders={funders} />
                 {changeButton(content.status)}
             </div>
         </div>

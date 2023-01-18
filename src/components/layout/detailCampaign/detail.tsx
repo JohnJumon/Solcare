@@ -77,7 +77,7 @@ const Detail = (props: any) => {
                     text-xs
                     md:text-xl"
                 >
-                    Dibantu <b>XXX</b> funders
+                    Dibantu <b>{props.funders.length}</b> funders
                 </p>
                 <Progress
                     percentage={Math.min(
@@ -147,7 +147,7 @@ const Detail = (props: any) => {
                     <Claim /> */}
                 </div>
                 <Description campaign={content} />
-                <FunderList />
+                <FunderList key={content.address} funders={props.funders} />
             </div>
             <aside
                 className="hidden ml-6 flex flex-col basis-3/12
