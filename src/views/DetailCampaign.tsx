@@ -21,6 +21,7 @@ interface CampaignInfo {
 
     createdAt: number;
     duration: number;
+    status: number;
 }
 
 const DetailCampaign = () => {
@@ -39,7 +40,7 @@ const DetailCampaign = () => {
         const campaign = await smartContract.account.campaign.fetchNullable(
             e.address
         );
-        
+
         const data: CampaignInfo = {
             address: e.address,
             ownerAddress: e.ownerAddress,
@@ -56,6 +57,7 @@ const DetailCampaign = () => {
 
             createdAt: campaign.createdAt.toNumber(),
             duration: campaign.heldDuration.toNumber(),
+            status: e.status,
         };
 
         container.push(data);
@@ -81,7 +83,7 @@ const DetailCampaign = () => {
                 </div>
             </main>
         );
-    })
+    });
     return content;
 };
 

@@ -9,11 +9,9 @@ import EvidenceProposalButton from './button/evidenceProposalButton';
 import TimeProposal from './button/timeProposal';
 import { API_BASE_URL } from '../../../utils';
 
-interface DetailCampaignProps {
-    status: string;
-}
-// const MyDetailCampaign: React.FC<DetailCampaignProps> = (props) => {
 const MyDetailCampaign = (props: any) => {
+    let content = props.campaign;    
+
     const changeButton = (status: number) => {
         if (status === 0) {
             return <MoneyProposalButton />;
@@ -28,28 +26,27 @@ const MyDetailCampaign = (props: any) => {
                     className="
                 w-screen max-h-[300px] object-cover mb-1
                 md:max-h-[500px] md:rounded-b-[20px] md:mb-2"
-                    src={`${API_BASE_URL}/${props.campaign.banner}`}
+                    src={`${API_BASE_URL}/${content.banner}`}
                 />
                 <h1
                     className="
                 text-md font-bold mb-2
                 md:text-3xl md:mb-6"
                 >
-                    {props.campaign.title}
+                    {content.title}
                 </h1>
                 <p
                     className="
                 text-xs
                 md:text-xl"
                 >
-                    Dibantu <b>100</b> funders
+                    Dibantu <b>YYY</b> funders
                 </p>
-                <Progress />
-                <CollectedFund />
-                <Deadline />
-                <Description campaign={props.campaign} />
+                <Progress campaign={content}/>
+                <CollectedFund campaign={content} />
+                <Description campaign={content} />
                 <FunderList />
-                {changeButton(props.campaign.status)}
+                {changeButton(content.status)}
             </div>
         </div>
     );
