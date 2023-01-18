@@ -98,6 +98,7 @@ const Donation = ({ campaignAddress }: { campaignAddress: PublicKey }) => {
         );
 
         toast(`Donasi berhasil!\nTx signature: ${txSignature}`);
+        window.location.reload();
     };
 
     return (
