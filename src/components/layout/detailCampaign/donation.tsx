@@ -14,8 +14,13 @@ import {
 } from '../../../utils';
 import { toast } from 'react-toastify';
 
-const Donation = ({ campaignAddress }: { campaignAddress: PublicKey }) => {
-    console.log(campaignAddress);
+const Donation = ({
+    campaignAddress,
+    refetch,
+}: {
+    campaignAddress: PublicKey;
+    refetch: () => void;
+}) => {
     const { connected, publicKey, sendTransaction } = useWallet();
     const { smartContract } = useSmartContract();
     const [amount, setAmount] = useState(1);
@@ -98,7 +103,7 @@ const Donation = ({ campaignAddress }: { campaignAddress: PublicKey }) => {
         );
 
         toast(`Donasi berhasil!\nTx signature: ${txSignature}`);
-        window.location.reload();
+        refetch();
     };
 
     return (

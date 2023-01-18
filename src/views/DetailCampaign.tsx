@@ -122,7 +122,7 @@ const DetailCampaign = () => {
             <div>
                 <BannerContainer campaign={detail} />
                 <Action />
-                <Detail campaign={detail} />
+                <Detail campaign={detail} refetch={fetchCampaignDetail} />
             </div>
         </main>
     );

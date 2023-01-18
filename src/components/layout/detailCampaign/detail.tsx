@@ -50,7 +50,10 @@ const Detail = (props: any) => {
     const changeButton = (status: number) => {
         if (status === 0) {
             return (
-                <Donation campaignAddress={new PublicKey(campaign.address)} />
+                <Donation
+                    campaignAddress={new PublicKey(campaign.address)}
+                    refetch={props.refetch}
+                />
             );
         } else if (status == 8) {
             return <Voting />;

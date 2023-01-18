@@ -70,17 +70,19 @@ const FundraiserDetailCampaign = () => {
         return <progress className="progress w-[90%] flex mx-auto my-20" />;
     }
 
-    const content = detail?.map((campaign) => {
-        return (
-            <main className="max-w-screen-xl mx-auto">
-                <div>
-                    <MyDetailCampaign campaign={campaign} />
-                </div>
-            </main>
-        );
-    });
-
-    return content;
+    return (
+        <>
+            {detail?.map((campaign) => {
+                return (
+                    <main className="max-w-screen-xl mx-auto">
+                        <div>
+                            <MyDetailCampaign campaign={campaign} />
+                        </div>
+                    </main>
+                );
+            })}
+        </>
+    );
 };
 
 export default FundraiserDetailCampaign;

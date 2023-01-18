@@ -7,14 +7,16 @@ import { PROGRAM_ADDRESS, RPC_API_KEY } from '../utils';
 import NodeWallet from '@project-serum/anchor/dist/cjs/nodewallet';
 
 const scDefaultValue = () => {
-    const connection = new anchor.web3.Connection(RPC_API_KEY);
+    const connection = new anchor.web3.Connection(RPC_API_KEY, {
+        commitment: 'processed',
+    });
 
     const provider = new anchor.AnchorProvider(
         connection,
         new NodeWallet(anchor.web3.Keypair.generate()),
         {
-            commitment: 'finalized',
-            preflightCommitment: 'confirmed',
+            commitment: 'processed',
+            preflightCommitment: 'processed',
         }
     );
 
