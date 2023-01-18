@@ -6,7 +6,7 @@ import { API_BASE_URL, now } from '../../../../utils';
 
 const CampaignCard = (props: any) => {
     let content = props.campaign;
-
+    
     const countRemainingTime = () => {
         const remainingTime = Math.max(
             content.createdAt + content.duration - now(),
@@ -28,6 +28,16 @@ const CampaignCard = (props: any) => {
             return '0';
         }
     };
+
+    const [initializing, setInitializing] = useState(true);
+
+    useEffect(() => {
+        setInitializing(false);
+    }, []);
+    
+    if (initializing === true) {
+        return (<p>Loading</p>);
+    }
 
     return (
         <Link to={`/campaign/${content.address}`}>

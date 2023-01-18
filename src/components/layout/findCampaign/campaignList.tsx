@@ -7,6 +7,7 @@ import { useSmartContract } from '../../../context/connection';
 import { BN } from 'bn.js';
 
 interface CampaignInfo {
+    address: string;
     title: string;
     description: string;
     banner: string;
@@ -54,6 +55,7 @@ const CampaignList = () => {
             if (!campaign) return;
 
             const data: CampaignInfo = {
+                address: e.address,
                 title: e.title,
                 description: e.description,
                 banner: e.banner,
@@ -80,7 +82,7 @@ const CampaignList = () => {
     useEffect(() => {
         fetchAllCampaign();
     }, [location]);
-
+    
     const content =
         allCampaigns?.length === 0 ? (
             <p>Belum ada campaign</p>

@@ -2,20 +2,12 @@ import Select from 'react-select';
 import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 const options = [
-    // {
-    //     label: 'Terbaru',
-    //     value: 'newest',
-    // },
-    // {
-    //     label: 'Terlama',
-    //     value: 'oldest',
-    // },
     {
-        label: 'Terlama',
+        label: 'Terbaru',
         value: 'newest',
     },
     {
-        label: 'Terbaru',
+        label: 'Terlama',
         value: 'oldest',
     },
 ];
