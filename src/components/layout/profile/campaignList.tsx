@@ -94,12 +94,7 @@ const CampaignList = (props: any) => {
                     <p className="text-center my-5">Belum ada campaign ...</p>
                 ) : (
                     campaignList?.map((e) => {
-                        return (
-                            // <Link to={`/profile/my-campaign/detail/${e.address}`}>
-                            //     <CampaignCard key={e.address} {...e} />
-                            // </Link>
-                            <CampaignCard key={e.address} {...e} />
-                        );
+                        return <CampaignCard key={e.address} {...e} />;
                     })
                 )}
             </div>

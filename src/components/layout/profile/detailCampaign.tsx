@@ -7,7 +7,13 @@ import Thumbnail from '../../../image/placeholder.svg';
 import MoneyProposalButton from './button/moneyProposalBtn';
 import EvidenceProposalButton from './button/evidenceProposalButton';
 import TimeProposal from './button/timeProposal';
-import { API_BASE_URL, USDC_DECIMALS } from '../../../utils';
+import {
+    API_BASE_URL,
+    STATUS_ACTIVE,
+    STATUS_FILLED,
+    STATUS_FUNDED,
+    USDC_DECIMALS,
+} from '../../../utils';
 import { useEffect, useState } from 'react';
 import { useSmartContract } from '../../../context/connection';
 import {
@@ -21,9 +27,20 @@ const MyDetailCampaign = (props: any) => {
     let content = props.campaign;
 
     const changeButton = (status: number) => {
-        if (status === 0) {
+        if (status === STATUS_ACTIVE) {
+            return (
+                <div className="flex flex-col">
+                    <label
+                        className="text-center mt-4 self-end bg-[#007BC7] opacity-50 w-full text-xs p-2 border border-[2px] border-[#007BC7] text-white font-bold rounded-[5px]
+                    md:text-xl md:p-4 md:rounded-[10px] cursor-not-allowed"
+                    >
+                        Belum Bisa Mengajukan Pencairan Dana
+                    </label>
+                </div>
+            );
+        } else if (status === STATUS_FILLED) {
             return <MoneyProposalButton />;
-        } else if (status == 9) {
+        } else if (status == STATUS_FUNDED) {
             return <EvidenceProposalButton />;
         }
     };

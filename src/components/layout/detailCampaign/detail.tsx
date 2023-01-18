@@ -7,12 +7,15 @@ import FundraiserInfo from './fundraiserInfo';
 import Voting from './voting';
 import Claim from './claim';
 import { useEffect, useState } from 'react';
-import { now } from '../../../utils';
+import {
+    now,
+    STATUS_ACTIVE,
+    STATUS_FILLED,
+    STATUS_FUNDED,
+} from '../../../utils';
 import { PublicKey } from '@solana/web3.js';
 
 const Detail = (props: any) => {
-    let content = props.campaign;
-
     const [initializing, setInitializing] = useState(true);
 
     useEffect(() => {
@@ -48,16 +51,16 @@ const Detail = (props: any) => {
     };
 
     const changeButton = (status: number) => {
-        if (status === 0) {
+        if (status === STATUS_ACTIVE) {
             return (
                 <Donation
                     campaignAddress={new PublicKey(campaign.address)}
                     refetch={props.refetch}
                 />
             );
-        } else if (status == 8) {
+        } else if (status == STATUS_FILLED) {
             return <Voting />;
-        } else if (status == 9) {
+        } else if (status == STATUS_FUNDED) {
             return <Claim />;
         }
     };
@@ -70,7 +73,7 @@ const Detail = (props: any) => {
                     text-md font-bold mb-2
                     md:text-3xl md:mb-6"
                 >
-                    {content.title}
+                    {campaign.title}
                 </h1>
                 <p
                     className="
@@ -139,26 +142,18 @@ const Detail = (props: any) => {
                     </p>
                 </div>
                 <div className="md:hidden">
-                    <FundraiserInfo campaign={content} />
-                    {changeButton(content.status)}
-
-                    {/* <Donation />
-                    <Voting />
-                    <Claim /> */}
+                    <FundraiserInfo campaign={campaign} />
+                    {changeButton(campaign.status)}
                 </div>
-                <Description campaign={content} />
-                <FunderList key={content.address} funders={props.funders} />
+                <Description campaign={campaign} />
+                <FunderList key={campaign.address} funders={props.funders} />
             </div>
             <aside
                 className="hidden ml-6 flex flex-col basis-3/12
                 md:block"
             >
-                <FundraiserInfo campaign={content} />
-                {changeButton(content.status)}
-
-                {/* <Donation />
-                <Voting />
-                <Claim /> */}
+                <FundraiserInfo campaign={campaign} />
+                {changeButton(campaign.status)}
             </aside>
         </div>
     );
