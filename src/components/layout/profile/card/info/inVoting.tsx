@@ -1,8 +1,16 @@
+import { ProposalInfo } from '../../campaignList';
+
 interface CampaignInVotingCardProps {
     collected: number;
+    proposal: ProposalInfo | null;
 }
 
 const InVoting: React.FC<CampaignInVotingCardProps> = (props) => {
+    const countDisagreePercentage = () => {
+        if (props.proposal === null) return 50;
+        return Math.floor(props.proposal.disagree / props.proposal.agree);
+    };
+
     return (
         <div className="text-white flex flex-col">
             <div className="text-center bg-[#007BC7] rounded-[5px] rounded-tr-none sm:rounded-[10px] sm:rounded-tr-none p-2 sm:p-4">
@@ -21,7 +29,11 @@ const InVoting: React.FC<CampaignInVotingCardProps> = (props) => {
                     PROGRESS VOTING
                 </p>
                 <div className="text-center">
-                    <p className="text-lg sm:text-3xl mt-2 sm:mt-4">100</p>
+                    <p className="text-lg sm:text-3xl mt-2 sm:mt-4">
+                        {(props.proposal?.agree || 0) +
+                            (props.proposal?.disagree || 0)}{' '}
+                        dari {props.collected}
+                    </p>
                     <p className="text-[8px] sm:text-[15px] leading-none">
                         Suara
                     </p>
@@ -35,18 +47,24 @@ const InVoting: React.FC<CampaignInVotingCardProps> = (props) => {
                         className="
                                     bg-red-600 h-2 rounded-full
                                     sm:h-4"
-                        style={{ width: '50%' }}
+                        style={{
+                            width: countDisagreePercentage().toString() + '%',
+                        }}
                     />
                 </div>
                 <div className="grid grid-cols-2 sm:grid-rows-1 gap-4 text-center max-[369px]:gap-2 max-[369px]:text-[8px]">
                     <div>
-                        <p className="text-lg sm:text-3xl">50</p>
+                        <p className="text-lg sm:text-3xl">
+                            {props.proposal?.disagree || 0}
+                        </p>
                         <p className="text-[8px] sm:text-[15px] leading-none">
                             Tidak Setuju
                         </p>
                     </div>
                     <div>
-                        <p className="text-lg sm:text-3xl">50</p>
+                        <p className="text-lg sm:text-3xl">
+                            {props.proposal?.agree || 0}
+                        </p>
                         <p className="text-[8px] sm:text-[15px] leading-none">
                             Setuju
                         </p>

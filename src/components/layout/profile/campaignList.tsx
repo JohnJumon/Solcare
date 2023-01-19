@@ -23,6 +23,11 @@ import {
 } from '../../../utils';
 import CampaignCard from './card/campaignCard';
 
+export interface ProposalInfo {
+    agree: number;
+    disagree: number;
+}
+
 interface Campaign {
     address: string;
     title: string;
@@ -34,6 +39,8 @@ interface Campaign {
 
     collected: number;
     target: number;
+
+    proposal: ProposalInfo | null;
 }
 
 const CampaignList = (props: any) => {
@@ -61,6 +68,7 @@ const CampaignList = (props: any) => {
                     );
                 if (campaign !== null) {
                     let status = campaign.status;
+                    let proposalInfo: ProposalInfo | null = null;
                     if (
                         status === STATUS_ACTIVE &&
                         campaign.createdAt.toNumber() +
@@ -84,7 +92,16 @@ const CampaignList = (props: any) => {
                             );
                             return;
                         }
-                        // clock.unix_timestamp <= proposal.created_at + proposal.duration) @ CustomError::CampaignIsNotInVotingPeriod
+
+                        proposalInfo = {
+                            agree: proposal.agree
+                                .div(new BN(Math.pow(10, USDC_DECIMALS)))
+                                .toNumber(),
+                            disagree: proposal.disagree
+                                .div(new BN(Math.pow(10, USDC_DECIMALS)))
+                                .toNumber(),
+                        };
+
                         if (
                             now() >
                             proposal.createdAt.toNumber() +
@@ -115,6 +132,7 @@ const CampaignList = (props: any) => {
                         target: campaign.targetAmount
                             .div(new BN(Math.pow(10, USDC_DECIMALS)))
                             .toNumber(),
+                        proposal: proposalInfo,
                     });
                 }
             })
