@@ -12,9 +12,11 @@ import {
     STATUS_ACTIVE,
     STATUS_FILLED,
     STATUS_FUNDED,
+    STATUS_NOT_FUNDED,
     STATUS_VOTING,
 } from '../../../utils';
 import { PublicKey } from '@solana/web3.js';
+import Refund from './claim';
 
 const Detail = (props: any) => {
     const [initializing, setInitializing] = useState(true);
@@ -60,9 +62,15 @@ const Detail = (props: any) => {
                 />
             );
         } else if (status == STATUS_VOTING) {
-            return <Voting campaignAddress={new PublicKey(campaign.address)} />;
-        } else if (status == STATUS_FUNDED) {
-            return <Claim />;
+            return (
+                <Voting
+                    refetch={props.refetch}
+                    donorInfo={props.donor}
+                    campaignAddress={new PublicKey(campaign.address)}
+                />
+            );
+        } else if (status == STATUS_NOT_FUNDED) {
+            return <Refund />;
         }
     };
 

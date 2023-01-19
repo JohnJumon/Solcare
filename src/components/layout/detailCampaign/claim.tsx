@@ -1,4 +1,4 @@
-const Claim = () => {
+const Refund = () => {
     return (
         <div
             className="
@@ -54,4 +54,4 @@ const Claim = () => {
     );
 };
 
-export default Claim;
+export default Refund;

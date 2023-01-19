@@ -1,12 +1,78 @@
 import { web3 } from '@project-serum/anchor';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { Transaction } from '@solana/web3.js';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { useSmartContract } from '../../../context/connection';
-import { API_BASE_URL, getDerivedAccount, PROPOSAL_SEED } from '../../../utils';
+import {
+    API_BASE_URL,
+    DONOR_SEED,
+    getDerivedAccount,
+    PROPOSAL_SEED,
+    VOTE_SEED,
+} from '../../../utils';
+import { DonorInfo } from '../../../views/DetailCampaign';
 
-const Voting = ({ campaignAddress }: { campaignAddress: web3.PublicKey }) => {
+const Voting = ({
+    campaignAddress,
+    donorInfo,
+    refetch,
+}: {
+    campaignAddress: web3.PublicKey;
+    donorInfo: DonorInfo | null;
+    refetch: () => void;
+}) => {
     const [url, setUrl] = useState('');
     const { smartContract } = useSmartContract();
+
+    const { connected, publicKey, sendTransaction } = useWallet();
+
+    const submitVote = async (agree: boolean) => {
+        if (!connected || !publicKey) return;
+
+        const donorDerivedAccount = getDerivedAccount(
+            [DONOR_SEED, campaignAddress, publicKey],
+            smartContract.programId
+        );
+
+        const proposalDerivedAccount = getDerivedAccount(
+            [PROPOSAL_SEED, campaignAddress],
+            smartContract.programId
+        );
+
+        const voteDerivedAccount = getDerivedAccount(
+            [VOTE_SEED, proposalDerivedAccount.publicKey, publicKey],
+            smartContract.programId
+        );
+
+        try {
+            const ix = await smartContract.methods
+                .voting(agree)
+                .accounts({
+                    campaign: campaignAddress,
+                    clock: web3.SYSVAR_CLOCK_PUBKEY,
+                    authority: publicKey,
+                    donor: donorDerivedAccount.publicKey,
+                    proposal: proposalDerivedAccount.publicKey,
+                    vote: voteDerivedAccount.publicKey,
+                    systemProgram: web3.SystemProgram.programId,
+                })
+                .instruction();
+
+            const tx = await sendTransaction(
+                new Transaction().add(ix),
+                smartContract.provider.connection
+            );
+
+            toast(`🚀 Berhasil melakukan vote! Signature transaksi: ${tx}`);
+            refetch();
+        } catch (e) {
+            console.log('Error: ', e);
+            toast.error(`Vote gagal!`);
+            return;
+        }
+    };
 
     useEffect(() => {
         const proposalDerivedAccount = getDerivedAccount(
@@ -70,18 +136,57 @@ const Voting = ({ campaignAddress }: { campaignAddress: web3.PublicKey }) => {
                     </svg>
                     <p className="line-clamp-1">proposal.pdf</p>
                 </button>
-                <div
-                    className="
+                {donorInfo !== null ? (
+                    <>
+                        <p
+                            className=" mt-5
+                text-[8px] mb-2
+                md:text-[15px] md:mb-4"
+                        >
+                            Kamu telah berkontribusi pada campaign sebanyak:
+                        </p>
+                        <p
+                            className="
+                text-base leading-none text-center mb-2
+                md:text-3xl md:mb-4"
+                        >
+                            <b>
+                                {donorInfo.amount || 0}
+                                <span
+                                    className="
+                    text-[8px]
+                    md:text-[15px]"
+                                >
+                                    USDC
+                                </span>
+                            </b>
+                        </p>
+                        <div
+                            className="
                 w-full flex flex-row items-center justify-between mt-2 text-xs font-bold text-white
                 md:mt-4 md:text-xl"
-                >
-                    <button className="basis-3/6 bg-red-600 h-8 rounded-[5px] mr-[2px] md:h-16 md:rounded-[10px] md:mr-[6px]">
-                        Tidak
-                    </button>
-                    <button className="basis-3/6 bg-green-600 h-8 rounded-[5px] ml-[2px] md:h-16 md:rounded-[10px] md:ml-[6px]">
-                        Setuju
-                    </button>
-                </div>
+                        >
+                            <button
+                                onClick={() => {
+                                    submitVote(false);
+                                }}
+                                className="basis-3/6 bg-red-600 h-8 rounded-[5px] mr-[2px] md:h-16 md:rounded-[10px] md:mr-[6px]"
+                            >
+                                Tidak
+                            </button>
+                            <button
+                                onClick={() => {
+                                    submitVote(true);
+                                }}
+                                className="basis-3/6 bg-green-600 h-8 rounded-[5px] ml-[2px] md:h-16 md:rounded-[10px] md:ml-[6px]"
+                            >
+                                Setuju
+                            </button>
+                        </div>
+                    </>
+                ) : (
+                    <></>
+                )}
             </div>
         </div>
     );

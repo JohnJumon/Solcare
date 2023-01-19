@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import {
     API_BASE_URL,
+    DONOR_SEED,
     getDerivedAccount,
     now,
     PROPOSAL_SEED,
@@ -21,6 +22,14 @@ import { useSmartContract } from '../context/connection';
 import { BN } from 'bn.js';
 import { ACCOUNT_DISCRIMINATOR_SIZE, utils, web3 } from '@project-serum/anchor';
 import { FunderInfo } from '../components/layout/detailCampaign/funderList';
+import { useWallet } from '@solana/wallet-adapter-react';
+
+export interface DonorInfo {
+    donor: string;
+    donorAddress: string;
+
+    amount: number;
+}
 
 interface DetailCampaign {
     address: string;
@@ -41,9 +50,12 @@ interface DetailCampaign {
 const DetailCampaign = () => {
     const { id } = useParams();
     const [detail, setDetail] = useState<DetailCampaign>();
+    const [donor, setDonor] = useState<DonorInfo | null>(null);
     const [funders, setFunders] = useState<FunderInfo[]>([]);
     const [initializing, setInitializing] = useState(true);
     const { smartContract } = useSmartContract();
+
+    const { connected, publicKey } = useWallet();
 
     const fetchCampaignDetail = async () => {
         const response = await axios.get(API_BASE_URL + '/v1/campaign/' + id);
@@ -81,7 +93,9 @@ const DetailCampaign = () => {
             // clock.unix_timestamp <= proposal.created_at + proposal.duration) @ CustomError::CampaignIsNotInVotingPeriod
             if (
                 now() >
-                proposal.createdAt.toNumber() + proposal.duration.toNumber()
+                    proposal.createdAt.toNumber() +
+                        proposal.duration.toNumber() ||
+                proposal.agree.add(proposal.disagree).eq(campaign.fundedAmount)
             ) {
                 if (
                     (proposal.agree.eqn(0) && proposal.disagree.eqn(0)) ||
@@ -100,7 +114,7 @@ const DetailCampaign = () => {
             title: responseData.title,
             description: responseData.description,
             banner: responseData.banner,
-            status: campaign.status,
+            status: status,
             createdAt: campaign.createdAt.toNumber(),
             duration: campaign.heldDuration.toNumber(),
             collected: campaign.fundedAmount
@@ -139,6 +153,35 @@ const DetailCampaign = () => {
         );
     };
 
+    const fetchDonor = async () => {
+        if (connected && publicKey) {
+            const donorDerivedAccount = getDerivedAccount(
+                [DONOR_SEED, new web3.PublicKey(id!), publicKey],
+                smartContract.programId
+            );
+
+            const donorInfo = await smartContract.account.donor.fetchNullable(
+                donorDerivedAccount.publicKey
+            );
+            if (donorInfo !== null) {
+                setDonor({
+                    donor: publicKey.toBase58(),
+                    donorAddress: donorDerivedAccount.publicKey.toBase58(),
+                    amount: donorInfo.donatedAmount
+                        .div(new BN(Math.pow(10, USDC_DECIMALS)))
+                        .toNumber(),
+                });
+            }
+        }
+    };
+
+    useEffect(() => {
+        if (!connected && !publicKey) {
+            setDonor(null);
+        }
+        fetchDonor();
+    }, [connected, publicKey]);
+
     useEffect(() => {
         fetchCampaignDetail();
         fetchFunders();
@@ -155,6 +198,7 @@ const DetailCampaign = () => {
                 <BannerContainer campaign={detail} />
                 <Action />
                 <Detail
+                    donor={donor}
                     campaign={detail}
                     funders={funders}
                     refetch={fetchCampaignDetail}
