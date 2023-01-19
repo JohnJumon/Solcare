@@ -18,10 +18,12 @@ const Voting = ({
     campaignAddress,
     donorInfo,
     refetch,
+    refetchDonor,
 }: {
     campaignAddress: web3.PublicKey;
     donorInfo: DonorInfo | null;
     refetch: () => void;
+    refetchDonor: () => void;
 }) => {
     const [url, setUrl] = useState('');
     const { smartContract } = useSmartContract();
@@ -67,6 +69,7 @@ const Voting = ({
 
             toast(`🚀 Berhasil melakukan vote! Signature transaksi: ${tx}`);
             refetch();
+            refetchDonor();
         } catch (e) {
             console.log('Error: ', e);
             toast.error(`Vote gagal!`);
@@ -161,28 +164,44 @@ const Voting = ({
                                 </span>
                             </b>
                         </p>
-                        <div
-                            className="
-                w-full flex flex-row items-center justify-between mt-2 text-xs font-bold text-white
-                md:mt-4 md:text-xl"
-                        >
-                            <button
-                                onClick={() => {
-                                    submitVote(false);
-                                }}
-                                className="basis-3/6 bg-red-600 h-8 rounded-[5px] mr-[2px] md:h-16 md:rounded-[10px] md:mr-[6px]"
+                        {donorInfo.vote === null ? (
+                            <div
+                                className="
+             w-full flex flex-row items-center justify-between mt-2 text-xs font-bold text-white
+             md:mt-4 md:text-xl"
                             >
-                                Tidak
-                            </button>
-                            <button
-                                onClick={() => {
-                                    submitVote(true);
-                                }}
-                                className="basis-3/6 bg-green-600 h-8 rounded-[5px] ml-[2px] md:h-16 md:rounded-[10px] md:ml-[6px]"
+                                <button
+                                    onClick={() => {
+                                        submitVote(false);
+                                    }}
+                                    className="basis-3/6 bg-red-600 h-8 rounded-[5px] mr-[2px] md:h-16 md:rounded-[10px] md:mr-[6px]"
+                                >
+                                    Tidak
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        submitVote(true);
+                                    }}
+                                    className="basis-3/6 bg-green-600 h-8 rounded-[5px] ml-[2px] md:h-16 md:rounded-[10px] md:ml-[6px]"
+                                >
+                                    Setuju
+                                </button>
+                            </div>
+                        ) : (
+                            <p
+                                className=" mt-5
+                text-[8px] mb-2
+                md:text-[15px] md:mb-4"
                             >
-                                Setuju
-                            </button>
-                        </div>
+                                Kamu memilih{' '}
+                                {donorInfo.vote.agree ? (
+                                    <b className="text-green-600">menyetujui</b>
+                                ) : (
+                                    <b className="text-red-600">menolak</b>
+                                )}{' '}
+                                proposal.
+                            </p>
+                        )}
                     </>
                 ) : (
                     <></>

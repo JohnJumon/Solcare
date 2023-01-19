@@ -15,6 +15,7 @@ import {
     STATUS_NOT_FUNDED,
     STATUS_VOTING,
     USDC_DECIMALS,
+    VOTE_SEED,
 } from '../utils';
 import { useEffect, useState } from 'react';
 import BannerContainer from '../components/layout/detailCampaign/bannerContainer';
@@ -24,11 +25,18 @@ import { ACCOUNT_DISCRIMINATOR_SIZE, utils, web3 } from '@project-serum/anchor';
 import { FunderInfo } from '../components/layout/detailCampaign/funderList';
 import { useWallet } from '@solana/wallet-adapter-react';
 
+interface VoteInfo {
+    agree: boolean;
+    date: number;
+}
+
 export interface DonorInfo {
     donor: string;
     donorAddress: string;
 
     amount: number;
+
+    vote: VoteInfo | null;
 }
 
 interface DetailCampaign {
@@ -164,12 +172,35 @@ const DetailCampaign = () => {
                 donorDerivedAccount.publicKey
             );
             if (donorInfo !== null) {
+                const proposalDerivedAccount = getDerivedAccount(
+                    [PROPOSAL_SEED, new web3.PublicKey(id!)],
+                    smartContract.programId
+                );
+
+                const voteDerivedAccount = getDerivedAccount(
+                    [VOTE_SEED, proposalDerivedAccount.publicKey, publicKey],
+                    smartContract.programId
+                );
+
+                const voteInfo = await smartContract.account.vote.fetchNullable(
+                    voteDerivedAccount.publicKey
+                );
+
+                let vote: VoteInfo | null = null;
+                if (voteInfo !== null) {
+                    vote = {
+                        agree: voteInfo.isAgree,
+                        date: voteInfo.createdAt.toNumber(),
+                    };
+                }
+
                 setDonor({
                     donor: publicKey.toBase58(),
                     donorAddress: donorDerivedAccount.publicKey.toBase58(),
                     amount: donorInfo.donatedAmount
                         .div(new BN(Math.pow(10, USDC_DECIMALS)))
                         .toNumber(),
+                    vote: vote,
                 });
             }
         }
@@ -201,6 +232,7 @@ const DetailCampaign = () => {
                     donor={donor}
                     campaign={detail}
                     funders={funders}
+                    refetchDonor={fetchDonor}
                     refetch={fetchCampaignDetail}
                 />
             </div>

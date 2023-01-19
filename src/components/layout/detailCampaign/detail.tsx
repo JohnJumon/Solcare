@@ -64,6 +64,7 @@ const Detail = (props: any) => {
         } else if (status == STATUS_VOTING) {
             return (
                 <Voting
+                    refetchDonor={props.refetchDonor}
                     refetch={props.refetch}
                     donorInfo={props.donor}
                     campaignAddress={new PublicKey(campaign.address)}

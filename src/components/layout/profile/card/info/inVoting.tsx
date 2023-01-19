@@ -9,7 +9,11 @@ const InVoting: React.FC<CampaignInVotingCardProps> = (props) => {
     const countDisagreePercentage = () => {
         if (props.proposal === null) return 50;
         if (props.proposal.agree + props.proposal.disagree === 0) return 50;
-        return Math.floor(props.proposal.disagree / (props.proposal.disagree + props.proposal.agree) * 100);
+        return Math.floor(
+            (props.proposal.disagree /
+                (props.proposal.disagree + props.proposal.agree)) *
+                100
+        );
     };
 
     return (
