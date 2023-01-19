@@ -8,7 +8,7 @@ interface CampaignInVotingCardProps {
 const InVoting: React.FC<CampaignInVotingCardProps> = (props) => {
     const countDisagreePercentage = () => {
         if (props.proposal === null) return 50;
-        return Math.floor(props.proposal.disagree / props.proposal.agree);
+        return Math.floor(props.proposal.disagree / (props.proposal.disagree + props.proposal.agree) * 100);
     };
 
     return (
