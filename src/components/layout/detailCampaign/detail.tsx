@@ -14,13 +14,25 @@ import {
     STATUS_FUNDED,
     STATUS_NOT_FUNDED,
     STATUS_VOTING,
+    VOTE_SEED,
+    PROPOSAL_SEED,
+    getDerivedAccount
 } from '../../../utils';
 import { PublicKey } from '@solana/web3.js';
 import Refund from './claim';
+import { useSmartContract } from '../../../context/connection';
+import { useWallet } from '@solana/wallet-adapter-react';
+
+interface VoteTimeInfo {
+    date: number | undefined;
+    duration: number | undefined;
+}
 
 const Detail = (props: any) => {
     const [initializing, setInitializing] = useState(true);
-
+    const [ voteTime, setVoteTime ] = useState<VoteTimeInfo>();
+    const { smartContract } = useSmartContract();
+    const { publicKey } = useWallet();
     useEffect(() => {
         setInitializing(false);
     }, []);
@@ -31,6 +43,24 @@ const Detail = (props: any) => {
 
     const campaign = props.campaign;
 
+    const fetchVoteInfo = async () => {
+        if(!publicKey) return;
+        const proposalDerivedAccount = getDerivedAccount(
+            [PROPOSAL_SEED, new PublicKey(campaign.address)],
+            smartContract.programId
+        );
+        const voteDerivedAccount = getDerivedAccount(
+            [VOTE_SEED, proposalDerivedAccount.publicKey, publicKey],
+            smartContract.programId
+        );
+        const voteInfo = await smartContract.account.vote.fetchNullable(
+            voteDerivedAccount.publicKey
+        );
+        console.log(voteInfo)
+    };
+    
+    fetchVoteInfo()
+
     const countRemainingTime = () => {
         const remainingTime = Math.max(
             campaign.createdAt + campaign.duration - now(),
@@ -39,6 +69,14 @@ const Detail = (props: any) => {
         return remainingTime;
     };
 
+    const countVotingTime = () => {
+        const donor = props.donor;
+        const remainingTime = Math.max(
+            donor.vote.date + donor.vote.heldDuration - now(),
+            0
+        );
+        console.log(remainingTime);
+    }
     const showRemainingDays = () => {
         const DAY_IN_SECOND = 60 * 60 * 24;
 

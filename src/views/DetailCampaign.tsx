@@ -190,7 +190,7 @@ const DetailCampaign = () => {
                 if (voteInfo !== null) {
                     vote = {
                         agree: voteInfo.isAgree,
-                        date: voteInfo.createdAt.toNumber(),
+                        date: voteInfo.createdAt.toNumber()
                     };
                 }
 
