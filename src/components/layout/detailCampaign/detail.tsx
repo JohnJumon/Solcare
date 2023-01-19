@@ -30,21 +30,13 @@ interface VoteTimeInfo {
 
 const Detail = (props: any) => {
     const [initializing, setInitializing] = useState(true);
-    const [ voteTime, setVoteTime ] = useState<VoteTimeInfo>();
+    const [voteTime, setVoteTime] = useState<VoteTimeInfo | null>(null);
     const { smartContract } = useSmartContract();
     const { publicKey } = useWallet();
-    useEffect(() => {
-        setInitializing(false);
-    }, []);
-
-    if (initializing === true) {
-        return null;
-    }
-
     const campaign = props.campaign;
 
     const fetchVoteInfo = async () => {
-        if(!publicKey) return;
+        if (!publicKey) return;
         const proposalDerivedAccount = getDerivedAccount(
             [PROPOSAL_SEED, new PublicKey(campaign.address)],
             smartContract.programId
@@ -56,11 +48,25 @@ const Detail = (props: any) => {
         const voteInfo = await smartContract.account.vote.fetchNullable(
             voteDerivedAccount.publicKey
         );
-        console.log(voteInfo)
+        if (voteInfo !== null) {
+            setVoteTime({
+                date: voteInfo.createdAt.toNumber(),
+                duration: voteInfo.heldDuration.toNumber()
+            })
+        };
     };
-    
-    fetchVoteInfo()
 
+    useEffect(() => {
+        fetchVoteInfo()
+    }, [publicKey])
+
+    useEffect(() => {
+        setInitializing(false);
+    }, []);
+
+    if (initializing === true) {
+        return null;
+    }
     const countRemainingTime = () => {
         const remainingTime = Math.max(
             campaign.createdAt + campaign.duration - now(),
@@ -69,14 +75,6 @@ const Detail = (props: any) => {
         return remainingTime;
     };
 
-    const countVotingTime = () => {
-        const donor = props.donor;
-        const remainingTime = Math.max(
-            donor.vote.date + donor.vote.heldDuration - now(),
-            0
-        );
-        console.log(remainingTime);
-    }
     const showRemainingDays = () => {
         const DAY_IN_SECOND = 60 * 60 * 24;
 
@@ -179,7 +177,7 @@ const Detail = (props: any) => {
                 text-md leading-none
                 md:text-3xl"
                     >
-                        <b>{showRemainingDays()}</b>
+                        <b>{campaign.status == STATUS_VOTING ? voteTime?.duration : showRemainingDays()}</b>
                     </p>
                     <p
                         className="
