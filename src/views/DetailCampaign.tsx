@@ -24,6 +24,8 @@ import { FunderInfo } from '../components/layout/detailCampaign/funderList';
 
 interface DetailCampaign {
     address: string;
+    ownerAddress: string;
+
     title: string;
     description: string;
     banner: string;
@@ -94,6 +96,7 @@ const DetailCampaign = () => {
 
         setDetail({
             address: responseData.address,
+            ownerAddress: responseData.ownerAddress,
             title: responseData.title,
             description: responseData.description,
             banner: responseData.banner,
