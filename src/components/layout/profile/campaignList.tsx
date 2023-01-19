@@ -1,3 +1,4 @@
+import { web3 } from '@project-serum/anchor';
 import { getAssociatedTokenAddressSync } from '@solana/spl-token';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { PublicKey } from '@solana/web3.js';
@@ -10,6 +11,13 @@ import { Solcare } from '../../../resources/solcare.types';
 import {
     API_BASE_URL,
     getDerivedAccount,
+    now,
+    PROPOSAL_SEED,
+    STATUS_ACTIVE,
+    STATUS_FUNDED,
+    STATUS_NOT_FILLED,
+    STATUS_NOT_FUNDED,
+    STATUS_VOTING,
     USDC_DECIMALS,
     USDC_MINT,
 } from '../../../utils';
@@ -19,7 +27,7 @@ interface Campaign {
     address: string;
     title: string;
     description: string;
-    status: string;
+    status: number;
 
     createdAt: number;
     duration: number;
@@ -44,7 +52,6 @@ const CampaignList = (props: any) => {
             API_BASE_URL + '/v1/campaign/user/' + publicKey.toBase58()
         );
         const campaignList: Campaign[] = [];
-        console.log(list.data.data);
 
         await Promise.all(
             list.data.data.map(async (e: any) => {
@@ -53,11 +60,53 @@ const CampaignList = (props: any) => {
                         e.address
                     );
                 if (campaign !== null) {
+                    let status = campaign.status;
+                    if (
+                        status === STATUS_ACTIVE &&
+                        campaign.createdAt.toNumber() +
+                            campaign.heldDuration.toNumber() <
+                            now()
+                    ) {
+                        status = STATUS_NOT_FILLED;
+                    } else if (status === STATUS_VOTING) {
+                        const proposalDerivedAccount = getDerivedAccount(
+                            [PROPOSAL_SEED, new web3.PublicKey(e.address)],
+                            smartContract.programId
+                        );
+                        const proposal =
+                            await smartContract.account.proposal.fetchNullable(
+                                proposalDerivedAccount.publicKey
+                            );
+
+                        if (!proposal) {
+                            console.log(
+                                'Unexpected error, proposal not found!'
+                            );
+                            return;
+                        }
+                        // clock.unix_timestamp <= proposal.created_at + proposal.duration) @ CustomError::CampaignIsNotInVotingPeriod
+                        if (
+                            now() >
+                            proposal.createdAt.toNumber() +
+                                proposal.duration.toNumber()
+                        ) {
+                            if (
+                                (proposal.agree.eqn(0) &&
+                                    proposal.disagree.eqn(0)) ||
+                                proposal.agree.gt(proposal.disagree)
+                            ) {
+                                status = STATUS_FUNDED;
+                            } else {
+                                status = STATUS_NOT_FUNDED;
+                            }
+                        }
+                    }
+
                     campaignList.push({
                         address: e.address,
                         title: e.title,
                         description: e.description,
-                        status: campaign.status === 0 ? 'Aktif' : 'Voting',
+                        status: status,
                         createdAt: campaign.createdAt.toNumber(),
                         duration: campaign.heldDuration.toNumber(),
                         collected: campaign.fundedAmount

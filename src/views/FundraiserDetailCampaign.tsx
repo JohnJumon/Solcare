@@ -1,10 +1,22 @@
+import { web3 } from '@project-serum/anchor';
 import axios from 'axios';
 import { BN } from 'bn.js';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import MyDetailCampaign from '../components/layout/profile/detailCampaign';
 import { useSmartContract } from '../context/connection';
-import { API_BASE_URL, USDC_DECIMALS } from '../utils';
+import {
+    API_BASE_URL,
+    getDerivedAccount,
+    now,
+    PROPOSAL_SEED,
+    STATUS_ACTIVE,
+    STATUS_FUNDED,
+    STATUS_NOT_FILLED,
+    STATUS_NOT_FUNDED,
+    STATUS_VOTING,
+    USDC_DECIMALS,
+} from '../utils';
 
 interface CampaignInfo {
     address: string;
@@ -37,6 +49,47 @@ const FundraiserDetailCampaign = () => {
             e.address
         );
 
+        if (!campaign) {
+            console.log('campaign is not found');
+            return;
+        }
+
+        let status = campaign.status;
+        if (
+            status === STATUS_ACTIVE &&
+            campaign.createdAt.toNumber() + campaign.heldDuration.toNumber() <
+                now()
+        ) {
+            status = STATUS_NOT_FILLED;
+        } else if (status === STATUS_VOTING) {
+            const proposalDerivedAccount = getDerivedAccount(
+                [PROPOSAL_SEED, new web3.PublicKey(e.address)],
+                smartContract.programId
+            );
+            const proposal = await smartContract.account.proposal.fetchNullable(
+                proposalDerivedAccount.publicKey
+            );
+
+            if (!proposal) {
+                console.log('Unexpected error, proposal not found!');
+                return;
+            }
+            // clock.unix_timestamp <= proposal.created_at + proposal.duration) @ CustomError::CampaignIsNotInVotingPeriod
+            if (
+                now() >
+                proposal.createdAt.toNumber() + proposal.duration.toNumber()
+            ) {
+                if (
+                    (proposal.agree.eqn(0) && proposal.disagree.eqn(0)) ||
+                    proposal.agree.gt(proposal.disagree)
+                ) {
+                    status = STATUS_FUNDED;
+                } else {
+                    status = STATUS_NOT_FUNDED;
+                }
+            }
+        }
+
         const data: CampaignInfo = {
             address: e.address,
             ownerAddress: e.ownerAddress,
@@ -44,16 +97,16 @@ const FundraiserDetailCampaign = () => {
             description: e.description,
             banner: e.banner,
 
-            target: campaign!!.targetAmount
+            target: campaign.targetAmount
                 .div(new BN(Math.pow(10, USDC_DECIMALS)))
                 .toNumber(),
-            collected: campaign!!.fundedAmount
+            collected: campaign.fundedAmount
                 .div(new BN(Math.pow(10, USDC_DECIMALS)))
                 .toNumber(),
 
-            createdAt: campaign!!.createdAt.toNumber(),
-            duration: campaign!!.heldDuration.toNumber(),
-            status: e.status,
+            createdAt: campaign.createdAt.toNumber(),
+            duration: campaign.heldDuration.toNumber(),
+            status: status,
         };
 
         setDetail(data);
