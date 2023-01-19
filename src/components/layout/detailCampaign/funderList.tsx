@@ -15,7 +15,7 @@ export interface FunderInfo {
 
 const FunderList = ({ funders }: { funders: FunderInfo[] }) => {
     const [page, setPage] = useState('1');
-
+    
     const ITEM_PER_PAGE = 5;
 
     const generateTable = (page: number) => {
@@ -27,7 +27,7 @@ const FunderList = ({ funders }: { funders: FunderInfo[] }) => {
             i++
         ) {
             rows.push(
-                <tr className="bg-white border-b">
+                <tr className="bg-white border-b" key={i}>
                     <th
                         scope="row"
                         className="
@@ -51,7 +51,7 @@ const FunderList = ({ funders }: { funders: FunderInfo[] }) => {
                                 text-xs font-bold line-clamp-1
                                 md:text-xl"
                             >
-                                Nama {i + 1}
+                                {funders[i].name === '-' ? 'Funder' : funders[i].name }
                             </div>
                             <div
                                 className="

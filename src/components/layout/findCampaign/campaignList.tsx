@@ -99,7 +99,7 @@ const CampaignList = () => {
             <div className="grid grid-cols-1 gap-6 mt-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3">
                 {allCampaigns?.map((campaign) => {
                     return (
-                        <div className="gap-6 mt-6">
+                        <div className="gap-6 mt-6" key={campaign.address}>
                             <CampaignCard
                                 key={campaign.address}
                                 campaign={campaign}
