@@ -12,6 +12,7 @@ import {
     STATUS_ACTIVE,
     STATUS_FILLED,
     STATUS_FUNDED,
+    STATUS_VOTING,
 } from '../../../utils';
 import { PublicKey } from '@solana/web3.js';
 
@@ -58,7 +59,7 @@ const Detail = (props: any) => {
                     refetch={props.refetch}
                 />
             );
-        } else if (status == STATUS_FILLED) {
+        } else if (status == STATUS_VOTING) {
             return <Voting />;
         } else if (status == STATUS_FUNDED) {
             return <Claim />;

@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
+import { STATUS_ACTIVE, STATUS_FILLED, STATUS_VOTING } from '../../../../utils';
 import InProgress from './info/inProgress';
 import InVoting from './info/inVoting';
 import IsSuccess from './info/isSuccess';
 
 interface CampaignCardProps {
-    status: string;
+    status: number;
     title: string;
     target: number;
     collected: number;
@@ -23,9 +24,10 @@ const CampaignCard: React.FC<CampaignCardProps> = (props) => {
                         {props.status}
                     </p>
                 </div>
-                {props.status === 'Aktif' ? (
+                {props.status === STATUS_ACTIVE ||
+                props.status === STATUS_FILLED ? (
                     <InProgress {...props} />
-                ) : props.status === 'Voting' ? (
+                ) : props.status === STATUS_VOTING ? (
                     <InVoting {...props} />
                 ) : (
                     <IsSuccess {...props} />

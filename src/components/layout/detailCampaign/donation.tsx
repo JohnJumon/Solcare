@@ -97,13 +97,17 @@ const Donation = ({
             tx.add(...preIxs);
         }
         tx.add(ix);
-        const txSignature = await sendTransaction(
-            tx,
-            smartContract.provider.connection
-        );
 
-        toast(`Donasi berhasil!\nTx signature: ${txSignature}`);
-        refetch();
+        try {
+            const txSignature = await sendTransaction(
+                tx,
+                smartContract.provider.connection
+            );
+            toast(`Donasi berhasil!\nTx signature: ${txSignature}`);
+            refetch();
+        } catch (e) {
+            toast.error(`Donasi gagal dilakukan!`);
+        }
     };
 
     return (
