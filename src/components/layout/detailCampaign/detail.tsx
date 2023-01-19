@@ -60,7 +60,7 @@ const Detail = (props: any) => {
                 />
             );
         } else if (status == STATUS_VOTING) {
-            return <Voting />;
+            return <Voting campaignAddress={new PublicKey(campaign.address)} />;
         } else if (status == STATUS_FUNDED) {
             return <Claim />;
         }

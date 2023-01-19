@@ -1,4 +1,113 @@
-const MoneyProposalButton = () => {
+import { web3 } from '@project-serum/anchor';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { Transaction } from '@solana/web3.js';
+import axios from 'axios';
+import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Id, toast } from 'react-toastify';
+import { useSmartContract } from '../../../../context/connection';
+import {
+    API_BASE_URL,
+    getDerivedAccount,
+    PROPOSAL_SEED,
+} from '../../../../utils';
+
+const MoneyProposalButton = ({
+    campaignAddress,
+}: {
+    campaignAddress: string;
+}) => {
+    const { publicKey, connected, sendTransaction } = useWallet();
+    const { smartContract } = useSmartContract();
+    const toastId = useRef<Id | null>(null);
+    const navigate = useNavigate();
+
+    const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+
+    const toastDone = () => {
+        if (toastId.current) toast.done(toastId.current);
+        toastId.current = null;
+    };
+
+    const submitProposal = async () => {
+        if (!connected || !publicKey || toastId.current) return;
+
+        if (uploadedFile === null) {
+            toast.error(
+                'kamu harus memilih file untuk diupload terlebih dahulu!'
+            );
+            return;
+        }
+
+        toastId.current = toast('Memproses proposal kamu!', {
+            progress: 0.1,
+            autoClose: false,
+            closeButton: false,
+            draggable: false,
+            closeOnClick: false,
+        });
+
+        const campaignPubkey = new web3.PublicKey(campaignAddress);
+        const proposalDerivedAccount = getDerivedAccount(
+            [PROPOSAL_SEED, campaignPubkey],
+            smartContract.programId
+        );
+
+        const formData = new FormData();
+        formData.append('address', proposalDerivedAccount.publicKey.toBase58());
+        formData.append('campaignAddress', campaignAddress);
+        formData.append('attachment', uploadedFile);
+
+        try {
+            const resp = await axios.postForm(
+                API_BASE_URL + '/v1/campaign/proposal',
+                formData
+            );
+
+            if (resp.data.status !== 200) {
+                toastDone();
+                toast.error(`Proposal gagal dibuat!`);
+                return;
+            }
+            toast.update(toastId.current, { progress: 0.5 });
+        } catch (e) {
+            toastDone();
+            console.log('Error: ', e);
+            toast.error(`Proposal gagal dibuat!`);
+            return;
+        }
+
+        try {
+            const ix = await smartContract.methods
+                .initProposal()
+                .accounts({
+                    owner: publicKey,
+                    campaign: campaignPubkey,
+                    proposal: proposalDerivedAccount.publicKey,
+                    clock: web3.SYSVAR_CLOCK_PUBKEY,
+                    systemProgram: web3.SystemProgram.programId,
+                })
+                .instruction();
+
+            const tx = await sendTransaction(
+                new Transaction().add(ix),
+                smartContract.provider.connection
+            );
+
+            toast.update(toastId.current, { progress: 1 });
+            toastDone();
+            toast(`🚀 Proposal berhasil dibuat! Signature transaksi: ${tx}`);
+        } catch (e) {
+            toastDone();
+            console.log('Error: ', e);
+            toast.error(`Proposal gagal dibuat!`);
+            return;
+        }
+
+        setUploadedFile(null);
+        navigate('/campaign/' + campaignAddress);
+    };
+
     return (
         <div className="flex flex-col">
             <label
@@ -50,6 +159,11 @@ const MoneyProposalButton = () => {
                                     id="dropzone-file"
                                     type="file"
                                     className="hidden"
+                                    onChange={(e) => {
+                                        setUploadedFile(
+                                            e.target.files?.item(0) || null
+                                        );
+                                    }}
                                 />
                             </div>
                         </label>
@@ -62,9 +176,7 @@ const MoneyProposalButton = () => {
                             </label>
                             <label
                                 className="basis-6/12 md:basis-3/12 rounded-[5px] md:rounded-[10px] p-2 md:p-4 text-[8px] md:text-[15px] ml-1 md:ml-2 bg-[#007BC7] border border-2 border-white hover:bg-[#007BC7] hover:border-[#007BC7]"
-                                onClick={() => {
-                                    console.log('Send');
-                                }}
+                                onClick={submitProposal}
                             >
                                 Kirim
                             </label>

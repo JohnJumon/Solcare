@@ -4,7 +4,7 @@ import ProfilePlaceholder from '../../../image/profilePic.png';
 const FundraiserInfo = (props: any) => {
     const [initializing, setInitializing] = useState(true);
 
-    let content = props.campaign;    
+    let content = props.campaign;
 
     useEffect(() => {
         setInitializing(false);
@@ -66,9 +66,7 @@ const FundraiserInfo = (props: any) => {
                         md:text-xl"
                     >
                         {/* Nama Fundraiser */}
-                        {fundraiserName === ''
-                            ? '-'
-                            : fundraiserName}
+                        {fundraiserName === '' ? '-' : fundraiserName}
                     </p>
                     <p
                         id="address-tag"

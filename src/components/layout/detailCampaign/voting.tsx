@@ -1,4 +1,33 @@
-const Voting = () => {
+import { web3 } from '@project-serum/anchor';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useSmartContract } from '../../../context/connection';
+import { API_BASE_URL, getDerivedAccount, PROPOSAL_SEED } from '../../../utils';
+
+const Voting = ({ campaignAddress }: { campaignAddress: web3.PublicKey }) => {
+    const [url, setUrl] = useState('');
+    const { smartContract } = useSmartContract();
+
+    useEffect(() => {
+        const proposalDerivedAccount = getDerivedAccount(
+            [PROPOSAL_SEED, campaignAddress],
+            smartContract.programId
+        );
+
+        axios
+            .get(
+                API_BASE_URL +
+                    '/v1/campaign/proposal/' +
+                    proposalDerivedAccount.publicKey.toBase58()
+            )
+            .then((e) => {
+                setUrl(e.data.data.url);
+            })
+            .catch((e) => {
+                console.log('Error: ', e);
+            });
+    }, []);
+
     return (
         <div>
             <div
@@ -14,6 +43,12 @@ const Voting = () => {
                     Voting
                 </h2>
                 <button
+                    onClick={(e) => {
+                        window.open(
+                            API_BASE_URL + '/resources/' + url,
+                            '_blank'
+                        );
+                    }}
                     className="
                     border-solid border-2 border-[#007BC7] text-xs w-full h-8 text-[#007BC7] font-normal rounded-[5px] flex flex-row items-center hover:shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]
                     md:text-xl md:h-16 md:rounded-[10px] md:border-2"
@@ -33,7 +68,7 @@ const Voting = () => {
                             clipRule="evenodd"
                         ></path>
                     </svg>
-                    <p className="line-clamp-1">file.pdf</p>
+                    <p className="line-clamp-1">proposal.pdf</p>
                 </button>
                 <div
                     className="

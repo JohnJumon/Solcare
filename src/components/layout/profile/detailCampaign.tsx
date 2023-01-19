@@ -39,7 +39,7 @@ const MyDetailCampaign = (props: any) => {
                 </div>
             );
         } else if (status === STATUS_FILLED) {
-            return <MoneyProposalButton />;
+            return <MoneyProposalButton campaignAddress={content.address} />;
         } else if (status == STATUS_FUNDED) {
             return <EvidenceProposalButton />;
         }
