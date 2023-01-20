@@ -23,42 +23,33 @@ import Refund from './claim';
 import { useSmartContract } from '../../../context/connection';
 import { useWallet } from '@solana/wallet-adapter-react';
 
-interface VoteTimeInfo {
-    date: number | undefined;
-    duration: number | undefined;
-}
-
 const Detail = (props: any) => {
     const [initializing, setInitializing] = useState(true);
-    const [voteTime, setVoteTime] = useState<VoteTimeInfo | null>(null);
+    const [voteTime, setVoteTime] = useState(0);
     const { smartContract } = useSmartContract();
     const { publicKey } = useWallet();
     const campaign = props.campaign;
 
-    const fetchVoteInfo = async () => {
+    const fetchVoteTime = async () => {
         if (!publicKey) return;
         const proposalDerivedAccount = getDerivedAccount(
             [PROPOSAL_SEED, new PublicKey(campaign.address)],
             smartContract.programId
         );
-        const voteDerivedAccount = getDerivedAccount(
-            [VOTE_SEED, proposalDerivedAccount.publicKey, publicKey],
-            smartContract.programId
+        const proposalInfo = await smartContract.account.proposal.fetchNullable(
+            proposalDerivedAccount.publicKey
         );
-        const voteInfo = await smartContract.account.vote.fetchNullable(
-            voteDerivedAccount.publicKey
-        );
-        if (voteInfo !== null) {
-            setVoteTime({
-                date: voteInfo.createdAt.toNumber(),
-                duration: voteInfo.heldDuration.toNumber()
-            })
+        if (proposalInfo !== null) {
+            setVoteTime(proposalInfo.createdAt.toNumber() + 3 * 60 * 60 * 24 - now())
         };
     };
 
     useEffect(() => {
-        fetchVoteInfo()
-    }, [publicKey])
+        const interval = setInterval(() => {
+            fetchVoteTime();
+        }, 1000);
+        return () => clearInterval(interval);
+    }, []);
 
     useEffect(() => {
         setInitializing(false);
@@ -68,25 +59,43 @@ const Detail = (props: any) => {
         return null;
     }
     const countRemainingTime = () => {
-        const remainingTime = Math.max(
+        let remainingTime = 0;
+        remainingTime = Math.max(
             campaign.createdAt + campaign.duration - now(),
             0
         );
+
         return remainingTime;
     };
 
     const showRemainingDays = () => {
         const DAY_IN_SECOND = 60 * 60 * 24;
-
-        if (countRemainingTime() > 0) {
-            if (countRemainingTime() > DAY_IN_SECOND) {
-                return Math.floor(countRemainingTime() / DAY_IN_SECOND);
+        if (campaign.status == STATUS_VOTING) {
+            let seconds = voteTime
+            if (seconds > 0) {
+                let days = Math.floor(seconds / (3600 * 24));
+                seconds -= days * 3600 * 24;
+                let hours = Math.floor(seconds / 3600);
+                seconds -= hours * 3600;
+                let minutes = Math.floor(seconds / 60);
+                seconds -= minutes * 60;
+                return `${days}D ${hours}J ${minutes}M ${seconds}D`
             } else {
-                return '< 1';
+                return '0H 0J 0M 0D';
             }
-        } else {
-            return '0';
         }
+        else {
+            if (countRemainingTime() > 0) {
+                if (countRemainingTime() > DAY_IN_SECOND) {
+                    return Math.floor(countRemainingTime() / DAY_IN_SECOND);
+                } else {
+                    return '< 1';
+                }
+            } else {
+                return '0';
+            }
+        }
+
     };
 
     const changeButton = (status: number) => {
@@ -177,7 +186,7 @@ const Detail = (props: any) => {
                 text-md leading-none
                 md:text-3xl"
                     >
-                        <b>{campaign.status == STATUS_VOTING ? voteTime?.duration : showRemainingDays()}</b>
+                        <b>{showRemainingDays()} { }</b>
                     </p>
                     <p
                         className="
