@@ -31,8 +31,7 @@ const FunderList = ({ funders }: { funders: FunderInfo[] }) => {
                     <th
                         scope="row"
                         className="
-                        flex items-center py-1 text-gray-900 whitespace-nowrap
-                        md:py-2"
+                        flex items-center py-1 text-gray-900 md:py-2"
                     >
                         <img
                             className="
@@ -46,7 +45,7 @@ const FunderList = ({ funders }: { funders: FunderInfo[] }) => {
                             pl-3
                             md:pl-6"
                         >
-                            <div
+                            <p
                                 className="
                                 text-xs font-bold line-clamp-1
                                 md:text-xl"
@@ -54,14 +53,15 @@ const FunderList = ({ funders }: { funders: FunderInfo[] }) => {
                                 {funders[i].name === '-'
                                     ? 'Funder'
                                     : funders[i].name}
-                            </div>
-                            <div
+                            </p>
+                            <p
+                                id='address-tag'
                                 className="
                                 text-[8px] font-normal text-gray-500
-                                md:text-[15px]"
+                                md:text-[15px] leading-normal"
                             >
                                 {funders[i].owner}
-                            </div>
+                            </p>
                         </div>
                     </th>
                     <td
