@@ -55,7 +55,7 @@ const FunderList = ({ funders }: { funders: FunderInfo[] }) => {
                                     : funders[i].name}
                             </p>
                             <p
-                                id='address-tag'
+                                id="address-tag"
                                 className="
                                 text-[8px] font-normal text-gray-500
                                 md:text-[15px] leading-normal"

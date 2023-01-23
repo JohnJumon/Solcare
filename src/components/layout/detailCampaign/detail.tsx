@@ -16,7 +16,7 @@ import {
     STATUS_VOTING,
     VOTE_SEED,
     PROPOSAL_SEED,
-    getDerivedAccount
+    getDerivedAccount,
 } from '../../../utils';
 import { PublicKey } from '@solana/web3.js';
 import Refund from './claim';
@@ -26,27 +26,13 @@ import { useWallet } from '@solana/wallet-adapter-react';
 const Detail = (props: any) => {
     const [initializing, setInitializing] = useState(true);
     const [voteTime, setVoteTime] = useState(0);
-    const { smartContract } = useSmartContract();
-    const { publicKey } = useWallet();
     const campaign = props.campaign;
-
-    const fetchVoteTime = async () => {
-        if (!publicKey) return;
-        const proposalDerivedAccount = getDerivedAccount(
-            [PROPOSAL_SEED, new PublicKey(campaign.address)],
-            smartContract.programId
-        );
-        const proposalInfo = await smartContract.account.proposal.fetchNullable(
-            proposalDerivedAccount.publicKey
-        );
-        if (proposalInfo !== null) {
-            setVoteTime(proposalInfo.createdAt.toNumber() + 3 * 60 * 60 * 24 - now())
-        };
-    };
 
     useEffect(() => {
         const interval = setInterval(() => {
-            fetchVoteTime();
+            setVoteTime(
+                campaign.proposal.createdAt + campaign.proposal.duration - now()
+            );
         }, 1000);
         return () => clearInterval(interval);
     }, []);
@@ -71,7 +57,7 @@ const Detail = (props: any) => {
     const showRemainingDays = () => {
         const DAY_IN_SECOND = 60 * 60 * 24;
         if (campaign.status == STATUS_VOTING) {
-            let seconds = voteTime
+            let seconds = voteTime;
             if (seconds > 0) {
                 let days = Math.floor(seconds / (3600 * 24));
                 seconds -= days * 3600 * 24;
@@ -79,12 +65,11 @@ const Detail = (props: any) => {
                 seconds -= hours * 3600;
                 let minutes = Math.floor(seconds / 60);
                 seconds -= minutes * 60;
-                return `${days}D ${hours}J ${minutes}M ${seconds}D`
+                return `${days}D ${hours}J ${minutes}M ${seconds}D`;
             } else {
                 return '0H 0J 0M 0D';
             }
-        }
-        else {
+        } else {
             if (countRemainingTime() > 0) {
                 if (countRemainingTime() > DAY_IN_SECOND) {
                     return Math.floor(countRemainingTime() / DAY_IN_SECOND);
@@ -95,7 +80,6 @@ const Detail = (props: any) => {
                 return '0';
             }
         }
-
     };
 
     const changeButton = (status: number) => {
@@ -186,7 +170,9 @@ const Detail = (props: any) => {
                 text-md leading-none
                 md:text-3xl"
                     >
-                        <b>{showRemainingDays()} { }</b>
+                        <b>
+                            {showRemainingDays()} {}
+                        </b>
                     </p>
                     <p
                         className="

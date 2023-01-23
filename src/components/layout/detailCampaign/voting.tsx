@@ -47,7 +47,7 @@ const Voting = ({
             [VOTE_SEED, proposalDerivedAccount.publicKey, publicKey],
             smartContract.programId
         );
-        
+
         try {
             const ix = await smartContract.methods
                 .voting(agree)

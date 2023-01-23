@@ -39,6 +39,14 @@ export interface DonorInfo {
     vote: VoteInfo | null;
 }
 
+interface Proposal {
+    agree: number;
+    disagree: number;
+
+    createdAt: number;
+    duration: number;
+}
+
 interface DetailCampaign {
     address: string;
     ownerAddress: string;
@@ -53,6 +61,8 @@ interface DetailCampaign {
 
     collected: number;
     target: number;
+
+    proposal: Proposal | null;
 }
 
 const DetailCampaign = () => {
@@ -78,6 +88,8 @@ const DetailCampaign = () => {
             return;
         }
 
+        let proposalInfo: Proposal | null = null;
+
         let status = campaign.status;
         if (
             status === STATUS_ACTIVE &&
@@ -98,6 +110,17 @@ const DetailCampaign = () => {
                 console.log('Unexpected error, proposal not found!');
                 return;
             }
+
+            proposalInfo = {
+                agree: proposal.agree
+                    .div(new BN(Math.pow(10, USDC_DECIMALS)))
+                    .toNumber(),
+                disagree: proposal.disagree
+                    .div(new BN(Math.pow(10, USDC_DECIMALS)))
+                    .toNumber(),
+                createdAt: proposal.createdAt.toNumber(),
+                duration: proposal.duration.toNumber(),
+            };
             // clock.unix_timestamp <= proposal.created_at + proposal.duration) @ CustomError::CampaignIsNotInVotingPeriod
             if (
                 now() >
@@ -131,6 +154,7 @@ const DetailCampaign = () => {
             target: campaign.targetAmount
                 .div(new BN(Math.pow(10, USDC_DECIMALS)))
                 .toNumber(),
+            proposal: proposalInfo,
         });
     };
 
@@ -190,7 +214,7 @@ const DetailCampaign = () => {
                 if (voteInfo !== null) {
                     vote = {
                         agree: voteInfo.isAgree,
-                        date: voteInfo.createdAt.toNumber()
+                        date: voteInfo.createdAt.toNumber(),
                     };
                 }
 
