@@ -4,6 +4,7 @@ import {
     STATUS_FAILED,
     STATUS_FILLED,
     STATUS_FUNDED,
+    STATUS_FUND_CLAIMABLE,
     STATUS_NOT_FILLED,
     STATUS_NOT_FUNDED,
     STATUS_SUCCESS,
@@ -41,6 +42,8 @@ const CampaignCard: React.FC<CampaignCardProps> = (props) => {
                 return 'Voting berhasil';
             case STATUS_NOT_FUNDED:
                 return 'Voting gagal';
+            case STATUS_FUND_CLAIMABLE:
+                return 'Dana dapat diklaim';
             case STATUS_SUCCESS:
                 return 'Proyek Sukses';
             case STATUS_FAILED:
@@ -62,7 +65,8 @@ const CampaignCard: React.FC<CampaignCardProps> = (props) => {
                 {props.status === STATUS_ACTIVE ||
                 props.status === STATUS_FILLED ? (
                     <InProgress {...props} />
-                ) : props.status === STATUS_VOTING ? (
+                ) : props.status === STATUS_VOTING ||
+                  props.status === STATUS_FUND_CLAIMABLE ? (
                     <InVoting {...props} />
                 ) : (
                     <IsSuccess {...props} />

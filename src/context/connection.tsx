@@ -21,7 +21,7 @@ const scDefaultValue = () => {
     );
 
     const program = new anchor.Program<Solcare>(
-        SolcareIdl as Solcare,
+        SolcareIdl as any,
         new anchor.web3.PublicKey(PROGRAM_ADDRESS),
         provider
     );
@@ -38,7 +38,7 @@ export const useSmartContract = () => {
 
 export const ConnectionProvider = (props: any) => {
     return (
-        <WalletConnectionProvider endpoint="https://solana-devnet.g.alchemy.com/v2/bIPuobg6X0eDu34Afyg_24zQsQAjPoLE">
+        <WalletConnectionProvider endpoint={RPC_API_KEY}>
             {props.children}
         </WalletConnectionProvider>
     );

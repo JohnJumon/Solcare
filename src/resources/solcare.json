@@ -618,5 +618,8 @@
       "name": "BalanceIsNotEnough",
       "msg": "Balance is not enough"
     }
-  ]
+  ],
+  "metadata": {
+    "address": "DqBjFvgYa8drGBcKdSSQ51jLEWWnr6z14MzXKxGu5JvX"
+  }
 }

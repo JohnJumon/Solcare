@@ -12,6 +12,7 @@ import {
     STATUS_ACTIVE,
     STATUS_FILLED,
     STATUS_FUNDED,
+    STATUS_FUND_CLAIMABLE,
     USDC_DECIMALS,
 } from '../../../utils';
 import { useEffect, useState } from 'react';
@@ -22,6 +23,7 @@ import {
     utils,
     web3,
 } from '@project-serum/anchor';
+import ClaimFundButton from './button/claimFundButton';
 
 const MyDetailCampaign = (props: any) => {
     let content = props.campaign;
@@ -40,6 +42,13 @@ const MyDetailCampaign = (props: any) => {
             );
         } else if (status === STATUS_FILLED) {
             return <MoneyProposalButton campaignAddress={content.address} />;
+        } else if (status === STATUS_FUND_CLAIMABLE) {
+            return (
+                <ClaimFundButton
+                    campaignAddress={content.address}
+                    refetch={props.refetch}
+                />
+            );
         } else if (status == STATUS_FUNDED) {
             return <EvidenceProposalButton />;
         }

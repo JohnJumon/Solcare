@@ -11,6 +11,7 @@ import {
     PROPOSAL_SEED,
     STATUS_ACTIVE,
     STATUS_FUNDED,
+    STATUS_FUND_CLAIMABLE,
     STATUS_NOT_FILLED,
     STATUS_NOT_FUNDED,
     STATUS_VOTING,
@@ -132,7 +133,7 @@ const DetailCampaign = () => {
                     (proposal.agree.eqn(0) && proposal.disagree.eqn(0)) ||
                     proposal.agree.gt(proposal.disagree)
                 ) {
-                    status = STATUS_FUNDED;
+                    status = STATUS_FUND_CLAIMABLE;
                 } else {
                     status = STATUS_NOT_FUNDED;
                 }

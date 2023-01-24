@@ -1,9 +1,44 @@
+import { getAssociatedTokenAddressSync } from '@solana/spl-token';
 import { useWallet } from '@solana/wallet-adapter-react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProfilePlaceholder from '../../../image/profilePic.png';
+import { USDC_DECIMALS, USDC_MINT } from '../../../utils';
+import * as spl from '@solana/spl-token';
+import { useSmartContract } from '../../../context/connection';
+import { BN } from 'bn.js';
 
 const MainProfile = () => {
     const { connected, publicKey } = useWallet();
+    const { smartContract } = useSmartContract();
+    const [usdcBalance, setUsdcBalance] = useState(0);
+
+    const fetchUsdc = async () => {
+        if (!connected || !publicKey) return;
+
+        const tokenAccountAddress = getAssociatedTokenAddressSync(
+            USDC_MINT,
+            publicKey
+        );
+        const tokenAccountInfo =
+            await smartContract.provider.connection.getAccountInfo(
+                tokenAccountAddress
+            );
+        if (tokenAccountInfo !== null) {
+            const tokenInfo = spl.unpackAccount(
+                tokenAccountAddress,
+                tokenAccountInfo
+            );
+            const amount = new BN(tokenInfo.amount.toString())
+                .div(new BN(Math.pow(10, USDC_DECIMALS)))
+                .toNumber();
+            setUsdcBalance(amount);
+        }
+    };
+
+    useEffect(() => {
+        fetchUsdc();
+    }, []);
 
     return (
         <div className="flex flex-col">
@@ -48,7 +83,7 @@ const MainProfile = () => {
             </p>
             <div className="font-bold shadow-[0px_4px_6px_2px_rgba(0,123,199,0.5)] p-4 rounded-[10px] mb-6 text-center">
                 <p className="text-[#007BC7] text-3xl sm:text-6xl">
-                    1.985
+                    {usdcBalance.toLocaleString().replaceAll(',', '.')}
                     <span className="text-3xl max-[639px]:hidden">USDC</span>
                 </p>
                 <p className="sm:hidden text-[15px] text-[#007BC7]">USDC</p>
