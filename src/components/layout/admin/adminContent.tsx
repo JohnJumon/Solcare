@@ -4,6 +4,7 @@ import ReportList from './reportList';
 import CampaignValidation from './campaignValidation';
 import ReportDetail from './reportDetail';
 import UserDetail from './userDetail';
+import Dashboard from './dashboard';
 interface AdminContentProps {
     handleClick: () => void;
     page: string;
@@ -11,6 +12,9 @@ interface AdminContentProps {
 }
 const AdminContent: React.FC<AdminContentProps> = (props) => {
     const generatePage = () => {
+        if (props.page == 'Dashboard') {
+            return <Dashboard />;
+        }
         if (props.page == 'Verifikasi User') {
             return <UserVerification />;
         }

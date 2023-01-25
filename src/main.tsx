@@ -32,9 +32,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                     <Route
                         path="/admin"
                         element={
-                            <PrivateRoute>
                                 <Admin />
-                            </PrivateRoute>
                         }
                     />
                     <Route path="/explore" element={<FindCampaign />} />
