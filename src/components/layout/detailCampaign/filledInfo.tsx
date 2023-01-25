@@ -39,9 +39,7 @@ const FilledInfo = ({
                             className="
              w-full flex flex-row items-center justify-between mt-2 text-xs font-bold text-white
              md:mt-4 md:text-xl"
-                        >
-
-                        </div>
+                        ></div>
                     ) : (
                         <p
                             className=" mt-5
@@ -61,16 +59,17 @@ const FilledInfo = ({
             ) : (
                 <></>
             )}
-            
+
             <p
                 className=" mt-5
                 text-[8px] mb-2
                 md:text-[15px] md:mb-4 text-justify"
             >
-                Campaign telah mencapai targetnya, silahkan menunggu pengiriman berkas dari fundraiser untuk melakukan voting.
+                Campaign telah mencapai targetnya, silahkan menunggu pengiriman
+                berkas dari fundraiser untuk melakukan voting.
             </p>
         </>
     );
-}
+};
 
 export default FilledInfo;

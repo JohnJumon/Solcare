@@ -105,13 +105,10 @@ const Detail = (props: any) => {
                     campaignAddress={new PublicKey(campaign.address)}
                 />
             );
-        } else if (status == STATUS_FILLED){
+        } else if (status == STATUS_FILLED) {
             return (
-                <FilledInfo
-                    refetch={props.refetch}
-                    donorInfo={props.donor}
-                />
-            )
+                <FilledInfo refetch={props.refetch} donorInfo={props.donor} />
+            );
         } else if (status == STATUS_SUCCESS || status == STATUS_FAILED) {
             return (
                 <SuccessInfo
@@ -119,7 +116,7 @@ const Detail = (props: any) => {
                     donorInfo={props.donor}
                     status={status}
                 />
-            )
+            );
         } else if (status == STATUS_NOT_FUNDED || status == STATUS_NOT_FILLED) {
             return (
                 <Refund
@@ -198,7 +195,7 @@ const Detail = (props: any) => {
                 md:text-3xl"
                     >
                         <b>
-                            {showRemainingDays()} { }
+                            {showRemainingDays()} {}
                         </b>
                     </p>
                     <p

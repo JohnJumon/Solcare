@@ -6,55 +6,60 @@ import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import '@solana/wallet-adapter-react-ui/styles.css';
 import { useWallet } from '@solana/wallet-adapter-react';
 import axios from 'axios';
-import { API_BASE_URL, LOGIN_MESSAGE } from '../../utils';
+import { API_BASE_URL, LOGIN_MESSAGE, now } from '../../utils';
 import base58 from 'bs58';
 import { useSmartContract } from '../../context/connection';
+import { decodeJwt } from 'jose';
 
 const Header = () => {
-    const { connected, connecting, signMessage, publicKey, disconnect } =
-        useWallet();
-    const { smartContract } = useSmartContract();
-    const [isConnected, setIsConnected] = useState(false);
-    const connectionValue = useMemo(() => {
-        return {
-            isConnected,
-            setIsConnected,
-        };
-    }, [isConnected]);
+    const {
+        connected,
+        connecting,
+        signMessage,
+        publicKey,
+        disconnect,
+        disconnecting,
+    } = useWallet();
 
     const signIn = async () => {
         if (signMessage && publicKey) {
-            try {
-                const message = new TextEncoder().encode(LOGIN_MESSAGE);
-                const signature = await signMessage(message);
+            const tokenString = localStorage.getItem('token');
+            if (
+                !tokenString ||
+                (decodeJwt(tokenString).exp || 0) < now() ||
+                decodeJwt(tokenString)['address'] !== publicKey.toBase58()
+            ) {
+                try {
+                    const message = new TextEncoder().encode(LOGIN_MESSAGE);
+                    const signature = await signMessage(message);
 
-                const resp = await axios.post(
-                    API_BASE_URL + '/v1/users/login',
-                    {
-                        address: publicKey.toBase58(),
-                        signedMessage: base58.encode(signature),
-                    }
-                );
+                    const resp = await axios.post(
+                        API_BASE_URL + '/v1/users/login',
+                        {
+                            address: publicKey.toBase58(),
+                            signedMessage: base58.encode(signature),
+                        }
+                    );
 
-                localStorage.setItem('token', resp.data.data.token);
-                setIsConnected(false);
-            } catch (e) {
-                console.log(e);
+                    localStorage.setItem('token', resp.data.data.token);
+                } catch (e) {
+                    console.log(e);
 
-                setIsConnected(true);
-                await disconnect();
+                    await disconnect();
+                }
             }
         }
     };
 
     useEffect(() => {
-        if (isConnected) {
+        if (connected) {
             signIn();
         }
-        return () => {
-            setIsConnected(false);
-        };
-    }, [connected]);
+
+        if (disconnecting) {
+            localStorage.removeItem('token');
+        }
+    }, [connected, disconnecting]);
 
     return (
         <div className="navbar sticky top-0 z-50 bg-white py-4 lg:px-12">
@@ -123,7 +128,7 @@ const Header = () => {
                             Home
                         </Link>
                     </li>
-                    <li className='ml-5'>
+                    <li className="ml-5">
                         <Link
                             to="/explore"
                             className="rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white"
@@ -132,7 +137,7 @@ const Header = () => {
                         </Link>
                     </li>
                     {connected ? (
-                        <li className='ml-5'>
+                        <li className="ml-5">
                             <Link
                                 to="/profile/my-campaign/create"
                                 className="rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white"
@@ -144,7 +149,7 @@ const Header = () => {
                         <></>
                     )}
                     {connected ? (
-                        <li className='ml-5'>
+                        <li className="ml-5">
                             <Link
                                 to="/profile"
                                 className="rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white"
