@@ -185,7 +185,8 @@ const MainProfile = () => {
                 </div>
             </div>
         );
-    }
+    } 
+    return <></>;
 };
 
 export default MainProfile;
