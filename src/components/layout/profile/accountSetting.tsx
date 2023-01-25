@@ -1,7 +1,43 @@
+import { useWallet } from '@solana/wallet-adapter-react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import ProfilePlaceholder from '../../../image/profilePic.png';
+import { API_BASE_URL } from '../../../utils';
 import KYC from './kyc';
 import SetInfo from './setInfo';
+
+interface ProfileProps {
+    firstName: string;
+    lastName: string;
+    address: string;
+    profilePicture: string;
+    gender: string;
+
+    createdAt: number;
+    isVerified: boolean;
+    isWarned: boolean;
+}
+
 const AccountSetting = () => {
+    const { connected, publicKey } = useWallet();
+    const [userInfo, setUserInfo] = useState<ProfileProps>();
+
+    const fetchUser = async () => {
+        const userData = await axios.get(
+            `${API_BASE_URL}/v1/users/info/${publicKey?.toBase58()}`
+        );
+        if (userData.data.data != undefined) {
+            setUserInfo(userData.data.data);
+        }
+    };
+
+    useEffect(() => {
+        fetchUser();
+    }, []);
+
+    if (userInfo === undefined) {
+        return null;
+    }
     return (
         <div className="flex flex-col">
             <div
@@ -35,14 +71,24 @@ const AccountSetting = () => {
                         className="text-lg font-bold
                         md:text-xl"
                     >
-                        Nama
+                        {userInfo.firstName === '' || userInfo.firstName === ''
+                            ? 'Nama'
+                            : userInfo.firstName + ' ' + userInfo.lastName}
                     </h2>
                     <p
                         id="address-tag"
                         className="text-sm
                         md:text-base"
                     >
-                        Wallet Address
+                        {connected ? publicKey?.toBase58() : 'Wallet address'}
+                    </p>
+                    <p
+                        className="text-sm
+                            md:text-base"
+                    >
+                        {userInfo.isVerified
+                            ? 'Terverifikasi'
+                            : 'Belum Terverifikasi'}
                     </p>
                 </div>
                 <p
@@ -50,7 +96,13 @@ const AccountSetting = () => {
                     md:self-start md:text-right md:text-sm
                     "
                 >
-                    Status
+                    {userInfo.isWarned ? (
+                        <p className="text-red-600 text-bold">Diperingati</p>
+                    ) : (
+                        <p className="text-green-600 text-bold">
+                            Belum Diperingati
+                        </p>
+                    )}
                 </p>
             </div>
             <div className="divider"></div>
