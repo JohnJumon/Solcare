@@ -22,6 +22,9 @@ import { PublicKey } from '@solana/web3.js';
 import Refund from './claim';
 import { useSmartContract } from '../../../context/connection';
 import { useWallet } from '@solana/wallet-adapter-react';
+import { isAccountsGeneric } from '@project-serum/anchor/dist/cjs/program/accounts-resolver';
+import SuccessInfo from './successInfo.';
+import FilledInfo from './filledInfo';
 
 const Detail = (props: any) => {
     const [initializing, setInitializing] = useState(true);
@@ -99,6 +102,20 @@ const Detail = (props: any) => {
                     campaignAddress={new PublicKey(campaign.address)}
                 />
             );
+        } else if (status == STATUS_FILLED){
+            return (
+                <FilledInfo
+                    refetch={props.refetch}
+                    donorInfo={props.donor}
+                />
+            )
+        } else if (status == STATUS_FUNDED) {
+            return (
+                <SuccessInfo
+                    refetch={props.refetch}
+                    donorInfo={props.donor}
+                />
+            )
         } else if (status == STATUS_NOT_FUNDED) {
             return (
                 <Refund
@@ -177,7 +194,7 @@ const Detail = (props: any) => {
                 md:text-3xl"
                     >
                         <b>
-                            {showRemainingDays()} {}
+                            {showRemainingDays()} { }
                         </b>
                     </p>
                     <p

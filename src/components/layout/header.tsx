@@ -123,7 +123,7 @@ const Header = () => {
                             Home
                         </Link>
                     </li>
-                    <li>
+                    <li className='ml-5'>
                         <Link
                             to="/explore"
                             className="rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white"
@@ -132,7 +132,7 @@ const Header = () => {
                         </Link>
                     </li>
                     {connected ? (
-                        <li>
+                        <li className='ml-5'>
                             <Link
                                 to="/profile/my-campaign/create"
                                 className="rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white"
@@ -144,7 +144,7 @@ const Header = () => {
                         <></>
                     )}
                     {connected ? (
-                        <li>
+                        <li className='ml-5'>
                             <Link
                                 to="/profile"
                                 className="rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white"
