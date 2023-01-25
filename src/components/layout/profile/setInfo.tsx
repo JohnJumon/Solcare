@@ -42,7 +42,7 @@ const SetInfo = () => {
         let token = localStorage.getItem('token')
         
         const headers = {
-            'Authorization': `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         }
         try {
             const content = {
@@ -54,17 +54,8 @@ const SetInfo = () => {
             // console.log(content);
             
             const resp = await axios.put(
-                API_BASE_URL + '/v1/users/info/' + publicKey?.toBase58(), content, { headers }
+                API_BASE_URL + '/v1/users/info/' + publicKey?.toBase58(), content, {headers}
             );
-            console.log(resp.data.json);
-            
-            if (resp.data.status !== 200) {
-                // toastDone();
-                // toast.error(`Campaign gagal dibuat!`);
-                console.log('error');
-
-                return;
-            }
         } catch(e) {
             console.log(e);
             return;
