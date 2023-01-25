@@ -11,7 +11,7 @@ const TransactionInfo = () => {
                 </p>
             </div>
             <div className="basis-1/3 flex flex-col text-center justify-center">
-                <p className="text-base sm:text-3xl leading-none">1.985</p>
+                <p className="text-base sm:text-3xl leading-none">xxx</p>
                 <p className="text-[8px] sm:text-[15px] leading-none">USDC</p>
             </div>
         </div>

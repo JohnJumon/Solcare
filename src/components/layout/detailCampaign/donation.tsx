@@ -40,7 +40,7 @@ const Donation = ({
                 tokenAddress
             )) === null
         ) {
-            toast.error('Kamu tidak memiliki USDC!');
+            toast.error('Wallet tidak memiliki USDC!');
             return;
         }
 
