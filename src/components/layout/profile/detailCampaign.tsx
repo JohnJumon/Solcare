@@ -13,6 +13,7 @@ import {
     STATUS_FILLED,
     STATUS_FUNDED,
     STATUS_FUND_CLAIMABLE,
+    STATUS_VOTING,
     USDC_DECIMALS,
 } from '../../../utils';
 import { useEffect, useState } from 'react';
@@ -42,6 +43,17 @@ const MyDetailCampaign = (props: any) => {
             );
         } else if (status === STATUS_FILLED) {
             return <MoneyProposalButton campaignAddress={content.address} />;
+        } else if (status === STATUS_VOTING) {
+            return (
+                <div className="flex flex-col">
+                    <label
+                        className="text-center mt-4 self-end bg-[#007BC7] opacity-50 w-full text-xs p-2 border border-[2px] border-[#007BC7] text-white font-bold rounded-[5px]
+                    md:text-xl md:p-4 md:rounded-[10px] cursor-not-allowed"
+                    >
+                        Dalam Masa Voting
+                    </label>
+                </div>
+            );
         } else if (status === STATUS_FUND_CLAIMABLE) {
             return (
                 <ClaimFundButton
