@@ -17,6 +17,9 @@ import {
     VOTE_SEED,
     PROPOSAL_SEED,
     getDerivedAccount,
+    STATUS_SUCCESS,
+    STATUS_NOT_FILLED,
+    STATUS_FAILED,
 } from '../../../utils';
 import { PublicKey } from '@solana/web3.js';
 import Refund from './claim';
@@ -109,14 +112,15 @@ const Detail = (props: any) => {
                     donorInfo={props.donor}
                 />
             )
-        } else if (status == STATUS_FUNDED) {
+        } else if (status == STATUS_SUCCESS || status == STATUS_FAILED) {
             return (
                 <SuccessInfo
                     refetch={props.refetch}
                     donorInfo={props.donor}
+                    status={status}
                 />
             )
-        } else if (status == STATUS_NOT_FUNDED) {
+        } else if (status == STATUS_NOT_FUNDED || status == STATUS_NOT_FILLED) {
             return (
                 <Refund
                     campaignPubkey={new PublicKey(campaign.address)}

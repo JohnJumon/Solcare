@@ -1,11 +1,14 @@
+import { STATUS_SUCCESS } from '../../../utils';
 import { DonorInfo } from '../../../views/DetailCampaign';
 
 const SuccessInfo = ({
     donorInfo,
     refetch,
+    status,
 }: {
     donorInfo: DonorInfo | null;
     refetch: () => void;
+    status: number;
 }) => {
     return (
 
@@ -67,14 +70,25 @@ const SuccessInfo = ({
                 text-[8px] mb-2
                 md:text-[15px] md:mb-4 text-justify"
             >
-                Terima kasih atas partisipasi sekalian. Dengan senang hati kami nyatakan campaign ini
+                Terima kasih atas partisipasi sekalian. Dengan ini kami nyatakan campaign ini :
             </p>
             <p
                 className="
                 text-base leading-none text-center mb-2
                 md:text-3xl md:mb-4"
             >
-                <b className="text-green-600">SUKSES</b>
+                {status == STATUS_SUCCESS ? 
+                    <b className="text-green-600">SUKSES</b> : 
+                    <b className="text-red-600">GAGAL</b>}
+            </p>
+            <p
+                className=" mt-5
+                text-[8px] mb-2
+                md:text-[15px] md:mb-4 text-justify"
+            >
+                {status == STATUS_SUCCESS ? 
+                    "Fundraiser berhasil menjalankan projectnya menggunakan dana yang sudah ia terima. Sekali lagi terima kasih telah membantu campaign ini sampai akhir." : 
+                    "Fundraiser gagal menjalankan projectnya menggunakan dana yang sudah ia terima. Kami mohon maaf atas kejadian ini."}
             </p>
         </>
     );

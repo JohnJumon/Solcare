@@ -61,6 +61,7 @@ const FilledInfo = ({
             ) : (
                 <></>
             )}
+            
             <p
                 className=" mt-5
                 text-[8px] mb-2
