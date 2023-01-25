@@ -1,6 +1,7 @@
 import { useWallet } from '@solana/wallet-adapter-react';
 import axios from 'axios';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 import { API_BASE_URL } from '../../../utils';
 
 const SetInfo = () => {
@@ -16,50 +17,75 @@ const SetInfo = () => {
     const handleInputChange = (e: any) => {
         const target = e.target;
         const name = target.name;
-        
+
         let genderValue = true;
 
-        setInput((state) => {            
+        setInput((state) => {
             const newState = {
                 ...state,
             };
             newState[name] = name;
-            if(newState[name]  === 'gender') {
-                target.value === 'Wanita' ? genderValue = false : genderValue = true;
+            if (newState[name] === 'gender') {
+                target.value === 'Wanita'
+                    ? (genderValue = false)
+                    : (genderValue = true);
                 newState[name] = genderValue;
-            }
-            else {
+            } else {
                 newState[name] = target.value;
             }
-            
-            console.log(newState);
 
             return newState;
         });
     };
 
+    const resetForm = () => {
+        setInput({
+            email: '',
+            firstName: '',
+            lastName: 1,
+            gender: false,
+        });
+    };
+
     const submitInfo = async () => {
-        let token = localStorage.getItem('token')
-        
+        let token = localStorage.getItem('token');
+
         const headers = {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
+        };
+        if (
+            input.email === '' ||
+            input.firstName === '' ||
+            input.lastName === ''
+        ){
+            return toast.error('Mohon isi seluruh data pada form terlebih dahulu')
         }
-        try {
-            const content = {
-                email: input.email,
-                firstName: input.firstName,
-                lastName: input.lastName,
-                gender: input.gender,
+            try {
+                const content = {
+                    email: input.email,
+                    firstName: input.firstName,
+                    lastName: input.lastName,
+                    gender: input.gender,
+                };
+                console.log(content);
+
+                const resp = await axios.put(
+                    API_BASE_URL + '/v1/users/info/' + publicKey?.toBase58(),
+                    content,
+                    { headers }
+                );
+                if (resp.data.status !== 200) {
+                    toast.error(`Data Gagal Disimpan! Pastikan data baru tidak sama dengan data sebelumnya`);
+                    return;
+                }
+                resetForm();
+                toast.success('Data Berhasil Tersimpan');
+            } catch (e) {
+                console.log(e);
+                toast.error(`Data Gagal Disimpan! Pastikan data sudah ditulis dengan format yang benar`);
+                return;
             }
-            // console.log(content);
-            
-            const resp = await axios.put(
-                API_BASE_URL + '/v1/users/info/' + publicKey?.toBase58(), content, {headers}
-            );
-        } catch(e) {
-            console.log(e);
-            return;
-        }
+        resetForm();
     };
 
     return (
@@ -72,9 +98,9 @@ const SetInfo = () => {
                         text-xs p-2 w-full rounded-[5px] border border-gray-300 hover:bg-gray-100 hover:text-gray-700 focus:outline-none
                         md:text-xl md:p-4 md:rounded-[10px]"
                     type="text"
-                    name='firstName'
+                    name="firstName"
                     onChange={handleInputChange}
-                    // value={input.firstName}
+                    value={input.firstName}
                 />
             </div>
             <div className="mt-2">
@@ -84,9 +110,9 @@ const SetInfo = () => {
                         text-xs p-2 w-full rounded-[5px] border border-gray-300 hover:bg-gray-100 hover:text-gray-700 focus:outline-none
                         md:text-xl md:p-4 md:rounded-[10px]"
                     type="text"
-                    name='lastName'
+                    name="lastName"
                     onChange={handleInputChange}
-                    // value={input.lastName}
+                    value={input.lastName}
                 />
             </div>
             <div className="mt-2">
@@ -96,9 +122,9 @@ const SetInfo = () => {
                         text-xs p-2 w-full rounded-[5px] border border-gray-300 hover:bg-gray-100 hover:text-gray-700 focus:outline-none
                         md:text-xl md:p-4 md:rounded-[10px]"
                     type="text"
-                    name='email'
+                    name="email"
                     onChange={handleInputChange}
-                    // value={input.email}
+                    value={input.email}
                 />
             </div>
             <div className="mt-2">
