@@ -14,7 +14,6 @@ const MainProfile = () => {
     const { smartContract } = useSmartContract();
     const [usdcBalance, setUsdcBalance] = useState(0);
     const [createdCampaign, setCreatedCampaign] = useState(0);
-    
 
     const fetchUsdc = async () => {
         if (!connected || !publicKey) return;
@@ -29,8 +28,8 @@ const MainProfile = () => {
             );
 
         const list = await axios.get(
-                API_BASE_URL + '/v1/campaign/user/' + publicKey.toBase58()
-            );
+            API_BASE_URL + '/v1/campaign/user/' + publicKey.toBase58()
+        );
         setCreatedCampaign(list.data.data.length);
 
         if (tokenAccountInfo !== null) {
@@ -44,8 +43,6 @@ const MainProfile = () => {
             setUsdcBalance(amount);
         }
     };
-
-    
 
     useEffect(() => {
         fetchUsdc();
