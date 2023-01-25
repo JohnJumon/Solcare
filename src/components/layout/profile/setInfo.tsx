@@ -67,7 +67,6 @@ const SetInfo = () => {
                     lastName: input.lastName,
                     gender: input.gender,
                 };
-                console.log(content);
 
                 const resp = await axios.put(
                     API_BASE_URL + '/v1/users/info/' + publicKey?.toBase58(),

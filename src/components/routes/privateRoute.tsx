@@ -1,5 +1,4 @@
 import { useWallet } from '@solana/wallet-adapter-react';
-import { Navigate } from 'react-router-dom';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 
 const PrivateRoute = (props: any) => {
