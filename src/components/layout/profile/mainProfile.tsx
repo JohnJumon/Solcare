@@ -3,15 +3,18 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProfilePlaceholder from '../../../image/profilePic.png';
-import { USDC_DECIMALS, USDC_MINT } from '../../../utils';
+import { API_BASE_URL, USDC_DECIMALS, USDC_MINT } from '../../../utils';
 import * as spl from '@solana/spl-token';
 import { useSmartContract } from '../../../context/connection';
 import { BN } from 'bn.js';
+import axios from 'axios';
 
 const MainProfile = () => {
     const { connected, publicKey } = useWallet();
     const { smartContract } = useSmartContract();
     const [usdcBalance, setUsdcBalance] = useState(0);
+    const [createdCampaign, setCreatedCampaign] = useState(0);
+    
 
     const fetchUsdc = async () => {
         if (!connected || !publicKey) return;
@@ -24,6 +27,12 @@ const MainProfile = () => {
             await smartContract.provider.connection.getAccountInfo(
                 tokenAccountAddress
             );
+
+        const list = await axios.get(
+                API_BASE_URL + '/v1/campaign/user/' + publicKey.toBase58()
+            );
+        setCreatedCampaign(list.data.data.length);
+
         if (tokenAccountInfo !== null) {
             const tokenInfo = spl.unpackAccount(
                 tokenAccountAddress,
@@ -35,6 +44,8 @@ const MainProfile = () => {
             setUsdcBalance(amount);
         }
     };
+
+    
 
     useEffect(() => {
         fetchUsdc();
@@ -92,28 +103,28 @@ const MainProfile = () => {
                 <div className="col-span-1">
                     <p>Total Donasi</p>
                     <div className="text-3xl">
-                        <p>15</p>
+                        <p>xx</p>
                         <p className="text-[15px] leading-none">USDC</p>
                     </div>
                 </div>
                 <div className="col-span-1">
                     <p>Total Pendapatan</p>
                     <div className="text-3xl">
-                        <p>2000</p>
+                        <p>xx</p>
                         <p className="text-[15px] leading-none">USDC</p>
                     </div>
                 </div>
                 <div className="col-span-1">
                     <p>Campaign Yang Didonasi</p>
                     <div className="text-3xl">
-                        <p>2</p>
+                        <p>xx</p>
                         <p className="text-[15px] leading-none">Campaign</p>
                     </div>
                 </div>
                 <div className="col-span-1">
                     <p>Campaign Yang Dibuat</p>
                     <div className="text-3xl">
-                        <p>2</p>
+                        <p>{createdCampaign}</p>
                         <p className="text-[15px] leading-none">Campaign</p>
                     </div>
                 </div>
