@@ -26,6 +26,9 @@ const Donation = ({
     const [amount, setAmount] = useState(1);
 
     const submitDonation = async (e: any) => {
+        if (amount === 0) {
+            return toast.error('Jumlah donasi minimal 1 USDC');
+        }
         if (!connected || !publicKey) return;
 
         const tokenAddress = spl.getAssociatedTokenAddressSync(
