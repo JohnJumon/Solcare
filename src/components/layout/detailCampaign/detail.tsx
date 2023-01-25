@@ -100,7 +100,13 @@ const Detail = (props: any) => {
                 />
             );
         } else if (status == STATUS_NOT_FUNDED) {
-            return <Refund />;
+            return (
+                <Refund
+                    campaignPubkey={new PublicKey(campaign.address)}
+                    donorInfo={props.donor}
+                    refetch={props.refetchDonor}
+                />
+            );
         }
     };
 

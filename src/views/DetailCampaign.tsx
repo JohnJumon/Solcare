@@ -36,6 +36,7 @@ export interface DonorInfo {
     donorAddress: string;
 
     amount: number;
+    refunded: boolean;
 
     vote: VoteInfo | null;
 }
@@ -226,6 +227,7 @@ const DetailCampaign = () => {
                         .div(new BN(Math.pow(10, USDC_DECIMALS)))
                         .toNumber(),
                     vote: vote,
+                    refunded: donorInfo.refunded,
                 });
             }
         }

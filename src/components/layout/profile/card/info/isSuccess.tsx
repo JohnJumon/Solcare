@@ -10,7 +10,7 @@ const IsSuccess: React.FC<CampaignIsSuccessCardProps> = (props) => {
                     DANA TERKUMPUL
                 </p>
                 <p className="text-lg sm:text-3xl mt-2 sm:mt-4 leading-none">
-                    500
+                    {props.collected}
                 </p>
                 <p className="text-[8px] sm:text-[15px] mb-2 sm:mb-4 leading-none">
                     USDC
