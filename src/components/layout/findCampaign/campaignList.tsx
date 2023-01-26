@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { API_BASE_URL, USDC_DECIMALS } from '../../../utils';
+import { API_BASE_URL, PROPOSAL_SEED, USDC_DECIMALS } from '../../../utils';
 import CampaignCard from './card/campaignCard';
 import { useSearchParams, useLocation } from 'react-router-dom';
 import { useSmartContract } from '../../../context/connection';
@@ -20,11 +20,15 @@ interface CampaignInfo {
 }
 
 const CampaignList = () => {
-    const [allCampaigns, setAllCampaigns] = useState<CampaignInfo[]>();
+    const [allCampaigns, setAllCampaigns] = useState<CampaignInfo[]>([]);
 
     const [searchParams, setSearchParams] = useSearchParams();
 
     const [initializing, setInitializing] = useState(true);
+
+    const [ prevCategory, setPrevCategory ] = useState<String | null>();
+    const [ prevFilter, setPrevFilter ] = useState<String | null>();
+    const [ prevSearch, setPrevSearch ] = useState<String | null>();
 
     const [offset, setOffset] = useState(10);
 
@@ -81,8 +85,17 @@ const CampaignList = () => {
         }
 
         setInitializing(false);
-        setAllCampaigns(campaigns);
+        if(prevSearch !== search || prevCategory !== category || prevFilter !== filter){
+            setAllCampaigns(campaigns)
+            setPrevCategory(category)
+            setPrevFilter(filter)
+            setPrevSearch(search)
+        }
+        else{
+            setAllCampaigns(prevState => [...prevState, ...campaigns]);
+        }
         setOffset(offset + 10);
+
     };
 
     const location = useLocation();

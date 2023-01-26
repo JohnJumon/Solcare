@@ -14,7 +14,6 @@ const Category = (props: any) => {
     };
 
     let [searchParams, setSearchParams] = useSearchParams();
-    console.log(searchParams.get("categoryId"))
     return (
         <div className="w-full">
             <Slider {...settings}>
