@@ -26,7 +26,7 @@ const CampaignList = () => {
 
     const [initializing, setInitializing] = useState(true);
 
-    const [offset, setOffset] = useState(0);
+    const [offset, setOffset] = useState(10);
 
     const { smartContract } = useSmartContract();
 
@@ -48,7 +48,7 @@ const CampaignList = () => {
         const response = await axios.get(
             API_BASE_URL +
             '/v1/campaign?' +
-            `categoryId=${category}&order=${filter}&search=${search}`
+            `categoryId=${category}&order=${filter}&search=${search}&offset=${offset}`
         );
         const responseData = response.data.data;
         const campaigns: CampaignInfo[] = [];
