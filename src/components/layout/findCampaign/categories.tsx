@@ -14,7 +14,7 @@ const Category = (props: any) => {
     };
 
     let [searchParams, setSearchParams] = useSearchParams();
-
+    console.log(searchParams.get("categoryId"))
     return (
         <div className="w-full">
             <Slider {...settings}>
@@ -24,10 +24,10 @@ const Category = (props: any) => {
                             <button
                                 className={`
                                 border-solid border-2 border-transparent text-xs font-bold rounded-[10px] p-2 ${
-                                    e.id.toString() !==
-                                    searchParams.get('categoryId')
-                                        ? 'text-[#007BC7] bg-white'
-                                        : 'text-white bg-[#007BC7]'
+                                    (e.id.toString() ===
+                                    searchParams.get('categoryId')) || (e.id.toString() == "0" && searchParams.get('categoryId') == null)
+                                        ? 'text-white bg-[#007BC7]'
+                                        : 'text-[#007BC7] bg-white'
                                 } hover:border-solid hover:border-2 hover:border-[#007BC7]
                             md:p-4 md:text-xl`}
                                 value={e.id}
