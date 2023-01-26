@@ -35,12 +35,14 @@ const Detail = (props: any) => {
     const campaign = props.campaign;
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            setVoteTime(
-                campaign.proposal.createdAt + campaign.proposal.duration - now()
-            );
-        }, 1000);
-        return () => clearInterval(interval);
+        if(campaign.proposal !== null){
+            const interval = setInterval(() => {
+                setVoteTime(
+                    campaign.proposal.createdAt + campaign.proposal.duration - now()
+                );
+            }, 1000);
+            return () => clearInterval(interval);
+        }
     }, []);
 
     useEffect(() => {
