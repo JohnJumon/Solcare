@@ -56,7 +56,7 @@ const CampaignList = () => {
             const campaign = await smartContract.account.campaign.fetchNullable(
                 e.address
             );
-            if (!campaign) return;
+            if (!campaign) continue;
 
             const data: CampaignInfo = {
                 address: e.address,
