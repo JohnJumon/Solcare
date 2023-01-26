@@ -15,6 +15,7 @@ interface ProfileProps {
     address: string;
     profilePicture: string;
     gender: string;
+    email: string;
 
     createdAt: number;
     isVerified: boolean;
@@ -72,6 +73,8 @@ const MainProfile = () => {
     }, []);
 
     if (userInfo !== undefined) {
+        console.log(userInfo);
+
         return (
             <div className="flex flex-col">
                 <div
@@ -91,6 +94,23 @@ const MainProfile = () => {
                         alt="placeholder"
                     />
                     <div className="md:basis-10/12 flex flex-col items-center md:items-start my-4 md:my-0 md:mx-4">
+                        <p
+                            className="text-sm
+                            md:text-base"
+                        >
+                            {userInfo.isWarned ? (
+                                <p className="text-red-600 text-bold">
+                                    Diperingati
+                                </p>
+                            ) : (
+                                <p className="text-green-600 text-bold">
+                                    Belum Diperingati
+                                </p>
+                            )}
+                        </p>
+
+                        <div className="divider my-1" />
+
                         <h2
                             className="text-lg font-bold
                             md:text-xl"
@@ -113,34 +133,28 @@ const MainProfile = () => {
                             className="text-sm
                             md:text-base"
                         >
-                            {userInfo.gender ? 'Pria' : 'Perempuan'}
+                            {userInfo.email === '' ? '-' : userInfo.email}
                         </p>
                         <p
                             className="text-sm
                             md:text-base"
                         >
-                            {userInfo.isVerified
-                                ? 'Terverifikasi'
-                                : 'Belum Terverifikasi'}
+                            {userInfo.gender ? 'Pria' : 'Perempuan'}
                         </p>
                     </div>
                     <p
                         className="text-center text-sm 
-                        md:self-start md:text-right md:basis-1/12
+                        md:self-start md:text-right md:basis-1/12 text-gray-500
                         "
                     >
-                        {userInfo.isWarned ? (
-                            <p className="text-red-600 text-bold">
-                                Diperingati
-                            </p>
-                        ) : (
-                            <p className="text-green-600 text-bold">
-                                Belum Diperingati
-                            </p>
-                        )}
+                        {userInfo.isVerified
+                            ? 'Terverifikasi'
+                            : 'Belum Terverifikasi'}
                     </p>
                 </div>
-                <div className="divider"></div>
+
+                <div className="divider" />
+                
                 <p className="text-left font-bold text-xs sm:text-lg mb-2 sm:mb-4">
                     Saldo Saat Ini
                 </p>

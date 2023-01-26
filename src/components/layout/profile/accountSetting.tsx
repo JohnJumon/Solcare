@@ -69,6 +69,23 @@ const AccountSetting = () => {
                     <input id="dropzone-file" type="file" className="hidden" />
                 </label>
                 <div className="basis-10/12 shrink flex flex-col items-center md:items-start my-4 md:my-0 md:mx-4">
+                    <p
+                        className="text-sm
+                            md:text-base"
+                    >
+                        {userInfo.isWarned ? (
+                            <p className="text-red-600 text-bold">
+                                Diperingati
+                            </p>
+                        ) : (
+                            <p className="text-green-600 text-bold">
+                                Belum Diperingati
+                            </p>
+                        )}
+                    </p>
+
+                    <div className="divider my-1" />
+
                     <h2
                         className="text-lg font-bold
                         md:text-xl"
@@ -88,23 +105,23 @@ const AccountSetting = () => {
                         className="text-sm
                             md:text-base"
                     >
-                        {userInfo.isVerified
-                            ? 'Terverifikasi'
-                            : 'Belum Terverifikasi'}
+                        {userInfo.email === '' ? '-' : userInfo.email}
+                    </p>
+                    <p
+                        className="text-sm
+                            md:text-base"
+                    >
+                        {userInfo.gender ? 'Pria' : 'Perempuan'}
                     </p>
                 </div>
                 <p
                     className="basis-1/12 shrink-0 text-center text-xs 
-                    md:self-start md:text-right md:text-sm
+                    md:self-start md:text-right md:text-sm text-gray-500
                     "
                 >
-                    {userInfo.isWarned ? (
-                        <p className="text-red-600 text-bold">Diperingati</p>
-                    ) : (
-                        <p className="text-green-600 text-bold">
-                            Belum Diperingati
-                        </p>
-                    )}
+                    {userInfo.isVerified
+                        ? 'Terverifikasi'
+                        : 'Belum Terverifikasi'}
                 </p>
             </div>
             <div className="divider"></div>
