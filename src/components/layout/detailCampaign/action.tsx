@@ -1,11 +1,54 @@
+import { useWallet } from '@solana/wallet-adapter-react';
+import axios from 'axios';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { API_BASE_URL } from '../../../utils';
 
-const Action = () => {
+const Action = ({ campaignAddress }: { campaignAddress: string }) => {
     function saveURL() {
         let url = window.location.href;
         navigator.clipboard.writeText(url);
         toast.success('URL copied to clipboard');
     }
+
+    const [description, setDescription] = useState('');
+    const { connected, publicKey } = useWallet();
+
+    const submitReport = async () => {
+        if (!connected || !publicKey) return;
+
+        try {
+            const resp = await axios.post(
+                API_BASE_URL + '/v1/report',
+                {
+                    campaignAddress: campaignAddress,
+                    description: description,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem(
+                            'token'
+                        )}`,
+                    },
+                }
+            );
+
+            if (resp.data.status === 200) {
+                toast.success('Berhasil membuat laporan');
+                setDescription('');
+                (
+                    document.getElementById('my-modal-4') as HTMLInputElement
+                ).checked = false;
+            } else {
+                console.log('Error: ', resp);
+                toast.error('Gagal membuat laporan');
+            }
+        } catch (e) {
+            console.log('Catch error: ', e);
+            toast.error('Gagal membuat laporan');
+        }
+    };
+
     return (
         <div className="flex flex-row mb-3 pl-12 md:mb-6">
             <button>
@@ -53,6 +96,8 @@ const Action = () => {
                             Buat Laporan
                         </h1>
                         <textarea
+                            onChange={(e) => setDescription(e.target.value)}
+                            value={description}
                             className="w-full text-black border rounded-[5px] text-[8px] max-h-[100px] md:h-[16rem] md:max-h-[22rem] border-gray-300 hover:bg-gray-100 hover:text-gray-700 focus:outline-none md:text-[15px] md:rounded-[10px] mb-1 md:mb-2 p-2 md:p-4"
                             placeholder="Isi laporan..."
                         />
@@ -66,7 +111,7 @@ const Action = () => {
                             <label
                                 className="basis-6/12 md:basis-3/12 rounded-[5px] md:rounded-[10px] p-2 md:p-4 text-[8px] md:text-[15px] ml-1 md:ml-2 bg-[#007BC7] border border-2 border-white hover:bg-[#007BC7] hover:border-[#007BC7]"
                                 onClick={() => {
-                                    console.log('Send');
+                                    submitReport();
                                 }}
                             >
                                 Kirim

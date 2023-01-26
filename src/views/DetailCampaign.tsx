@@ -254,7 +254,7 @@ const DetailCampaign = () => {
         <main className="max-w-screen-xl mx-auto">
             <div>
                 <BannerContainer campaign={detail} />
-                <Action />
+                <Action campaignAddress={detail.address} />
                 <Detail
                     donor={donor}
                     campaign={detail}
