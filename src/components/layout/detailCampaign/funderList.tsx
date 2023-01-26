@@ -3,7 +3,7 @@ import { SetStateAction, useEffect, useState } from 'react';
 import { useSmartContract } from '../../../context/connection';
 import { ACCOUNT_DISCRIMINATOR_SIZE, BN, utils } from '@project-serum/anchor';
 import { PublicKey } from '@solana/web3.js';
-import { USDC_DECIMALS } from '../../../utils';
+import { API_BASE_URL, USDC_DECIMALS } from '../../../utils';
 
 export interface FunderInfo {
     address: string;
@@ -11,6 +11,7 @@ export interface FunderInfo {
     name: string;
     amount: number;
     date: number;
+    profilePicture: string;
 }
 
 const FunderList = ({ funders }: { funders: FunderInfo[] }) => {
@@ -37,7 +38,11 @@ const FunderList = ({ funders }: { funders: FunderInfo[] }) => {
                             className="
                             w-8 h-8 rounded-full
                             md:w-16 md:h-16"
-                            src={ProfilePlaceholder}
+                            src={
+                                funders[i].profilePicture === ''
+                                    ? ProfilePlaceholder
+                                    : `${API_BASE_URL}/resources/${funders[i].profilePicture}`
+                            }
                             alt="placeholder"
                         />
                         <div
