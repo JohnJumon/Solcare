@@ -23,6 +23,7 @@ const MoneyProposalButton = ({
     const navigate = useNavigate();
 
     const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+    const [uploadedFileName, setUploadedFileName] = useState();
 
     const toastDone = () => {
         if (toastId.current) toast.done(toastId.current);
@@ -36,6 +37,9 @@ const MoneyProposalButton = ({
             toast.error(
                 'kamu harus memilih file untuk diupload terlebih dahulu!'
             );
+            return;
+        } else if (uploadedFile.type !== 'application/pdf') {
+            toast.error('Format file invalid');
             return;
         }
 
@@ -108,6 +112,19 @@ const MoneyProposalButton = ({
         navigate('/campaign/' + campaignAddress);
     };
 
+    const handleInputChange = (e: any) => {
+        const target = e.target;
+        let file = target.files[0];
+        if (file.type !== 'application/pdf') {
+            toast.error('Format file invalid');
+            return;
+        } else {
+            setUploadedFileName(file.name);
+            setUploadedFile(e.target.files?.item(0) || null);
+            return;
+        }
+    };
+
     return (
         <div className="flex flex-col">
             <label
@@ -159,12 +176,15 @@ const MoneyProposalButton = ({
                                     id="dropzone-file"
                                     type="file"
                                     className="hidden"
-                                    onChange={(e) => {
-                                        setUploadedFile(
-                                            e.target.files?.item(0) || null
-                                        );
-                                    }}
+                                    accept="application/pdf"
+                                    onChange={handleInputChange}
                                 />
+                                <p
+                                    id="address-tag"
+                                    className="px-4 text-center text-xs md:text-base"
+                                >
+                                    {uploadedFileName}
+                                </p>
                             </div>
                         </label>
                         <div className="flex flex-row justify-end font-bold text-white text-center">

@@ -43,8 +43,10 @@ const AccountSetting = () => {
         let file = target.files[0];
         if (file.type === 'image/png' || file.type === 'image/jpeg') {
             setUploadedAvatar(file.name);
+            return;
         } else {
             toast.error('Format file invalid');
+            return;
         }
     };
 
