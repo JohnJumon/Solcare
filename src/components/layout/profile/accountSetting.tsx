@@ -38,15 +38,47 @@ const AccountSetting = () => {
         fetchUser();
     }, []);
 
-    const handleInputChange = (e: any) => {
+    const [input, setInput] = useState<{ [string: string]: any }>({
+        picture: null,
+    });
+
+    const handleInputChange = async (e: any) => {
         const target = e.target;
         let file = target.files[0];
         if (file.type === 'image/png' || file.type === 'image/jpeg') {
             setUploadedAvatar(file.name);
-            return;
+            setInput(file);
         } else {
             toast.error('Format file invalid');
-            return;
+        }
+
+        let token = localStorage.getItem('token');
+        const headers = {
+            Authorization: `Bearer ${token}`,
+        };
+
+        const formData = new FormData();
+        formData.append('picture', file);        
+
+        try {
+            const resp = await axios.put(
+                `${API_BASE_URL}/v1/users/avatar/${publicKey?.toBase58()}`,
+                formData,
+                { headers }
+            );
+            
+            if (resp.data.status !== 200) {
+                toast.error(
+                    `Profile picture gagal disimpan!`
+                );
+                return;
+            }
+            toast.success('Profile picture berhasil disimpan!')
+        } catch (e) {
+            console.log(e);
+            toast.error(
+                `Profile picture gagal disimpan!`
+            );
         }
     };
 
@@ -88,7 +120,7 @@ const AccountSetting = () => {
                         onChange={handleInputChange}
                         accept="image/png, image/jpeg"
                     />
-                    <p
+                    <div
                         id="address-tag"
                         className="text-center text-xs md:text-base"
                     >
@@ -99,7 +131,7 @@ const AccountSetting = () => {
                                 {uploadedAvatar}
                             </p>
                         )}
-                    </p>
+                    </div>
                 </label>
                 <div className="basis-10/12 shrink flex flex-col items-center md:items-start my-4 md:my-0 md:mx-4">
                     <p

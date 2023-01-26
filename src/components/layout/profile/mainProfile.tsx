@@ -87,7 +87,7 @@ const MainProfile = () => {
                         src={
                             userInfo.profilePicture === ''
                                 ? ProfilePlaceholder
-                                : userInfo.profilePicture
+                                : `${API_BASE_URL}/resources/${userInfo.profilePicture}`
                         }
                         alt="placeholder"
                     />
@@ -152,7 +152,7 @@ const MainProfile = () => {
                 </div>
 
                 <div className="divider" />
-                
+
                 <p className="text-left font-bold text-xs sm:text-lg mb-2 sm:mb-4">
                     Saldo Saat Ini
                 </p>
