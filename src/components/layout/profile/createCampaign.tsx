@@ -74,7 +74,7 @@ const CreateCampaign = () => {
             let file = target.files[0];
 
             if (file.type === 'image/png' || file.type === 'image/jpeg') {
-                setUploadedPic(target.files[0].name);
+                setUploadedPic(file.name);
             } else {
                 toast.error('Format file invalid');
             }
