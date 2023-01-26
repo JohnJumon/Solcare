@@ -7,7 +7,7 @@ import {
     Tooltip,
     Legend,
     ArcElement,
-    Colors
+    Colors,
 } from 'chart.js';
 import { Bar, Pie } from 'react-chartjs-2';
 
@@ -26,16 +26,20 @@ ChartJS.defaults.scale.grid.display = false;
 
 const options = {
     scales: {
-        x: [{
-            grid: {
-                display: false
-            }
-        }],
-        y: [{
-            grid: {
-                display: false
-            }
-        }]
+        x: [
+            {
+                grid: {
+                    display: false,
+                },
+            },
+        ],
+        y: [
+            {
+                grid: {
+                    display: false,
+                },
+            },
+        ],
     },
     responsive: true,
     plugins: {
@@ -59,7 +63,7 @@ const data = {
 };
 
 const VerticalBarChart = () => {
-    return <Bar height={200} options={options} data={data} />
+    return <Bar height={200} options={options} data={data} />;
 };
 
 export default VerticalBarChart;

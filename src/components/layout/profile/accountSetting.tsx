@@ -11,7 +11,8 @@ interface ProfileProps {
     lastName: string;
     address: string;
     profilePicture: string;
-    gender: string;
+    gender: boolean;
+    email: string;
 
     createdAt: number;
     isVerified: boolean;
@@ -38,6 +39,7 @@ const AccountSetting = () => {
     if (userInfo === undefined) {
         return null;
     }
+
     return (
         <div className="flex flex-col">
             <div
@@ -107,7 +109,13 @@ const AccountSetting = () => {
             </div>
             <div className="divider"></div>
             <KYC />
-            <SetInfo />
+            <SetInfo
+                refetch={fetchUser}
+                email={userInfo.email}
+                firstName={userInfo.firstName}
+                gender={userInfo.gender}
+                lastName={userInfo.lastName}
+            />
         </div>
     );
 };

@@ -7,7 +7,7 @@ import {
     Tooltip,
     Legend,
     ArcElement,
-    Colors
+    Colors,
 } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 
@@ -45,7 +45,7 @@ const options = {
 };
 
 const PieChart = () => {
-    return (<Pie options={options} data={data} />);
-};  
+    return <Pie options={options} data={data} />;
+};
 
 export default PieChart;

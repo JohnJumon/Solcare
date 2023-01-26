@@ -185,7 +185,7 @@ const MainProfile = () => {
                 </div>
             </div>
         );
-    } 
+    }
     return <></>;
 };
 

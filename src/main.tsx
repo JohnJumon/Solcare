@@ -29,12 +29,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                         }
                     />
                     <Route path="/" element={<Home />} />
-                    <Route
-                        path="/admin"
-                        element={
-                                <Admin />
-                        }
-                    />
+                    <Route path="/admin" element={<Admin />} />
                     <Route path="/explore" element={<FindCampaign />} />
                     <Route path="/campaign/:id" element={<DetailCampaign />} />
                     <Route

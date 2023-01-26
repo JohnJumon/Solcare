@@ -7,7 +7,7 @@ import {
     Tooltip,
     Legend,
     ArcElement,
-    Colors
+    Colors,
 } from 'chart.js';
 import { Bar, Pie } from 'react-chartjs-2';
 
@@ -33,34 +33,39 @@ const options = {
         y: {
             stacked: true,
             ticks: {
-                display: false
-            }
+                display: false,
+            },
         },
     },
     responsive: false,
     plugins: {
         legend: {
-            display: false
+            display: false,
         },
     },
     maintainAspectRatio: false,
 };
 
-
 const HorizontalStackedBarChart = (props: any) => {
-    return (<Bar options={options}
-        data={{
-            labels: [props.title], datasets: [
-                {
-                    label: 'Hari Ini',
-                    data: [100],
-                },
-                {
-                    label: 'Semalam',
-                    data: [200],
-                },
-            ],
-        }} height={50}/>)
+    return (
+        <Bar
+            options={options}
+            data={{
+                labels: [props.title],
+                datasets: [
+                    {
+                        label: 'Hari Ini',
+                        data: [100],
+                    },
+                    {
+                        label: 'Semalam',
+                        data: [200],
+                    },
+                ],
+            }}
+            height={50}
+        />
+    );
 };
 
 export default HorizontalStackedBarChart;

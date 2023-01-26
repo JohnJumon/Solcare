@@ -4,21 +4,19 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { API_BASE_URL } from '../../../utils';
 
-const SetInfo = () => {
+const SetInfo = (props: any) => {
     const { publicKey } = useWallet();
 
     const [input, setInput] = useState<{ [string: string]: any }>({
-        email: '',
-        firstName: '',
-        lastName: '',
-        gender: false,
+        email: props.email,
+        firstName: props.firstName,
+        lastName: props.lastName,
+        gender: props.gender,
     });
 
     const handleInputChange = (e: any) => {
         const target = e.target;
         const name = target.name;
-
-        let genderValue = true;
 
         setInput((state) => {
             const newState = {
@@ -26,24 +24,12 @@ const SetInfo = () => {
             };
             newState[name] = name;
             if (newState[name] === 'gender') {
-                target.value === 'Wanita'
-                    ? (genderValue = false)
-                    : (genderValue = true);
-                newState[name] = genderValue;
+                newState[name] = target.value === 'Wanita' ? false : true;
             } else {
                 newState[name] = target.value;
             }
 
             return newState;
-        });
-    };
-
-    const resetForm = () => {
-        setInput({
-            email: '',
-            firstName: '',
-            lastName: 1,
-            gender: false,
         });
     };
 
@@ -57,34 +43,39 @@ const SetInfo = () => {
             input.email === '' ||
             input.firstName === '' ||
             input.lastName === ''
-        ){
-            return toast.error('Mohon isi seluruh data pada form terlebih dahulu')
+        ) {
+            return toast.error(
+                'Mohon isi seluruh data pada form terlebih dahulu'
+            );
         }
-            try {
-                const content = {
-                    email: input.email,
-                    firstName: input.firstName,
-                    lastName: input.lastName,
-                    gender: input.gender,
-                };
+        try {
+            const content = {
+                email: input.email,
+                firstName: input.firstName,
+                lastName: input.lastName,
+                gender: input.gender,
+            };
 
-                const resp = await axios.put(
-                    API_BASE_URL + '/v1/users/info/' + publicKey?.toBase58(),
-                    content,
-                    { headers }
+            const resp = await axios.put(
+                API_BASE_URL + '/v1/users/info/' + publicKey?.toBase58(),
+                content,
+                { headers }
+            );
+            if (resp.data.status !== 200) {
+                toast.error(
+                    `Data Gagal Disimpan! Pastikan data baru tidak sama dengan data sebelumnya`
                 );
-                if (resp.data.status !== 200) {
-                    toast.error(`Data Gagal Disimpan! Pastikan data baru tidak sama dengan data sebelumnya`);
-                    return;
-                }
-                resetForm();
-                toast.success('Data Berhasil Tersimpan');
-            } catch (e) {
-                console.log(e);
-                toast.error(`Data Gagal Disimpan! Pastikan data sudah ditulis dengan format yang benar`);
                 return;
             }
-        resetForm();
+            props.refetch();
+            toast.success('Data Berhasil Tersimpan');
+        } catch (e) {
+            console.log(e);
+            toast.error(
+                `Data Gagal Disimpan! Pastikan data sudah ditulis dengan format yang benar`
+            );
+            return;
+        }
     };
 
     return (
@@ -135,6 +126,7 @@ const SetInfo = () => {
                             type="radio"
                             value="Pria"
                             name="gender"
+                            checked={input.gender == true}
                             onChange={handleInputChange}
                             className="w-2 h-2 md:w-4 md:h-4 text-[#007BC7] bg-gray-100 border-gray-300"
                         />
@@ -151,6 +143,7 @@ const SetInfo = () => {
                             type="radio"
                             value="Wanita"
                             name="gender"
+                            checked={input.gender == false}
                             onChange={handleInputChange}
                             className="w-2 h-2 md:w-4 md:h-4 text-[#007BC7] bg-gray-100 border-gray-300"
                         />
