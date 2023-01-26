@@ -160,6 +160,16 @@ const DetailCampaign = () => {
         });
     };
 
+    const fetchUser = async (props: any) => {
+        const resp = await axios.get(
+            `${API_BASE_URL}/v1/users/info/${props}`
+        );
+        // console.log(resp.data.data);
+        if(resp.data.status === 200){
+            return resp.data.data
+        }
+    };
+
     const fetchFunders = async () => {
         const donors = await smartContract.account.donor.all([
             {
@@ -174,6 +184,12 @@ const DetailCampaign = () => {
 
         setFunders(
             donors.map((e) => {
+                let user = fetchUser(e.account.donor.toBase58());
+                console.log(user);
+                
+                // console.log(typeof(user));
+                
+                
                 return {
                     address: e.publicKey.toBase58(),
                     owner: e.account.donor.toBase58(),
