@@ -73,8 +73,6 @@ const MainProfile = () => {
     }, []);
 
     if (userInfo !== undefined) {
-        console.log(userInfo);
-
         return (
             <div className="flex flex-col">
                 <div

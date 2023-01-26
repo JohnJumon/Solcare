@@ -22,6 +22,8 @@ const CreateCampaign = () => {
     const { smartContract } = useSmartContract();
     const toastId = useRef<Id | null>(null);
 
+    const [uploadedPic, setUploadedPic] = useState();
+
     const [input, setInput] = useState<{ [string: string]: any }>({
         title: '',
         description: '',
@@ -67,6 +69,16 @@ const CreateCampaign = () => {
             newState[name] = name === 'banner' ? target.files[0] : target.value;
             return newState;
         });
+
+        if (name === 'banner') {
+            let file = target.files[0];
+
+            if (file.type === 'image/png' || file.type === 'image/jpeg') {
+                setUploadedPic(target.files[0].name);
+            } else {
+                toast.error('Format file invalid');
+            }
+        }
     };
 
     const submitForm = async () => {
@@ -292,7 +304,14 @@ const CreateCampaign = () => {
                                 className="hidden"
                                 value={input.banner?.webkitRelativePath}
                                 onChange={handleInputChange}
+                                accept="image/png, image/jpeg"
                             />
+                            <p
+                                id="address-tag"
+                                className="px-4 text-center text-xs md:text-base"
+                            >
+                                {uploadedPic}
+                            </p>
                         </div>
                     </label>
                 </div>
