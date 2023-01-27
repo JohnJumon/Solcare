@@ -30,7 +30,7 @@ const CampaignList = () => {
     const [ prevFilter, setPrevFilter ] = useState<String | null>();
     const [ prevSearch, setPrevSearch ] = useState<String | null>();
 
-    const [offset, setOffset] = useState(10);
+    const [offset, setOffset] = useState(0);
 
     const { smartContract } = useSmartContract();
 
@@ -94,7 +94,7 @@ const CampaignList = () => {
         else{
             setAllCampaigns(prevState => [...prevState, ...campaigns]);
         }
-        setOffset(offset + 10);
+        setOffset(offset + 20);
 
     };
 
