@@ -44,12 +44,13 @@ const CampaignList = () => {
         search = '';
     }
 
-    const fetchAllCampaign = async () => {
-        console.log(offset)
+    const fetchAllCampaign = async (isFilterChanged = false) => {
         const response = await axios.get(
             API_BASE_URL +
-            '/v1/campaign?' +
-            `categoryId=${category}&order=${filter}&search=${search}&offset=${offset}`
+                '/v1/campaign?' +
+                `categoryId=${category}&order=${filter}&search=${search}&offset=${
+                    isFilterChanged ? 0 : offset
+                }`
         );
 
         const responseData = response.data.data;
@@ -81,17 +82,22 @@ const CampaignList = () => {
 
             campaigns.push(data);
         }
-        setInitializing(false);
-        setOffset(+20);
-        setAllCampaigns(prevState => [...prevState, ...campaigns])
+        if (isFilterChanged) {
+            setOffset(responseData?.length || 0);
+            setAllCampaigns(campaigns);
+        } else {
+            setOffset((currOffset) => currOffset + (responseData?.length || 0));
+            setAllCampaigns((prevState) => [...prevState, ...campaigns]);
+        }
     };
 
     const location = useLocation();
 
     useEffect(() => {
-        setOffset(0)
-        setAllCampaigns([]);
-        fetchAllCampaign()
+        setInitializing(true);
+        fetchAllCampaign(true).finally(() => {
+            setInitializing(false);
+        });
     }, [location]);
 
     if (initializing === true) {
@@ -117,7 +123,7 @@ const CampaignList = () => {
                 </div>
                 <button
                     className="mt-8 stroke-black hover:stroke-[rgba(0,123,199,1)]"
-                    onClick={fetchAllCampaign}
+                    onClick={() => fetchAllCampaign()}
                 >
                     <svg
                         width="32"

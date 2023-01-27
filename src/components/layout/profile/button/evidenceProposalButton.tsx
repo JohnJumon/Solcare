@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
-
 const EvidenceProposalButton = () => {
     const [uploadedFileName, setUploadedFileName] = useState();
 

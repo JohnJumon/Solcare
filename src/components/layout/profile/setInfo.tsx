@@ -56,7 +56,6 @@ const SetInfo = (props: any) => {
                 gender: input.gender,
             };
             console.log(content);
-            
 
             const resp = await axios.put(
                 API_BASE_URL + '/v1/users/info/' + publicKey?.toBase58(),
@@ -70,7 +69,7 @@ const SetInfo = (props: any) => {
                 return;
             }
             props.refetch();
-            
+
             toast.success('Data Berhasil Tersimpan');
         } catch (e) {
             console.log(e);
