@@ -1,19 +1,41 @@
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import ProfilePlaceholder from '../../../image/profilePic.png';
+import { API_BASE_URL } from '../../../utils';
+
+export interface FundraiserInfo {
+    address: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    profilePicture: string;
+
+    isVerified: boolean;
+    isWarned: boolean;
+}
 
 const FundraiserInfo = (props: any) => {
     const [initializing, setInitializing] = useState(true);
 
-    let content = props.campaign;
+    const [fundraiserData, setFundraiserData] = useState<FundraiserInfo>();
+    let campaign = props.campaign;
+
+    const fetchFundraiser = async () => {
+        const resp = await axios.get(
+            `${API_BASE_URL}/v1/users/info/${campaign.ownerAddress}`
+        );
+
+        if (resp.data.status === 200) {
+            setFundraiserData(resp.data.data);
+        }
+    };
 
     useEffect(() => {
         setInitializing(false);
+        fetchFundraiser();
     }, []);
 
-    const fundraiserName = '';
-    const fundraiserEmail = '';
-
-    if (initializing === true) {
+    if (initializing === true || fundraiserData === undefined) {
         return null;
     }
     return (
@@ -43,17 +65,40 @@ const FundraiserInfo = (props: any) => {
                         className="
                         w-8 h-8 rounded-full
                         md:w-32 md:h-32"
-                        src={ProfilePlaceholder}
+                        src={
+                            fundraiserData.profilePicture === ''
+                                ? ProfilePlaceholder
+                                : `${API_BASE_URL}/resources/${fundraiserData.profilePicture}`
+                        }
                         alt="placeholder"
                     />
-                    <p
+                    <div
+                        className="
+                        text-[8px]
+                        md:text-[15px] mt-2"
+                    >
+                        {fundraiserData.isWarned ? (
+                            <p className="text-red-600 text-bold">
+                                Diperingati
+                            </p>
+                        ) : (
+                            <p className="text-green-600 text-bold">
+                                Belum Diperingati
+                            </p>
+                        )}
+                    </div>
+                    <div
                         className="
                         text-[8px]
                         md:text-[15px]"
                     >
-                        Status
-                    </p>
+                        {fundraiserData.isVerified
+                            ? 'Terverifikasi'
+                            : 'Belum Terverifikasi'}
+                    </div>
                 </div>
+                <div className="divider" />
+
                 <div
                     className="
                     flex flex-col pl-1
@@ -66,7 +111,10 @@ const FundraiserInfo = (props: any) => {
                         md:text-xl"
                     >
                         {/* Nama Fundraiser */}
-                        {fundraiserName === '' ? '-' : fundraiserName}
+                        {fundraiserData.firstName === '' ||
+                        fundraiserData.lastName === ''
+                            ? '-'
+                            : `${fundraiserData.firstName} ${fundraiserData.lastName}`}
                     </p>
                     <p
                         id="address-tag"
@@ -75,7 +123,7 @@ const FundraiserInfo = (props: any) => {
                         md:text-[15px]"
                     >
                         {/* Wallet Fundraiser */}
-                        {content.ownerAddress}
+                        {campaign.ownerAddress}
                     </p>
                     <p
                         className="
@@ -83,7 +131,9 @@ const FundraiserInfo = (props: any) => {
                         md:text-[15px]"
                     >
                         {/* E-mail Fundraiser */}
-                        {fundraiserEmail === '' ? '-' : fundraiserEmail}
+                        {fundraiserData.email === ''
+                            ? '-'
+                            : fundraiserData.email}
                     </p>
                 </div>
             </div>

@@ -23,6 +23,7 @@ const ProfileDrawer = (props: any) => {
                 <input
                     type="checkbox"
                     className="drawer-toggle"
+                    readOnly
                     checked={currentDrawerStatus}
                 />
                 <div className="drawer-content flex flex-col items-start justify-start ml-12 mr-12 max-[1023px]:pt-[25px] pr-4 lg:pl-6 lg:!z-20">
@@ -89,7 +90,7 @@ const ProfileDrawer = (props: any) => {
                                 onClick={handleClick}
                                 className="active:bg-[#007BC7] stroke-black active:stroke-white"
                             >
-                                <a className="text-lg font-bold flex items-center">
+                                <div className="text-lg font-bold flex items-center">
                                     <span className="pr-1">
                                         <svg
                                             width="24"
@@ -119,7 +120,7 @@ const ProfileDrawer = (props: any) => {
                                         </svg>
                                     </span>{' '}
                                     <span>Profile</span>
-                                </a>
+                                </div>
                             </Link>
                         </li>
                         <li>
@@ -128,7 +129,7 @@ const ProfileDrawer = (props: any) => {
                                 onClick={handleClick}
                                 className="active:bg-[#007BC7] stroke-black active:stroke-white"
                             >
-                                <a className="text-lg font-bold flex items-center">
+                                <div className="text-lg font-bold flex items-center">
                                     <span className="pr-1">
                                         <svg
                                             width="24"
@@ -164,7 +165,7 @@ const ProfileDrawer = (props: any) => {
                                         </svg>
                                     </span>{' '}
                                     <span>Campaign Anda</span>
-                                </a>
+                                </div>
                             </Link>
                         </li>
                         <li>
@@ -173,7 +174,7 @@ const ProfileDrawer = (props: any) => {
                                 onClick={handleClick}
                                 className="active:bg-[#007BC7] stroke-black active:stroke-white"
                             >
-                                <a className="text-lg font-bold flex items-center">
+                                <div className="text-lg font-bold flex items-center">
                                     <span className="pr-1">
                                         <svg
                                             width="24"
@@ -209,7 +210,7 @@ const ProfileDrawer = (props: any) => {
                                         </svg>
                                     </span>{' '}
                                     <span>Riwayat Transaksi</span>
-                                </a>
+                                </div>
                             </Link>
                         </li>
                         <li>
@@ -218,7 +219,7 @@ const ProfileDrawer = (props: any) => {
                                 onClick={handleClick}
                                 className="active:bg-[#007BC7] stroke-black active:stroke-white"
                             >
-                                <a className="text-lg font-bold flex items-center">
+                                <div className="text-lg font-bold flex items-center">
                                     <span className="pr-1">
                                         <svg
                                             className=""
@@ -243,7 +244,7 @@ const ProfileDrawer = (props: any) => {
                                         </svg>
                                     </span>{' '}
                                     <span>Pengaturan Akun</span>
-                                </a>
+                                </div>
                             </Link>
                         </li>
                     </ul>
