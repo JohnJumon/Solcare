@@ -26,10 +26,6 @@ const CampaignList = () => {
 
     const [initializing, setInitializing] = useState(true);
 
-    const [prevCategory, setPrevCategory] = useState<String | null>();
-    const [prevFilter, setPrevFilter] = useState<String | null>();
-    const [prevSearch, setPrevSearch] = useState<String | null>();
-
     const [offset, setOffset] = useState(0);
 
     const { smartContract } = useSmartContract();
@@ -49,23 +45,13 @@ const CampaignList = () => {
     }
 
     const fetchAllCampaign = async () => {
-        let response;
-        if(prevSearch !== search || prevCategory !== category || prevFilter !== filter){
-            setOffset(0)
-            response = await axios.get(
-                API_BASE_URL +
-                '/v1/campaign?' +
-                `categoryId=${category}&order=${filter}&search=${search}&offset=${0}`
-            );
-        }
-        else {
-            response = await axios.get(
-                API_BASE_URL +
-                '/v1/campaign?' +
-                `categoryId=${category}&order=${filter}&search=${search}&offset=${offset}`
-            );
-        };
-        
+        console.log(offset)
+        const response = await axios.get(
+            API_BASE_URL +
+            '/v1/campaign?' +
+            `categoryId=${category}&order=${filter}&search=${search}&offset=${offset}`
+        );
+
         const responseData = response.data.data;
         const campaigns: CampaignInfo[] = [];
 
@@ -95,27 +81,17 @@ const CampaignList = () => {
 
             campaigns.push(data);
         }
-
         setInitializing(false);
-        if (
-            prevSearch !== search ||
-            prevCategory !== category ||
-            prevFilter !== filter
-        ) {
-            setAllCampaigns(campaigns);
-            setPrevCategory(category);
-            setPrevFilter(filter);
-            setPrevSearch(search);
-        } else {
-            setAllCampaigns((prevState) => [...prevState, ...campaigns]);
-        }
-        setOffset(offset + 20);
+        setOffset(+20);
+        setAllCampaigns(prevState => [...prevState, ...campaigns])
     };
 
     const location = useLocation();
 
     useEffect(() => {
-        fetchAllCampaign();
+        setOffset(0)
+        setAllCampaigns([]);
+        fetchAllCampaign()
     }, [location]);
 
     if (initializing === true) {
