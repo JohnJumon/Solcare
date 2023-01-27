@@ -117,6 +117,16 @@ const FundraiserInfo = (props: any) => {
                             : `${fundraiserData.firstName} ${fundraiserData.lastName}`}
                     </p>
                     <p
+                        className="
+                        text-[8px]
+                        md:text-[15px] mb-2"
+                    >
+                        {/* E-mail Fundraiser */}
+                        {fundraiserData.email === ''
+                            ? '-'
+                            : fundraiserData.email}
+                    </p>
+                    <p
                         id="address-tag"
                         className="
                         text-[8px]
@@ -124,16 +134,6 @@ const FundraiserInfo = (props: any) => {
                     >
                         {/* Wallet Fundraiser */}
                         {campaign.ownerAddress}
-                    </p>
-                    <p
-                        className="
-                        text-[8px]
-                        md:text-[15px]"
-                    >
-                        {/* E-mail Fundraiser */}
-                        {fundraiserData.email === ''
-                            ? '-'
-                            : fundraiserData.email}
                     </p>
                 </div>
             </div>
