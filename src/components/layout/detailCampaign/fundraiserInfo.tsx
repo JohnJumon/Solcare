@@ -82,9 +82,7 @@ const FundraiserInfo = (props: any) => {
                                 Diperingati
                             </p>
                         ) : (
-                            <p className="text-green-600 text-bold">
-                                Belum Diperingati
-                            </p>
+                            <> </>
                         )}
                     </div>
                     <div
