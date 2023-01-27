@@ -49,11 +49,23 @@ const CampaignList = () => {
     }
 
     const fetchAllCampaign = async () => {
-        const response = await axios.get(
-            API_BASE_URL +
-            '/v1/campaign?' +
-            `categoryId=${category}&order=${filter}&search=${search}&offset=${offset}`
-        );
+        let response;
+        if(prevSearch !== search || prevCategory !== category || prevFilter !== filter){
+            setOffset(0)
+            response = await axios.get(
+                API_BASE_URL +
+                '/v1/campaign?' +
+                `categoryId=${category}&order=${filter}&search=${search}&offset=${0}`
+            );
+        }
+        else {
+            response = await axios.get(
+                API_BASE_URL +
+                '/v1/campaign?' +
+                `categoryId=${category}&order=${filter}&search=${search}&offset=${offset}`
+            );
+        };
+        
         const responseData = response.data.data;
         const campaigns: CampaignInfo[] = [];
 
