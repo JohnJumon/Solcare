@@ -58,8 +58,15 @@ const CampaignCard = (props: any) => {
                     </h1>
 
                     {campaign.collected === campaign.target ? (
-                        <p className='text-xs
-                        xl:text-base'><b className='text-green-600'>{campaign.collected} USDC</b> berhasil terkumpul</p>
+                        <p
+                            className="text-xs
+                        xl:text-base"
+                        >
+                            <b className="text-green-600">
+                                {campaign.collected} USDC
+                            </b>{' '}
+                            berhasil terkumpul
+                        </p>
                     ) : (
                         <div className="grid grid-cols-5 gap-4 mb-3 items-center">
                             <div
@@ -77,7 +84,7 @@ const CampaignCard = (props: any) => {
                                                 Math.min(
                                                     100,
                                                     (campaign.collected /
-                                                    campaign.target) *
+                                                        campaign.target) *
                                                         100
                                                 )
                                             ).toString() + '%',

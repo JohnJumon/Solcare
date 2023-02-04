@@ -57,7 +57,7 @@ const CollectedFund = (props: any) => {
                     <span className="text-[7.5px]">USDC</span>
                 </b>
             </p>
-            
+
             {campaign.collected === campaign.target ? (
                 <></>
             ) : (
