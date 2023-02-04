@@ -17,7 +17,7 @@ export interface FunderInfo {
 const FunderList = ({ funders }: { funders: FunderInfo[] }) => {
     const [page, setPage] = useState('1');
 
-    const ITEM_PER_PAGE = 5;
+    const ITEM_PER_PAGE = 5;    
 
     const generateTable = (page: number) => {
         let rows = [];
@@ -39,7 +39,7 @@ const FunderList = ({ funders }: { funders: FunderInfo[] }) => {
                             w-8 h-8 rounded-full
                             md:w-16 md:h-16"
                             src={
-                                funders[i].profilePicture === ''
+                                funders[i].profilePicture === '' || funders[i].profilePicture === undefined 
                                     ? ProfilePlaceholder
                                     : `${API_BASE_URL}/resources/${funders[i].profilePicture}`
                             }

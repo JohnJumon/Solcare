@@ -92,7 +92,7 @@ const MainProfile = () => {
                         alt="placeholder"
                     />
                     <div className="md:basis-10/12 flex flex-col items-center md:items-start my-4 md:my-0 md:mx-4">
-                        <p
+                        <div
                             className="text-sm
                             md:text-base"
                         >
@@ -105,7 +105,7 @@ const MainProfile = () => {
                                     Belum Diperingati
                                 </p>
                             )}
-                        </p>
+                        </div>
 
                         <div className="divider my-1" />
 

@@ -91,6 +91,7 @@ const MyDetailCampaign = (props: any) => {
                         .div(new BN(Math.pow(10, USDC_DECIMALS)))
                         .toNumber(),
                     date: e.account.updatedAt.toNumber(),
+                    profilePicture: '',
                 };
             })
         );
@@ -119,16 +120,28 @@ const MyDetailCampaign = (props: any) => {
                 <p
                     className="
                 text-xs
-                md:text-xl"
+                md:text-xl mb-2"
                 >
                     Dibantu <b>{funders.length}</b> funders
                 </p>
-                <Progress
+                {/* <Progress
                     percentage={Math.min(
                         100,
                         (content.collected / content.target) * 100
                     )}
-                />
+                /> */}
+
+                {content.collected === content.target ? (
+                    <></>
+                ) : (
+                    <Progress
+                        percentage={Math.min(
+                            100,
+                            (content.collected / content.target) * 100
+                        )}
+                    />
+                )}
+
                 <CollectedFund campaign={content} />
                 <Description campaign={content} />
                 <FunderList funders={funders} />

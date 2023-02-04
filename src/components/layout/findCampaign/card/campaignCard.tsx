@@ -100,7 +100,7 @@ const CampaignCard = (props: any) => {
                             </p>
                         </div>
                     )}
-                    <p
+                    <div
                         className="
                     text-xs
                     xl:text-base
@@ -113,7 +113,7 @@ const CampaignCard = (props: any) => {
                                 <b>{showRemainingDays()}</b> hari tersisa
                             </p>
                         )}
-                    </p>
+                    </div>
 
                     <p
                         className="

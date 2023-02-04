@@ -56,26 +56,31 @@ const CollectedFund = (props: any) => {
                     <span className="text-[7.5px]">USDC</span>
                 </b>
             </p>
-            <div
-                className="
+            
+            {content.collected === content.target ? (
+                <></>
+            ) : (
+                <div
+                    className="
             mb-[3px]
             md:mb-[9px]"
-            >
-                <p
-                    className="
+                >
+                    <p
+                        className="
                 text-md leading-none
                 md:text-3xl"
-                >
-                    <b>{showRemainingDays()}</b>
-                </p>
-                <p
-                    className="
+                    >
+                        <b>{showRemainingDays()}</b>
+                    </p>
+                    <p
+                        className="
                 text-[8px]
                 md:text-[15px]"
-                >
-                    Hari tersisa
-                </p>
-            </div>
+                    >
+                        Hari tersisa
+                    </p>
+                </div>
+            )}
         </div>
     );
 };

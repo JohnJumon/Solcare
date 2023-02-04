@@ -145,16 +145,22 @@ const Detail = (props: any) => {
                 <p
                     className="
                     text-xs
-                    md:text-xl"
+                    md:text-xl mb-2"
                 >
                     Dibantu <b>{props.funders.length}</b> funders
                 </p>
-                <Progress
-                    percentage={Math.min(
-                        100,
-                        (campaign.collected / campaign.target) * 100
-                    )}
-                />
+
+                {campaign.collected === campaign.target ? (
+                    <></>
+                ) : (
+                    <Progress
+                        percentage={Math.min(
+                            100,
+                            (campaign.collected / campaign.target) * 100
+                        )}
+                    />
+                )}
+
                 <div
                     className="
             mb-[3px]
@@ -188,28 +194,34 @@ const Detail = (props: any) => {
                         </b>
                     </p>
                 </div>
-                <div
-                    className="
+                
+                {campaign.collected === campaign.target ? (
+                    <></>
+                ) : (
+                    <div
+                        className="
             mb-[3px]
             md:mb-[9px]"
-                >
-                    <p
-                        className="
+                    >
+                        <p
+                            className="
                 text-md leading-none
                 md:text-3xl"
-                    >
-                        <b>
-                            {showRemainingDays()} {}
-                        </b>
-                    </p>
-                    <p
-                        className="
+                        >
+                            <b>
+                                {showRemainingDays()} {}
+                            </b>
+                        </p>
+                        <p
+                            className="
                 text-[8px]
                 md:text-[15px]"
-                    >
-                        Hari tersisa
-                    </p>
-                </div>
+                        >
+                            Hari tersisa
+                        </p>
+                    </div>
+                )}
+                
                 <div className="md:hidden">
                     <FundraiserInfo campaign={campaign} />
                     {changeButton(campaign.status)}
