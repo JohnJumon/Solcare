@@ -51,61 +51,73 @@ const CampaignCard = (props: any) => {
                 <div className="p-6">
                     <h1
                         className="
-                    line-clamp-1 text-md font-bold mb-2
+                    line-clamp-1 text-md font-bold my-2
                     xl:text-2xl xl:my-4"
                     >
                         {content.title}
                     </h1>
 
-                    <div className="grid grid-cols-5 gap-4 mb-3 items-center">
-                        <div
-                            className="
-                        col-span-4 bg-gray-200 rounded-full h-2 dark:bg-gray-700
-                        xl:h-4"
-                        >
+                    {content.collected === content.target ? (
+                        <p className='text-xs
+                        xl:text-base'><b className='text-green-600'>{content.collected} USDC</b> berhasil terkumpul</p>
+                    ) : (
+                        <div className="grid grid-cols-5 gap-4 mb-3 items-center">
                             <div
                                 className="
+                        col-span-4 bg-gray-200 rounded-full h-2 dark:bg-gray-700
+                        xl:h-4"
+                            >
+                                <div
+                                    className="
                             bg-[#007BC7] h-2 rounded-full
                             xl:h-4"
-                                style={{
-                                    width:
-                                        Math.floor(
-                                            Math.min(
-                                                100,
-                                                (content.collected /
-                                                    content.target) *
-                                                    100
-                                            )
-                                        ).toString() + '%',
-                                }}
-                            />
-                        </div>
-                        <p
-                            className="
+                                    style={{
+                                        width:
+                                            Math.floor(
+                                                Math.min(
+                                                    100,
+                                                    (content.collected /
+                                                        content.target) *
+                                                        100
+                                                )
+                                            ).toString() + '%',
+                                    }}
+                                />
+                            </div>
+                            <p
+                                className="
                         font-bold text-xs text-center
                         xl:text-lg"
-                        >
-                            {Math.floor(
-                                Math.min(
-                                    100,
-                                    (content.collected / content.target) * 100
-                                )
-                            )}
-                            %
-                        </p>
-                    </div>
+                            >
+                                {Math.floor(
+                                    Math.min(
+                                        100,
+                                        (content.collected / content.target) *
+                                            100
+                                    )
+                                )}
+                                %
+                            </p>
+                        </div>
+                    )}
                     <p
                         className="
                     text-xs
                     xl:text-base
                     "
                     >
-                        <b>{showRemainingDays()}</b> hari tersisa
+                        {content.collected === content.target ? (
+                            <></>
+                        ) : (
+                            <p>
+                                <b>{showRemainingDays()}</b> hari tersisa
+                            </p>
+                        )}
                     </p>
 
                     <p
                         className="
-                    line-clamp-4 text-xs text-justify my-6
+                    line-clamp-4 text-xs text-justify my-4
                     xl:text-base "
                     >
                         {content.description}
