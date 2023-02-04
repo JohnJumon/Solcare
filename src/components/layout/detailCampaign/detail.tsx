@@ -35,8 +35,6 @@ const Detail = (props: any) => {
     const [voteTime, setVoteTime] = useState(0);
     const campaign = props.campaign;
 
-    const [statusCampaign, setStatusCampaign] = useState('');
-
     useEffect(() => {
         if (campaign.proposal !== null) {
             const interval = setInterval(() => {
