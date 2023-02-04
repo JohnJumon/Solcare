@@ -1,5 +1,4 @@
 import CollectedFund from '../detailCampaign/collectedFund';
-import Deadline from '../detailCampaign/deadline';
 import Description from '../detailCampaign/description';
 import FunderList, { FunderInfo } from '../detailCampaign/funderList';
 import Progress from '../detailCampaign/progress';
@@ -27,7 +26,7 @@ import {
 import ClaimFundButton from './button/claimFundButton';
 
 const MyDetailCampaign = (props: any) => {
-    let content = props.campaign;
+    let campaign = props.campaign;
 
     const changeButton = (status: number) => {
         if (status === STATUS_ACTIVE) {
@@ -42,7 +41,7 @@ const MyDetailCampaign = (props: any) => {
                 </div>
             );
         } else if (status === STATUS_FILLED) {
-            return <MoneyProposalButton campaignAddress={content.address} />;
+            return <MoneyProposalButton campaignAddress={campaign.address} />;
         } else if (status === STATUS_VOTING) {
             return (
                 <div className="flex flex-col">
@@ -57,7 +56,7 @@ const MyDetailCampaign = (props: any) => {
         } else if (status === STATUS_FUND_CLAIMABLE) {
             return (
                 <ClaimFundButton
-                    campaignAddress={content.address}
+                    campaignAddress={campaign.address}
                     refetch={props.refetch}
                 />
             );
@@ -108,14 +107,14 @@ const MyDetailCampaign = (props: any) => {
                     className="
                 w-screen max-h-[300px] object-cover mb-1
                 md:max-h-[500px] md:rounded-b-[20px] md:mb-2"
-                    src={`${API_BASE_URL}/${content.banner}`}
+                    src={`${API_BASE_URL}/${campaign.banner}`}
                 />
                 <h1
                     className="
                 text-md font-bold mb-2
                 md:text-3xl md:mb-6"
                 >
-                    {content.title}
+                    {campaign.title}
                 </h1>
                 <p
                     className="
@@ -124,28 +123,22 @@ const MyDetailCampaign = (props: any) => {
                 >
                     Dibantu <b>{funders.length}</b> funders
                 </p>
-                {/* <Progress
-                    percentage={Math.min(
-                        100,
-                        (content.collected / content.target) * 100
-                    )}
-                /> */}
 
-                {content.collected === content.target ? (
+                {campaign.collected === campaign.target ? (
                     <></>
                 ) : (
                     <Progress
                         percentage={Math.min(
                             100,
-                            (content.collected / content.target) * 100
+                            (campaign.collected / campaign.target) * 100
                         )}
                     />
                 )}
 
-                <CollectedFund campaign={content} />
-                <Description campaign={content} />
+                <CollectedFund campaign={campaign} />
+                <Description campaign={campaign} />
                 <FunderList funders={funders} />
-                {changeButton(content.status)}
+                {changeButton(campaign.status)}
             </div>
         </div>
     );

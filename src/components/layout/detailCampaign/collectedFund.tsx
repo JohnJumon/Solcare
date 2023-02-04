@@ -1,10 +1,11 @@
 import { now } from '../../../utils';
 
 const CollectedFund = (props: any) => {
-    let content = props.campaign;
+    let campaign = props.campaign;
+
     const countRemainingTime = () => {
         const remainingTime = Math.max(
-            content.createdAt + content.duration - now(),
+            campaign.createdAt + campaign.duration - now(),
             0
         );
         return remainingTime;
@@ -35,7 +36,7 @@ const CollectedFund = (props: any) => {
                 md:text-3xl"
             >
                 <b>
-                    {content.collected}
+                    {campaign.collected}
                     <span
                         className="
                     text-[8px]
@@ -52,12 +53,12 @@ const CollectedFund = (props: any) => {
             >
                 Dana terkumpul dari{' '}
                 <b className="text-xl">
-                    {content.target}
+                    {campaign.target}
                     <span className="text-[7.5px]">USDC</span>
                 </b>
             </p>
             
-            {content.collected === content.target ? (
+            {campaign.collected === campaign.target ? (
                 <></>
             ) : (
                 <div

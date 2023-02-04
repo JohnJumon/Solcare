@@ -5,11 +5,11 @@ import Thumbnail from '../../../../image/placeholder.svg';
 import { API_BASE_URL, now } from '../../../../utils';
 
 const CampaignCard = (props: any) => {
-    let content = props.campaign;
+    let campaign = props.campaign;
 
     const countRemainingTime = () => {
         const remainingTime = Math.max(
-            content.createdAt + content.duration - now(),
+            campaign.createdAt + campaign.duration - now(),
             0
         );
         return remainingTime;
@@ -40,13 +40,13 @@ const CampaignCard = (props: any) => {
     }
 
     return (
-        <Link to={`/campaign/${content.address}`}>
+        <Link to={`/campaign/${campaign.address}`}>
             <div className="w-full h-[100%] rounded-[20px] shadow-[0px_4px_4px_0px_rgba(0,123,199,0.25)] hover:shadow-[0px_10px_10px_0px_rgba(0,123,199,0.5)]">
                 <img
                     className="
                 w-screen h-[200px] object-cover rounded-[20px]
                 xl:max-h-[300px]"
-                    src={`${API_BASE_URL}/${content.banner}`}
+                    src={`${API_BASE_URL}/${campaign.banner}`}
                 />
                 <div className="p-6">
                     <h1
@@ -54,12 +54,12 @@ const CampaignCard = (props: any) => {
                     line-clamp-1 text-md font-bold my-2
                     xl:text-2xl xl:my-4"
                     >
-                        {content.title}
+                        {campaign.title}
                     </h1>
 
-                    {content.collected === content.target ? (
+                    {campaign.collected === campaign.target ? (
                         <p className='text-xs
-                        xl:text-base'><b className='text-green-600'>{content.collected} USDC</b> berhasil terkumpul</p>
+                        xl:text-base'><b className='text-green-600'>{campaign.collected} USDC</b> berhasil terkumpul</p>
                     ) : (
                         <div className="grid grid-cols-5 gap-4 mb-3 items-center">
                             <div
@@ -76,8 +76,8 @@ const CampaignCard = (props: any) => {
                                             Math.floor(
                                                 Math.min(
                                                     100,
-                                                    (content.collected /
-                                                        content.target) *
+                                                    (campaign.collected /
+                                                    campaign.target) *
                                                         100
                                                 )
                                             ).toString() + '%',
@@ -92,7 +92,7 @@ const CampaignCard = (props: any) => {
                                 {Math.floor(
                                     Math.min(
                                         100,
-                                        (content.collected / content.target) *
+                                        (campaign.collected / campaign.target) *
                                             100
                                     )
                                 )}
@@ -106,7 +106,7 @@ const CampaignCard = (props: any) => {
                     xl:text-base
                     "
                     >
-                        {content.collected === content.target ? (
+                        {campaign.collected === campaign.target ? (
                             <></>
                         ) : (
                             <p>
@@ -120,7 +120,7 @@ const CampaignCard = (props: any) => {
                     line-clamp-4 text-xs text-justify my-4
                     xl:text-base "
                     >
-                        {content.description}
+                        {campaign.description}
                     </p>
                 </div>
             </div>
