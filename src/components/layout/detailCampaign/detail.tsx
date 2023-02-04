@@ -20,6 +20,7 @@ import {
     STATUS_SUCCESS,
     STATUS_NOT_FILLED,
     STATUS_FAILED,
+    STATUS_FUND_CLAIMABLE,
 } from '../../../utils';
 import { PublicKey } from '@solana/web3.js';
 import Refund from './claim';
@@ -33,6 +34,8 @@ const Detail = (props: any) => {
     const [initializing, setInitializing] = useState(true);
     const [voteTime, setVoteTime] = useState(0);
     const campaign = props.campaign;
+
+    const [statusCampaign, setStatusCampaign] = useState('');
 
     useEffect(() => {
         if (campaign.proposal !== null) {
@@ -51,9 +54,6 @@ const Detail = (props: any) => {
         setInitializing(false);
     }, []);
 
-    if (initializing === true) {
-        return null;
-    }
     const countRemainingTime = () => {
         let remainingTime = 0;
         remainingTime = Math.max(
@@ -132,15 +132,63 @@ const Detail = (props: any) => {
         }
     };
 
+    const showStatus = (status: number) => {
+        if (status === STATUS_ACTIVE) {
+            return <p className="text-green-600">Status Campaign Aktif</p>;
+        } else if (status === STATUS_FILLED) {
+            return (
+                <p className="text-green-600">
+                    Status Campaign Target Terpenuhi
+                </p>
+            );
+        } else if (status === STATUS_NOT_FILLED) {
+            return (
+                <p className="text-red-600">
+                    Status Campaign Target Gagal Terpenuhi
+                </p>
+            );
+        } else if (status === STATUS_VOTING) {
+            return <p className="text-blue-400">Status Campaign Voting</p>;
+        } else if (status === STATUS_FUND_CLAIMABLE) {
+            return (
+                <p className="text-blue-600">Status Campaign Voting Selesai</p>
+            );
+        } else if (status === STATUS_FUNDED) {
+            return <p className="text-green-600">Status Campaign Didanai</p>;
+        } else if (status === STATUS_NOT_FUNDED) {
+            return (
+                <p className="text-red-600">Status Campaign Gagal Didanai</p>
+            );
+        } else if (status === STATUS_SUCCESS) {
+            return <p className="text-green-600">Status Campaign Sukses</p>;
+        } else if (status === STATUS_FAILED) {
+            return <p className="text-red-600">Status Campaign Gagal</p>;
+        }
+    };
+
+    if (initializing === true) {
+        return null;
+    }
+
     return (
         <div className="w-full px-12 md:flex md:flex-row md:pl-12">
             <div className="md:basis-9/12">
-                <h1
+                <h2
                     className="
                     text-md font-bold mb-2
-                    md:text-3xl md:mb-6"
+                    md:text-3xl"
                 >
                     {campaign.title}
+                </h2>
+
+                <div className="divider my-2" />
+
+                <h1
+                    className="
+                    text-md font-bold mb-2 md:mb-4
+                    md:text-xl"
+                >
+                    {showStatus(campaign.status)}
                 </h1>
                 <p
                     className="
@@ -194,7 +242,7 @@ const Detail = (props: any) => {
                         </b>
                     </p>
                 </div>
-                
+
                 {campaign.collected === campaign.target ? (
                     <></>
                 ) : (
@@ -221,7 +269,7 @@ const Detail = (props: any) => {
                         </p>
                     </div>
                 )}
-                
+
                 <div className="md:hidden">
                     <FundraiserInfo campaign={campaign} />
                     {changeButton(campaign.status)}
