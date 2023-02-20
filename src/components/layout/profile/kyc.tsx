@@ -124,6 +124,7 @@ const KYC = (props: any) => {
 
         if (userData.data.data != undefined) {
             setKYCInfo(userData.data.data);
+            console.log(userData.data.data)
         }
     };
 
@@ -169,10 +170,19 @@ const KYC = (props: any) => {
                     <label
                         htmlFor="dropzone-file-1"
                         style={{
-                            backgroundImage: `linear-gradient(
-                            rgba(0, 0, 0, ${blob.idCard == '' ? 0 : OPACITY}), 
-                            rgba(0, 0, 0, ${blob.idCard == '' ? 0 : OPACITY})
-                          ),url(${blob.idCard})`
+                            backgroundImage: 
+                            `
+                                ${KYCInfo?.status == STATUS_KYC_PENDING 
+                                    ? `linear-gradient(
+                                        rgba(0, 0, 0, ${OPACITY}), 
+                                        rgba(0, 0, 0, ${OPACITY})
+                                      ),url(${API_BASE_URL+'/resources/'+KYCInfo.idCardPicture})`
+                                    : `linear-gradient(
+                                        rgba(0, 0, 0, ${blob.idCard == '' ? 0 : OPACITY}), 
+                                        rgba(0, 0, 0, ${blob.idCard == '' ? 0 : OPACITY})
+                                      ),url(${blob.idCard})`    
+                                }
+                            `
                         }}
                         className={`hover:brightness-90 shrink-0 md:h-40 md:w-40 h-28 w-full bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-[10px] cursor-pointer`}
                     >
@@ -196,6 +206,7 @@ const KYC = (props: any) => {
                                 id="dropzone-file-1"
                                 type="file"
                                 className="hidden"
+                                disabled={KYCInfo?.status == STATUS_KYC_PENDING ? true : false}
                                 name="idCard"
                                 accept="image/png, image/jpeg"
                                 value={input.idCard?.webkitRelativePath}
@@ -220,10 +231,19 @@ const KYC = (props: any) => {
                     <label
                         htmlFor="dropzone-file-2"
                         style={{
-                            backgroundImage: `linear-gradient(
-                            rgba(0, 0, 0, ${blob.face == '' ? 0 : OPACITY}), 
-                            rgba(0, 0, 0, ${blob.face == '' ? 0 : OPACITY})
-                          ),url(${blob.face})`
+                            backgroundImage: 
+                            `
+                                ${KYCInfo?.status == STATUS_KYC_PENDING 
+                                    ? `linear-gradient(
+                                        rgba(0, 0, 0, ${OPACITY}), 
+                                        rgba(0, 0, 0, ${OPACITY})
+                                      ),url(${API_BASE_URL+'/resources/'+KYCInfo.facePicture})`
+                                    : `linear-gradient(
+                                        rgba(0, 0, 0, ${blob.face == '' ? 0 : OPACITY}), 
+                                        rgba(0, 0, 0, ${blob.face == '' ? 0 : OPACITY})
+                                      ),url(${blob.face})`    
+                                }
+                            `
                         }}
                         className={`hover:brightness-90 shrink-0 md:h-40 md:w-40 h-28 w-full bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-[10px] cursor-pointer`}
                     >
@@ -249,6 +269,7 @@ const KYC = (props: any) => {
                                 className="hidden"
                                 name="face"
                                 accept="image/png, image/jpeg"
+                                disabled={KYCInfo?.status == STATUS_KYC_PENDING ? true : false}
                                 value={input.face?.webkitRelativePath}
                                 onChange={handleInputChange}
                             />
@@ -271,10 +292,19 @@ const KYC = (props: any) => {
                     <label
                         htmlFor="dropzone-file-3"
                         style={{
-                            backgroundImage: `linear-gradient(
-                                rgba(0, 0, 0, ${blob.faceWithIdCard == '' ? 0 : OPACITY}), 
-                                rgba(0, 0, 0, ${blob.faceWithIdCard == '' ? 0 : OPACITY})
-                              ),url(${blob.faceWithIdCard})`,
+                            backgroundImage: 
+                            `
+                                ${KYCInfo?.status == STATUS_KYC_PENDING 
+                                    ? `linear-gradient(
+                                        rgba(0, 0, 0, ${OPACITY}), 
+                                        rgba(0, 0, 0, ${OPACITY})
+                                      ),url(${API_BASE_URL+'/resources/'+KYCInfo.selfieWithIdCardPicture})`
+                                    : `linear-gradient(
+                                        rgba(0, 0, 0, ${blob.faceWithIdCard == '' ? 0 : OPACITY}), 
+                                        rgba(0, 0, 0, ${blob.faceWithIdCard == '' ? 0 : OPACITY})
+                                      ),url(${blob.faceWithIdCard})`    
+                                }
+                            `
                         }}
                         className={`hover:brightness-90 shrink-0 md:h-40 md:w-40 h-28 w-full bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-[10px] cursor-pointer`}
                     >
@@ -301,6 +331,7 @@ const KYC = (props: any) => {
                                 name="faceWithIdCard"
                                 accept="image/png, image/jpeg"
                                 value={input.faceWithIdCard?.webkitRelativePath}
+                                disabled={KYCInfo?.status == STATUS_KYC_PENDING ? true : false}
                                 onChange={handleInputChange}
                             />
                         </div>
