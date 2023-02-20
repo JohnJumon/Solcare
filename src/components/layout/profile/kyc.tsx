@@ -1,8 +1,13 @@
 import Thumbnail from '../../../image/placeholder.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast, Id } from 'react-toastify';
 import axios from 'axios';
-import { API_BASE_URL } from '../../../utils';
+import {
+    API_BASE_URL,
+    STATUS_KYC_ACCEPTED,
+    STATUS_KYC_DECINED,
+    STATUS_KYC_PENDING,
+} from '../../../utils';
 const KYC = (props: any) => {
     const [input, setInput] = useState<{ [string: string]: any }>({
         nik: null,
@@ -11,22 +16,24 @@ const KYC = (props: any) => {
         faceWithIdCard: null,
     });
 
-    const [uploadedPic, setUploadedPic] = useState<{ [string: string]: any}> ({
+    const [uploadedPic, setUploadedPic] = useState<{ [string: string]: any }>({
         idCard: '',
         face: '',
         faceWithIdCard: '',
     });
 
-    const [blob, setBlob] = useState<{ [string: string]: any}> ({
+    const [blob, setBlob] = useState<{ [string: string]: any }>({
         idCard: '',
         face: '',
         faceWithIdCard: '',
     });
+
+    const [KYCInfo, setKYCInfo] = useState<any>();
 
     const handleInputChange = (e: any) => {
         const target = e.target;
         const name = target.name;
-        console.log(target.files)
+        console.log(target.files);
         setInput((state) => {
             const newState = {
                 ...state,
@@ -38,21 +45,21 @@ const KYC = (props: any) => {
         if (name === 'idCard' || name === 'face' || name === 'faceWithIdCard') {
             let file = target.files[0];
             if (file.type === 'image/png' || file.type === 'image/jpeg') {
-                setUploadedPic((state)=>{
+                setUploadedPic((state) => {
                     const newState = {
                         ...state,
-                    }
-                    newState[name] = file.name
+                    };
+                    newState[name] = file.name;
                     return newState;
                 });
                 setBlob((state) => {
                     const newState = {
                         ...state,
-                    }
+                    };
                     newState[name] = URL.createObjectURL(file);
-                    URL.revokeObjectURL(file)
+                    URL.revokeObjectURL(file);
                     return newState;
-                })
+                });
             } else {
                 toast.error('Format file invalid');
             }
@@ -82,8 +89,8 @@ const KYC = (props: any) => {
                 face: input.face,
                 faceWithIdCard: input.faceWithIdCard,
             };
-            console.log(content)
-            console.log(headers)
+            console.log(content);
+            console.log(headers);
             const resp = await axios.post(
                 API_BASE_URL + '/v1/users/kyc',
                 content,
@@ -105,6 +112,36 @@ const KYC = (props: any) => {
         }
     };
 
+    const fetchUserKYC = async () => {
+        let token = localStorage.getItem('token');
+        const headers = {
+            Authorization: `Bearer ${token}`,
+        };
+        const userData = await axios.get(`${API_BASE_URL}/v1/users/kyc`, {
+            headers: headers,
+        });
+
+        if (userData.data.data != undefined) {
+            setKYCInfo(userData.data.data);
+        }
+    };
+
+    useEffect(() => {
+        fetchUserKYC();
+    });
+
+    const showKYCStatus = (status: number) => {
+        if (status === STATUS_KYC_PENDING) {
+            return <p className="text-blue-600">Pending</p>;
+        } else if (status === STATUS_KYC_ACCEPTED) {
+            return <p className="text-green-600">Terverifikasi</p>;
+        } else if (status === STATUS_KYC_DECINED) {
+            return (
+                <p className="text-red-600">Permintaan Verifikasi Ditolak</p>
+            );
+        }
+    };
+
     return (
         <div className="flex flex-col">
             <p className="font-bold text-xs md:text-lg">KYC</p>
@@ -115,7 +152,7 @@ const KYC = (props: any) => {
                         text-xs p-2 w-full rounded-[5px] border border-gray-300 hover:bg-gray-100 hover:text-gray-700 focus:outline-none
                         md:text-xl md:p-4 md:rounded-[10px]"
                     type="text"
-                    name='nik'
+                    name="nik"
                     onChange={handleInputChange}
                 />
             </div>
@@ -128,7 +165,7 @@ const KYC = (props: any) => {
                     </p>
                     <label
                         htmlFor="dropzone-file-1"
-                        style={{backgroundImage: `url(${blob.idCard})`}}
+                        style={{ backgroundImage: `url(${blob.idCard})` }}
                         className={`hover:brightness-90 shrink-0 md:h-40 md:w-40 h-28 w-full bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-[10px] cursor-pointer`}
                     >
                         <div className="w-full h-full flex flex-col items-center justify-center rounded-[10px]">
@@ -151,12 +188,12 @@ const KYC = (props: any) => {
                                 id="dropzone-file-1"
                                 type="file"
                                 className="hidden"
-                                name='idCard'
+                                name="idCard"
                                 accept="image/png, image/jpeg"
                                 value={input.idCard?.webkitRelativePath}
                                 onChange={handleInputChange}
                             />
-                             <p
+                            <p
                                 id="address-tag-3"
                                 className="px-4 text-center text-xs md:text-base font-medium"
                             >
@@ -173,7 +210,7 @@ const KYC = (props: any) => {
                     </p>
                     <label
                         htmlFor="dropzone-file-2"
-                        style={{backgroundImage: `url(${blob.face})`}}
+                        style={{ backgroundImage: `url(${blob.face})` }}
                         className={`hover:brightness-90 shrink-0 md:h-40 md:w-40 h-28 w-full bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-[10px] cursor-pointer`}
                     >
                         <div className="w-full h-full flex flex-col items-center justify-center rounded-[10px]">
@@ -196,12 +233,12 @@ const KYC = (props: any) => {
                                 id="dropzone-file-2"
                                 type="file"
                                 className="hidden"
-                                name='face'
+                                name="face"
                                 accept="image/png, image/jpeg"
                                 value={input.face?.webkitRelativePath}
                                 onChange={handleInputChange}
                             />
-                             <p
+                            <p
                                 id="address-tag-3"
                                 className="px-4 text-center text-xs md:text-base font-medium"
                             >
@@ -218,7 +255,9 @@ const KYC = (props: any) => {
                     </p>
                     <label
                         htmlFor="dropzone-file-3"
-                        style={{backgroundImage: `url(${blob.faceWithIdCard})`}}
+                        style={{
+                            backgroundImage: `url(${blob.faceWithIdCard})`,
+                        }}
                         className={`hover:brightness-90 shrink-0 md:h-40 md:w-40 h-28 w-full bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-[10px] cursor-pointer`}
                     >
                         <div className="w-full h-full flex flex-col items-center justify-center rounded-[10px]">
@@ -241,7 +280,7 @@ const KYC = (props: any) => {
                                 id="dropzone-file-3"
                                 type="file"
                                 className="hidden"
-                                name='faceWithIdCard'
+                                name="faceWithIdCard"
                                 accept="image/png, image/jpeg"
                                 value={input.faceWithIdCard?.webkitRelativePath}
                                 onChange={handleInputChange}
@@ -267,6 +306,11 @@ const KYC = (props: any) => {
                 </button>
                 <p className="basis-1/2 text-xs md:text-lg">
                     Status verifikasi
+                    {KYCInfo === undefined ? (
+                        <></>
+                    ) : (
+                        showKYCStatus(KYCInfo.status)
+                    )}
                 </p>
             </div>
         </div>

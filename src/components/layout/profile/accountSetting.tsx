@@ -131,7 +131,7 @@ const AccountSetting = () => {
                     </div>
                 </label>
                 <div className="basis-10/12 shrink flex flex-col items-center md:items-start my-4 md:my-0 md:mx-4">
-                    <p
+                    <div
                         className="text-sm
                             md:text-base"
                     >
@@ -144,7 +144,7 @@ const AccountSetting = () => {
                                 Belum Diperingati
                             </p>
                         )}
-                    </p>
+                    </div>
 
                     <div className="divider my-1" />
 
