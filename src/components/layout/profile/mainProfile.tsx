@@ -83,7 +83,7 @@ const MainProfile = () => {
                     <img
                         className="
                             md:basis-1/12 w-24 h-24 rounded-full
-                            md:w-28 md:h-28"
+                            md:w-28 md:h-28 object-cover"
                         src={
                             userInfo.profilePicture === ''
                                 ? ProfilePlaceholder

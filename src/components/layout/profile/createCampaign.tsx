@@ -23,6 +23,7 @@ const CreateCampaign = () => {
     const toastId = useRef<Id | null>(null);
 
     const [uploadedPic, setUploadedPic] = useState();
+    const [blob, setBlob] = useState('');
 
     const [input, setInput] = useState<{ [string: string]: any }>({
         title: '',
@@ -61,7 +62,7 @@ const CreateCampaign = () => {
     const handleInputChange = (e: any) => {
         const target = e.target;
         const name = target.name;
-
+        console.log(input.banner)
         setInput((state) => {
             const newState = {
                 ...state,
@@ -75,6 +76,8 @@ const CreateCampaign = () => {
 
             if (file.type === 'image/png' || file.type === 'image/jpeg') {
                 setUploadedPic(file.name);
+                setBlob(URL.createObjectURL(file));
+                URL.revokeObjectURL(file)
             } else {
                 toast.error('Format file invalid');
             }
@@ -279,6 +282,7 @@ const CreateCampaign = () => {
                     <p className="text-xs md:text-lg">Upload Gambar</p>
                     <label
                         htmlFor="dropzone-file"
+                        style={{backgroundImage: `url(${blob})`}}
                         className={`hover:brightness-90 shrink-0 h-28 w-full bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-[10px] cursor-pointer`}
                     >
                         <div className="w-full h-full flex flex-col items-center justify-center rounded-[10px]">

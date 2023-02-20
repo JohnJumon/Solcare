@@ -2,7 +2,7 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import ProfilePlaceholder from '../../../image/profilePic.png';
+import ProfilePlaceholder from '../../../image/profilePic.png'
 import { API_BASE_URL } from '../../../utils';
 import KYC from './kyc';
 import SetInfo from './setInfo';
@@ -91,7 +91,8 @@ const AccountSetting = () => {
             >
                 <label
                     htmlFor="dropzone-file"
-                    className={`shrink-0 md:h-28 md:w-28 h-24 w-24 bg-[url('${ProfilePlaceholder}')] bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-full cursor-pointer hover:brightness-90`}
+                    style={{backgroundImage: `url(${API_BASE_URL}/resources/${userInfo.profilePicture})`}}
+                    className={`shrink-0 md:h-28 md:w-28 h-24 w-24 bg-cover bg-center flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-full cursor-pointer hover:brightness-90`}
                 >
                     <svg
                         aria-hidden="true"

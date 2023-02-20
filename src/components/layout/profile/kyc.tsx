@@ -17,6 +17,12 @@ const KYC = (props: any) => {
         faceWithIdCard: '',
     });
 
+    const [blob, setBlob] = useState<{ [string: string]: any}> ({
+        idCard: '',
+        face: '',
+        faceWithIdCard: '',
+    });
+
     const handleInputChange = (e: any) => {
         const target = e.target;
         const name = target.name;
@@ -39,6 +45,14 @@ const KYC = (props: any) => {
                     newState[name] = file.name
                     return newState;
                 });
+                setBlob((state) => {
+                    const newState = {
+                        ...state,
+                    }
+                    newState[name] = URL.createObjectURL(file);
+                    URL.revokeObjectURL(file)
+                    return newState;
+                })
             } else {
                 toast.error('Format file invalid');
             }
@@ -52,10 +66,10 @@ const KYC = (props: any) => {
             Authorization: `Bearer ${token}`,
         };
         if (
-            input.nik === '' ||
-            input.idCard === '' ||
-            input.face === '' ||
-            input.faceWithIdCard === ''
+            input.nik === null ||
+            input.idCard === null ||
+            input.face === null ||
+            input.faceWithIdCard === null
         ) {
             return toast.error(
                 'Mohon isi seluruh data pada form terlebih dahulu'
@@ -69,10 +83,11 @@ const KYC = (props: any) => {
                 faceWithIdCard: input.faceWithIdCard,
             };
             console.log(content)
-            const resp = await axios.put(
+            console.log(headers)
+            const resp = await axios.post(
                 API_BASE_URL + '/v1/users/kyc',
                 content,
-                { headers }
+                { headers: headers }
             );
             if (resp.data.status !== 200) {
                 toast.error(
@@ -113,6 +128,7 @@ const KYC = (props: any) => {
                     </p>
                     <label
                         htmlFor="dropzone-file-1"
+                        style={{backgroundImage: `url(${blob.idCard})`}}
                         className={`hover:brightness-90 shrink-0 md:h-40 md:w-40 h-28 w-full bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-[10px] cursor-pointer`}
                     >
                         <div className="w-full h-full flex flex-col items-center justify-center rounded-[10px]">
@@ -157,6 +173,7 @@ const KYC = (props: any) => {
                     </p>
                     <label
                         htmlFor="dropzone-file-2"
+                        style={{backgroundImage: `url(${blob.face})`}}
                         className={`hover:brightness-90 shrink-0 md:h-40 md:w-40 h-28 w-full bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-[10px] cursor-pointer`}
                     >
                         <div className="w-full h-full flex flex-col items-center justify-center rounded-[10px]">
@@ -201,6 +218,7 @@ const KYC = (props: any) => {
                     </p>
                     <label
                         htmlFor="dropzone-file-3"
+                        style={{backgroundImage: `url(${blob.faceWithIdCard})`}}
                         className={`hover:brightness-90 shrink-0 md:h-40 md:w-40 h-28 w-full bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-[10px] cursor-pointer`}
                     >
                         <div className="w-full h-full flex flex-col items-center justify-center rounded-[10px]">
