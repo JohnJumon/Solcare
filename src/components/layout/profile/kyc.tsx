@@ -76,6 +76,7 @@ const KYC = (props: any) => {
         };
         if (
             input.nik === null ||
+            input.nik.length !== 16 ||
             input.idCard === null ||
             input.face === null ||
             input.faceWithIdCard === null
