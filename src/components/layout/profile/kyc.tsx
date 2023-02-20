@@ -158,7 +158,7 @@ const KYC = (props: any) => {
                             />
                              <p
                                 id="address-tag-3"
-                                className="px-4 text-center text-xs md:text-base"
+                                className="px-4 text-center text-xs md:text-base font-medium"
                             >
                                 {uploadedPic.idCard}
                             </p>
@@ -203,7 +203,7 @@ const KYC = (props: any) => {
                             />
                              <p
                                 id="address-tag-3"
-                                className="px-4 text-center text-xs md:text-base"
+                                className="px-4 text-center text-xs md:text-base font-medium"
                             >
                                 {uploadedPic.face}
                             </p>
@@ -248,7 +248,7 @@ const KYC = (props: any) => {
                             />
                             <p
                                 id="address-tag-3"
-                                className="px-4 text-center text-xs md:text-base"
+                                className="px-4 text-center text-xs md:text-base font-medium"
                             >
                                 {uploadedPic.faceWithIdCard}
                             </p>
