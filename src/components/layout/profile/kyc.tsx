@@ -83,17 +83,15 @@ const KYC = (props: any) => {
             );
         }
         try {
-            const content = {
-                nik: input.nik,
-                idCard: input.idCard,
-                face: input.face,
-                faceWithIdCard: input.faceWithIdCard,
-            };
-            console.log(content);
-            console.log(headers);
-            const resp = await axios.post(
+            const formData = new FormData();
+            formData.append('nik', input.nik);
+            formData.append('idCard', input.idCard);
+            formData.append('face', input.face);
+            formData.append('faceWithIdCard', input.faceWithIdCard);
+    
+            const resp = await axios.postForm(
                 API_BASE_URL + '/v1/users/kyc',
-                content,
+                formData,
                 { headers: headers }
             );
             if (resp.data.status !== 200) {
@@ -128,7 +126,7 @@ const KYC = (props: any) => {
 
     useEffect(() => {
         fetchUserKYC();
-    });
+    }, []);
 
     const showKYCStatus = (status: number) => {
         if (status === STATUS_KYC_PENDING) {
