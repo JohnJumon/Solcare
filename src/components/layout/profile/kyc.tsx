@@ -317,7 +317,8 @@ const KYC = (props: any) => {
                 <button
                     className="
                     basis-1/2 self-end bg-[#007BC7] text-xs w-full p-2 border border-[2px] border-[#007BC7] text-white font-bold rounded-[5px]
-                    md:text-xl md:p-4 md:rounded-[10px]"
+                    md:text-xl md:p-4 md:rounded-[10px] disabled:opacity-50"
+                    disabled={KYCInfo?.status === STATUS_KYC_PENDING ? true : false}
                     onClick={submitInfo}
                 >
                     Verifikasi
