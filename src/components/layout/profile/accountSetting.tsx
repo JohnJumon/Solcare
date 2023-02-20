@@ -197,7 +197,7 @@ const AccountSetting = () => {
                     </p>
                     <p
                         id="address-tag"
-                        className="text-sm
+                        className="text-xs
                         md:text-base"
                     >
                         {connected ? publicKey?.toBase58() : 'Wallet address'}
