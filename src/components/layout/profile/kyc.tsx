@@ -8,6 +8,7 @@ import {
     STATUS_KYC_DECLINED,
     STATUS_KYC_PENDING,
     STATUS_KYC_REMOVED,
+    OPACITY
 } from '../../../utils';
 const KYC = (props: any) => {
     const [input, setInput] = useState<{ [string: string]: any }>({
@@ -166,7 +167,12 @@ const KYC = (props: any) => {
                     </p>
                     <label
                         htmlFor="dropzone-file-1"
-                        style={{ backgroundImage: `url(${blob.idCard})` }}
+                        style={{
+                            backgroundImage: `linear-gradient(
+                            rgba(0, 0, 0, ${blob.idCard == '' ? 0 : OPACITY}), 
+                            rgba(0, 0, 0, ${blob.idCard == '' ? 0 : OPACITY})
+                          ),url(${blob.idCard})`
+                        }}
                         className={`hover:brightness-90 shrink-0 md:h-40 md:w-40 h-28 w-full bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-[10px] cursor-pointer`}
                     >
                         <div className="w-full h-full flex flex-col items-center justify-center rounded-[10px]">
@@ -194,14 +200,15 @@ const KYC = (props: any) => {
                                 value={input.idCard?.webkitRelativePath}
                                 onChange={handleInputChange}
                             />
-                            <p
-                                id="address-tag-3"
-                                className="px-4 text-center text-xs md:text-base font-medium"
-                            >
-                                {uploadedPic.idCard}
-                            </p>
+
                         </div>
                     </label>
+                    <p
+                        id="address-tag-3"
+                        className="truncate max-w-[10rem] text-xs md:text-base font-medium"
+                    >
+                        {uploadedPic.idCard}
+                    </p>
                 </div>
                 <div>
                     <p className="text-xs md:text-lg">
@@ -211,7 +218,12 @@ const KYC = (props: any) => {
                     </p>
                     <label
                         htmlFor="dropzone-file-2"
-                        style={{ backgroundImage: `url(${blob.face})` }}
+                        style={{
+                            backgroundImage: `linear-gradient(
+                            rgba(0, 0, 0, ${blob.face == '' ? 0 : OPACITY}), 
+                            rgba(0, 0, 0, ${blob.face == '' ? 0 : OPACITY})
+                          ),url(${blob.face})`
+                        }}
                         className={`hover:brightness-90 shrink-0 md:h-40 md:w-40 h-28 w-full bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-[10px] cursor-pointer`}
                     >
                         <div className="w-full h-full flex flex-col items-center justify-center rounded-[10px]">
@@ -239,14 +251,15 @@ const KYC = (props: any) => {
                                 value={input.face?.webkitRelativePath}
                                 onChange={handleInputChange}
                             />
-                            <p
-                                id="address-tag-3"
-                                className="px-4 text-center text-xs md:text-base font-medium"
-                            >
-                                {uploadedPic.face}
-                            </p>
+
                         </div>
                     </label>
+                    <p
+                        id="address-tag-3"
+                        className="truncate max-w-[10rem] text-xs md:text-base font-medium"
+                    >
+                        {uploadedPic.face}
+                    </p>
                 </div>
                 <div>
                     <p className="text-xs md:text-lg">
@@ -257,7 +270,10 @@ const KYC = (props: any) => {
                     <label
                         htmlFor="dropzone-file-3"
                         style={{
-                            backgroundImage: `url(${blob.faceWithIdCard})`,
+                            backgroundImage: `linear-gradient(
+                                rgba(0, 0, 0, ${blob.faceWithIdCard == '' ? 0 : OPACITY}), 
+                                rgba(0, 0, 0, ${blob.faceWithIdCard == '' ? 0 : OPACITY})
+                              ),url(${blob.faceWithIdCard})`,
                         }}
                         className={`hover:brightness-90 shrink-0 md:h-40 md:w-40 h-28 w-full bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-[10px] cursor-pointer`}
                     >
@@ -286,14 +302,14 @@ const KYC = (props: any) => {
                                 value={input.faceWithIdCard?.webkitRelativePath}
                                 onChange={handleInputChange}
                             />
-                            <p
-                                id="address-tag-3"
-                                className="px-4 text-center text-xs md:text-base font-medium"
-                            >
-                                {uploadedPic.faceWithIdCard}
-                            </p>
                         </div>
                     </label>
+                    <p
+                        id="address-tag-3"
+                        className="truncate max-w-[10rem] text-xs md:text-base font-medium"
+                    >
+                        {uploadedPic.faceWithIdCard}
+                    </p>
                 </div>
             </div>
             <div className="flex flex-row gap-4 items-center mt-4">

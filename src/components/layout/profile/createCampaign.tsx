@@ -9,6 +9,7 @@ import {
     DerivedAccount,
     fromU32NumberToU8Bytes,
     getDerivedAccount,
+    OPACITY,
     USDC_DECIMALS,
     USDC_MINT,
 } from '../../../utils';
@@ -282,7 +283,10 @@ const CreateCampaign = () => {
                     <p className="text-xs md:text-lg">Upload Gambar</p>
                     <label
                         htmlFor="dropzone-file"
-                        style={{ backgroundImage: `url(${blob})` }}
+                        style={{ backgroundImage: `linear-gradient(
+                            rgba(0, 0, 0, ${blob == '' ? 0 : OPACITY}), 
+                            rgba(0, 0, 0, ${blob == '' ? 0 : OPACITY})
+                          ),url(${blob})` }}
                         className={`hover:brightness-90 shrink-0 h-28 w-full bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-[10px] cursor-pointer`}
                     >
                         <div className="w-full h-full flex flex-col items-center justify-center rounded-[10px]">
@@ -310,14 +314,14 @@ const CreateCampaign = () => {
                                 onChange={handleInputChange}
                                 accept="image/png, image/jpeg"
                             />
-                            <p
-                                id="address-tag"
-                                className="px-4 text-center text-xs md:text-base"
-                            >
-                                {uploadedPic}
-                            </p>
                         </div>
                     </label>
+                    <p
+                        id="address-tag"
+                        className="text-xs md:text-base font-medium truncate"
+                    >
+                        {uploadedPic}
+                    </p>
                 </div>
                 <button
                     className="
