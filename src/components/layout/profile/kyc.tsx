@@ -5,8 +5,9 @@ import axios from 'axios';
 import {
     API_BASE_URL,
     STATUS_KYC_ACCEPTED,
-    STATUS_KYC_DECINED,
+    STATUS_KYC_DECLINED,
     STATUS_KYC_PENDING,
+    STATUS_KYC_REMOVED,
 } from '../../../utils';
 const KYC = (props: any) => {
     const [input, setInput] = useState<{ [string: string]: any }>({
@@ -88,11 +89,11 @@ const KYC = (props: any) => {
             formData.append('idCard', input.idCard);
             formData.append('face', input.face);
             formData.append('faceWithIdCard', input.faceWithIdCard);
-    
+
             const resp = await axios.postForm(
                 API_BASE_URL + '/v1/users/kyc',
                 formData,
-                { headers: headers }
+                { headers }
             );
             if (resp.data.status !== 200) {
                 toast.error(
@@ -116,7 +117,7 @@ const KYC = (props: any) => {
             Authorization: `Bearer ${token}`,
         };
         const userData = await axios.get(`${API_BASE_URL}/v1/users/kyc`, {
-            headers: headers,
+            headers,
         });
 
         if (userData.data.data != undefined) {
@@ -133,10 +134,12 @@ const KYC = (props: any) => {
             return <p className="text-blue-600">Pending</p>;
         } else if (status === STATUS_KYC_ACCEPTED) {
             return <p className="text-green-600">Terverifikasi</p>;
-        } else if (status === STATUS_KYC_DECINED) {
+        } else if (status === STATUS_KYC_DECLINED) {
             return (
                 <p className="text-red-600">Permintaan Verifikasi Ditolak</p>
             );
+        } else if (status === STATUS_KYC_REMOVED) {
+            return <p className="text-red-600">Verifikasi Ditarik</p>;
         }
     };
 

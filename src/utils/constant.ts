@@ -32,4 +32,5 @@ export const STATUS_FAILED = 8;
 
 export const STATUS_KYC_PENDING = 0;
 export const STATUS_KYC_ACCEPTED = 1;
-export const STATUS_KYC_DECINED = 2;
+export const STATUS_KYC_DECLINED = 2;
+export const STATUS_KYC_REMOVED = 3;
