@@ -323,14 +323,14 @@ const KYC = (props: any) => {
                 >
                     Verifikasi
                 </button>
-                <p className="basis-1/2 text-xs md:text-lg">
-                    Status verifikasi
+                <div className="basis-1/2 text-xs md:text-lg">
+                    Status Verifikasi
                     {KYCInfo === undefined ? (
                         <></>
                     ) : (
                         showKYCStatus(KYCInfo.status)
                     )}
-                </p>
+                </div>
             </div>
         </div>
     );
