@@ -8,7 +8,7 @@ import {
     STATUS_KYC_DECLINED,
     STATUS_KYC_PENDING,
     STATUS_KYC_REMOVED,
-    OPACITY
+    OPACITY,
 } from '../../../utils';
 const KYC = (props: any) => {
     const [input, setInput] = useState<{ [string: string]: any }>({
@@ -124,7 +124,7 @@ const KYC = (props: any) => {
 
         if (userData.data.data != undefined) {
             setKYCInfo(userData.data.data);
-            console.log(userData.data.data)
+            console.log(userData.data.data);
         }
     };
 
@@ -158,6 +158,12 @@ const KYC = (props: any) => {
                     type="text"
                     name="nik"
                     onChange={handleInputChange}
+                    value={
+                        KYCInfo?.status == STATUS_KYC_PENDING ||
+                        KYCInfo?.status == STATUS_KYC_ACCEPTED
+                            ? KYCInfo.nik
+                            : ''
+                    }
                 />
             </div>
             <div className="mt-4 flex flex-col md:flex-row gap-4">
@@ -170,19 +176,28 @@ const KYC = (props: any) => {
                     <label
                         htmlFor="dropzone-file-1"
                         style={{
-                            backgroundImage: 
-                            `
-                                ${KYCInfo?.status == STATUS_KYC_PENDING 
-                                    ? `linear-gradient(
+                            backgroundImage: `
+                                ${
+                                    KYCInfo?.status == STATUS_KYC_PENDING ||
+                                    KYCInfo?.status == STATUS_KYC_ACCEPTED
+                                        ? `linear-gradient(
                                         rgba(0, 0, 0, ${OPACITY}), 
                                         rgba(0, 0, 0, ${OPACITY})
-                                      ),url(${API_BASE_URL+'/resources/'+KYCInfo.idCardPicture})`
-                                    : `linear-gradient(
-                                        rgba(0, 0, 0, ${blob.idCard == '' ? 0 : OPACITY}), 
-                                        rgba(0, 0, 0, ${blob.idCard == '' ? 0 : OPACITY})
-                                      ),url(${blob.idCard})`    
+                                      ),url(${
+                                          API_BASE_URL +
+                                          '/resources/' +
+                                          KYCInfo.idCardPicture
+                                      })`
+                                        : `linear-gradient(
+                                        rgba(0, 0, 0, ${
+                                            blob.idCard == '' ? 0 : OPACITY
+                                        }), 
+                                        rgba(0, 0, 0, ${
+                                            blob.idCard == '' ? 0 : OPACITY
+                                        })
+                                      ),url(${blob.idCard})`
                                 }
-                            `
+                            `,
                         }}
                         className={`hover:brightness-90 shrink-0 md:h-40 md:w-40 h-28 w-full bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-[10px] cursor-pointer`}
                     >
@@ -206,13 +221,16 @@ const KYC = (props: any) => {
                                 id="dropzone-file-1"
                                 type="file"
                                 className="hidden"
-                                disabled={KYCInfo?.status == STATUS_KYC_PENDING ? true : false}
+                                disabled={
+                                    KYCInfo?.status == STATUS_KYC_PENDING
+                                        ? true
+                                        : false
+                                }
                                 name="idCard"
                                 accept="image/png, image/jpeg"
                                 value={input.idCard?.webkitRelativePath}
                                 onChange={handleInputChange}
                             />
-
                         </div>
                     </label>
                     <p
@@ -231,19 +249,28 @@ const KYC = (props: any) => {
                     <label
                         htmlFor="dropzone-file-2"
                         style={{
-                            backgroundImage: 
-                            `
-                                ${KYCInfo?.status == STATUS_KYC_PENDING 
-                                    ? `linear-gradient(
+                            backgroundImage: `
+                                ${
+                                    KYCInfo?.status == STATUS_KYC_PENDING ||
+                                    KYCInfo?.status == STATUS_KYC_ACCEPTED
+                                        ? `linear-gradient(
                                         rgba(0, 0, 0, ${OPACITY}), 
                                         rgba(0, 0, 0, ${OPACITY})
-                                      ),url(${API_BASE_URL+'/resources/'+KYCInfo.facePicture})`
-                                    : `linear-gradient(
-                                        rgba(0, 0, 0, ${blob.face == '' ? 0 : OPACITY}), 
-                                        rgba(0, 0, 0, ${blob.face == '' ? 0 : OPACITY})
-                                      ),url(${blob.face})`    
+                                      ),url(${
+                                          API_BASE_URL +
+                                          '/resources/' +
+                                          KYCInfo.facePicture
+                                      })`
+                                        : `linear-gradient(
+                                        rgba(0, 0, 0, ${
+                                            blob.face == '' ? 0 : OPACITY
+                                        }), 
+                                        rgba(0, 0, 0, ${
+                                            blob.face == '' ? 0 : OPACITY
+                                        })
+                                      ),url(${blob.face})`
                                 }
-                            `
+                            `,
                         }}
                         className={`hover:brightness-90 shrink-0 md:h-40 md:w-40 h-28 w-full bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-[10px] cursor-pointer`}
                     >
@@ -269,11 +296,15 @@ const KYC = (props: any) => {
                                 className="hidden"
                                 name="face"
                                 accept="image/png, image/jpeg"
-                                disabled={KYCInfo?.status == STATUS_KYC_PENDING ? true : false}
+                                disabled={
+                                    KYCInfo?.status == STATUS_KYC_PENDING ||
+                                    KYCInfo?.status == STATUS_KYC_ACCEPTED
+                                        ? true
+                                        : false
+                                }
                                 value={input.face?.webkitRelativePath}
                                 onChange={handleInputChange}
                             />
-
                         </div>
                     </label>
                     <p
@@ -292,19 +323,31 @@ const KYC = (props: any) => {
                     <label
                         htmlFor="dropzone-file-3"
                         style={{
-                            backgroundImage: 
-                            `
-                                ${KYCInfo?.status == STATUS_KYC_PENDING 
-                                    ? `linear-gradient(
+                            backgroundImage: `
+                                ${
+                                    KYCInfo?.status == STATUS_KYC_PENDING
+                                        ? `linear-gradient(
                                         rgba(0, 0, 0, ${OPACITY}), 
                                         rgba(0, 0, 0, ${OPACITY})
-                                      ),url(${API_BASE_URL+'/resources/'+KYCInfo.selfieWithIdCardPicture})`
-                                    : `linear-gradient(
-                                        rgba(0, 0, 0, ${blob.faceWithIdCard == '' ? 0 : OPACITY}), 
-                                        rgba(0, 0, 0, ${blob.faceWithIdCard == '' ? 0 : OPACITY})
-                                      ),url(${blob.faceWithIdCard})`    
+                                      ),url(${
+                                          API_BASE_URL +
+                                          '/resources/' +
+                                          KYCInfo.selfieWithIdCardPicture
+                                      })`
+                                        : `linear-gradient(
+                                        rgba(0, 0, 0, ${
+                                            blob.faceWithIdCard == ''
+                                                ? 0
+                                                : OPACITY
+                                        }), 
+                                        rgba(0, 0, 0, ${
+                                            blob.faceWithIdCard == ''
+                                                ? 0
+                                                : OPACITY
+                                        })
+                                      ),url(${blob.faceWithIdCard})`
                                 }
-                            `
+                            `,
                         }}
                         className={`hover:brightness-90 shrink-0 md:h-40 md:w-40 h-28 w-full bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-[10px] cursor-pointer`}
                     >
@@ -331,7 +374,11 @@ const KYC = (props: any) => {
                                 name="faceWithIdCard"
                                 accept="image/png, image/jpeg"
                                 value={input.faceWithIdCard?.webkitRelativePath}
-                                disabled={KYCInfo?.status == STATUS_KYC_PENDING ? true : false}
+                                disabled={
+                                    KYCInfo?.status == STATUS_KYC_PENDING
+                                        ? true
+                                        : false
+                                }
                                 onChange={handleInputChange}
                             />
                         </div>
@@ -349,7 +396,9 @@ const KYC = (props: any) => {
                     className="
                     basis-1/2 self-end bg-[#007BC7] text-xs w-full p-2 border border-[2px] border-[#007BC7] text-white font-bold rounded-[5px]
                     md:text-xl md:p-4 md:rounded-[10px] disabled:opacity-50"
-                    disabled={KYCInfo?.status === STATUS_KYC_PENDING ? true : false}
+                    disabled={
+                        KYCInfo?.status === STATUS_KYC_PENDING ? true : false
+                    }
                     onClick={submitInfo}
                 >
                     Verifikasi

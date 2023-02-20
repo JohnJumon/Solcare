@@ -283,10 +283,12 @@ const CreateCampaign = () => {
                     <p className="text-xs md:text-lg">Upload Gambar</p>
                     <label
                         htmlFor="dropzone-file"
-                        style={{ backgroundImage: `linear-gradient(
+                        style={{
+                            backgroundImage: `linear-gradient(
                             rgba(0, 0, 0, ${blob == '' ? 0 : OPACITY}), 
                             rgba(0, 0, 0, ${blob == '' ? 0 : OPACITY})
-                          ),url(${blob})` }}
+                          ),url(${blob})`,
+                        }}
                         className={`hover:brightness-90 shrink-0 h-28 w-full bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-[10px] cursor-pointer`}
                     >
                         <div className="w-full h-full flex flex-col items-center justify-center rounded-[10px]">
