@@ -26,7 +26,7 @@ const ProfileDrawer = (props: any) => {
                     readOnly
                     checked={currentDrawerStatus}
                 />
-                <div className="drawer-content flex flex-col items-start justify-start ml-12 mr-12 max-[1023px]:pt-[25px] pr-4 lg:pl-6 lg:!z-20">
+                <div className="drawer-content flex flex-col items-start justify-start max-[1023px]:pt-[25px] px-10 lg:pl-6 lg:!z-20">
                     <div className="flex flex-col w-full">
                         <div className="flex flex-row items-center mb-2">
                             <button

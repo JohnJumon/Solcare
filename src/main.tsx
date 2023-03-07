@@ -59,7 +59,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                     />
 
                     <Route
-                        path='/admin/manage-user/detail/:id'
+                        path="/admin/manage-user/detail/:id"
                         element={
                             <Admin page="Detail User">
                                 <AdminContent page="Detail User" />

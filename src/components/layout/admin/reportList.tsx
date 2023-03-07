@@ -1,9 +1,9 @@
 import ReportTable from './table/reportTable';
 
-const ReportList = (props:any) => {
+const ReportList = (props: any) => {
     return (
         <div>
-            <ReportTable/>
+            <ReportTable />
         </div>
     );
 };
