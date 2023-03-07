@@ -1,10 +1,7 @@
 import { useState } from 'react';
 import UserActions from './action/userActions';
 
-interface UserTableProps {
-    changePage: (page: string, status: string) => void;
-}
-const UserTable: React.FC<UserTableProps> = (props) => {
+const UserTable = (props:any) => {
     const [currentValue, setValue] = useState('1');
 
     const generateTable = (page: number) => {
@@ -21,7 +18,7 @@ const UserTable: React.FC<UserTableProps> = (props) => {
                     <td className="py-4 px-6">Nama {i + 1}</td>
                     <td className="py-4 px-6">Wallet Address {i + 1}</td>
                     <td className="py-4 px-6 text-center">
-                        <UserActions changePage={props.changePage} />
+                        <UserActions id={i+1}/>
                     </td>
                 </tr>
             );

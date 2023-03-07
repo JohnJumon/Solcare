@@ -1,13 +1,9 @@
 import ReportTable from './table/reportTable';
 
-interface ReportListProps {
-    changePage: (page: string, status: string) => void;
-}
-
-const ReportList: React.FC<ReportListProps> = (props) => {
+const ReportList = (props:any) => {
     return (
         <div>
-            <ReportTable changePage={props.changePage} />
+            <ReportTable/>
         </div>
     );
 };

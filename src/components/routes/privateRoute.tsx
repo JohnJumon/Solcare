@@ -10,7 +10,7 @@ const PrivateRoute = (props: any) => {
         return (
             <div className="min-h-[70vh] flex flex-wrap flex-col content-center justify-center bg-gray-100">
                 <p className="text-xl text-center px-8">
-                    Silakan Hubungkan Wallet Terlebih Dahulu
+                    Silahkan Hubungkan Wallet Terlebih Dahulu
                 </p>
                 <WalletMultiButton
                     style={{ backgroundColor: '#007BC7' }}

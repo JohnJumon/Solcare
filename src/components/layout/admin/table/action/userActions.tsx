@@ -1,14 +1,10 @@
-interface UserActionsProps {
-    changePage: (page: string, status: string) => void;
-}
+import { Link } from "react-router-dom";
 
-const UserActions: React.FC<UserActionsProps> = (props) => {
+const UserActions = (props: any) => {
     return (
         <div className="flex flex-row justify-center">
-            <button
-                onClick={() => {
-                    props.changePage('Detail User', '');
-                }}
+            <Link
+                to={`/admin/manage-user/detail/${props.id}`}
                 className="hover:stroke-[#007BC7] stroke-black"
             >
                 <svg
@@ -31,7 +27,8 @@ const UserActions: React.FC<UserActionsProps> = (props) => {
                         stroke-linejoin="round"
                     />
                 </svg>
-            </button>
+            </Link>
+
             <button className="ml-2 hover:stroke-[#007BC7] stroke-black">
                 <svg
                     width="24"

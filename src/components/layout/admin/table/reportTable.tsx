@@ -1,10 +1,7 @@
 import { useState } from 'react';
 import ReportActions from './action/reportActions';
 
-interface ReportTableProps {
-    changePage: (page: string, status: string) => void;
-}
-const ReportTable: React.FC<ReportTableProps> = (props) => {
+const ReportTable= (props:any) => {
     const [currentValue, setValue] = useState('1');
 
     const generateTable = (page: number) => {
@@ -22,7 +19,7 @@ const ReportTable: React.FC<ReportTableProps> = (props) => {
                     <td className="py-4 px-6">Wallet Address {i + 1}</td>
                     <td className="py-4 px-6 text-center">100</td>
                     <td className="py-4 px-6">
-                        <ReportActions changePage={props.changePage} />
+                        <ReportActions id={i+1}/>
                     </td>
                 </tr>
             );

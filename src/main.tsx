@@ -59,6 +59,15 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                     />
 
                     <Route
+                        path='/admin/manage-user/detail/:id'
+                        element={
+                            <Admin page="Detail User">
+                                <AdminContent page="Detail User" />
+                            </Admin>
+                        }
+                    />
+
+                    <Route
                         path="/admin/manage-campaign"
                         element={
                             <Admin page="Campaign">
@@ -72,6 +81,15 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                         element={
                             <Admin page="Laporan">
                                 <AdminContent page="Laporan" />
+                            </Admin>
+                        }
+                    />
+
+                    <Route
+                        path="/admin/manage-laporan/detail/:id"
+                        element={
+                            <Admin page="Detail Laporan">
+                                <AdminContent page="Detail Laporan" />
                             </Admin>
                         }
                     />

@@ -1,14 +1,10 @@
-interface ReportActionsProps {
-    changePage: (page: string, status: string) => void;
-}
+import { Link } from "react-router-dom";
 
-const ReportActions: React.FC<ReportActionsProps> = (props) => {
+const ReportActions = (props: any) => {
     return (
         <div className="flex flex-row justify-center">
-            <button
-                onClick={() => {
-                    props.changePage('Detail Laporan', '');
-                }}
+            <Link
+                to={`/admin/manage-laporan/detail/${props.id}`}
                 className="hover:stroke-[#007BC7] stroke-black"
             >
                 <svg
@@ -31,7 +27,7 @@ const ReportActions: React.FC<ReportActionsProps> = (props) => {
                         stroke-linejoin="round"
                     />
                 </svg>
-            </button>
+            </Link>
             <button className="ml-2 hover:stroke-[#007BC7] stroke-black">
                 <svg
                     width="24"
