@@ -14,6 +14,7 @@ import ProfileContent from './components/layout/profile/profileContent';
 import 'react-toastify/dist/ReactToastify.min.css';
 import PrivateRoute from './components/routes/privateRoute';
 import FundraiserDetailCampaign from './views/FundraiserDetailCampaign';
+import AdminContent from './components/layout/admin/adminContent';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
@@ -29,7 +30,52 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                         }
                     />
                     <Route path="/" element={<Home />} />
-                    <Route path="/admin" element={<Admin />} />
+                    {/* <Route path="/admin" element={<Admin />} /> */}
+
+                    <Route
+                        path="/admin"
+                        element={
+                            <Admin page="Dashboard">
+                                <AdminContent page="Dashboard" />
+                            </Admin>
+                        }
+                    />
+
+                    <Route
+                        path="/admin/manage-KYC"
+                        element={
+                            <Admin page="Verifikasi User">
+                                <AdminContent page="Verifikasi User" />
+                            </Admin>
+                        }
+                    />
+                    <Route
+                        path="/admin/manage-user"
+                        element={
+                            <Admin page="Manajemen User">
+                                <AdminContent page="Manajemen User" />
+                            </Admin>
+                        }
+                    />
+
+                    <Route
+                        path="/admin/manage-campaign"
+                        element={
+                            <Admin page="Campaign">
+                                <AdminContent page="Campaign" />
+                            </Admin>
+                        }
+                    />
+
+                    <Route
+                        path="/admin/manage-laporan"
+                        element={
+                            <Admin page="Laporan">
+                                <AdminContent page="Laporan" />
+                            </Admin>
+                        }
+                    />
+
                     <Route path="/explore" element={<FindCampaign />} />
                     <Route path="/campaign/:id" element={<DetailCampaign />} />
                     <Route
