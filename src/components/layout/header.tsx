@@ -20,6 +20,7 @@ const Header = () => {
         disconnect,
         disconnecting,
     } = useWallet();
+    const [ isAdmin, setIsAdmin ] = useState(false)
 
     const signIn = async () => {
         if (signMessage && publicKey) {
@@ -61,6 +62,18 @@ const Header = () => {
         }
     }, [connected, disconnecting]);
 
+    useEffect(() => {
+        if (connected) {
+            const tokenString = localStorage.getItem('token')
+            if(tokenString){
+                const tokenDetail = decodeJwt(tokenString)
+                if(typeof tokenDetail.isAdmin == 'boolean'){
+                    setIsAdmin(tokenDetail.isAdmin)
+                }
+            }
+        }
+    })
+    
     return (
         <div className="navbar sticky top-0 z-50 bg-white py-4 lg:px-12">
             <div className="navbar-start">
@@ -103,6 +116,13 @@ const Header = () => {
                         {connected ? (
                             <li>
                                 <Link to="/profile">Profile</Link>
+                            </li>
+                        ) : (
+                            <></>
+                        )}
+                        {(connected && isAdmin) ? (
+                            <li>
+                                <Link to="/admin">Admin</Link>
                             </li>
                         ) : (
                             <></>
@@ -155,6 +175,18 @@ const Header = () => {
                                 className="rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white"
                             >
                                 Profile
+                            </Link>
+                        </li>
+                    ) : (
+                        <></>
+                    )}
+                    {(connected && isAdmin) ? (
+                        <li className="ml-5">
+                            <Link
+                                to="/admin"
+                                className="rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white"
+                            >
+                                Admin
                             </Link>
                         </li>
                     ) : (

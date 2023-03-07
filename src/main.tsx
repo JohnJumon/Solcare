@@ -35,62 +35,79 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                     <Route
                         path="/admin"
                         element={
-                            <Admin page="Dashboard">
-                                <AdminContent page="Dashboard" />
-                            </Admin>
+                            <PrivateRoute forAdmin={true}>
+                                <Admin page="Dashboard">
+                                    <AdminContent page="Dashboard" />
+                                </Admin>
+                            </PrivateRoute>
                         }
                     />
 
                     <Route
                         path="/admin/manage-KYC"
                         element={
-                            <Admin page="Verifikasi User">
-                                <AdminContent page="Verifikasi User" />
-                            </Admin>
+                            <PrivateRoute forAdmin={true}>
+                                <Admin page="Verifikasi User">
+                                    <AdminContent page="Verifikasi User" />
+                                </Admin>
+                            </PrivateRoute>
                         }
                     />
                     <Route
                         path="/admin/manage-user"
                         element={
-                            <Admin page="Manajemen User">
-                                <AdminContent page="Manajemen User" />
-                            </Admin>
+                            <PrivateRoute forAdmin={true}>
+                                <Admin page="Manajemen User">
+                                    <AdminContent page="Manajemen User" />
+                                </Admin>
+                            </PrivateRoute>
+
                         }
                     />
 
                     <Route
                         path='/admin/manage-user/detail/:id'
                         element={
-                            <Admin page="Detail User">
-                                <AdminContent page="Detail User" />
-                            </Admin>
+                            <PrivateRoute forAdmin={true}>
+                                <Admin page="Detail User">
+                                    <AdminContent page="Detail User" />
+                                </Admin>
+                            </PrivateRoute>
+
                         }
                     />
 
                     <Route
                         path="/admin/manage-campaign"
                         element={
-                            <Admin page="Campaign">
-                                <AdminContent page="Campaign" />
-                            </Admin>
+                            <PrivateRoute forAdmin={true}>
+                                <Admin page="Campaign">
+                                    <AdminContent page="Campaign" />
+                                </Admin>
+                            </PrivateRoute>
+
                         }
                     />
 
                     <Route
                         path="/admin/manage-laporan"
                         element={
-                            <Admin page="Laporan">
-                                <AdminContent page="Laporan" />
-                            </Admin>
+                            <PrivateRoute forAdmin={true}>
+                                <Admin page="Laporan">
+                                    <AdminContent page="Laporan" />
+                                </Admin>
+                            </PrivateRoute>
                         }
                     />
 
                     <Route
                         path="/admin/manage-laporan/detail/:id"
                         element={
-                            <Admin page="Detail Laporan">
-                                <AdminContent page="Detail Laporan" />
-                            </Admin>
+                            <PrivateRoute forAdmin={true}>
+                                <Admin page="Detail Laporan">
+                                    <AdminContent page="Detail Laporan" />
+                                </Admin>
+                            </PrivateRoute>
                         }
                     />
 
