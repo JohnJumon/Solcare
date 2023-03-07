@@ -17,17 +17,26 @@ const VerificationTable = (props: any) => {
             i++
         ) {
             rows.push(
-                <tr className="bg-white hover:bg-[rgba(0,123,199,0.25)]" key={i}>
+                <tr
+                    className="bg-white hover:bg-[rgba(0,123,199,0.25)]"
+                    key={i}
+                >
                     <th
                         scope="row"
                         className="text-center py-4 px-6 font-medium text-gray-900 whitespace-nowrap"
                     >
                         {i + 1}
                     </th>
-                    <td className="py-4 px-6">{userVerificationData[i].name === '' ? 'User' : userVerificationData[i].name}</td>
+                    <td className="py-4 px-6">
+                        {userVerificationData[i].name === ''
+                            ? 'User'
+                            : userVerificationData[i].name}
+                    </td>
                     {/* <td className="py-4 px-6">Nama {i + 1}</td> */}
                     {/* <td className="py-4 px-6">Wallet Address {i + 1}</td> */}
-                    <td id='address-tag' className="py-4 px-6">{userVerificationData[i].usersWalletAddress}</td>
+                    <td id="address-tag" className="py-4 px-6">
+                        {userVerificationData[i].usersWalletAddress}
+                    </td>
                     <td className="py-4 px-6 text-center">
                         <button className="hover:stroke-[#007BC7] stroke-black">
                             <svg
@@ -94,7 +103,7 @@ const VerificationTable = (props: any) => {
         }
     };
 
-    if(userVerificationData === undefined){
+    if (userVerificationData === undefined) {
         return <progress className="progress w-[90%] flex mx-auto my-20" />;
     }
 
@@ -158,7 +167,10 @@ const VerificationTable = (props: any) => {
                             Showing{' '}
                             <span className="font-bold text-gray-900">
                                 {parseInt(page) * 10 - 10 + 1}-
-                                {Math.min(parseInt(page) * 10, userVerificationData.length)}
+                                {Math.min(
+                                    parseInt(page) * 10,
+                                    userVerificationData.length
+                                )}
                             </span>{' '}
                             of{' '}
                             <span className="font-bold text-gray-900">

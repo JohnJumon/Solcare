@@ -4,7 +4,6 @@ import { API_BASE_URL } from '../../../utils';
 import VerificationTable from './table/verificationTable';
 
 const UserVerification = () => {
-
     const [userVerificationData, setUserVerificationData] = useState();
 
     const fetchUserVerification = async () => {
@@ -18,16 +17,16 @@ const UserVerification = () => {
 
         console.log(resp.data);
 
-        if(resp.data.status === 200) {
-            setUserVerificationData(resp.data.data)
+        if (resp.data.status === 200) {
+            setUserVerificationData(resp.data.data);
             // console.log(resp.data);
         }
         // console.log(userVerificationData);
-    }
+    };
 
-    useEffect (() => {
+    useEffect(() => {
         fetchUserVerification();
-    }, [])
+    }, []);
 
     return (
         <div>

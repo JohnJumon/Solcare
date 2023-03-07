@@ -12,15 +12,9 @@ import { useSmartContract } from '../../context/connection';
 import { decodeJwt } from 'jose';
 
 const Header = () => {
-    const {
-        connected,
-        connecting,
-        signMessage,
-        publicKey,
-        disconnect,
-        disconnecting,
-    } = useWallet();
-    const [ isAdmin, setIsAdmin ] = useState(false)
+    const { connected, signMessage, publicKey, disconnect, disconnecting } =
+        useWallet();
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const signIn = async () => {
         if (signMessage && publicKey) {
@@ -43,6 +37,14 @@ const Header = () => {
                     );
 
                     localStorage.setItem('token', resp.data.data.token);
+                    const tokenTemp = localStorage.getItem('token');
+
+                    if (tokenTemp) {
+                        const tokenDetail = decodeJwt(tokenTemp);
+                        if (typeof tokenDetail.isAdmin == 'boolean') {
+                            setIsAdmin(tokenDetail.isAdmin);
+                        }
+                    }
                 } catch (e) {
                     console.log(e);
 
@@ -56,24 +58,26 @@ const Header = () => {
         if (connected) {
             signIn();
         }
+        console.log(isAdmin);
 
         if (disconnecting) {
+            setIsAdmin(false);
             localStorage.removeItem('token');
         }
     }, [connected, disconnecting]);
 
-    useEffect(() => {
-        if (connected) {
-            const tokenString = localStorage.getItem('token')
-            if(tokenString){
-                const tokenDetail = decodeJwt(tokenString)
-                if(typeof tokenDetail.isAdmin == 'boolean'){
-                    setIsAdmin(tokenDetail.isAdmin)
-                }
-            }
-        }
-    })
-    
+    // useEffect(() => {
+    //     if (connected) {
+    //         const tokenString = localStorage.getItem('token')
+    //         if(tokenString){
+    //             const tokenDetail = decodeJwt(tokenString)
+    //             if(typeof tokenDetail.isAdmin == 'boolean'){
+    //                 setIsAdmin(tokenDetail.isAdmin)
+    //             }
+    //         }
+    //     }
+    // })
+
     return (
         <div className="navbar sticky top-0 z-50 bg-white py-4 lg:px-12">
             <div className="navbar-start">
@@ -120,7 +124,7 @@ const Header = () => {
                         ) : (
                             <></>
                         )}
-                        {(connected && isAdmin) ? (
+                        {connected && isAdmin ? (
                             <li>
                                 <Link to="/admin">Admin</Link>
                             </li>
@@ -180,7 +184,7 @@ const Header = () => {
                     ) : (
                         <></>
                     )}
-                    {(connected && isAdmin) ? (
+                    {connected && isAdmin ? (
                         <li className="ml-5">
                             <Link
                                 to="/admin"

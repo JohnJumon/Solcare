@@ -61,7 +61,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                                     <AdminContent page="Manajemen User" />
                                 </Admin>
                             </PrivateRoute>
-
                         }
                     />
 
@@ -73,7 +72,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                                     <AdminContent page="Detail User" />
                                 </Admin>
                             </PrivateRoute>
-
                         }
                     />
 
@@ -85,7 +83,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                                     <AdminContent page="Campaign" />
                                 </Admin>
                             </PrivateRoute>
-
                         }
                     />
 

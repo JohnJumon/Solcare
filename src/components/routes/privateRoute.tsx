@@ -7,28 +7,28 @@ const PrivateRoute = (props: any) => {
 
     if (props.forAdmin) {
         if (connected) {
-            const tokenString = localStorage.getItem('token')
+            const tokenString = localStorage.getItem('token');
             if (tokenString) {
-                const tokenDetail = decodeJwt(tokenString)
+                const tokenDetail = decodeJwt(tokenString);
                 if (tokenDetail.isAdmin) {
                     return props.children;
-                }
-                else {
+                } else {
                     return (
                         <div className="min-h-[70vh] flex flex-wrap flex-col content-center justify-center bg-gray-100">
                             <p className="text-xl text-center px-8">
                                 Anda Tidak Punya Akses di Halaman Ini
                             </p>
-                        </div>)
+                        </div>
+                    );
                 }
-            }
-            else {
-                return(
-                <div className="min-h-[70vh] flex flex-wrap flex-col content-center justify-center bg-gray-100">
-                    <p className="text-xl text-center px-8">
-                        Silahkan Refresh Halaman Ini Untuk Mengakses
-                    </p>
-                </div>)
+            } else {
+                return (
+                    <div className="min-h-[70vh] flex flex-wrap flex-col content-center justify-center bg-gray-100">
+                        <p className="text-xl text-center px-8">
+                            Silahkan Refresh Halaman Ini Untuk Mengakses
+                        </p>
+                    </div>
+                );
             }
         } else {
             return (
@@ -45,8 +45,7 @@ const PrivateRoute = (props: any) => {
                 </div>
             );
         }
-    }
-    else {
+    } else {
         if (connected) {
             return props.children;
         } else {
@@ -62,11 +61,9 @@ const PrivateRoute = (props: any) => {
                         Hubungkan Wallet
                     </WalletMultiButton>
                 </div>
-
             );
         }
     }
-
 };
 
 export default PrivateRoute;
