@@ -66,7 +66,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                     />
 
                     <Route
-                        path='/admin/manage-user/detail/:id'
+                        path="/admin/manage-user/detail/:id"
                         element={
                             <PrivateRoute forAdmin={true}>
                                 <Admin page="Detail User">

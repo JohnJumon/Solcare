@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ReportActions from './action/reportActions';
 
-const ReportTable= (props:any) => {
+const ReportTable = (props: any) => {
     const [currentValue, setValue] = useState('1');
 
     const generateTable = (page: number) => {
@@ -19,7 +19,7 @@ const ReportTable= (props:any) => {
                     <td className="py-4 px-6">Wallet Address {i + 1}</td>
                     <td className="py-4 px-6 text-center">100</td>
                     <td className="py-4 px-6">
-                        <ReportActions id={i+1}/>
+                        <ReportActions id={i + 1} />
                     </td>
                 </tr>
             );
