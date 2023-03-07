@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import { API_BASE_URL } from '../../../../utils';
 import VerificationActions from './action/verificationActions';
 const VerificationTable = (props: any) => {
     let userVerificationData = props.userVerificationData;
-    // console.log(userVerificationData);
+    console.log(userVerificationData);
 
     const [page, setPage] = useState('1');
+
+    const [url, setUrl] = useState();
 
     const ITEM_PER_PAGE = 10;
 
@@ -38,7 +41,25 @@ const VerificationTable = (props: any) => {
                         {userVerificationData[i].usersWalletAddress}
                     </td>
                     <td className="py-4 px-6 text-center">
-                        <button className="hover:stroke-[#007BC7] stroke-black">
+                        <button
+                            onClick={(e) => {
+                                window.open(
+                                    API_BASE_URL +
+                                        '/resources/' +
+                                        userVerificationData[i].idCardPicture,
+                                    '_blank'
+                                );
+                                // window.open(
+                                //     API_BASE_URL + '/resources/' + userVerificationData[i].facePicture,
+                                //     '_blank'
+                                // );
+                                // window.open(
+                                //     API_BASE_URL + '/resources/' + userVerificationData[i].selfieWithIdCardPicture,
+                                //     '_blank'
+                                // );
+                            }}
+                            className="hover:stroke-[#007BC7] stroke-black"
+                        >
                             <svg
                                 width="24"
                                 height="24"
@@ -60,6 +81,75 @@ const VerificationTable = (props: any) => {
                                 />
                                 <path
                                     d="M27 19V26C27 26.2652 26.8946 26.5196 26.7071 26.7071C26.5196 26.8946 26.2652 27 26 27H6C5.73478 27 5.48043 26.8946 5.29289 26.7071C5.10536 26.5196 5 26.2652 5 26V19"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                            </svg>
+                        </button>
+                    </td>
+                    <td className="py-4 px-6 text-center">
+                        <button
+                            onClick={(e) => {
+                                window.open(
+                                    API_BASE_URL +
+                                        '/resources/' +
+                                        userVerificationData[i].facePicture,
+                                    '_blank'
+                                );
+                            }}
+                            className="hover:stroke-[#007BC7] stroke-black"
+                        >
+                            <svg
+                                width="24"
+                                height="24"
+                                viewBox="0 0 32 32"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M14.5 25C20.299 25 25 20.299 25 14.5C25 8.70101 20.299 4 14.5 4C8.70101 4 4 8.70101 4 14.5C4 20.299 8.70101 25 14.5 25Z"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                                <path
+                                    d="M21.9238 21.9248L27.9989 27.9999"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                            </svg>
+                        </button>
+                    </td>
+                    <td className="py-4 px-6 text-center">
+                        <button
+                            onClick={(e) => {
+                                window.open(
+                                    API_BASE_URL +
+                                        '/resources/' +
+                                        userVerificationData[i]
+                                            .selfieWithIdCardPicture,
+                                    '_blank'
+                                );
+                            }}
+                            className="hover:stroke-[#007BC7] stroke-black"
+                        >
+                            <svg
+                                width="24"
+                                height="24"
+                                viewBox="0 0 32 32"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M14.5 25C20.299 25 25 20.299 25 14.5C25 8.70101 20.299 4 14.5 4C8.70101 4 4 8.70101 4 14.5C4 20.299 8.70101 25 14.5 25Z"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                                <path
+                                    d="M21.9238 21.9248L27.9989 27.9999"
                                     strokeWidth="2"
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
@@ -143,7 +233,19 @@ const VerificationTable = (props: any) => {
                                         scope="col"
                                         className="py-3 px-6 border-r"
                                     >
-                                        Berkas
+                                        KTP
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        className="py-3 px-6 border-r"
+                                    >
+                                        Selfie
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        className="py-3 px-6 border-r"
+                                    >
+                                        KTP dan Selfie
                                     </th>
                                     <th scope="col" className="py-3 px-6">
                                         Aksi

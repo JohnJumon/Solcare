@@ -17,33 +17,34 @@ const PrivateRoute = (props: any) => {
 
     return (
         <>
-            {
-                props.forAdmin ?
-                    (
-                        connected ?
-                            (
-                                isAdmin ? props.children :
-                                    <div className="min-h-[70vh] flex flex-wrap flex-col content-center justify-center bg-gray-100">
-                                        <p className="text-xl text-center px-8">
-                                            Anda Tidak Punya Akses di Halaman Ini
-                                        </p>
-                                    </div>
-                            ) :
-                            <div className="min-h-[70vh] flex flex-wrap flex-col content-center justify-center bg-gray-100">
-                                <p className="text-xl text-center px-8">
-                                    Silahkan Hubungkan Wallet Terlebih Dahulu
-                                </p>
-                                <WalletMultiButton
-                                    style={{ backgroundColor: '#007BC7' }}
-                                    className="btn !text-xs capitalize !bg-[#007BC7] !rounded-[5px] !h-12 xl:!h-16 !w-[11rem] xl:!rounded-[10px] xl:!w-[22rem] xl:!text-xl mx-auto mt-5"
-                                >
-                                    Hubungkan Wallet
-                                </WalletMultiButton>
-                            </div>
-                    ) :
-                    (
-                        connected ? props.children :
+            {props.forAdmin ? (
+                connected ? (
+                    isAdmin ? (
+                        props.children
+                    ) : (
                         <div className="min-h-[70vh] flex flex-wrap flex-col content-center justify-center bg-gray-100">
+                            <p className="text-xl text-center px-8">
+                                Anda Tidak Punya Akses di Halaman Ini
+                            </p>
+                        </div>
+                    )
+                ) : (
+                    <div className="min-h-[70vh] flex flex-wrap flex-col content-center justify-center bg-gray-100">
+                        <p className="text-xl text-center px-8">
+                            Silahkan Hubungkan Wallet Terlebih Dahulu
+                        </p>
+                        <WalletMultiButton
+                            style={{ backgroundColor: '#007BC7' }}
+                            className="btn !text-xs capitalize !bg-[#007BC7] !rounded-[5px] !h-12 xl:!h-16 !w-[11rem] xl:!rounded-[10px] xl:!w-[22rem] xl:!text-xl mx-auto mt-5"
+                        >
+                            Hubungkan Wallet
+                        </WalletMultiButton>
+                    </div>
+                )
+            ) : connected ? (
+                props.children
+            ) : (
+                <div className="min-h-[70vh] flex flex-wrap flex-col content-center justify-center bg-gray-100">
                     <p className="text-xl text-center px-8">
                         Silahkan Hubungkan Wallet Terlebih Dahulu
                     </p>
@@ -54,10 +55,9 @@ const PrivateRoute = (props: any) => {
                         Hubungkan Wallet
                     </WalletMultiButton>
                 </div>
-                    )
-            }
+            )}
         </>
-    )
+    );
 };
 
 export default PrivateRoute;
