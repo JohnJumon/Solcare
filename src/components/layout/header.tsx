@@ -63,7 +63,7 @@ const Header = () => {
             setIsAdmin(false);
             localStorage.removeItem('token');
         }
-    }, [connected, disconnecting]);
+    }, [connected, disconnecting, publicKey]);
 
     useEffect(() => {
         if (connected) {

@@ -7,8 +7,9 @@ import axios from 'axios';
 import base58 from 'bs58';
 import { now } from '../../utils';
 import { LOGIN_MESSAGE } from '../../utils';
+import { publicKey } from '@project-serum/anchor/dist/cjs/utils';
 const PrivateRoute = (props: any) => {
-    const { connected } =
+    const { connected, publicKey, disconnecting } =
         useWallet();
     const [isAdmin, setIsAdmin] = useState(false);
 
@@ -22,7 +23,10 @@ const PrivateRoute = (props: any) => {
                 }
             }
         }
-    })
+    },[connected, disconnecting, publicKey, ])
+
+    
+
     return (
         <>
             {
