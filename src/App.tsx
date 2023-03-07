@@ -6,6 +6,7 @@ import { createContext, useMemo } from 'react';
 import Footer from './components/layout/footer';
 import Header from './components/layout/header';
 import { ToastContainer } from 'react-toastify';
+import { AdminProvider } from './utils/state';
 
 function App(props: any) {
     const wallets = useMemo(
@@ -19,9 +20,11 @@ function App(props: any) {
             <ConnectionProvider>
                 <WalletProvider wallets={wallets} autoConnect>
                     <WalletModalProvider>
-                        <Header />
-                        {props.children}
-                        <Footer />
+                        <AdminProvider>
+                            <Header />
+                            {props.children}
+                            <Footer />
+                        </AdminProvider>
                     </WalletModalProvider>
                 </WalletProvider>
                 <ToastContainer

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, useRef, useMemo } from 'react';
+import { useCallback, useEffect, useState, useRef, useMemo, useContext } from 'react';
 import { Connection, clusterApiUrl } from '@solana/web3.js';
 import Logo from '../../image/Logo.png';
 import { Link } from 'react-router-dom';
@@ -10,11 +10,13 @@ import { API_BASE_URL, LOGIN_MESSAGE, now } from '../../utils';
 import base58 from 'bs58';
 import { useSmartContract } from '../../context/connection';
 import { decodeJwt } from 'jose';
+import { AdminContext } from '../../utils/state';
+import { ActionType } from '../../utils/reducer';
 
 const Header = () => {
-    const { connected, signMessage, publicKey, disconnect, disconnecting } =
-        useWallet();
-    const [isAdmin, setIsAdmin] = useState(false);
+    const { state, dispatch } = useContext(AdminContext);
+    const { isAdmin } = state
+    const { connected, signMessage, publicKey, disconnect, disconnecting } = useWallet();
 
     const signIn = async () => {
         if (signMessage && publicKey) {
@@ -42,7 +44,7 @@ const Header = () => {
                     if (tokenTemp) {
                         const tokenDetail = decodeJwt(tokenTemp);
                         if (typeof tokenDetail.isAdmin == 'boolean') {
-                            setIsAdmin(tokenDetail.isAdmin);
+                            tokenDetail.isAdmin ? dispatch({type: ActionType.IsAdmin}) : dispatch({type: ActionType.NotAdmin})
                         }
                     }
                 } catch (e) {
@@ -62,7 +64,7 @@ const Header = () => {
 
     useEffect(() => {
         if (disconnecting) {
-            setIsAdmin(false);
+            dispatch({type: ActionType.NotAdmin})
             localStorage.removeItem('token');
         }
     }, [disconnecting]);
@@ -73,7 +75,7 @@ const Header = () => {
             if (tokenString) {
                 const tokenDetail = decodeJwt(tokenString);
                 if (typeof tokenDetail.isAdmin == 'boolean') {
-                    setIsAdmin(tokenDetail.isAdmin);
+                    tokenDetail.isAdmin ? dispatch!({type: ActionType.IsAdmin}) : dispatch!({type: ActionType.NotAdmin})
                 }
             }
         }

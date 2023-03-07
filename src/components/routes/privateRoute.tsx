@@ -1,31 +1,19 @@
 import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { decodeJwt } from 'jose';
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { API_BASE_URL } from '../../utils';
 import axios from 'axios';
 import base58 from 'bs58';
 import { now } from '../../utils';
 import { LOGIN_MESSAGE } from '../../utils';
 import { publicKey } from '@project-serum/anchor/dist/cjs/utils';
+import { AdminContext } from '../../utils/state';
 const PrivateRoute = (props: any) => {
+    const { state } = useContext(AdminContext)
     const { connected, publicKey, disconnecting } =
         useWallet();
-    const [isAdmin, setIsAdmin] = useState(false);
-
-    useEffect(() => {
-        if (connected) {
-            const tokenString = localStorage.getItem('token')
-            if (tokenString) {
-                const tokenDetail = decodeJwt(tokenString)
-                if (typeof tokenDetail.isAdmin == 'boolean') {
-                    setIsAdmin(tokenDetail.isAdmin)
-                }
-            }
-        }
-    },[connected, disconnecting, publicKey, ])
-
-    
+    const {isAdmin} = state;
 
     return (
         <>
