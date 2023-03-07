@@ -58,24 +58,26 @@ const Header = () => {
         if (connected) {
             signIn();
         }
+    }, [connected, publicKey]);
 
+    useEffect(() => {
         if (disconnecting) {
             setIsAdmin(false);
             localStorage.removeItem('token');
         }
-    }, [connected, disconnecting, publicKey]);
+    }, [disconnecting]);
 
     useEffect(() => {
         if (connected) {
-            const tokenString = localStorage.getItem('token')
+            const tokenString = localStorage.getItem('token');
             if (tokenString) {
-                const tokenDetail = decodeJwt(tokenString)
+                const tokenDetail = decodeJwt(tokenString);
                 if (typeof tokenDetail.isAdmin == 'boolean') {
-                    setIsAdmin(tokenDetail.isAdmin)
+                    setIsAdmin(tokenDetail.isAdmin);
                 }
             }
         }
-    })
+    });
 
     return (
         <div className="navbar sticky top-0 z-50 bg-white py-4 lg:px-12">
