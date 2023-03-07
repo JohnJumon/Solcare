@@ -58,7 +58,6 @@ const Header = () => {
         if (connected) {
             signIn();
         }
-        console.log(isAdmin);
 
         if (disconnecting) {
             setIsAdmin(false);
@@ -66,17 +65,17 @@ const Header = () => {
         }
     }, [connected, disconnecting]);
 
-    // useEffect(() => {
-    //     if (connected) {
-    //         const tokenString = localStorage.getItem('token')
-    //         if(tokenString){
-    //             const tokenDetail = decodeJwt(tokenString)
-    //             if(typeof tokenDetail.isAdmin == 'boolean'){
-    //                 setIsAdmin(tokenDetail.isAdmin)
-    //             }
-    //         }
-    //     }
-    // })
+    useEffect(() => {
+        if (connected) {
+            const tokenString = localStorage.getItem('token')
+            if (tokenString) {
+                const tokenDetail = decodeJwt(tokenString)
+                if (typeof tokenDetail.isAdmin == 'boolean') {
+                    setIsAdmin(tokenDetail.isAdmin)
+                }
+            }
+        }
+    })
 
     return (
         <div className="navbar sticky top-0 z-50 bg-white py-4 lg:px-12">
