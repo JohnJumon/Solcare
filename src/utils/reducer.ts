@@ -3,16 +3,17 @@ export enum ActionType {
     NotAdmin = 'NOT_ADMIN',
 }
 
-export type Actions = { type: ActionType.IsAdmin } | { type: ActionType.NotAdmin };
+export type Actions =
+    | { type: ActionType.IsAdmin }
+    | { type: ActionType.NotAdmin };
 
-export const isAdminReducer = (state:boolean, action:Actions) => {
+export const isAdminReducer = (state: boolean, action: Actions) => {
     switch (action.type) {
         case ActionType.IsAdmin:
-            return true
+            return true;
         case ActionType.NotAdmin:
-            return false
+            return false;
         default:
             return state;
     }
-}
-
+};
