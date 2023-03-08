@@ -26,7 +26,7 @@ const Header = () => {
     const { connected, signMessage, publicKey, disconnect, disconnecting } =
         useWallet();
 
-    const [formerKey, setFormerKey] = useState('');
+    const navigate = useNavigate();
 
     const signIn = async () => {
         if (signMessage && publicKey) {
@@ -37,6 +37,7 @@ const Header = () => {
                 decodeJwt(tokenString)['address'] !== publicKey.toBase58()
             ) {
                 try {
+                    navigate('/');
                     const message = new TextEncoder().encode(LOGIN_MESSAGE);
                     const signature = await signMessage(message);
 
@@ -49,7 +50,7 @@ const Header = () => {
                     );
 
                     localStorage.setItem('token', resp.data.data.token);
-                    setFormerKey(publicKey.toBase58());
+
                     const tokenTemp = localStorage.getItem('token');
 
                     if (tokenTemp) {
@@ -87,16 +88,11 @@ const Header = () => {
         }
     }, [connected, publicKey]);
 
-    const navigate = useNavigate();
     useEffect(() => {
         if (disconnecting) {
             dispatch({ type: ActionType.NotAdmin });
             localStorage.removeItem('token');
-            // console.log(formerKey);
 
-            navigate('/');
-        }
-        if (formerKey != publicKey?.toBase58()) {
             navigate('/');
         }
     }, [disconnecting, publicKey]);
