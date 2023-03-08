@@ -8,7 +8,7 @@ import {
 } from 'react';
 import { Connection, clusterApiUrl } from '@solana/web3.js';
 import Logo from '../../image/Logo.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import '@solana/wallet-adapter-react-ui/styles.css';
 import { useWallet } from '@solana/wallet-adapter-react';
@@ -25,6 +25,8 @@ const Header = () => {
     const { isAdmin } = state;
     const { connected, signMessage, publicKey, disconnect, disconnecting } =
         useWallet();
+
+    const [formerKey, setFormerKey] = useState('');
 
     const signIn = async () => {
         if (signMessage && publicKey) {
@@ -47,6 +49,7 @@ const Header = () => {
                     );
 
                     localStorage.setItem('token', resp.data.data.token);
+                    setFormerKey(publicKey.toBase58());
                     const tokenTemp = localStorage.getItem('token');
 
                     if (tokenTemp) {
@@ -84,16 +87,22 @@ const Header = () => {
         }
     }, [connected, publicKey]);
 
+    const navigate = useNavigate();
     useEffect(() => {
         if (disconnecting) {
             dispatch({ type: ActionType.NotAdmin });
             localStorage.removeItem('token');
-            window.location.replace('/')
+            // console.log(formerKey);
+
+            navigate('/');
         }
-    }, [disconnecting]);
+        if (formerKey != publicKey?.toBase58()) {
+            navigate('/');
+        }
+    }, [disconnecting, publicKey]);
 
     useEffect(() => {
-        fetchToken()
+        fetchToken();
     }, []);
 
     return (
