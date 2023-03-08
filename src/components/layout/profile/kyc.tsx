@@ -191,6 +191,13 @@ const KYC = (props: any) => {
                             ? KYCInfo.nik
                             : null
                     }
+                    disabled={
+                        KYCInfo?.status == STATUS_KYC_PENDING ||
+                        KYCInfo?.status == STATUS_KYC_ACCEPTED
+                            ? true
+                            : false
+                    }
+                    maxLength={16}
                 />
             </div>
             <div className="mt-4 flex flex-col md:flex-row gap-4">
