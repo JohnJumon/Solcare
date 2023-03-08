@@ -2,6 +2,8 @@ import Thumbnail from '../../../image/placeholder.svg';
 import { useEffect, useState } from 'react';
 import { toast, Id } from 'react-toastify';
 import axios from 'axios';
+import JSZip from 'jszip';
+import saveAs from 'file-saver'
 import {
     API_BASE_URL,
     STATUS_KYC_ACCEPTED,
@@ -10,7 +12,10 @@ import {
     STATUS_KYC_REMOVED,
     OPACITY,
 } from '../../../utils';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { FractalWalletAdapter } from '@solana/wallet-adapter-wallets';
 const KYC = (props: any) => {
+    const { connected, disconnecting, publicKey } = useWallet();
     const [input, setInput] = useState<{ [string: string]: any }>({
         nik: null,
         idCard: null,
@@ -115,13 +120,13 @@ const KYC = (props: any) => {
 
     const fetchUserKYC = async () => {
         let token = localStorage.getItem('token');
+        console.log(token)
         const headers = {
             Authorization: `Bearer ${token}`,
         };
         const userData = await axios.get(`${API_BASE_URL}/v1/users/kyc`, {
             headers,
         });
-
         if (userData.data.data != undefined) {
             setKYCInfo(userData.data.data);
             console.log(userData.data.data);
@@ -129,7 +134,7 @@ const KYC = (props: any) => {
     };
 
     useEffect(() => {
-        fetchUserKYC();
+        fetchUserKYC()
     }, []);
 
     const showKYCStatus = (status: number) => {
@@ -146,6 +151,28 @@ const KYC = (props: any) => {
         }
     };
 
+    const saveZip = (fileName: string) => {
+        const zip = new JSZip();
+        const folder = zip.folder("KYCFiles");
+
+        const URLs = [
+            API_BASE_URL + '/resources/' + KYCInfo.idCardPicture,
+            API_BASE_URL + '/resources/' + KYCInfo.facePicture,
+            API_BASE_URL + '/resources/' + KYCInfo.selfieWithIdCardPicture
+        ]
+        URLs.forEach((url) => {
+            const blobPromise = fetch(url).then((r) => {
+                if (r.status === 200) return r.blob();
+                return Promise.reject(new Error(r.statusText));
+            });
+            const name = url.substring(url.lastIndexOf("/") + 1);
+            folder!.file(name, blobPromise);
+        });
+
+        zip.generateAsync({ type: "blob" }).then((blob) => saveAs(blob, fileName));
+    }
+
+
     return (
         <div className="flex flex-col">
             <p className="font-bold text-xs md:text-lg">KYC</p>
@@ -160,9 +187,9 @@ const KYC = (props: any) => {
                     onChange={handleInputChange}
                     value={
                         KYCInfo?.status == STATUS_KYC_PENDING ||
-                        KYCInfo?.status == STATUS_KYC_ACCEPTED
+                            KYCInfo?.status == STATUS_KYC_ACCEPTED
                             ? KYCInfo.nik
-                            : ''
+                            : null
                     }
                 />
             </div>
@@ -177,24 +204,20 @@ const KYC = (props: any) => {
                         htmlFor="dropzone-file-1"
                         style={{
                             backgroundImage: `
-                                ${
-                                    KYCInfo?.status == STATUS_KYC_PENDING ||
+                                ${KYCInfo?.status == STATUS_KYC_PENDING ||
                                     KYCInfo?.status == STATUS_KYC_ACCEPTED
-                                        ? `linear-gradient(
+                                    ? `linear-gradient(
                                         rgba(0, 0, 0, ${OPACITY}), 
                                         rgba(0, 0, 0, ${OPACITY})
-                                      ),url(${
-                                          API_BASE_URL +
-                                          '/resources/' +
-                                          KYCInfo.idCardPicture
-                                      })`
-                                        : `linear-gradient(
-                                        rgba(0, 0, 0, ${
-                                            blob.idCard == '' ? 0 : OPACITY
-                                        }), 
-                                        rgba(0, 0, 0, ${
-                                            blob.idCard == '' ? 0 : OPACITY
-                                        })
+                                      ),url(${API_BASE_URL +
+                                    '/resources/' +
+                                    KYCInfo.idCardPicture
+                                    })`
+                                    : `linear-gradient(
+                                        rgba(0, 0, 0, ${blob.idCard == '' ? 0 : OPACITY
+                                    }), 
+                                        rgba(0, 0, 0, ${blob.idCard == '' ? 0 : OPACITY
+                                    })
                                       ),url(${blob.idCard})`
                                 }
                             `,
@@ -250,24 +273,20 @@ const KYC = (props: any) => {
                         htmlFor="dropzone-file-2"
                         style={{
                             backgroundImage: `
-                                ${
-                                    KYCInfo?.status == STATUS_KYC_PENDING ||
+                                ${KYCInfo?.status == STATUS_KYC_PENDING ||
                                     KYCInfo?.status == STATUS_KYC_ACCEPTED
-                                        ? `linear-gradient(
+                                    ? `linear-gradient(
                                         rgba(0, 0, 0, ${OPACITY}), 
                                         rgba(0, 0, 0, ${OPACITY})
-                                      ),url(${
-                                          API_BASE_URL +
-                                          '/resources/' +
-                                          KYCInfo.facePicture
-                                      })`
-                                        : `linear-gradient(
-                                        rgba(0, 0, 0, ${
-                                            blob.face == '' ? 0 : OPACITY
-                                        }), 
-                                        rgba(0, 0, 0, ${
-                                            blob.face == '' ? 0 : OPACITY
-                                        })
+                                      ),url(${API_BASE_URL +
+                                    '/resources/' +
+                                    KYCInfo.facePicture
+                                    })`
+                                    : `linear-gradient(
+                                        rgba(0, 0, 0, ${blob.face == '' ? 0 : OPACITY
+                                    }), 
+                                        rgba(0, 0, 0, ${blob.face == '' ? 0 : OPACITY
+                                    })
                                       ),url(${blob.face})`
                                 }
                             `,
@@ -298,7 +317,7 @@ const KYC = (props: any) => {
                                 accept="image/png, image/jpeg"
                                 disabled={
                                     KYCInfo?.status == STATUS_KYC_PENDING ||
-                                    KYCInfo?.status == STATUS_KYC_ACCEPTED
+                                        KYCInfo?.status == STATUS_KYC_ACCEPTED
                                         ? true
                                         : false
                                 }
@@ -324,27 +343,23 @@ const KYC = (props: any) => {
                         htmlFor="dropzone-file-3"
                         style={{
                             backgroundImage: `
-                                ${
-                                    KYCInfo?.status == STATUS_KYC_PENDING
-                                        ? `linear-gradient(
+                                ${KYCInfo?.status == STATUS_KYC_PENDING
+                                    ? `linear-gradient(
                                         rgba(0, 0, 0, ${OPACITY}), 
                                         rgba(0, 0, 0, ${OPACITY})
-                                      ),url(${
-                                          API_BASE_URL +
-                                          '/resources/' +
-                                          KYCInfo.selfieWithIdCardPicture
-                                      })`
-                                        : `linear-gradient(
-                                        rgba(0, 0, 0, ${
-                                            blob.faceWithIdCard == ''
-                                                ? 0
-                                                : OPACITY
-                                        }), 
-                                        rgba(0, 0, 0, ${
-                                            blob.faceWithIdCard == ''
-                                                ? 0
-                                                : OPACITY
-                                        })
+                                      ),url(${API_BASE_URL +
+                                    '/resources/' +
+                                    KYCInfo.selfieWithIdCardPicture
+                                    })`
+                                    : `linear-gradient(
+                                        rgba(0, 0, 0, ${blob.faceWithIdCard == ''
+                                        ? 0
+                                        : OPACITY
+                                    }), 
+                                        rgba(0, 0, 0, ${blob.faceWithIdCard == ''
+                                        ? 0
+                                        : OPACITY
+                                    })
                                       ),url(${blob.faceWithIdCard})`
                                 }
                             `,
@@ -412,8 +427,17 @@ const KYC = (props: any) => {
                     )}
                 </div>
             </div>
+            <button
+                className='my-10 bg-[#007BC7] text-xs w-full p-2 border border-[2px] border-[#007BC7] text-white font-bold rounded-[5px]
+                md:text-xl md:p-4 md:rounded-[10px]'
+                onClick={() => saveZip(KYCInfo.nik)}
+            >
+                Download Files
+            </button>
         </div>
     );
 };
 
 export default KYC;
+
+

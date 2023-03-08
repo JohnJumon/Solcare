@@ -66,6 +66,18 @@ const Header = () => {
         }
     };
 
+    const fetchToken = () => {
+        const tokenString = localStorage.getItem('token');
+        if (tokenString) {
+            const tokenDetail = decodeJwt(tokenString);
+            if (typeof tokenDetail.isAdmin == 'boolean') {
+                tokenDetail.isAdmin
+                    ? dispatch!({ type: ActionType.IsAdmin })
+                    : dispatch!({ type: ActionType.NotAdmin });
+            }
+        }
+    };
+
     useEffect(() => {
         if (connected) {
             signIn();
@@ -76,22 +88,13 @@ const Header = () => {
         if (disconnecting) {
             dispatch({ type: ActionType.NotAdmin });
             localStorage.removeItem('token');
+            window.location.replace('/')
         }
     }, [disconnecting]);
 
     useEffect(() => {
-        if (connected) {
-            const tokenString = localStorage.getItem('token');
-            if (tokenString) {
-                const tokenDetail = decodeJwt(tokenString);
-                if (typeof tokenDetail.isAdmin == 'boolean') {
-                    tokenDetail.isAdmin
-                        ? dispatch!({ type: ActionType.IsAdmin })
-                        : dispatch!({ type: ActionType.NotAdmin });
-                }
-            }
-        }
-    });
+        fetchToken()
+    }, []);
 
     return (
         <div className="navbar sticky top-0 z-50 bg-white py-4 lg:px-12">
