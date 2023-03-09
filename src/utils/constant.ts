@@ -36,3 +36,5 @@ export const STATUS_KYC_DECLINED = 2;
 export const STATUS_KYC_REMOVED = 3;
 
 export const OPACITY = 0.5;
+
+export const ITEM_PER_PAGE = 10;

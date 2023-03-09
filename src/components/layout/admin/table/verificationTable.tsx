@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { API_BASE_URL } from '../../../../utils';
+import { API_BASE_URL, ITEM_PER_PAGE } from '../../../../utils';
 import VerificationActions from './action/verificationActions';
 const VerificationTable = (props: any) => {
     let userVerificationData = props.userVerificationData;
@@ -8,8 +8,6 @@ const VerificationTable = (props: any) => {
     const [page, setPage] = useState('1');
 
     const [url, setUrl] = useState();
-
-    const ITEM_PER_PAGE = 10;
 
     const generateTable = (page: number) => {
         let rows = [];
