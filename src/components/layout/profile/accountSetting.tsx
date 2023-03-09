@@ -131,18 +131,17 @@ const AccountSetting = () => {
                 </label>
                 <div className="basis-10/12 shrink flex flex-col items-center md:items-start my-4 md:my-0 md:mx-4">
                     <div
-                        className="text-sm
-                            md:text-base"
+                        className="text-center text-sm 
+                        md:self-start md:text-right md:basis-1/12 text-gray-500
+                        "
                     >
-                        {userInfo.isWarned ? (
-                            <p className="text-red-600 text-bold">
-                                Diperingati
-                            </p>
-                        ) : (
-                            <p className="text-green-600 text-bold">
-                                Belum Diperingati
-                            </p>
-                        )}
+                        {userInfo.isVerified
+                            ? (<p className="text-green-600 text-base">Terverifikasi</p>
+                            ) : (
+                                <p>
+                                    Belum Verifikasi
+                                </p>
+                            )}
                     </div>
 
                     <div className="divider my-1" />
@@ -194,18 +193,21 @@ const AccountSetting = () => {
                         className="text-xs
                         md:text-base"
                     >
-                        {connected ? publicKey?.toBase58() : 'Wallet address'}
+                        {userInfo.address}
                     </p>
                 </div>
-                <p
-                    className="basis-1/12 shrink-0 text-center text-xs 
-                    md:self-start md:text-right md:text-sm text-gray-500
-                    "
+                <div
+                    className="text-sm text-center 
+                            md:self-start md:text-right md:basis-1/12"
                 >
-                    {userInfo.isVerified
-                        ? 'Terverifikasi'
-                        : 'Belum Terverifikasi'}
-                </p>
+                    {userInfo.isWarned ? (
+                        <p className="text-red-600 text-bold">Diperingati</p>
+                    ) : (
+                        <p className="text-green-600 text-bold">
+                            Belum Diperingati
+                        </p>
+                    )}
+                </div>
             </div>
             <SetInfo
                 refetch={fetchUser}

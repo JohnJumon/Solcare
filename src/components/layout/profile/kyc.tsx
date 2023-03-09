@@ -104,19 +104,18 @@ const KYC = (props: any) => {
                 { headers }
             );
             if (resp.data.status !== 200) {
-                toast.error(
-                    `Data Gagal Disimpan! Pastikan data baru tidak sama dengan data sebelumnya`
-                );
+                toast.error(`Verifikasi Gagal Diajukan!`);
                 return;
             }
-            toast.success('Data Berhasil Tersimpan');
+            toast.success('Verifikasi Berhasil Diajukan');
         } catch (e) {
             console.log(e);
             toast.error(
-                `Data Gagal Disimpan! Pastikan data sudah ditulis dengan format yang benar`
+                `Verifikasi Gagal Diajukan! Pastikan data sudah ditulis dengan format yang benar`
             );
             return;
         }
+        fetchUserKYC();
     };
 
     const fetchUserKYC = async () => {
@@ -141,13 +140,15 @@ const KYC = (props: any) => {
         if (status === STATUS_KYC_PENDING) {
             return <p className="text-blue-600">Pending</p>;
         } else if (status === STATUS_KYC_ACCEPTED) {
-            return <p className="text-green-600">Terverifikasi</p>;
+            return (
+                <p className="text-green-600">Permintaan Verifikasi Diterima</p>
+            );
         } else if (status === STATUS_KYC_DECLINED) {
             return (
                 <p className="text-red-600">Permintaan Verifikasi Ditolak</p>
             );
         } else if (status === STATUS_KYC_REMOVED) {
-            return <p className="text-red-600">Verifikasi Ditarik</p>;
+            return <p className="text-red-600">Status Verifikasi Dicabut</p>;
         }
     };
 
@@ -360,7 +361,8 @@ const KYC = (props: any) => {
                         style={{
                             backgroundImage: `
                                 ${
-                                    KYCInfo?.status == STATUS_KYC_PENDING
+                                    KYCInfo?.status == STATUS_KYC_PENDING ||
+                                    KYCInfo?.status == STATUS_KYC_ACCEPTED
                                         ? `linear-gradient(
                                         rgba(0, 0, 0, ${OPACITY}), 
                                         rgba(0, 0, 0, ${OPACITY})
@@ -432,7 +434,10 @@ const KYC = (props: any) => {
                     basis-1/2 self-end bg-[#007BC7] text-xs w-full p-2 border border-[2px] border-[#007BC7] text-white font-bold rounded-[5px]
                     md:text-xl md:p-4 md:rounded-[10px] disabled:opacity-50"
                     disabled={
-                        KYCInfo?.status === STATUS_KYC_PENDING ? true : false
+                        KYCInfo?.status === STATUS_KYC_PENDING ||
+                        KYCInfo?.status === STATUS_KYC_ACCEPTED
+                            ? true
+                            : false
                     }
                     onClick={submitInfo}
                 >
