@@ -18,7 +18,6 @@ const UserDetail = () => {
         if (resp.data.status === 200) {
             setUserData(resp.data.data);
         }
-        // console.log(userData);
     };
 
     const removeVerification = async () => {
@@ -69,9 +68,13 @@ const UserDetail = () => {
                         md:self-start md:text-right md:basis-1/12 text-gray-500
                         "
                     >
-                        {userData.isVerified
-                            ? 'Terverifikasi'
-                            : 'Belum Terverifikasi'}
+                        {userData.isVerified ? (
+                            <p className="text-green-600 text-base">
+                                Terverifikasi
+                            </p>
+                        ) : (
+                            <p>Belum Verifikasi</p>
+                        )}
                     </div>
 
                     <div className="divider my-1" />
@@ -107,7 +110,7 @@ const UserDetail = () => {
                         </span>
                         <span>
                             {userData.firstName === '' ||
-                                userData.firstName === ''
+                            userData.firstName === ''
                                 ? 'Nama'
                                 : userData.firstName + ' ' + userData.lastName}
                         </span>
@@ -173,17 +176,18 @@ const UserDetail = () => {
                     </div>
                 </div>
             </div>
-            {userData.isVerified === true
-                ? (<button
+            {userData.isVerified === true ? (
+                <button
                     className="
                                 mt-4 self-end bg-[#007BC7] text-xs w-full p-2 border border-[2px] border-[#007BC7] text-white font-bold rounded-[5px]
                                 md:text-xl md:p-4 md:rounded-[10px]"
                     onClick={() => removeVerification()}
-
                 >
                     Cabut Verifikasi
-                </button>)
-                : <></>}
+                </button>
+            ) : (
+                <></>
+            )}
         </div>
     );
 };
