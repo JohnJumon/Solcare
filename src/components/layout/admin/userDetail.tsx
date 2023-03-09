@@ -49,18 +49,13 @@ const UserDetail = () => {
                 />
                 <div className="md:basis-10/12 flex flex-col items-center md:items-start my-4 md:my-0 md:mx-4">
                     <div
-                        className="text-sm
-                            md:text-base"
+                        className="text-center text-sm 
+                        md:self-start md:text-right md:basis-1/12 text-gray-500
+                        "
                     >
-                        {userData.isWarned ? (
-                            <p className="text-red-600 text-bold">
-                                Diperingati
-                            </p>
-                        ) : (
-                            <p className="text-green-600 text-bold">
-                                Belum Diperingati
-                            </p>
-                        )}
+                        {userData.isVerified
+                            ? 'Terverifikasi'
+                            : 'Belum Terverifikasi'}
                     </div>
 
                     <div className="divider my-1" />
@@ -116,17 +111,22 @@ const UserDetail = () => {
                     </p>
                 </div>
 
-                <p
-                    className="text-center text-sm 
-                        md:self-start md:text-right md:basis-1/12 text-gray-500
-                        "
+                <div
+                    className="text-sm text-center 
+                            md:self-start md:text-right md:basis-1/12"
                 >
-                    {userData.isVerified
-                        ? 'Terverifikasi'
-                        : 'Belum Terverifikasi'}
-                </p>
+                    {userData.isWarned ? (
+                        <p className="text-red-600 text-bold">Diperingati</p>
+                    ) : (
+                        <p className="text-green-600 text-bold">
+                            Belum Diperingati
+                        </p>
+                    )}
+                </div>
             </div>
-            <div className="divider"></div>
+
+            <div className="divider" />
+
             <div className="grid grid-cols-1 gap-6 font-bold text-xs sm:text-lg md:grid-cols-2 md:grid-rows-2 md:gap-4 items-center">
                 <div className="col-span-1">
                     <p>Total Donasi</p>
