@@ -1,7 +1,61 @@
-const VerificationActions = () => {
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { API_BASE_URL } from '../../../../../utils';
+
+const VerificationActions = (props: any) => {
+    const userData = props.userData;
+    const refetch = props.refetch;
+
+    const acceptKYC = async () => {
+        let token = localStorage.getItem('token');
+        const headers = {
+            Authorization: `Bearer ${token}`,
+        };
+
+        const resp = await axios.post(
+            `${API_BASE_URL}/v1/admins/kyc`,
+            {
+                address: userData.usersWalletAddress,
+                isAccepted: true,
+            },
+            { headers }
+        );
+
+        if (resp.data.status !== 200) {
+            toast.error(`Verifikasi gagal disetujui. Silahkan coba kembali.`);
+            return;
+        }
+        toast.success('Permintaan verifikasi berhasil disetujui');
+        refetch();
+    };
+
+    const declineKYC = async () => {
+        let token = localStorage.getItem('token');
+        const headers = {
+            Authorization: `Bearer ${token}`,
+        };
+        const resp = await axios.post(
+            `${API_BASE_URL}/v1/admins/kyc`,
+            {
+                address: userData.usersWalletAddress,
+                isAccepted: false,
+            },
+            { headers }
+        );
+        if (resp.data.status !== 200) {
+            toast.error(`Verifikasi gagal ditolak. Silahkan coba kembali.`);
+            return;
+        }
+        toast.success('Permintaan verifikasi berhasil ditolak');
+        refetch();
+    };
+
     return (
         <div className="flex flex-row justify-center">
-            <button className="hover:stroke-[#007BC7] stroke-black">
+            <button
+                className="hover:stroke-[#007BC7] stroke-black"
+                onClick={() => acceptKYC()}
+            >
                 <svg
                     width="24"
                     height="24"
@@ -17,7 +71,10 @@ const VerificationActions = () => {
                     />
                 </svg>
             </button>
-            <button className="ml-2 hover:stroke-[#007BC7] stroke-black">
+            <button
+                className="ml-2 hover:stroke-[#007BC7] stroke-black"
+                onClick={() => declineKYC()}
+            >
                 <svg
                     width="24"
                     height="24"

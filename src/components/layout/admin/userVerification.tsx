@@ -26,7 +26,7 @@ const UserVerification = () => {
 
     return (
         <div>
-            <VerificationTable userVerificationData={userVerificationData} />
+            <VerificationTable userVerificationData={userVerificationData} refetch={fetchUserVerification}/>
         </div>
     );
 };
