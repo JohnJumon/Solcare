@@ -15,13 +15,9 @@ const UserVerification = () => {
             headers,
         });
 
-        console.log(resp.data);
-
         if (resp.data.status === 200) {
             setUserVerificationData(resp.data.data);
-            // console.log(resp.data);
         }
-        // console.log(userVerificationData);
     };
 
     useEffect(() => {

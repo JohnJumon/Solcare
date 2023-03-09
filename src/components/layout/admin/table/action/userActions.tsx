@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom';
 
 const UserActions = (props: any) => {
+    const userData = props.data;
+    // console.log(userData);
+
     return (
         <div className="flex flex-row justify-center">
             <Link
-                to={`/admin/manage-user/detail/${props.id}`}
+                to={`/admin/manage-user/detail/${userData.address}`}
                 className="hover:stroke-[#007BC7] stroke-black"
             >
                 <svg
@@ -29,28 +32,32 @@ const UserActions = (props: any) => {
                 </svg>
             </Link>
 
-            <button className="ml-2 hover:stroke-[#007BC7] stroke-black">
-                <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 32 32"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        d="M25 7L7 25"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
-                    <path
-                        d="M25 25L7 7"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
-                </svg>
-            </button>
+            {userData.isVerified === true ? (
+                <button className="ml-2 hover:stroke-[#007BC7] stroke-black">
+                    <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 32 32"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M25 7L7 25"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                        <path
+                            d="M25 25L7 7"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                    </svg>
+                </button>
+            ) : (
+                <></>
+            )}
         </div>
     );
 };

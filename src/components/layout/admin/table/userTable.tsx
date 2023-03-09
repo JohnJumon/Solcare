@@ -3,8 +3,10 @@ import UserActions from './action/userActions';
 import { ITEM_PER_PAGE } from '../../../../utils';
 const UserTable = (props: any) => {
     let userData = props.userData;
-    console.log(userData)
-    const [currentValue, setValue] = useState('1');
+    // console.log(userData)
+
+    const [page, setPage] = useState('1');
+
     const generateTable = (page: number) => {
         let rows = [];
         for (
@@ -13,7 +15,10 @@ const UserTable = (props: any) => {
             i++
         ) {
             rows.push(
-                <tr className="bg-white hover:bg-[rgba(0,123,199,0.25)]" key={i}>
+                <tr
+                    className="bg-white hover:bg-[rgba(0,123,199,0.25)]"
+                    key={i}
+                >
                     <th
                         scope="row"
                         className="text-center py-4 px-6 font-medium text-gray-900 whitespace-nowrap"
@@ -23,11 +28,15 @@ const UserTable = (props: any) => {
                     <td className="py-4 px-6">
                         {userData[i].firstName === ''
                             ? 'User'
-                            : userData[i].firstName +' ' + userData[i].lastName}
+                            : userData[i].firstName +
+                              ' ' +
+                              userData[i].lastName}
                     </td>
-                    <td className="py-4 px-6">{userData[i].address}</td>
+                    <td id="address-tag" className="py-4 px-6">
+                        {userData[i].address}
+                    </td>
                     <td className="py-4 px-6 text-center">
-                        <UserActions address={userData[i].address} id={i + 1} />
+                        <UserActions data={userData[i]} id={i + 1} />
                     </td>
                 </tr>
             );
@@ -37,27 +46,28 @@ const UserTable = (props: any) => {
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (parseInt(event.target.value) < 1 || event.target.value == '') {
-            setValue('1');
+            setPage('1');
         } else {
-            setValue(event.target.value);
+            setPage(event.target.value);
         }
     };
 
     const decrease = () => {
-        var value = parseInt(currentValue);
+        var value = parseInt(page);
         if (value - 1 < 1) {
-            setValue('1');
+            setPage('1');
         } else {
-            setValue((value - 1).toString());
+            setPage((value - 1).toString());
         }
     };
 
     const increase = () => {
-        var value = parseInt(currentValue);
-        if (value + 1 > 20) {
-            setValue('20');
+        var value = parseInt(page);
+        const maxPage = Math.ceil(userData.length / ITEM_PER_PAGE);
+        if (value + 1 > maxPage) {
+            setPage(maxPage.toString());
         } else {
-            setValue((value + 1).toString());
+            setPage((value + 1).toString());
         }
     };
 
@@ -72,20 +82,29 @@ const UserTable = (props: any) => {
             md:mt-6"
         >
             {userData.length === 0 ? (
-                <h2>Tidak ada permintaan verifikasi oleh user saat ini</h2>
+                <h2>Tidak ada user terdaftar saat ini</h2>
             ) : (
                 <>
                     <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
                         <table className="w-full text-xs lg:text-lg text-left text-gray-500">
                             <thead className="text-xs lg:text-lg text-center bg-[#007BC7] text-white">
                                 <tr>
-                                    <th scope="col" className="py-3 px-6 border-r">
+                                    <th
+                                        scope="col"
+                                        className="py-3 px-6 border-r"
+                                    >
                                         No.
                                     </th>
-                                    <th scope="col" className="py-3 px-6 border-r">
+                                    <th
+                                        scope="col"
+                                        className="py-3 px-6 border-r"
+                                    >
                                         Nama
                                     </th>
-                                    <th scope="col" className="py-3 px-6 border-r">
+                                    <th
+                                        scope="col"
+                                        className="py-3 px-6 border-r"
+                                    >
                                         Wallet Address
                                     </th>
                                     <th scope="col" className="py-3 px-6">
@@ -93,7 +112,7 @@ const UserTable = (props: any) => {
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody>{generateTable(parseInt(currentValue))}</tbody>
+                            <tbody>{generateTable(parseInt(page))}</tbody>
                         </table>
                     </div>
                     <nav
@@ -109,11 +128,13 @@ const UserTable = (props: any) => {
                         >
                             Showing{' '}
                             <span className="font-bold text-gray-900">
-                                {parseInt(currentValue) * 10 - 10 + 1}-
-                                {parseInt(currentValue) * 10}
+                                {parseInt(page) * 10 - 10 + 1}-
+                                {Math.min(parseInt(page) * 10, userData.length)}
                             </span>{' '}
                             of{' '}
-                            <span className="font-bold text-gray-900">{10 * 20}</span>
+                            <span className="font-bold text-gray-900">
+                                {userData.length}
+                            </span>
                         </span>
                         <ul className="inline-flex items-center -space-x-px">
                             <li>
@@ -150,7 +171,7 @@ const UserTable = (props: any) => {
                                     className="
                             text-center py-2 min-w-[75px] max-w-[100px] px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 focus:outline-none
                             md:px-6 md:py-4 md:text-2xl"
-                                    value={currentValue}
+                                    value={page}
                                 />
                             </li>
                             <li>

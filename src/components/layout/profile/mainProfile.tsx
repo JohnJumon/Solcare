@@ -9,7 +9,7 @@ import { useSmartContract } from '../../../context/connection';
 import { BN } from 'bn.js';
 import axios from 'axios';
 
-interface ProfileProps {
+export interface ProfileProps {
     firstName: string;
     lastName: string;
     address: string;
@@ -158,9 +158,7 @@ const MainProfile = () => {
                             className="text-sm
                             md:text-base"
                         >
-                            {connected
-                                ? publicKey?.toBase58()
-                                : 'Wallet address'}
+                            {userInfo.address}
                         </p>
                     </div>
                     <p

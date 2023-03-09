@@ -5,20 +5,8 @@ import { toast } from 'react-toastify';
 import ProfilePlaceholder from '../../../image/profilePic.png';
 import { API_BASE_URL, OPACITY } from '../../../utils';
 import KYC from './kyc';
+import { ProfileProps } from './mainProfile';
 import SetInfo from './setInfo';
-
-interface ProfileProps {
-    firstName: string;
-    lastName: string;
-    address: string;
-    profilePicture: string;
-    gender: boolean;
-    email: string;
-
-    createdAt: number;
-    isVerified: boolean;
-    isWarned: boolean;
-}
 
 const AccountSetting = () => {
     const { connected, publicKey } = useWallet();

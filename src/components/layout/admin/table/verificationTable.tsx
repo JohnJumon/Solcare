@@ -3,7 +3,7 @@ import { API_BASE_URL, ITEM_PER_PAGE } from '../../../../utils';
 import VerificationActions from './action/verificationActions';
 const VerificationTable = (props: any) => {
     let userVerificationData = props.userVerificationData;
-    console.log(userVerificationData);
+    // console.log(userVerificationData);
 
     const [page, setPage] = useState('1');
 
@@ -33,8 +33,6 @@ const VerificationTable = (props: any) => {
                             ? 'User'
                             : userVerificationData[i].name}
                     </td>
-                    {/* <td className="py-4 px-6">Nama {i + 1}</td> */}
-                    {/* <td className="py-4 px-6">Wallet Address {i + 1}</td> */}
                     <td id="address-tag" className="py-4 px-6">
                         {userVerificationData[i].usersWalletAddress}
                     </td>

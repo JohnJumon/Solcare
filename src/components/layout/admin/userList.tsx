@@ -17,6 +17,7 @@ const UserList = (props: any) => {
     useEffect(() => {
         fetchUser();
     }, []);
+    
     return (
         <div>
             <UserTable userData={userData}/>

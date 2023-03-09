@@ -121,7 +121,7 @@ const KYC = (props: any) => {
 
     const fetchUserKYC = async () => {
         let token = localStorage.getItem('token');
-        console.log(token);
+        // console.log(token);
         const headers = {
             Authorization: `Bearer ${token}`,
         };
