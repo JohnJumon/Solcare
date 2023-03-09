@@ -4,7 +4,7 @@ import axios from 'axios';
 import { API_BASE_URL } from '../../../utils';
 import { useParams } from 'react-router';
 import { ProfileProps } from '../profile/mainProfile';
-
+import { toast } from 'react-toastify';
 const UserDetail = () => {
     const { address } = useParams();
 
@@ -20,6 +20,22 @@ const UserDetail = () => {
         }
         // console.log(userData);
     };
+
+    const removeVerification = async () => {
+        let token = localStorage.getItem('token');
+        const headers = {
+            Authorization: `Bearer ${token}`,
+        };
+        const resp = await axios.delete(
+            `${API_BASE_URL}/v1/admins/kyc/${address}`, { headers }
+        );
+        if (resp.data.status !== 200) {
+            toast.error(`Verifikasi gagal dicabut. Silahkan coba kembali.`);
+            return;
+        }
+        toast.success('Verifikasi berhasil dicabut.');
+        fetchUser();
+    }
 
     useEffect(() => {
         fetchUser();
@@ -91,7 +107,7 @@ const UserDetail = () => {
                         </span>
                         <span>
                             {userData.firstName === '' ||
-                            userData.firstName === ''
+                                userData.firstName === ''
                                 ? 'Nama'
                                 : userData.firstName + ' ' + userData.lastName}
                         </span>
@@ -157,13 +173,17 @@ const UserDetail = () => {
                     </div>
                 </div>
             </div>
-            <button
-                className="
-                    mt-4 self-end bg-[#007BC7] text-xs w-full p-2 border border-[2px] border-[#007BC7] text-white font-bold rounded-[5px]
-                    md:text-xl md:p-4 md:rounded-[10px]"
-            >
-                Cabut Verifikasi
-            </button>
+            {userData.isVerified === true
+                ? (<button
+                    className="
+                                mt-4 self-end bg-[#007BC7] text-xs w-full p-2 border border-[2px] border-[#007BC7] text-white font-bold rounded-[5px]
+                                md:text-xl md:p-4 md:rounded-[10px]"
+                    onClick={() => removeVerification()}
+
+                >
+                    Cabut Verifikasi
+                </button>)
+                : <></>}
         </div>
     );
 };
