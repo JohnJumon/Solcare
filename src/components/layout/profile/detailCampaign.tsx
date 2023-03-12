@@ -61,7 +61,7 @@ const MyDetailCampaign = (props: any) => {
                 />
             );
         } else if (status == STATUS_FUNDED) {
-            return <EvidenceProposalButton />;
+            return <EvidenceProposalButton campaignAddress={campaign.address} />;
         }
     };
 

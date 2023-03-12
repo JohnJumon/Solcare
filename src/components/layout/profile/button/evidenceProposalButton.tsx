@@ -1,8 +1,22 @@
-import { useState } from 'react';
-import { toast } from 'react-toastify';
+import { useState, useRef } from 'react';
+import { Id, toast } from 'react-toastify';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { API_BASE_URL } from '../../../../utils';
 
-const EvidenceProposalButton = () => {
+const EvidenceProposalButton = ({ campaignAddress }: { campaignAddress: string }) => {
     const [uploadedFileName, setUploadedFileName] = useState();
+    const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+    const { connected, publicKey } = useWallet()
+    const toastId = useRef<Id | null>(null);
+    const navigate = useNavigate();
+
+    const toastDone = () => {
+        if (toastId.current) toast.done(toastId.current);
+        toastId.current = null;
+    };
+
 
     const handleInputChange = (e: any) => {
         const target = e.target;
@@ -12,16 +26,74 @@ const EvidenceProposalButton = () => {
             return;
         } else {
             setUploadedFileName(file.name);
+            setUploadedFile(e.target.files?.item(0) || null);
             return;
         }
     };
+
+    const submitEvidence = async () => {
+        if (!connected || !publicKey || toastId.current) return;
+
+        if (uploadedFile === null) {
+            toast.error(
+                'Kamu harus memilih file untuk diupload terlebih dahulu!'
+            );
+            return;
+        } else if (uploadedFile.type !== 'application/pdf') {
+            toast.error('Format file invalid');
+            return;
+        }
+
+        toastId.current = toast('Memproses bukti kamu!', {
+            progress: 0.1,
+            autoClose: false,
+            closeButton: false,
+            draggable: false,
+            closeOnClick: false,
+        });
+
+        const formData = new FormData();
+        formData.append('campaignAddress', campaignAddress);
+        formData.append('attachment', uploadedFile);
+
+        let token = localStorage.getItem('token');
+
+        const headers = {
+            Authorization: `Bearer ${token}`,
+        };
+
+        try {
+            const resp = await axios.postForm(
+                API_BASE_URL + '/v1/campaign/evidence',
+                formData,
+                { headers }
+            );
+
+            if (resp.data.status !== 200) {
+                toastDone();
+                toast.error(`Bukti gagal diupload!`);
+                return;
+            }
+            toast.update(toastId.current, { progress: 1 });
+            toastDone();
+            toast(`🚀 Bukti berhasil diupload!`);
+        } catch (e) {
+            toastDone();
+            console.log('Error: ', e);
+            toast.error(`Bukti gagal diupload!`);
+            return;
+        }
+        setUploadedFile(null);
+        navigate('/campaign/' + campaignAddress);
+    };
+
 
     return (
         <div className="flex flex-col">
             <label
                 htmlFor="my-modal-4"
                 className="text-center mt-4 self-end bg-[#007BC7] w-full text-xs p-2 border border-[2px] border-[#007BC7] text-white font-bold rounded-[5px]
-                    md:text-xl md:p-4 md:rounded-[10px]"
+                    md:text-xl md:p-4 md:rounded-[10px] cursor-pointer"
             >
                 Ajukan Bukti Keberhasilan Proyek
             </label>
@@ -81,15 +153,13 @@ const EvidenceProposalButton = () => {
                         <div className="flex flex-row justify-end font-bold text-white text-center">
                             <label
                                 htmlFor="my-modal-4"
-                                className="basis-6/12 md:basis-3/12 text-[#007BC7] border-solid border-2 border-white hover:border-[#007BC7] p-2 md:p-4 text-[8px] md:text-[15px] rounded-[5px] md:rounded-[10px]"
+                                className="cursor-pointer basis-6/12 md:basis-3/12 text-[#007BC7] border-solid border-2 border-white hover:border-[#007BC7] p-2 md:p-4 text-[8px] md:text-[15px] rounded-[5px] md:rounded-[10px]"
                             >
                                 Batal
                             </label>
                             <label
-                                className="basis-6/12 md:basis-3/12 rounded-[5px] md:rounded-[10px] p-2 md:p-4 text-[8px] md:text-[15px] ml-1 md:ml-2 bg-[#007BC7] border border-2 border-white hover:bg-[#007BC7] hover:border-[#007BC7]"
-                                onClick={() => {
-                                    console.log('Send');
-                                }}
+                                className="cursor-pointer basis-6/12 md:basis-3/12 rounded-[5px] md:rounded-[10px] p-2 md:p-4 text-[8px] md:text-[15px] ml-1 md:ml-2 bg-[#007BC7] border border-2 border-white hover:bg-[#007BC7] hover:border-[#007BC7]"
+                                onClick={submitEvidence}
                             >
                                 Kirim
                             </label>
@@ -99,6 +169,6 @@ const EvidenceProposalButton = () => {
             </div>
         </div>
     );
-};
+}
 
 export default EvidenceProposalButton;
