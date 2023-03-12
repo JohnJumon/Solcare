@@ -1,7 +1,41 @@
-const ValidationActions = () => {
+import { useState } from "react";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { API_BASE_URL } from "../../../../../utils";
+
+const ValidationActions = (props:any) => {
+    const campaignData = props.campaignData;
+    const refetch = props.refetch;
+
+    const verifyEvidence = async (isApproved:boolean) => {
+        let token = localStorage.getItem('token');
+        const headers = {
+            Authorization: `Bearer ${token}`,
+        };
+        const resp = await axios.post(
+            `${API_BASE_URL}/v1/campaign/evidence/verify`,
+            {
+                address: campaignData.address,
+                isApproved: isApproved
+            }
+            ,{ headers }
+        );
+        if (resp.data.status !== 200) {
+            toast.error(`Verifikasi proyek gagal dilakukan. Silahkan coba kembali.`);
+            return;
+        }
+        if(isApproved){
+            toast.success('Proyek dinyatakan sudah berhasil!');
+        }
+        else{
+            toast.success('Proyek dinyatakan gagal.')
+        }
+        
+        refetch();
+    }
     return (
         <div className="flex flex-row justify-center">
-            <button className="hover:stroke-[#007BC7] stroke-black">
+            <button className="hover:stroke-[#007BC7] stroke-black" onClick={()=>verifyEvidence(true)}>
                 <svg
                     width="24"
                     height="24"
@@ -17,7 +51,7 @@ const ValidationActions = () => {
                     />
                 </svg>
             </button>
-            <button className="ml-2 hover:stroke-[#007BC7] stroke-black">
+            <button className="ml-2 hover:stroke-[#007BC7] stroke-black" onClick={()=>verifyEvidence(false)}>
                 <svg
                     width="24"
                     height="24"

@@ -35,7 +35,7 @@ const MoneyProposalButton = ({
 
         if (uploadedFile === null) {
             toast.error(
-                'kamu harus memilih file untuk diupload terlebih dahulu!'
+                'Kamu harus memilih file untuk diupload terlebih dahulu!'
             );
             return;
         } else if (uploadedFile.type !== 'application/pdf') {

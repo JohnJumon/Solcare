@@ -1,12 +1,16 @@
 import { useState } from 'react';
 import ValidationActions from './action/validationActions';
-
-const CampaignValidationTable = () => {
+import { ITEM_PER_PAGE } from '../../../../utils';
+import { API_BASE_URL } from '../../../../utils';
+const CampaignValidationTable = (props: any) => {
+    let campaignData = props.campaignData
     const [currentValue, setValue] = useState('1');
-
+    console.log(campaignData)
     const generateTable = (page: number) => {
         let rows = [];
-        for (var i = 10 * page - 10; i < 10 * page; i++) {
+        for (let i = ITEM_PER_PAGE * page - ITEM_PER_PAGE;
+            i < Math.min(ITEM_PER_PAGE * page, campaignData.length);
+            i++) {
             rows.push(
                 <tr className="bg-white hover:bg-[rgba(0,123,199,0.25)]">
                     <th
@@ -15,10 +19,17 @@ const CampaignValidationTable = () => {
                     >
                         {i + 1}
                     </th>
-                    <td className="py-4 px-6">Nama Campaign {i + 1}</td>
-                    <td className="py-4 px-6">Wallet Address {i + 1}</td>
+                    <td id="address-tag" className="py-4 px-6">{campaignData[i].address}</td>
+                    <td id="address-tag" className="py-4 px-6">{campaignData[i].ownerAddress}</td>
                     <td className="py-4 px-6 text-center">
-                        <button className="hover:stroke-[#007BC7] stroke-black">
+                        <button className="hover:stroke-[#007BC7] stroke-black"
+                            onClick={(e) => {
+                                window.open(
+                                    API_BASE_URL + '/'+ campaignData[i].evidence,
+                                    '_blank'
+                                );
+                            }}
+                        >
                             <svg
                                 width="24"
                                 height="24"
@@ -48,7 +59,7 @@ const CampaignValidationTable = () => {
                         </button>
                     </td>
                     <td className="py-4 px-6">
-                        <ValidationActions />
+                        <ValidationActions campaignData={campaignData[i]} refetch={props.refetch}/>
                     </td>
                 </tr>
             );
@@ -82,6 +93,10 @@ const CampaignValidationTable = () => {
         }
     };
 
+    if (campaignData === undefined) {
+        return <progress className="progress w-[90%] flex mx-auto my-20" />;
+    }
+
     return (
         <div
             className="
@@ -96,10 +111,10 @@ const CampaignValidationTable = () => {
                                 No.
                             </th>
                             <th scope="col" className="py-3 px-6 border-r">
-                                Nama Campaign
+                                Campaign Address
                             </th>
                             <th scope="col" className="py-3 px-6 border-r">
-                                Wallet Address
+                                Owner Address
                             </th>
                             <th scope="col" className="py-3 px-6 border-r">
                                 Berkas
