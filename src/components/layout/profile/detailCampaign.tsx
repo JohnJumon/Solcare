@@ -14,6 +14,10 @@ import {
     STATUS_FUND_CLAIMABLE,
     STATUS_VOTING,
     USDC_DECIMALS,
+    EVIDENCE_STATUS_FAILED,
+    EVIDENCE_STATUS_REQUESTED,
+    EVIDENCE_STATUS_SUCCESS,
+    EVIDENCE_STATUS_WAITING
 } from '../../../utils';
 import { useEffect, useState } from 'react';
 import { useSmartContract } from '../../../context/connection';
@@ -27,6 +31,7 @@ import ClaimFundButton from './button/claimFundButton';
 
 const MyDetailCampaign = (props: any) => {
     let campaign = props.campaign;
+    console.log(campaign)
 
     const changeButton = (status: number) => {
         if (status === STATUS_ACTIVE) {
@@ -61,7 +66,19 @@ const MyDetailCampaign = (props: any) => {
                 />
             );
         } else if (status == STATUS_FUNDED) {
-            return <EvidenceProposalButton campaignAddress={campaign.address} />;
+            if (campaign.statusEvidence === EVIDENCE_STATUS_WAITING) {
+                return <EvidenceProposalButton campaignAddress={campaign.address} />;
+            }
+            else if(campaign.statusEvidence === EVIDENCE_STATUS_REQUESTED){
+
+            }
+            else if(campaign.statusEvidence === EVIDENCE_STATUS_SUCCESS){
+                
+            }
+            else if(campaign.statusEvidence === EVIDENCE_STATUS_FAILED){
+                
+            }
+
         }
     };
 

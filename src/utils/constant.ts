@@ -35,6 +35,11 @@ export const STATUS_KYC_ACCEPTED = 1;
 export const STATUS_KYC_DECLINED = 2;
 export const STATUS_KYC_REMOVED = 3;
 
+export const EVIDENCE_STATUS_WAITING = 0;
+export const EVIDENCE_STATUS_REQUESTED = 1;
+export const EVIDENCE_STATUS_SUCCESS = 2;
+export const EVIDENCE_STATUS_FAILED = 3;
+
 export const OPACITY = 0.5;
 
 export const ITEM_PER_PAGE = 10;
