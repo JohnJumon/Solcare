@@ -46,40 +46,22 @@ const CollectedFund = (props: any) => {
                     </span>
                 </b>
             </p>
-            <p
-                className="
-                text-[8px]
-                md:text-[15px]"
-            >
+            <p>
                 Dana terkumpul dari{' '}
                 <b className="text-xl">
                     {campaign.target}
-                    <span className="text-[7.5px]">USDC</span>
+                    <span className="text-[10px]">USDC</span>
                 </b>
             </p>
 
             {campaign.collected === campaign.target ? (
                 <></>
             ) : (
-                <div
-                    className="
-            mb-[3px]
-            md:mb-[9px]"
-                >
-                    <p
-                        className="
-                text-md leading-none
-                md:text-3xl"
-                    >
+                <div className="mb-[3px] md:mb-[9px]">
+                    <p className="text-md leading-none md:text-3xl">
                         <b>{showRemainingDays()}</b>
                     </p>
-                    <p
-                        className="
-                text-[8px]
-                md:text-[15px]"
-                    >
-                        Hari tersisa
-                    </p>
+                    <p className="text-[8px] md:text-[15px]">Hari tersisa</p>
                 </div>
             )}
         </div>

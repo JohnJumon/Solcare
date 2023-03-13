@@ -151,6 +151,9 @@ const CampaignList = (props: any) => {
         getAllCampaign();
     }, [connected, publicKey]);
 
+    if (campaignList === undefined) {
+        return <progress className="progress w-[90%] flex mx-auto my-20" />;
+    }
     return (
         <div className="flex flex-col max-[369px]:flex-col-reverse">
             <Link

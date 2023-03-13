@@ -195,17 +195,17 @@ const Detail = (props: any) => {
     return (
         <div className="w-full px-12 md:flex md:flex-row md:pl-12">
             <div className="md:basis-9/12">
-                <h2
+                <h1
                     className="
                     text-md font-bold mb-2
-                    md:text-3xl"
+                    md:text-2xl"
                 >
                     {campaign.title}
-                </h2>
+                </h1>
 
                 <div className="divider my-2" />
 
-                <h1
+                <h2
                     className="
                     text-md font-bold mb-2 md:mb-4
                     md:text-xl"
@@ -213,7 +213,7 @@ const Detail = (props: any) => {
                     {campaign.status === STATUS_FUNDED
                         ? showEvidenceStatus(campaign.statusEvidence)
                         : showStatus(campaign.status)}
-                </h1>
+                </h2>
                 <p
                     className="
                     text-xs
@@ -233,36 +233,20 @@ const Detail = (props: any) => {
                     />
                 )}
 
-                <div
-                    className="
-            mb-[3px]
-            md:mb-3"
-                >
-                    <p
-                        className="
-                text-base leading-none
-                md:text-3xl"
-                    >
+                <div className="mb-[3px] md:mb-3">
+                    <p className="text-base leading-none md:text-3xl">
                         <b>
-                            {campaign.collected.toLocaleString()}
-                            <span
-                                className="
-                    text-[8px]
-                    md:text-[15px]"
-                            >
+                            {campaign.collected}
+                            <span className="text-[8px] md:text-[15px]">
                                 USDC
                             </span>
                         </b>
                     </p>
-                    <p
-                        className="
-                text-[8px]
-                md:text-[15px]"
-                    >
+                    <p>
                         Dana terkumpul dari{' '}
-                        <b>
-                            {campaign.target.toLocaleString()}
-                            <span className="text-[7.5px]">USDC</span>
+                        <b className="text-xl">
+                            {campaign.target}
+                            <span className="text-[10px]">USDC</span>
                         </b>
                     </p>
                 </div>
@@ -270,25 +254,11 @@ const Detail = (props: any) => {
                 {campaign.collected === campaign.target ? (
                     <></>
                 ) : (
-                    <div
-                        className="
-            mb-[3px]
-            md:mb-[9px]"
-                    >
-                        <p
-                            className="
-                text-md leading-none
-                md:text-3xl"
-                        >
-                            <b>
-                                {showRemainingDays()} {}
-                            </b>
+                    <div className=" mb-[3px] md:mb-[9px]">
+                        <p className="text-md leading-none md:text-3xl">
+                            <b>{showRemainingDays()}</b>
                         </p>
-                        <p
-                            className="
-                text-[8px]
-                md:text-[15px]"
-                        >
+                        <p className="text-[8px] md:text-[15px]">
                             Hari tersisa
                         </p>
                     </div>

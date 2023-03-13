@@ -5,9 +5,7 @@ const BannerContainer = (props: any) => {
     return (
         <>
             <img
-                className="
-                    w-screen max-h-[300px] object-cover mb-1
-                    md:max-h-[500px] md:rounded-b-[20px] md:mb-2"
+                className="w-screen max-h-[250px] object-fit mb-1 md:max-h-[300px] lg:max-h-[350px] md:rounded-[20px] md:mb-4"
                 src={`${API_BASE_URL}/${props.campaign.banner}`}
             />
         </>

@@ -177,9 +177,7 @@ const MyDetailCampaign = (props: any) => {
         <div className="w-[100%] px-12 md:pl-12 mx-auto">
             <div className="md:basis-10/12">
                 <img
-                    className="
-                w-screen max-h-[300px] object-cover mb-1
-                md:max-h-[500px] md:rounded-b-[20px] md:mb-5"
+                    className="w-screen max-h-[250px] object-fit mb-1 md:max-h-[300px] lg:max-h-[350px] md:rounded-[20px] md:mb-4"
                     src={`${API_BASE_URL}/${campaign.banner}`}
                 />
                 <h2
