@@ -32,6 +32,7 @@ interface CampaignInfo {
     createdAt: number;
     duration: number;
     status: number;
+    statusEvidence: number;
 }
 
 const FundraiserDetailCampaign = () => {
@@ -110,6 +111,7 @@ const FundraiserDetailCampaign = () => {
             createdAt: campaign.createdAt.toNumber(),
             duration: campaign.heldDuration.toNumber(),
             status: status,
+            statusEvidence: e.status,
         };
 
         setDetail(data);
