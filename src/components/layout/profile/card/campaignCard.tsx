@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import {
+    EVIDENCE_STATUS_FAILED,
+    EVIDENCE_STATUS_SUCCESS,
     STATUS_ACTIVE,
     STATUS_FAILED,
     STATUS_FILLED,
@@ -21,7 +23,9 @@ interface CampaignCardProps {
     target: number;
     collected: number;
     createdAt: number;
+    statusEvidence: number;
     duration: number;
+
     address: string;
 
     proposal: ProposalInfo | null;
@@ -44,10 +48,17 @@ const CampaignCard: React.FC<CampaignCardProps> = (props) => {
                 return 'Voting gagal';
             case STATUS_FUND_CLAIMABLE:
                 return 'Dana dapat diklaim';
-            case STATUS_SUCCESS:
-                return 'Proyek Sukses';
-            case STATUS_FAILED:
-                return 'Proyek Gagal';
+            default:
+                return 'Unknown';
+        }
+    };
+
+    const showEvidenceStatus = (status: number) => {
+        switch (status) {
+            case EVIDENCE_STATUS_SUCCESS:
+                return 'Campaign Sukses';
+            case EVIDENCE_STATUS_FAILED:
+                return 'Campaign Gagal';
             default:
                 return 'Unknown';
         }
@@ -59,7 +70,10 @@ const CampaignCard: React.FC<CampaignCardProps> = (props) => {
                 <div className="flex flex-row justify-between bg-white rounded-t-[5px] sm:rounded-t-[10px]">
                     <p className="line-clamp-1 p-2 sm:p-4">{props.title}</p>
                     <p className="bg-[#007BC7] text-white p-2 px-3 sm:p-4 sm:px-6 rounded-t-[5px] sm:rounded-t-[10px]">
-                        {statusToString(props.status)}
+                        {props.statusEvidence === 2 ||
+                        props.statusEvidence === 3
+                            ? showEvidenceStatus(props.statusEvidence)
+                            : statusToString(props.status)}
                     </p>
                 </div>
                 {props.status === STATUS_ACTIVE ||

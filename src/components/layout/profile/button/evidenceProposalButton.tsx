@@ -5,10 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API_BASE_URL } from '../../../../utils';
 
-const EvidenceProposalButton = ({ campaignAddress }: { campaignAddress: string }) => {
+const EvidenceProposalButton = ({
+    campaignAddress,
+}: {
+    campaignAddress: string;
+}) => {
     const [uploadedFileName, setUploadedFileName] = useState();
     const [uploadedFile, setUploadedFile] = useState<File | null>(null);
-    const { connected, publicKey } = useWallet()
+    const { connected, publicKey } = useWallet();
     const toastId = useRef<Id | null>(null);
     const navigate = useNavigate();
 
@@ -16,7 +20,6 @@ const EvidenceProposalButton = ({ campaignAddress }: { campaignAddress: string }
         if (toastId.current) toast.done(toastId.current);
         toastId.current = null;
     };
-
 
     const handleInputChange = (e: any) => {
         const target = e.target;
@@ -86,7 +89,6 @@ const EvidenceProposalButton = ({ campaignAddress }: { campaignAddress: string }
         setUploadedFile(null);
         navigate('/campaign/' + campaignAddress);
     };
-
 
     return (
         <div className="flex flex-col">
@@ -169,6 +171,6 @@ const EvidenceProposalButton = ({ campaignAddress }: { campaignAddress: string }
             </div>
         </div>
     );
-}
+};
 
 export default EvidenceProposalButton;

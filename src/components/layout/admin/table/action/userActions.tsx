@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 const UserActions = (props: any) => {
     const [userData, setUserData] = useState(props.data);
-    // console.log(userData); 
+    // console.log(userData);
 
     const fetchUser = async () => {
         const resp = await axios.get(
@@ -23,7 +23,8 @@ const UserActions = (props: any) => {
             Authorization: `Bearer ${token}`,
         };
         const resp = await axios.delete(
-            `${API_BASE_URL}/v1/admins/kyc/${userData.address}`, { headers }
+            `${API_BASE_URL}/v1/admins/kyc/${userData.address}`,
+            { headers }
         );
         if (resp.data.status !== 200) {
             toast.error(`Verifikasi gagal dicabut. Silahkan coba kembali.`);
@@ -31,7 +32,7 @@ const UserActions = (props: any) => {
         }
         toast.success('Verifikasi berhasil dicabut.');
         fetchUser();
-    }
+    };
     return (
         <div className="flex flex-row justify-center">
             <Link
@@ -61,7 +62,10 @@ const UserActions = (props: any) => {
             </Link>
 
             {userData.isVerified === true ? (
-                <button className="ml-2 hover:stroke-[#007BC7] stroke-black" onClick={() => removeVerification()}>
+                <button
+                    className="ml-2 hover:stroke-[#007BC7] stroke-black"
+                    onClick={() => removeVerification()}
+                >
                     <svg
                         width="24"
                         height="24"

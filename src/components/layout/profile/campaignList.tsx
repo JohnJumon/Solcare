@@ -40,6 +40,7 @@ interface Campaign {
 
     collected: number;
     target: number;
+    statusEvidence: number;
 
     proposal: ProposalInfo | null;
 }
@@ -136,6 +137,7 @@ const CampaignList = (props: any) => {
                         target: campaign.targetAmount
                             .div(new BN(Math.pow(10, USDC_DECIMALS)))
                             .toNumber(),
+                        statusEvidence: e.status,
                         proposal: proposalInfo,
                     });
                 }

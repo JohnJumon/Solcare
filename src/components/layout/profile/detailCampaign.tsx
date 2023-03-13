@@ -17,7 +17,9 @@ import {
     EVIDENCE_STATUS_FAILED,
     EVIDENCE_STATUS_REQUESTED,
     EVIDENCE_STATUS_SUCCESS,
-    EVIDENCE_STATUS_WAITING
+    EVIDENCE_STATUS_WAITING,
+    STATUS_NOT_FUNDED,
+    STATUS_NOT_FILLED,
 } from '../../../utils';
 import { useEffect, useState } from 'react';
 import { useSmartContract } from '../../../context/connection';
@@ -31,7 +33,59 @@ import ClaimFundButton from './button/claimFundButton';
 
 const MyDetailCampaign = (props: any) => {
     let campaign = props.campaign;
-    console.log(campaign)
+    // console.log(campaign);
+
+    const showStatus = (status: number) => {
+        if (status === STATUS_ACTIVE) {
+            return <p className="text-green-600">Status Campaign Aktif</p>;
+        } else if (status === STATUS_FILLED) {
+            return (
+                <p className="text-green-600">
+                    Status Campaign Target Terpenuhi
+                </p>
+            );
+        } else if (status === STATUS_NOT_FILLED) {
+            return (
+                <p className="text-red-600">
+                    Status Campaign Target Gagal Terpenuhi
+                </p>
+            );
+        } else if (status === STATUS_VOTING) {
+            return <p className="text-blue-400">Status Campaign Voting</p>;
+        } else if (status === STATUS_FUND_CLAIMABLE) {
+            return (
+                <p className="text-blue-600">Status Campaign Voting Selesai</p>
+            );
+        } else if (status === STATUS_FUNDED) {
+            return <p className="text-green-600">Status Campaign Didanai</p>;
+        } else if (status === STATUS_NOT_FUNDED) {
+            return (
+                <p className="text-red-600">Status Campaign Gagal Didanai</p>
+            );
+        }
+        return <p>Unknown</p>;
+    };
+
+    const showEvidenceStatus = (status: number) => {
+        if (status === EVIDENCE_STATUS_WAITING) {
+            return (
+                <p className="text-green-600">
+                    Status Campaign Berhasil Didanai
+                </p>
+            );
+        } else if (status === EVIDENCE_STATUS_REQUESTED) {
+            return (
+                <p className="text-blue-600">
+                    Status Campaign Menunggu Verifikasi Kesuksesan Campaign
+                </p>
+            );
+        } else if (status === EVIDENCE_STATUS_SUCCESS) {
+            return <p className="text-green-600">Status Campaign Sukses</p>;
+        } else if (status === EVIDENCE_STATUS_FAILED) {
+            return <p className="text-red-600">Status Campaign Gagal</p>;
+        }
+        return <p>Unknown</p>;
+    };
 
     const changeButton = (status: number) => {
         if (status === STATUS_ACTIVE) {
@@ -67,18 +121,15 @@ const MyDetailCampaign = (props: any) => {
             );
         } else if (status == STATUS_FUNDED) {
             if (campaign.statusEvidence === EVIDENCE_STATUS_WAITING) {
-                return <EvidenceProposalButton campaignAddress={campaign.address} />;
+                return (
+                    <EvidenceProposalButton
+                        campaignAddress={campaign.address}
+                    />
+                );
+            } else if (campaign.statusEvidence === EVIDENCE_STATUS_REQUESTED) {
+            } else if (campaign.statusEvidence === EVIDENCE_STATUS_SUCCESS) {
+            } else if (campaign.statusEvidence === EVIDENCE_STATUS_FAILED) {
             }
-            else if(campaign.statusEvidence === EVIDENCE_STATUS_REQUESTED){
-
-            }
-            else if(campaign.statusEvidence === EVIDENCE_STATUS_SUCCESS){
-                
-            }
-            else if(campaign.statusEvidence === EVIDENCE_STATUS_FAILED){
-                
-            }
-
         }
     };
 
@@ -123,15 +174,35 @@ const MyDetailCampaign = (props: any) => {
                 <img
                     className="
                 w-screen max-h-[300px] object-cover mb-1
-                md:max-h-[500px] md:rounded-b-[20px] md:mb-2"
+                md:max-h-[500px] md:rounded-b-[20px] md:mb-5"
                     src={`${API_BASE_URL}/${campaign.banner}`}
                 />
-                <h1
+                {/* <h1
                     className="
                 text-md font-bold mb-2
                 md:text-3xl md:mb-6"
                 >
                     {campaign.title}
+                </h1> */}
+                <h2
+                    className="
+                    text-md font-bold my-2
+                    md:text-3xl"
+                >
+                    {campaign.title}
+                </h2>
+
+                <div className="divider my-2" />
+
+                <h1
+                    className="
+                    text-md font-bold mb-2 md:mb-4
+                    md:text-xl"
+                >
+                    {/* Status */}
+                    {campaign.status === STATUS_FUNDED
+                        ? showEvidenceStatus(campaign.statusEvidence)
+                        : showStatus(campaign.status)}
                 </h1>
                 <p
                     className="

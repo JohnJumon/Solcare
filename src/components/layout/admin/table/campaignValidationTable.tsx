@@ -3,14 +3,16 @@ import ValidationActions from './action/validationActions';
 import { ITEM_PER_PAGE } from '../../../../utils';
 import { API_BASE_URL } from '../../../../utils';
 const CampaignValidationTable = (props: any) => {
-    let campaignData = props.campaignData
+    let campaignData = props.campaignData;
     const [currentValue, setValue] = useState('1');
-    console.log(campaignData)
+    console.log(campaignData);
     const generateTable = (page: number) => {
         let rows = [];
-        for (let i = ITEM_PER_PAGE * page - ITEM_PER_PAGE;
+        for (
+            let i = ITEM_PER_PAGE * page - ITEM_PER_PAGE;
             i < Math.min(ITEM_PER_PAGE * page, campaignData.length);
-            i++) {
+            i++
+        ) {
             rows.push(
                 <tr className="bg-white hover:bg-[rgba(0,123,199,0.25)]">
                     <th
@@ -19,13 +21,20 @@ const CampaignValidationTable = (props: any) => {
                     >
                         {i + 1}
                     </th>
-                    <td id="address-tag" className="py-4 px-6">{campaignData[i].address}</td>
-                    <td id="address-tag" className="py-4 px-6">{campaignData[i].ownerAddress}</td>
+                    <td id="address-tag" className="py-4 px-6">
+                        {campaignData[i].address}
+                    </td>
+                    <td id="address-tag" className="py-4 px-6">
+                        {campaignData[i].ownerAddress}
+                    </td>
                     <td className="py-4 px-6 text-center">
-                        <button className="hover:stroke-[#007BC7] stroke-black"
+                        <button
+                            className="hover:stroke-[#007BC7] stroke-black"
                             onClick={(e) => {
                                 window.open(
-                                    API_BASE_URL + '/'+ campaignData[i].evidence,
+                                    API_BASE_URL +
+                                        '/' +
+                                        campaignData[i].evidence,
                                     '_blank'
                                 );
                             }}
@@ -59,7 +68,10 @@ const CampaignValidationTable = (props: any) => {
                         </button>
                     </td>
                     <td className="py-4 px-6">
-                        <ValidationActions campaignData={campaignData[i]} refetch={props.refetch}/>
+                        <ValidationActions
+                            campaignData={campaignData[i]}
+                            refetch={props.refetch}
+                        />
                     </td>
                 </tr>
             );

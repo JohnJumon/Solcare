@@ -63,6 +63,7 @@ interface DetailCampaign {
 
     collected: number;
     target: number;
+    statusEvidence: number;
 
     proposal: Proposal | null;
 }
@@ -157,6 +158,7 @@ const DetailCampaign = () => {
                 .div(new BN(Math.pow(10, USDC_DECIMALS)))
                 .toNumber(),
             proposal: proposalInfo,
+            statusEvidence: responseData.status,
         });
     };
 

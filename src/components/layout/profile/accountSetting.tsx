@@ -135,13 +135,13 @@ const AccountSetting = () => {
                         md:self-start md:text-right md:basis-1/12 text-gray-500
                         "
                     >
-                        {userInfo.isVerified
-                            ? (<p className="text-green-600 text-base">Terverifikasi</p>
-                            ) : (
-                                <p>
-                                    Belum Verifikasi
-                                </p>
-                            )}
+                        {userInfo.isVerified ? (
+                            <p className="text-green-600 text-base">
+                                Terverifikasi
+                            </p>
+                        ) : (
+                            <p>Belum Verifikasi</p>
+                        )}
                     </div>
 
                     <div className="divider my-1" />

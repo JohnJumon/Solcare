@@ -98,7 +98,9 @@ const MainProfile = () => {
                         "
                         >
                             {userInfo.isVerified ? (
-                                <p className="text-green-600 text-base">Terverifikasi</p>
+                                <p className="text-green-600 text-base">
+                                    Terverifikasi
+                                </p>
                             ) : (
                                 <p>Belum Verifikasi</p>
                             )}

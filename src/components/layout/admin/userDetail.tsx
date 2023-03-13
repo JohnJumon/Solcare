@@ -26,7 +26,8 @@ const UserDetail = () => {
             Authorization: `Bearer ${token}`,
         };
         const resp = await axios.delete(
-            `${API_BASE_URL}/v1/admins/kyc/${address}`, { headers }
+            `${API_BASE_URL}/v1/admins/kyc/${address}`,
+            { headers }
         );
         if (resp.data.status !== 200) {
             toast.error(`Verifikasi gagal dicabut. Silahkan coba kembali.`);
@@ -34,7 +35,7 @@ const UserDetail = () => {
         }
         toast.success('Verifikasi berhasil dicabut.');
         fetchUser();
-    }
+    };
 
     useEffect(() => {
         fetchUser();

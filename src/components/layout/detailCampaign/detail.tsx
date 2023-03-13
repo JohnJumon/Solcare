@@ -21,6 +21,10 @@ import {
     STATUS_NOT_FILLED,
     STATUS_FAILED,
     STATUS_FUND_CLAIMABLE,
+    EVIDENCE_STATUS_SUCCESS,
+    EVIDENCE_STATUS_FAILED,
+    EVIDENCE_STATUS_WAITING,
+    EVIDENCE_STATUS_REQUESTED,
 } from '../../../utils';
 import { PublicKey } from '@solana/web3.js';
 import Refund from './claim';
@@ -34,6 +38,7 @@ const Detail = (props: any) => {
     const [initializing, setInitializing] = useState(true);
     const [voteTime, setVoteTime] = useState(0);
     const campaign = props.campaign;
+    // console.log(campaign);
 
     useEffect(() => {
         if (campaign.proposal !== null) {
@@ -157,11 +162,29 @@ const Detail = (props: any) => {
             return (
                 <p className="text-red-600">Status Campaign Gagal Didanai</p>
             );
-        } else if (status === STATUS_SUCCESS) {
+        }
+        return <p>Unknown</p>;
+    };
+
+    const showEvidenceStatus = (status: number) => {
+        if (status === EVIDENCE_STATUS_WAITING) {
+            return (
+                <p className="text-green-600">
+                    Status Campaign Berhasil Didanai
+                </p>
+            );
+        } else if (status === EVIDENCE_STATUS_REQUESTED) {
+            return (
+                <p className="text-blue-600">
+                    Status Campaign Menunggu Verifikasi Kesuksesan Campaign
+                </p>
+            );
+        } else if (status === EVIDENCE_STATUS_SUCCESS) {
             return <p className="text-green-600">Status Campaign Sukses</p>;
-        } else if (status === STATUS_FAILED) {
+        } else if (status === EVIDENCE_STATUS_FAILED) {
             return <p className="text-red-600">Status Campaign Gagal</p>;
         }
+        return <p>Unknown</p>;
     };
 
     if (initializing === true) {
@@ -186,7 +209,9 @@ const Detail = (props: any) => {
                     text-md font-bold mb-2 md:mb-4
                     md:text-xl"
                 >
-                    {showStatus(campaign.status)}
+                    {campaign.status === STATUS_FUNDED
+                        ? showEvidenceStatus(campaign.statusEvidence)
+                        : showStatus(campaign.status)}
                 </h1>
                 <p
                     className="

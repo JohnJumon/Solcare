@@ -15,7 +15,7 @@ import {
 } from '../../../utils';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { FractalWalletAdapter } from '@solana/wallet-adapter-wallets';
-const KYC = (props: any) => {
+const KYC = () => {
     const { connected, disconnecting, publicKey } = useWallet();
     const [input, setInput] = useState<{ [string: string]: any }>({
         nik: null,
@@ -97,6 +97,7 @@ const KYC = (props: any) => {
             formData.append('idCard', input.idCard);
             formData.append('face', input.face);
             formData.append('faceWithIdCard', input.faceWithIdCard);
+            console.log(formData);
 
             const resp = await axios.postForm(
                 API_BASE_URL + '/v1/users/kyc',
@@ -120,7 +121,6 @@ const KYC = (props: any) => {
 
     const fetchUserKYC = async () => {
         let token = localStorage.getItem('token');
-        // console.log(token);
         const headers = {
             Authorization: `Bearer ${token}`,
         };
@@ -191,7 +191,7 @@ const KYC = (props: any) => {
                         KYCInfo?.status == STATUS_KYC_PENDING ||
                         KYCInfo?.status == STATUS_KYC_ACCEPTED
                             ? KYCInfo.nik
-                            : null
+                            : input.nik
                     }
                     disabled={
                         KYCInfo?.status == STATUS_KYC_PENDING ||
