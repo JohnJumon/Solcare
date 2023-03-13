@@ -47,19 +47,13 @@ const CampaignValidationTable = (props: any) => {
                                 xmlns="http://www.w3.org/2000/svg"
                             >
                                 <path
-                                    d="M10.75 13.7515L16 19.0001L21.25 13.7515"
+                                    d="M14.5 25C20.299 25 25 20.299 25 14.5C25 8.70101 20.299 4 14.5 4C8.70101 4 4 8.70101 4 14.5C4 20.299 8.70101 25 14.5 25Z"
                                     strokeWidth="2"
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                 />
                                 <path
-                                    d="M16 5V18.9963"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                />
-                                <path
-                                    d="M27 19V26C27 26.2652 26.8946 26.5196 26.7071 26.7071C26.5196 26.8946 26.2652 27 26 27H6C5.73478 27 5.48043 26.8946 5.29289 26.7071C5.10536 26.5196 5 26.2652 5 26V19"
+                                    d="M21.9238 21.9248L27.9989 27.9999"
                                     strokeWidth="2"
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
@@ -168,9 +162,7 @@ const CampaignValidationTable = (props: any) => {
                         >
                             <span className="sr-only">Previous</span>
                             <svg
-                                className="
-                                w-5 h-5
-                                md:w-8 md:h-8"
+                                className="w-5 h-5 md:w-8 md:h-8"
                                 aria-hidden="true"
                                 fill="currentColor"
                                 viewBox="0 0 20 20"
@@ -180,7 +172,7 @@ const CampaignValidationTable = (props: any) => {
                                     fillRule="evenodd"
                                     d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
                                     clipRule="evenodd"
-                                ></path>
+                                />
                             </svg>
                         </button>
                     </li>
