@@ -152,29 +152,6 @@ const KYC = () => {
         }
     };
 
-    const saveZip = (fileName: string) => {
-        const zip = new JSZip();
-        const folder = zip.folder('KYCFiles');
-
-        const URLs = [
-            API_BASE_URL + '/resources/' + KYCInfo.idCardPicture,
-            API_BASE_URL + '/resources/' + KYCInfo.facePicture,
-            API_BASE_URL + '/resources/' + KYCInfo.selfieWithIdCardPicture,
-        ];
-        URLs.forEach((url) => {
-            const blobPromise = fetch(url).then((r) => {
-                if (r.status === 200) return r.blob();
-                return Promise.reject(new Error(r.statusText));
-            });
-            const name = url.substring(url.lastIndexOf('/') + 1);
-            folder!.file(name, blobPromise);
-        });
-
-        zip.generateAsync({ type: 'blob' }).then((blob) =>
-            saveAs(blob, fileName)
-        );
-    };
-
     return (
         <div className="flex flex-col">
             <p className="font-bold text-xs md:text-lg">KYC</p>
@@ -452,13 +429,6 @@ const KYC = () => {
                     )}
                 </div>
             </div>
-            <button
-                className="my-10 bg-[#007BC7] text-xs w-full p-2 border border-[2px] border-[#007BC7] text-white font-bold rounded-[5px]
-                md:text-xl md:p-4 md:rounded-[10px]"
-                onClick={() => saveZip(KYCInfo.nik)}
-            >
-                Download Files
-            </button>
         </div>
     );
 };

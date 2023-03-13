@@ -17,7 +17,7 @@ const UserTable = (props: any) => {
             rows.push(
                 <tr
                     className={
-                        userData.isWarned
+                        userData[i].isWarned
                             ? 'bg-white hover:bg-red-200 bg-red-100'
                             : 'bg-white hover:bg-[rgba(0,123,199,0.25)]'
                     }
