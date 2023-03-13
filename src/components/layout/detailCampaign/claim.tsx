@@ -118,6 +118,8 @@ const Refund = ({
 
             toast.update(toastId.current, { progress: 1 });
             toastDone();
+            refetch();
+
             toast(
                 `🚀 Klaim refund berhasil dilakukan! Signature transaksi: ${txSignature}`
             );
@@ -127,7 +129,6 @@ const Refund = ({
             toast.error(`Klaim refund gagal dilakukan!`);
             return;
         }
-        refetch();
     };
 
     return (

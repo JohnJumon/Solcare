@@ -5,7 +5,6 @@ import Progress from '../detailCampaign/progress';
 import Thumbnail from '../../../image/placeholder.svg';
 import MoneyProposalButton from './button/moneyProposalBtn';
 import EvidenceProposalButton from './button/evidenceProposalButton';
-import TimeProposal from './button/timeProposal';
 import {
     API_BASE_URL,
     STATUS_ACTIVE,
@@ -76,7 +75,7 @@ const MyDetailCampaign = (props: any) => {
         } else if (status === EVIDENCE_STATUS_REQUESTED) {
             return (
                 <p className="text-blue-600">
-                    Status Campaign Menunggu Verifikasi Kesuksesan Campaign
+                    Status Campaign Menunggu Verifikasi Kesuksesan
                 </p>
             );
         } else if (status === EVIDENCE_STATUS_SUCCESS) {
@@ -100,7 +99,12 @@ const MyDetailCampaign = (props: any) => {
                 </div>
             );
         } else if (status === STATUS_FILLED) {
-            return <MoneyProposalButton campaignAddress={campaign.address} />;
+            return (
+                <MoneyProposalButton
+                    campaignAddress={campaign.address}
+                    refetch={props.refetch}
+                />
+            );
         } else if (status === STATUS_VOTING) {
             return (
                 <div className="flex flex-col">
@@ -124,6 +128,7 @@ const MyDetailCampaign = (props: any) => {
                 return (
                     <EvidenceProposalButton
                         campaignAddress={campaign.address}
+                        refetch={props.refetch}
                     />
                 );
             } else if (campaign.statusEvidence === EVIDENCE_STATUS_REQUESTED) {
@@ -177,13 +182,6 @@ const MyDetailCampaign = (props: any) => {
                 md:max-h-[500px] md:rounded-b-[20px] md:mb-5"
                     src={`${API_BASE_URL}/${campaign.banner}`}
                 />
-                {/* <h1
-                    className="
-                text-md font-bold mb-2
-                md:text-3xl md:mb-6"
-                >
-                    {campaign.title}
-                </h1> */}
                 <h2
                     className="
                     text-md font-bold my-2
@@ -199,7 +197,6 @@ const MyDetailCampaign = (props: any) => {
                     text-md font-bold mb-2 md:mb-4
                     md:text-xl"
                 >
-                    {/* Status */}
                     {campaign.status === STATUS_FUNDED
                         ? showEvidenceStatus(campaign.statusEvidence)
                         : showStatus(campaign.status)}

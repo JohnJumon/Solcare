@@ -101,6 +101,7 @@ const Detail = (props: any) => {
                 <Donation
                     campaignAddress={new PublicKey(campaign.address)}
                     refetch={props.refetch}
+                    campaign={campaign}
                 />
             );
         } else if (status == STATUS_VOTING) {
@@ -129,7 +130,7 @@ const Detail = (props: any) => {
                 <Refund
                     campaignPubkey={new PublicKey(campaign.address)}
                     donorInfo={props.donor}
-                    refetch={props.refetchDonor}
+                    refetch={props.refetch}
                 />
             );
         }
@@ -176,7 +177,7 @@ const Detail = (props: any) => {
         } else if (status === EVIDENCE_STATUS_REQUESTED) {
             return (
                 <p className="text-blue-600">
-                    Status Campaign Menunggu Verifikasi Kesuksesan Campaign
+                    Status Campaign Menunggu Verifikasi Kesuksesan
                 </p>
             );
         } else if (status === EVIDENCE_STATUS_SUCCESS) {

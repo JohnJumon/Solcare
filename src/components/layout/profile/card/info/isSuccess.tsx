@@ -45,7 +45,7 @@ const IsSuccess: React.FC<CampaignIsSuccessCardProps> = (props) => {
             case EVIDENCE_STATUS_REQUESTED:
                 return (
                     <p className="text-blue-600">
-                        Menunggu Verifikasi Kesuksesan Campaign
+                        Menunggu Verifikasi Kesuksesan
                     </p>
                 );
             case EVIDENCE_STATUS_SUCCESS:

@@ -5,12 +5,19 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API_BASE_URL } from '../../../../utils';
 
-const EvidenceProposalButton = ({
-    campaignAddress,
-}: {
-    campaignAddress: string;
-}) => {
-    const [uploadedFileName, setUploadedFileName] = useState();
+// const EvidenceProposalButton = ({
+//     campaignAddress,
+// }: {
+//     campaignAddress: string;
+// }) => {
+
+const EvidenceProposalButton = (props: any) => {
+    const campaignAddress = props.campaignAddress;
+    const refetch = props.refetch;
+
+    const [uploadedFileName, setUploadedFileName] = useState<String | null>(
+        null
+    );
     const [uploadedFile, setUploadedFile] = useState<File | null>(null);
     const { connected, publicKey } = useWallet();
     const toastId = useRef<Id | null>(null);
@@ -84,17 +91,23 @@ const EvidenceProposalButton = ({
             toastDone();
             console.log('Error: ', e);
             toast.error(`Bukti gagal diupload!`);
-            return;
         }
         setUploadedFile(null);
-        navigate('/campaign/' + campaignAddress);
+        setUploadedFileName(null);
+
+        refetch();
+    };
+
+    const resetFileName = () => {
+        setUploadedFile(null);
+        setUploadedFileName(null);
     };
 
     return (
         <div className="flex flex-col">
             <label
                 htmlFor="my-modal-4"
-                className="text-center mt-4 self-end bg-[#007BC7] w-full text-xs p-2 border border-[2px] border-[#007BC7] text-white font-bold rounded-[5px]
+                className="text-center self-end bg-[#007BC7] w-full text-xs p-2 border border-[2px] border-[#007BC7] text-white font-bold rounded-[5px]
                     md:text-xl md:p-4 md:rounded-[10px] cursor-pointer"
             >
                 Ajukan Bukti Keberhasilan Proyek
@@ -156,6 +169,7 @@ const EvidenceProposalButton = ({
                             <label
                                 htmlFor="my-modal-4"
                                 className="cursor-pointer basis-6/12 md:basis-3/12 text-[#007BC7] border-solid border-2 border-white hover:border-[#007BC7] p-2 md:p-4 text-[8px] md:text-[15px] rounded-[5px] md:rounded-[10px]"
+                                onClick={resetFileName}
                             >
                                 Batal
                             </label>

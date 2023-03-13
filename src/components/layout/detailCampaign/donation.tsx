@@ -14,13 +14,18 @@ import {
 } from '../../../utils';
 import { toast } from 'react-toastify';
 
-const Donation = ({
-    campaignAddress,
-    refetch,
-}: {
-    campaignAddress: PublicKey;
-    refetch: () => void;
-}) => {
+// const Donation = ({
+//     campaignAddress,
+//     refetch,
+// }: {
+//     campaignAddress: PublicKey;
+//     refetch: () => void;
+// })
+const Donation = (props: any) => {
+    const campaignAddress = props.campaignAddress;
+    const refetch = props.refetch;
+    const campaign = props.campaign;
+
     const { connected, publicKey, sendTransaction } = useWallet();
     const { smartContract } = useSmartContract();
     const [amount, setAmount] = useState(1);
@@ -28,6 +33,9 @@ const Donation = ({
     const submitDonation = async (e: any) => {
         if (amount === 0) {
             return toast.error('Jumlah donasi minimal 1 USDC');
+        }
+        if (amount > campaign.target - campaign.collected) {
+            return toast.error(`Jumlah donasi melebihi yang dibutuhkan`);
         }
         if (!connected || !publicKey) return;
 
@@ -111,6 +119,7 @@ const Donation = ({
         } catch (e) {
             toast.error(`Donasi gagal dilakukan!`);
         }
+        refetch();
     };
 
     return (

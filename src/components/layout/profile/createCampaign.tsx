@@ -17,8 +17,11 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import { useSmartContract } from '../../../context/connection';
 import { Transaction } from '@solana/web3.js';
 import { toast, Id } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const CreateCampaign = () => {
+    const navigate = useNavigate();
+
     const { publicKey, connected, sendTransaction } = useWallet();
     const { smartContract } = useSmartContract();
     const toastId = useRef<Id | null>(null);
@@ -63,7 +66,7 @@ const CreateCampaign = () => {
     const handleInputChange = (e: any) => {
         const target = e.target;
         const name = target.name;
-        console.log(input.banner);
+
         setInput((state) => {
             const newState = {
                 ...state,
@@ -142,24 +145,24 @@ const CreateCampaign = () => {
         formData.append('categoryId', input.category);
         formData.append('banner', input.banner);
 
-        try {
-            const resp = await axios.postForm(
-                API_BASE_URL + '/v1/campaign',
-                formData
-            );
+        // try {
+        //     const resp = await axios.postForm(
+        //         API_BASE_URL + '/v1/campaign',
+        //         formData
+        //     );
 
-            if (resp.data.status !== 200) {
-                toastDone();
-                toast.error(`Campaign gagal dibuat!`);
-                return;
-            }
-            toast.update(toastId.current, { progress: 0.5 });
-        } catch (e) {
-            toastDone();
-            console.log('Error: ', e);
-            toast.error(`Campaign gagal dibuat!`);
-            return;
-        }
+        //     if (resp.data.status !== 200) {
+        //         toastDone();
+        //         toast.error(`Campaign gagal dibuat!`);
+        //         return;
+        //     }
+        //     toast.update(toastId.current, { progress: 0.5 });
+        // } catch (e) {
+        //     toastDone();
+        //     console.log('Error: ', e);
+        //     toast.error(`Campaign gagal dibuat!`);
+        //     return;
+        // }
 
         try {
             const ix = await smartContract.methods
@@ -188,9 +191,29 @@ const CreateCampaign = () => {
                 smartContract.provider.connection
             );
 
-            toast.update(toastId.current, { progress: 1 });
+            toast.update(toastId.current, { progress: 0.5 });
             toastDone();
             toast(`🚀 Campaign berhasil dibuat! Signature transaksi: ${tx}`);
+            navigate(`/profile/my-campaign`);
+        } catch (e) {
+            toastDone();
+            console.log('Error: ', e);
+            toast.error(`Campaign gagal dibuat!`);
+            return;
+        }
+
+        try {
+            const resp = await axios.postForm(
+                API_BASE_URL + '/v1/campaign',
+                formData
+            );
+
+            if (resp.data.status !== 200) {
+                toastDone();
+                toast.error(`Campaign gagal dibuat!`);
+                return;
+            }
+            toast.update(toastId.current, { progress: 1 });
         } catch (e) {
             toastDone();
             console.log('Error: ', e);

@@ -12,18 +12,24 @@ import {
     PROPOSAL_SEED,
 } from '../../../../utils';
 
-const MoneyProposalButton = ({
-    campaignAddress,
-}: {
-    campaignAddress: string;
-}) => {
+// const MoneyProposalButton = ({
+//     campaignAddress,
+// }: {
+//     campaignAddress: string;
+// }) => {
+const MoneyProposalButton = (props: any) => {
+    const campaignAddress = props.campaignAddress;
+    const refetch = props.refetch;
+
     const { publicKey, connected, sendTransaction } = useWallet();
     const { smartContract } = useSmartContract();
     const toastId = useRef<Id | null>(null);
     const navigate = useNavigate();
 
     const [uploadedFile, setUploadedFile] = useState<File | null>(null);
-    const [uploadedFileName, setUploadedFileName] = useState();
+    const [uploadedFileName, setUploadedFileName] = useState<String | null>(
+        null
+    );
 
     const toastDone = () => {
         if (toastId.current) toast.done(toastId.current);
@@ -105,16 +111,18 @@ const MoneyProposalButton = ({
             toastDone();
             console.log('Error: ', e);
             toast.error(`Proposal gagal dibuat!`);
-            return;
         }
 
         setUploadedFile(null);
-        navigate('/campaign/' + campaignAddress);
+        setUploadedFileName(null);
+
+        refetch();
     };
 
     const handleInputChange = (e: any) => {
         const target = e.target;
         let file = target.files[0];
+
         if (file.type !== 'application/pdf') {
             toast.error('Format file invalid');
             return;
@@ -123,6 +131,11 @@ const MoneyProposalButton = ({
             setUploadedFile(e.target.files?.item(0) || null);
             return;
         }
+    };
+
+    const resetFileName = () => {
+        setUploadedFileName(null);
+        setUploadedFile(null);
     };
 
     return (
@@ -191,6 +204,7 @@ const MoneyProposalButton = ({
                             <label
                                 htmlFor="my-modal-4"
                                 className="basis-6/12 md:basis-3/12 text-[#007BC7] border-solid border-2 border-white hover:border-[#007BC7] p-2 md:p-4 text-[8px] md:text-[15px] rounded-[5px] md:rounded-[10px]"
+                                onClick={resetFileName}
                             >
                                 Batal
                             </label>

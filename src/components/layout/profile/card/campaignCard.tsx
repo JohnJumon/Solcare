@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import {
     EVIDENCE_STATUS_FAILED,
+    EVIDENCE_STATUS_REQUESTED,
     EVIDENCE_STATUS_SUCCESS,
+    EVIDENCE_STATUS_WAITING,
     STATUS_ACTIVE,
     STATUS_FAILED,
     STATUS_FILLED,
@@ -55,6 +57,10 @@ const CampaignCard: React.FC<CampaignCardProps> = (props) => {
 
     const showEvidenceStatus = (status: number) => {
         switch (status) {
+            case EVIDENCE_STATUS_WAITING:
+                return 'Didanai';
+            case EVIDENCE_STATUS_REQUESTED:
+                return 'Didanai';
             case EVIDENCE_STATUS_SUCCESS:
                 return 'Campaign Sukses';
             case EVIDENCE_STATUS_FAILED:
@@ -70,8 +76,11 @@ const CampaignCard: React.FC<CampaignCardProps> = (props) => {
                 <div className="flex flex-row justify-between bg-white rounded-t-[5px] sm:rounded-t-[10px]">
                     <p className="line-clamp-1 p-2 sm:p-4">{props.title}</p>
                     <p className="bg-[#007BC7] text-white p-2 px-3 sm:p-4 sm:px-6 rounded-t-[5px] sm:rounded-t-[10px]">
-                        {props.statusEvidence === 2 ||
+                        {/* {props.statusEvidence === 2 ||
                         props.statusEvidence === 3
+                            ? showEvidenceStatus(props.statusEvidence)
+                            : statusToString(props.status)} */}
+                        {props.status === STATUS_FUNDED
                             ? showEvidenceStatus(props.statusEvidence)
                             : statusToString(props.status)}
                     </p>

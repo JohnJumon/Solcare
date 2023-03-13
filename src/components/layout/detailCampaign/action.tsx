@@ -8,7 +8,7 @@ const Action = ({ campaignAddress }: { campaignAddress: string }) => {
     function saveURL() {
         let url = window.location.href;
         navigator.clipboard.writeText(url);
-        toast.success('URL copied to clipboard');
+        toast.success('URL berhasil disimpan');
     }
 
     const [description, setDescription] = useState('');
