@@ -11,11 +11,13 @@ const ReportDetail = () => {
     const [reportData, setReportData] = useState();
     const [reportLength, setReportLength] = useState(0);
     const [title, setTitle] = useState()
+    const [delisted, setDelisted] = useState(true)
 
     const fetchCampaign = async () => {
         const response = await axios.get(API_BASE_URL + '/v1/campaign/' + id);
         const responseData = response.data.data;
         setTitle(responseData.title)
+        setDelisted(responseData.delisted)
     }
 
     const fetchReports = async () => {
@@ -73,7 +75,7 @@ const ReportDetail = () => {
         };
         const resp = await axios.post(`${API_BASE_URL}/v1/admins/reports/verify`,
             {
-                address: id,
+                campaignAddress: id,
                 isAccepted: true,
             },
             { headers }
@@ -83,6 +85,7 @@ const ReportDetail = () => {
             return;
         }
         toast.success('Campaign berhasil didelisted!');
+        fetchCampaign();
     }
 
     useEffect(() => {
@@ -221,14 +224,14 @@ const ReportDetail = () => {
                 >
                     Tolak Laporan
                 </button>*/}
-                <button
+                {delisted ? <></> : <button
                     className="
                     self-end bg-[#007BC7] text-xs w-full p-2 border border-[2px] border-[#007BC7] text-white font-bold rounded-[5px]
                     md:text-xl md:p-4 md:rounded-[10px]"
                     onClick={acceptReports}
                 >
                     Terima Laporan
-                </button>
+                </button>}
             </div>
         </div>
     );

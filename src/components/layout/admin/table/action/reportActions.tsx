@@ -1,8 +1,10 @@
+import { useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { API_BASE_URL } from '../../../../../utils';
 const ReportActions = (props: any) => {
+    const [delisted, setDelisted] = useState(true);
     const acceptReports = async() => {
         let token = localStorage.getItem('token');
 
@@ -11,7 +13,7 @@ const ReportActions = (props: any) => {
         };
         const resp = await axios.post(`${API_BASE_URL}/v1/admins/reports/verify`,
             {
-                address: props.id,
+                campaignAddress: props.id,
                 isAccepted: true,
             },
             { headers }
@@ -21,7 +23,19 @@ const ReportActions = (props: any) => {
             return;
         }
         toast.success('Campaign berhasil didelisted!');
+        fetchCampaign()
     }
+
+    const fetchCampaign = async () => {
+        const response = await axios.get(API_BASE_URL + '/v1/campaign/' + props.id);
+        const responseData = response.data.data;
+        console.log(responseData)
+        setDelisted(responseData.delisted)
+    }
+
+    useEffect(() => {
+        fetchCampaign()
+    },[])
 
     return (
         <div className="flex flex-row justify-center">
@@ -72,7 +86,7 @@ const ReportActions = (props: any) => {
                     />
                 </svg>
             </button>*/}
-            <button className="ml-2 hover:stroke-[#007BC7] stroke-black" onClick={acceptReports}>
+            {delisted ? <></> : <button className="ml-2 hover:stroke-[#007BC7] stroke-black" onClick={acceptReports}>
                 <svg
                     width="24"
                     height="24"
@@ -93,7 +107,7 @@ const ReportActions = (props: any) => {
                         strokeLinejoin="round"
                     />
                 </svg>
-            </button>
+            </button>}
         </div>
     );
 };

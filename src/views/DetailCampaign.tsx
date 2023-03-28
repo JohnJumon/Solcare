@@ -57,6 +57,7 @@ interface DetailCampaign {
     description: string;
     banner: string;
     status: number;
+    delisted: boolean;
 
     createdAt: number;
     duration: number;
@@ -81,6 +82,7 @@ const DetailCampaign = () => {
     const fetchCampaignDetail = async () => {
         const response = await axios.get(API_BASE_URL + '/v1/campaign/' + id);
         const responseData = response.data.data;
+        console.log(responseData)
 
         const campaign = await smartContract.account.campaign.fetchNullable(
             responseData.address
@@ -149,6 +151,7 @@ const DetailCampaign = () => {
             description: responseData.description,
             banner: responseData.banner,
             status: status,
+            delisted: responseData.delisted,
             createdAt: campaign.createdAt.toNumber(),
             duration: campaign.heldDuration.toNumber(),
             collected: campaign.fundedAmount

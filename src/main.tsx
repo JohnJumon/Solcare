@@ -15,6 +15,8 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import PrivateRoute from './components/routes/privateRoute';
 import FundraiserDetailCampaign from './views/FundraiserDetailCampaign';
 import AdminContent from './components/layout/admin/adminContent';
+import ReportDetail from './components/layout/admin/reportDetail';
+import DetailCampaignReports from './views/DetailCampaignReports';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
@@ -110,6 +112,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 
                     <Route path="/explore" element={<FindCampaign />} />
                     <Route path="/campaign/:id" element={<DetailCampaign />} />
+                    <Route path="/campaign/reports/:id" element={<DetailCampaignReports />}/>
                     <Route
                         path="/profile"
                         element={
