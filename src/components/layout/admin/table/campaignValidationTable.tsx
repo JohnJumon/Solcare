@@ -5,7 +5,7 @@ import { API_BASE_URL } from '../../../../utils';
 const CampaignValidationTable = (props: any) => {
     let campaignData = props.campaignData;
     const [currentValue, setValue] = useState('1');
-    console.log(campaignData);
+
     const generateTable = (page: number) => {
         let rows = [];
         for (

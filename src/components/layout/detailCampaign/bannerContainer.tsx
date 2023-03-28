@@ -6,7 +6,7 @@ const BannerContainer = (props: any) => {
         <>
             {
                 props.campaign.delisted ?
-                    <button className='w-full bg-red-600 text-white p-2' 
+                    <button className='w-full bg-red-600 text-white p-2 underline decoration-1' 
                         onClick={() => {window.open('/campaign/reports/'+props.campaign.address, '_blank', 'noreferrer')}}
                     >
                         Campaign ini memiliki indikasi kecurangan, berikut laporan dari para funder

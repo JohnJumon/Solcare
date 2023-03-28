@@ -1,17 +1,19 @@
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { API_BASE_URL } from '../../../../../utils';
 const ReportActions = (props: any) => {
     const [delisted, setDelisted] = useState(true);
-    const acceptReports = async() => {
+
+    const acceptReports = async () => {
         let token = localStorage.getItem('token');
 
         const headers = {
             Authorization: `Bearer ${token}`,
         };
-        const resp = await axios.post(`${API_BASE_URL}/v1/admins/reports/verify`,
+        const resp = await axios.post(
+            `${API_BASE_URL}/v1/admins/reports/verify`,
             {
                 campaignAddress: props.id,
                 isAccepted: true,
@@ -23,19 +25,21 @@ const ReportActions = (props: any) => {
             return;
         }
         toast.success('Campaign berhasil didelisted!');
-        fetchCampaign()
-    }
+        fetchCampaign();
+    };
 
     const fetchCampaign = async () => {
-        const response = await axios.get(API_BASE_URL + '/v1/campaign/' + props.id);
+        const response = await axios.get(
+            API_BASE_URL + '/v1/campaign/' + props.id
+        );
         const responseData = response.data.data;
-        console.log(responseData)
-        setDelisted(responseData.delisted)
-    }
+
+        setDelisted(responseData.delisted);
+    };
 
     useEffect(() => {
-        fetchCampaign()
-    },[])
+        fetchCampaign();
+    }, []);
 
     return (
         <div className="flex flex-row justify-center">
@@ -86,28 +90,35 @@ const ReportActions = (props: any) => {
                     />
                 </svg>
             </button>*/}
-            {delisted ? <></> : <button className="ml-2 hover:stroke-[#007BC7] stroke-black" onClick={acceptReports}>
-                <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 32 32"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+            {delisted ? (
+                <></>
+            ) : (
+                <button
+                    className="ml-2 hover:stroke-[#007BC7] stroke-black"
+                    onClick={acceptReports}
                 >
-                    <path
-                        d="M5.5 17.9091V6.5C5.5 6.23478 5.60536 5.98043 5.79289 5.79289C5.98043 5.60536 6.23478 5.5 6.5 5.5H25.5C25.7652 5.5 26.0196 5.60536 26.2071 5.79289C26.3946 5.98043 26.5 6.23478 26.5 6.5V25.5C26.5 25.7652 26.3946 26.0196 26.2071 26.2071C26.0196 26.3946 25.7652 26.5 25.5 26.5H16.9545"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
-                    <path
-                        d="M16 19L8 27L4 23"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
-                </svg>
-            </button>}
+                    <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 32 32"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M5.5 17.9091V6.5C5.5 6.23478 5.60536 5.98043 5.79289 5.79289C5.98043 5.60536 6.23478 5.5 6.5 5.5H25.5C25.7652 5.5 26.0196 5.60536 26.2071 5.79289C26.3946 5.98043 26.5 6.23478 26.5 6.5V25.5C26.5 25.7652 26.3946 26.0196 26.2071 26.2071C26.0196 26.3946 25.7652 26.5 25.5 26.5H16.9545"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                        <path
+                            d="M16 19L8 27L4 23"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                    </svg>
+                </button>
+            )}
         </div>
     );
 };

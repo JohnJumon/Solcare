@@ -1,10 +1,12 @@
 import Select from 'react-select';
 import { useSearchParams } from 'react-router-dom';
 
-import React from 'react';
+import { useEffect, useState } from 'react';
 import PieChart from './pieChart';
 import VerticalBarChart from './verticalBarChart';
 import HorizontalStackedBarChart from './horizontalStackedBarChart';
+import axios from 'axios';
+import { API_BASE_URL } from '../../../utils';
 
 const options = [
     {
@@ -25,6 +27,51 @@ const Dashboard = () => {
     let [searchParams, setSearchParams] = useSearchParams();
     let filter = searchParams.get('order');
 
+    const [totalUsers, setTotalUsers] = useState(0);
+    const [totalWarnedUsers, setTotalWarnedUsers] = useState(0);
+    const [totalReports, setTotalReports] = useState(0);
+    const [totalReportedCampaign, setTotalReportedCampaign] = useState(0);
+
+    const fetchTotalUsers = async () => {
+        const resp = await axios.get(`${API_BASE_URL}/v1/users`);
+        let respData = [];
+        if (resp.data.status === 200) {
+            respData = resp.data.data;
+
+            setTotalUsers(respData.length);
+
+            let warnedUsers = 0;
+            respData.forEach((e: any) => {
+                if (e.isWarned === true) {
+                    warnedUsers += 1;
+                }
+            });
+            setTotalWarnedUsers(warnedUsers);
+        }
+    };
+
+    const fetchTotalReports = async () => {
+        const resp = await axios.get(`${API_BASE_URL}/v1/report/group`);
+        let respData = [];
+        if (resp.data.status === 200) {
+            respData = resp.data.data;
+
+            setTotalReportedCampaign(respData.length);
+
+            let reportAmount = 0;
+            respData.forEach((e: any) => {
+                reportAmount += e.total;
+            });
+
+            setTotalReports(reportAmount);
+        }
+    };
+
+    useEffect(() => {
+        fetchTotalUsers();
+        fetchTotalReports();
+    }, []);
+
     const handleInputChange = (e: any) => {
         searchParams.set('order', e.value);
         setSearchParams(searchParams);
@@ -32,7 +79,7 @@ const Dashboard = () => {
     return (
         <div>
             <div className="grid grid-cols-2 gap-4 sm:gap-8 sm:grid-cols-3">
-                <div>
+                {/* <div>
                     <p className="text-xs font-bold xl:text-base">
                         Total Donasi
                     </p>
@@ -44,7 +91,7 @@ const Dashboard = () => {
                         0{' '}
                         <span className="text-[9px] xl:text-[18px]">USDC</span>
                     </p>
-                </div>
+                </div> */}
                 <div>
                     <p className="text-xs font-bold xl:text-base">
                         Total Campaign
@@ -54,7 +101,7 @@ const Dashboard = () => {
                     text-2xl font-bold
                     xl:text-4xl xl:my-4"
                     >
-                        0
+                        X
                     </p>
                 </div>
                 <div>
@@ -64,7 +111,43 @@ const Dashboard = () => {
                     text-2xl font-bold
                     xl:text-4xl xl:my-4"
                     >
-                        0
+                        {totalUsers}
+                    </p>
+                </div>
+                <div>
+                    <p className="text-xs font-bold xl:text-base">
+                        Total User Diperingati
+                    </p>
+                    <p
+                        className="
+                    text-2xl font-bold
+                    xl:text-4xl xl:my-4"
+                    >
+                        {totalWarnedUsers}
+                    </p>
+                </div>
+                <div>
+                    <p className="text-xs font-bold xl:text-base">
+                        Total Laporan User
+                    </p>
+                    <p
+                        className="
+                    text-2xl font-bold
+                    xl:text-4xl xl:my-4"
+                    >
+                        {totalReports}
+                    </p>
+                </div>
+                <div>
+                    <p className="text-xs font-bold xl:text-base">
+                        Total Campaign Terlapor
+                    </p>
+                    <p
+                        className="
+                    text-2xl font-bold
+                    xl:text-4xl xl:my-4"
+                    >
+                        {totalReportedCampaign}
                     </p>
                 </div>
             </div>

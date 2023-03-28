@@ -5,7 +5,6 @@ import { ITEM_PER_PAGE } from '../../../../utils';
 const ReportTable = (props: any) => {
     let reportData = props.reportData;
     const [currentValue, setValue] = useState('1');
-    console.log(reportData)
 
     const generateTable = (page: number) => {
         let rows = [];
