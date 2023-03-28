@@ -1,12 +1,40 @@
-import { useState } from 'react';
 import ReportCard from './card/reportCard';
+import { useState, useEffect} from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import { API_BASE_URL, ITEM_PER_PAGE } from '../../../utils';
+import { toast } from 'react-toastify';
 const ReportDetail = () => {
+    const { id } = useParams();
+    
     const [currentValue, setValue] = useState('1');
+    const [reportData, setReportData] = useState();
+    const [reportLength, setReportLength] = useState(0);
+    const [title, setTitle] = useState()
 
-    const generateReports = (page: number) => {
+    const fetchCampaign = async () => {
+        const response = await axios.get(API_BASE_URL + '/v1/campaign/' + id);
+        const responseData = response.data.data;
+        setTitle(responseData.title)
+    }
+
+    const fetchReports = async () => {
+        const resp = await axios.get(`${API_BASE_URL}/v1/report/group/${id}`);
+
+        if (resp.data.status === 200) {
+            setReportData(resp.data.data);
+            setReportLength(resp.data.data.length)
+        }
+    };
+
+    const generateReports = (page: number, reportData: Array<any>) => {
         let components = [];
-        for (var i = 10 * page - 10; i < 10 * page; i++) {
-            components.push(<ReportCard number={i + 1} />);
+        for (
+            let i = ITEM_PER_PAGE * page - ITEM_PER_PAGE;
+            i < Math.min(ITEM_PER_PAGE * page, reportData.length);
+            i++
+        ) {
+            components.push(<ReportCard data={reportData[i]} />);
         }
         return components;
     };
@@ -37,6 +65,35 @@ const ReportDetail = () => {
         }
     };
 
+    const acceptReports = async() => {
+        let token = localStorage.getItem('token');
+
+        const headers = {
+            Authorization: `Bearer ${token}`,
+        };
+        const resp = await axios.post(`${API_BASE_URL}/v1/admins/reports/verify`,
+            {
+                address: id,
+                isAccepted: true,
+            },
+            { headers }
+        );
+        if (resp.data.status !== 200) {
+            toast.error(`Laporan gagal diproses. Silahkan coba kembali.`);
+            return;
+        }
+        toast.success('Campaign berhasil didelisted!');
+    }
+
+    useEffect(() => {
+        fetchReports();
+        fetchCampaign();
+    }, []);
+
+    if (reportData === undefined && title === undefined) {
+        return <progress className="progress w-[90%] flex mx-auto my-20" />;
+    }
+
     return (
         <div
             className="
@@ -49,9 +106,13 @@ const ReportDetail = () => {
                     text-md font-bold
                     md:text-3xl"
                 >
-                    Judul
+                    {title}
                 </h1>
-                <button className="w-6 h-6 md:w-12 md:h-12 stroke-black hover:stroke-[#007BC7]">
+                <button className="w-6 h-6 md:w-12 md:h-12 stroke-black hover:stroke-[#007BC7]"
+                    onClick={() => {
+                        window.open('/campaign/'+id, '_blank', 'noreferrer')
+                    }}
+                >
                     <svg viewBox="0 0 24 24">
                         <path d="M16.198,10.896c-0.252,0-0.455,0.203-0.455,0.455v2.396c0,0.626-0.511,1.137-1.138,1.137H5.117c-0.627,0-1.138-0.511-1.138-1.137V7.852c0-0.626,0.511-1.137,1.138-1.137h5.315c0.252,0,0.456-0.203,0.456-0.455c0-0.251-0.204-0.455-0.456-0.455H5.117c-1.129,0-2.049,0.918-2.049,2.047v5.894c0,1.129,0.92,2.048,2.049,2.048h9.488c1.129,0,2.048-0.919,2.048-2.048v-2.396C16.653,11.099,16.45,10.896,16.198,10.896z"></path>
                         <path d="M14.053,4.279c-0.207-0.135-0.492-0.079-0.63,0.133c-0.137,0.211-0.077,0.493,0.134,0.63l1.65,1.073c-4.115,0.62-5.705,4.891-5.774,5.082c-0.084,0.236,0.038,0.495,0.274,0.581c0.052,0.019,0.103,0.027,0.154,0.027c0.186,0,0.361-0.115,0.429-0.301c0.014-0.042,1.538-4.023,5.238-4.482l-1.172,1.799c-0.137,0.21-0.077,0.492,0.134,0.629c0.076,0.05,0.163,0.074,0.248,0.074c0.148,0,0.294-0.073,0.382-0.207l1.738-2.671c0.066-0.101,0.09-0.224,0.064-0.343c-0.025-0.118-0.096-0.221-0.197-0.287L14.053,4.279z"></path>
@@ -65,7 +126,7 @@ const ReportDetail = () => {
             >
                 Daftar Laporan
             </h2>
-            <div>{generateReports(parseInt(currentValue))}</div>
+            <div>{generateReports(parseInt(currentValue), reportData!!)}</div>
 
             <nav
                 className="
@@ -80,11 +141,11 @@ const ReportDetail = () => {
                 >
                     Showing{' '}
                     <span className="font-bold text-gray-900">
-                        {parseInt(currentValue) * 10 - 10 + 1}-
-                        {parseInt(currentValue) * 10}
+                        {parseInt(currentValue) * ITEM_PER_PAGE - ITEM_PER_PAGE+1}-
+                        {parseInt(currentValue) * reportLength}
                     </span>{' '}
                     of{' '}
-                    <span className="font-bold text-gray-900">{10 * 20}</span>
+                    <span className="font-bold text-gray-900">{reportLength}</span>
                 </span>
                 <ul className="inline-flex items-center -space-x-px">
                     <li>
@@ -153,17 +214,18 @@ const ReportDetail = () => {
             </nav>
 
             <div className="flex flex-col md:flex-row gap-2">
-                <button
+                {/*<button
                     className="
                     self-end bg-[#007BC7] text-xs w-full p-2 border border-[2px] border-[#007BC7] text-white font-bold rounded-[5px]
                     md:text-xl md:p-4 md:rounded-[10px]"
                 >
                     Tolak Laporan
-                </button>
+                </button>*/}
                 <button
                     className="
                     self-end bg-[#007BC7] text-xs w-full p-2 border border-[2px] border-[#007BC7] text-white font-bold rounded-[5px]
                     md:text-xl md:p-4 md:rounded-[10px]"
+                    onClick={acceptReports}
                 >
                     Terima Laporan
                 </button>

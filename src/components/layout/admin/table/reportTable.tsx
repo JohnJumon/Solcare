@@ -1,12 +1,19 @@
 import { useState } from 'react';
 import ReportActions from './action/reportActions';
+import { ITEM_PER_PAGE } from '../../../../utils';
 
 const ReportTable = (props: any) => {
+    let reportData = props.reportData;
     const [currentValue, setValue] = useState('1');
+    console.log(reportData)
 
     const generateTable = (page: number) => {
         let rows = [];
-        for (var i = 10 * page - 10; i < 10 * page; i++) {
+        for (
+            let i = ITEM_PER_PAGE * page - ITEM_PER_PAGE;
+            i < Math.min(ITEM_PER_PAGE * page, reportData.length);
+            i++
+        ) {
             rows.push(
                 <tr className="bg-white hover:bg-[rgba(0,123,199,0.25)]">
                     <th
@@ -15,11 +22,11 @@ const ReportTable = (props: any) => {
                     >
                         {i + 1}
                     </th>
-                    <td className="py-4 px-6">Nama Campaign {i + 1}</td>
-                    <td className="py-4 px-6">Wallet Address {i + 1}</td>
-                    <td className="py-4 px-6 text-center">100</td>
+                    <td className="py-4 px-6">{reportData[i].campaignTitle}</td>
+                    <td id="address-tag" className="py-4 px-6">{reportData[i].ownerAddress}</td>
+                    <td className="py-4 px-6 text-center">{reportData[i].total}</td>
                     <td className="py-4 px-6">
-                        <ReportActions id={i + 1} />
+                        <ReportActions id={reportData[i].campaignAddress} title={reportData[i].title}/>
                     </td>
                 </tr>
             );
@@ -53,6 +60,10 @@ const ReportTable = (props: any) => {
         }
     };
 
+    if (reportData === undefined) {
+        return <progress className="progress w-[90%] flex mx-auto my-20" />;
+    }
+
     return (
         <div
             className="
@@ -70,7 +81,7 @@ const ReportTable = (props: any) => {
                                 Nama Campaign
                             </th>
                             <th scope="col" className="py-3 px-6 border-r">
-                                Wallet Address
+                                Owner Address
                             </th>
                             <th scope="col" className="py-3 px-6 border-r">
                                 Jumlah Laporan
@@ -96,11 +107,11 @@ const ReportTable = (props: any) => {
                 >
                     Showing{' '}
                     <span className="font-bold text-gray-900">
-                        {parseInt(currentValue) * 10 - 10 + 1}-
-                        {parseInt(currentValue) * 10}
+                        {parseInt(currentValue) * ITEM_PER_PAGE - ITEM_PER_PAGE + 1}-
+                        {parseInt(currentValue) * reportData.length}
                     </span>{' '}
                     of{' '}
-                    <span className="font-bold text-gray-900">{10 * 20}</span>
+                    <span className="font-bold text-gray-900">{reportData.length}</span>
                 </span>
                 <ul className="inline-flex items-center -space-x-px">
                     <li>

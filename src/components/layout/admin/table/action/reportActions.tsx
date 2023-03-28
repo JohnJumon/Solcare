@@ -1,6 +1,28 @@
 import { Link } from 'react-router-dom';
-
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import { API_BASE_URL } from '../../../../../utils';
 const ReportActions = (props: any) => {
+    const acceptReports = async() => {
+        let token = localStorage.getItem('token');
+
+        const headers = {
+            Authorization: `Bearer ${token}`,
+        };
+        const resp = await axios.post(`${API_BASE_URL}/v1/admins/reports/verify`,
+            {
+                address: props.id,
+                isAccepted: true,
+            },
+            { headers }
+        );
+        if (resp.data.status !== 200) {
+            toast.error(`Laporan gagal diproses. Silahkan coba kembali.`);
+            return;
+        }
+        toast.success('Campaign berhasil didelisted!');
+    }
+
     return (
         <div className="flex flex-row justify-center">
             <Link
@@ -28,7 +50,7 @@ const ReportActions = (props: any) => {
                     />
                 </svg>
             </Link>
-            <button className="ml-2 hover:stroke-[#007BC7] stroke-black">
+            {/*<button className="ml-2 hover:stroke-[#007BC7] stroke-black">
                 <svg
                     width="24"
                     height="24"
@@ -49,8 +71,8 @@ const ReportActions = (props: any) => {
                         strokeLinejoin="round"
                     />
                 </svg>
-            </button>
-            <button className="ml-2 hover:stroke-[#007BC7] stroke-black">
+            </button>*/}
+            <button className="ml-2 hover:stroke-[#007BC7] stroke-black" onClick={acceptReports}>
                 <svg
                     width="24"
                     height="24"

@@ -146,11 +146,11 @@ const CampaignValidationTable = (props: any) => {
                 >
                     Showing{' '}
                     <span className="font-bold text-gray-900">
-                        {parseInt(currentValue) * 10 - 10 + 1}-
-                        {parseInt(currentValue) * 10}
+                        {parseInt(currentValue) * ITEM_PER_PAGE - ITEM_PER_PAGE + 1}-
+                        {parseInt(currentValue) * campaignData.length}
                     </span>{' '}
                     of{' '}
-                    <span className="font-bold text-gray-900">{10 * 20}</span>
+                    <span className="font-bold text-gray-900">{campaignData.length}</span>
                 </span>
                 <ul className="inline-flex items-center -space-x-px">
                     <li>
