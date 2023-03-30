@@ -1,11 +1,11 @@
-import ReportDetail from "../components/layout/admin/reportDetail";
+import ReportDetail from '../components/layout/admin/reportDetail';
 
 const DetailCampaignReports = () => {
-    return(
+    return (
         <main className="max-w-screen-xl mx-auto">
-            <ReportDetail/>
+            <ReportDetail />
         </main>
-    )
-}
+    );
+};
 
 export default DetailCampaignReports;

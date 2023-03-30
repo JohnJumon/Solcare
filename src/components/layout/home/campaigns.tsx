@@ -8,11 +8,7 @@ const Campaigns = (props: any) => {
             }`}
         >
             <div>
-                <h2
-                    className="
-                    font-bold text-md mb-3 text-center
-                    xl:text-2xl xl:mb-6 xl:text-left"
-                >
+                <h2 className="font-bold text-md mb-3 text-center xl:text-2xl xl:mb-6 xl:text-left">
                     {props.type === 'Voting'
                         ? 'Waktunya Untuk Voting'
                         : 'Campaign Yang Anda Bantu'}

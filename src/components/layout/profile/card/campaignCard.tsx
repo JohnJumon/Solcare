@@ -76,10 +76,6 @@ const CampaignCard: React.FC<CampaignCardProps> = (props) => {
                 <div className="flex flex-row justify-between bg-white rounded-t-[5px] sm:rounded-t-[10px]">
                     <p className="line-clamp-1 p-2 sm:p-4">{props.title}</p>
                     <p className="bg-[#007BC7] text-white p-2 px-3 sm:p-4 sm:px-6 rounded-t-[5px] sm:rounded-t-[10px]">
-                        {/* {props.statusEvidence === 2 ||
-                        props.statusEvidence === 3
-                            ? showEvidenceStatus(props.statusEvidence)
-                            : statusToString(props.status)} */}
                         {props.status === STATUS_FUNDED
                             ? showEvidenceStatus(props.statusEvidence)
                             : statusToString(props.status)}

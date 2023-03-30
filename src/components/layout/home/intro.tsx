@@ -32,40 +32,18 @@ const Intro = () => {
     }, [currentIndex]);
 
     return (
-        <article
-            className="
-            relative
-            xl:static xl:flex xl:flex-row xl:items-end xl:max-w-screen-2xl xl:space-x-6
-            "
-        >
+        <article className="relative xl:static xl:flex xl:flex-row xl:items-end xl:max-w-screen-2xl xl:space-x-6">
             <div
-                className="
-                absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  text-center z-10
-                xl:ml-28 xl:static xl:top-0 xl:left-0 xl:-translate-x-0 xl:-translate-y-0 xl:text-left
-                "
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center z-10 
+                xl:ml-28 xl:static xl:top-0 xl:left-0 xl:-translate-x-0 xl:-translate-y-0 xl:text-left"
             >
-                <h1
-                    className="
-                    font-black text-black text-2xl text-left
-                    xl:text-6xl 
-                    "
-                >
+                <h1 className="font-black text-black text-2xl text-left xl:text-6xl">
                     SOLCARE
                 </h1>
-                <p
-                    className="
-                    font-light text-black text-lg mb-6 text-left
-                    xl:text-3xl xl:mb-12
-                    "
-                >
+                <p className="font-light text-black text-lg mb-6 text-left xl:text-3xl xl:mb-12">
                     SOLANA BLOCKCHAIN CROWDFUNDING <br /> PLATFORM
                 </p>
-                <p
-                    className="
-                    text-justify text-black text-xs mb-3
-                    xl:text-xl xl:mb-6
-                    "
-                >
+                <p className="text-justify text-black text-xs mb-3 xl:text-xl xl:mb-6">
                     Buatlah <i>campaign</i> dan kumpuli dana untuk projek anda,
                     dan jadilah <i>funder</i> untuk membantu mendanai{' '}
                     <i>campaign</i>. Dengan teknologi <i>blockchain</i>,
@@ -73,9 +51,7 @@ const Intro = () => {
                 </p>
                 <Link to={'/explore'}>
                     <button
-                        className="
-                    bg-[#007BC7] text-xs w-[11rem] h-8 text-white font-bold rounded-[5px]
-                    xl:w-[22rem] xl:rounded-[10px] xl:h-16 xl:text-xl
+                        className="bg-[#007BC7] text-xs w-[11rem] h-8 text-white font-bold rounded-[5px] xl:w-[22rem] xl:rounded-[10px] xl:h-16 xl:text-xl
                     "
                     >
                         Cari Campaign
@@ -83,10 +59,8 @@ const Intro = () => {
                 </Link>
             </div>
             <img
-                className={`
-                object-cover ${currentFade} h-[24rem] opacity-40 z-0 w-screen
-                xl:w-[48rem] xl:h-[34rem] xl:rounded-bl-[200px] xl:opacity-100
-                `}
+                className={`object-cover ${currentFade} h-[24rem] opacity-40 z-0 w-screen xl:w-[48rem] xl:h-[34rem] 
+                xl:rounded-bl-[200px] xl:opacity-100`}
                 src={images[currentIndex]}
             />
         </article>

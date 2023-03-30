@@ -104,11 +104,7 @@ const CampaignValidationTable = (props: any) => {
     }
 
     return (
-        <div
-            className="
-            mt-2
-            md:mt-6"
-        >
+        <div className="mt-2 md:mt-6">
             <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
                 <table className="w-full text-xs lg:text-lg text-left text-gray-500">
                     <thead className="text-xs lg:text-lg text-center bg-[#007BC7] text-white">
@@ -146,11 +142,15 @@ const CampaignValidationTable = (props: any) => {
                 >
                     Showing{' '}
                     <span className="font-bold text-gray-900">
-                        {parseInt(currentValue) * ITEM_PER_PAGE - ITEM_PER_PAGE + 1}-
-                        {parseInt(currentValue) * campaignData.length}
+                        {parseInt(currentValue) * ITEM_PER_PAGE -
+                            ITEM_PER_PAGE +
+                            1}
+                        -{parseInt(currentValue) * campaignData.length}
                     </span>{' '}
                     of{' '}
-                    <span className="font-bold text-gray-900">{campaignData.length}</span>
+                    <span className="font-bold text-gray-900">
+                        {campaignData.length}
+                    </span>
                 </span>
                 <ul className="inline-flex items-center -space-x-px">
                     <li>

@@ -38,7 +38,8 @@ const Detail = (props: any) => {
     const [initializing, setInitializing] = useState(true);
     const [voteTime, setVoteTime] = useState(0);
     const campaign = props.campaign;
-    // console.log(campaign);
+
+    // console.log(props.donor);
 
     useEffect(() => {
         if (campaign.proposal !== null) {
@@ -195,34 +196,22 @@ const Detail = (props: any) => {
     return (
         <div className="w-full px-12 md:flex md:flex-row md:pl-12">
             <div className="md:basis-9/12">
-                <h1
-                    className="
-                    text-md font-bold mb-2
-                    md:text-2xl"
-                >
+                <h1 className="text-md font-bold mb-2  md:text-2xl">
                     {campaign.title}
                 </h1>
 
                 <div className="divider my-2" />
 
-                <h2
-                    className="
-                    text-md font-bold mb-2 md:mb-4
-                    md:text-xl"
-                >
+                <h2 className="text-md font-bold mb-2 md:mb-4 md:text-xl">
                     {campaign.status === STATUS_FUNDED
                         ? showEvidenceStatus(campaign.statusEvidence)
                         : showStatus(campaign.status)}
                 </h2>
-                <p
-                    className="
-                    text-xs
-                    md:text-xl mb-2"
-                >
+                <p className="text-xs md:text-xl mb-2">
                     Dibantu <b>{props.funders.length}</b> funders
                 </p>
 
-                {campaign.collected === campaign.target ? (
+                {campaign.collected !== campaign.target ? (
                     <></>
                 ) : (
                     <Progress
@@ -271,10 +260,7 @@ const Detail = (props: any) => {
                 <Description campaign={campaign} />
                 <FunderList key={campaign.address} funders={props.funders} />
             </div>
-            <aside
-                className="hidden ml-6 flex flex-col basis-3/12
-                md:block"
-            >
+            <aside className="hidden ml-6 flex flex-col basis-3/12 md:block">
                 <FundraiserInfo campaign={campaign} />
                 {changeButton(campaign.status)}
             </aside>

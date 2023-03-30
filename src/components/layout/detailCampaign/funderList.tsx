@@ -31,13 +31,10 @@ const FunderList = ({ funders }: { funders: FunderInfo[] }) => {
                 <tr className="bg-white border-b" key={i}>
                     <th
                         scope="row"
-                        className="
-                        flex items-center py-1 text-gray-900 md:py-2"
+                        className="flex items-center py-1 text-gray-900 md:py-2"
                     >
                         <img
-                            className="
-                            w-8 h-8 rounded-full
-                            md:w-16 md:h-16"
+                            className="w-8 h-8 rounded-full md:w-16 md:h-16"
                             src={
                                 funders[i].profilePicture === '' ||
                                 funders[i].profilePicture === undefined
@@ -46,43 +43,23 @@ const FunderList = ({ funders }: { funders: FunderInfo[] }) => {
                             }
                             alt="placeholder"
                         />
-                        <div
-                            className="
-                            pl-3
-                            md:pl-6"
-                        >
-                            <p
-                                className="
-                                text-xs font-bold line-clamp-1
-                                md:text-xl"
-                            >
+                        <div className="pl-3 md:pl-6">
+                            <p className="text-xs font-bold line-clamp-1 md:text-xl">
                                 {funders[i].name === '-'
                                     ? 'Funder'
                                     : funders[i].name}
                             </p>
                             <p
                                 id="address-tag"
-                                className="
-                                text-[8px] font-normal text-gray-500
-                                md:text-[15px] leading-normal"
+                                className="text-[8px] font-normal text-gray-500 md:text-[15px] leading-normal"
                             >
                                 {funders[i].owner}
                             </p>
                         </div>
                     </th>
-                    <td
-                        className="
-                        py-1 text-right text-lg font-bold
-                        md:py-2 md:text-4xl"
-                    >
+                    <td className="py-1 text-right text-lg font-bold md:py-2 md:text-4xl">
                         {funders[i].amount}
-                        <span
-                            className="
-                            text-[9px]
-                            md:text-lg"
-                        >
-                            USDC
-                        </span>
+                        <span className="text-[9px] md:text-lg">USDC</span>
                     </td>
                 </tr>
             );
@@ -118,16 +95,8 @@ const FunderList = ({ funders }: { funders: FunderInfo[] }) => {
     };
 
     return (
-        <div
-            className="
-            mt-2
-            md:mt-6"
-        >
-            <h2
-                className="
-                text-xs font-bold mb-1
-                md:text-xl md:mb-2"
-            >
+        <div className="mt-2 md:mt-6">
+            <h2 className="text-xs font-bold mb-1 md:text-xl md:mb-2">
                 Daftar Funders
             </h2>
             {funders.length === 0 ? (
@@ -138,16 +107,10 @@ const FunderList = ({ funders }: { funders: FunderInfo[] }) => {
                         <tbody>{generateTable(parseInt(page))}</tbody>
                     </table>
                     <nav
-                        className="
-                flex flex-col-reverse items-center py-4
-                md:py-8 md:flex-row md:justify-between"
+                        className="flex flex-col-reverse items-center py-4 md:py-8 md:flex-row md:justify-between"
                         aria-label="Table navigation"
                     >
-                        <span
-                            className="
-                    text-sm font-normal text-gray-500 pt-2
-                    md:text-xl md:pt-4"
-                        >
+                        <span className="text-sm font-normal text-gray-500 pt-2 md:text-xl md:pt-4">
                             Showing{' '}
                             <span className="font-bold text-gray-900">
                                 {parseInt(page) * 5 - 5 + 1}-
@@ -162,15 +125,12 @@ const FunderList = ({ funders }: { funders: FunderInfo[] }) => {
                             <li>
                                 <button
                                     onClick={decrease}
-                                    className="
-                            block py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700
-                            md:py-4 md:px-6"
+                                    className="block py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg 
+                                    border border-gray-300 hover:bg-gray-100 hover:text-gray-700 md:py-4 md:px-6"
                                 >
                                     <span className="sr-only">Previous</span>
                                     <svg
-                                        className="
-                                w-5 h-5
-                                md:w-8 md:h-8"
+                                        className="w-5 h-5 md:w-8 md:h-8"
                                         aria-hidden="true"
                                         fill="currentColor"
                                         viewBox="0 0 20 20"
@@ -190,24 +150,20 @@ const FunderList = ({ funders }: { funders: FunderInfo[] }) => {
                                     min="1"
                                     max="20"
                                     onChange={handleChange}
-                                    className="
-                            text-center py-2 min-w-[75px] max-w-[100px] px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 focus:outline-none
-                            md:px-6 md:py-4 md:text-2xl"
+                                    className="text-center py-2 min-w-[75px] max-w-[100px] px-3 leading-tight text-gray-500 bg-white border border-gray-300 
+                                    hover:bg-gray-100 hover:text-gray-700 focus:outline-none md:px-6 md:py-4 md:text-2xl"
                                     value={page}
                                 />
                             </li>
                             <li>
                                 <button
                                     onClick={increase}
-                                    className="
-                            block py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700
-                            md:py-4 md:px-6"
+                                    className="block py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 
+                                    hover:bg-gray-100 hover:text-gray-700 md:py-4 md:px-6"
                                 >
                                     <span className="sr-only">Next</span>
                                     <svg
-                                        className="
-                                w-5 h-5
-                                md:w-8 md:h-8"
+                                        className="w-5 h-5 md:w-8 md:h-8"
                                         aria-hidden="true"
                                         fill="currentColor"
                                         viewBox="0 0 20 20"

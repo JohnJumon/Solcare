@@ -99,20 +99,10 @@ const Voting = ({
 
     return (
         <div>
-            <div
-                className="
-            flex flex-col mt-2
-            md:mt-6"
-            >
+            <div className="flex flex-col mt-2 md:mt-6">
                 {donorInfo !== null ? (
                     <>
-                        <h2
-                            className="
-                text-xs font-bold mb-1
-                md:text-xl md:mb-2"
-                        >
-                            Voting
-                        </h2>
+                        <h2 className="md:text-xl md:mb-2">Voting</h2>
                         <button
                             onClick={(e) => {
                                 window.open(
@@ -120,14 +110,12 @@ const Voting = ({
                                     '_blank'
                                 );
                             }}
-                            className="
-                    border-solid border-2 border-[#007BC7] text-xs w-full h-8 text-[#007BC7] font-normal rounded-[5px] flex flex-row items-center hover:shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]
-                    md:text-xl md:h-16 md:rounded-[10px] md:border-2"
+                            className="border-solid border-2 border-[#007BC7] text-xs w-full h-8 text-[#007BC7] 
+                            font-normal rounded-[5px] flex flex-row items-center hover:shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] 
+                            md:text-xl md:h-16 md:rounded-[10px] md:border-2"
                         >
                             <svg
-                                className="
-                            w-5 h-5 ml-2 mr-1
-                            md:w-8 md:h-8 md:ml-4 md:mr-2"
+                                className="w-5 h-5 ml-2 mr-1 md:w-8 md:h-8 md:ml-4 md:mr-2"
                                 aria-hidden="true"
                                 fill="currentColor"
                                 viewBox="0 0 20 20"
@@ -141,35 +129,19 @@ const Voting = ({
                             </svg>
                             <p className="line-clamp-1">proposal.pdf</p>
                         </button>
-                        <p
-                            className=" mt-5
-                text-[8px] mb-2
-                md:text-[15px] md:mb-4"
-                        >
+                        <p className="mt-5 text-[8px] mb-2 md:text-[15px] md:mb-4">
                             Kamu telah berkontribusi pada campaign sebanyak:
                         </p>
-                        <p
-                            className="
-                text-base leading-none text-center mb-2
-                md:text-3xl md:mb-4"
-                        >
+                        <p className="text-base leading-none text-center mb-2 md:text-3xl md:mb-4">
                             <b>
                                 {donorInfo.amount || 0}
-                                <span
-                                    className="
-                    text-[8px]
-                    md:text-[15px]"
-                                >
+                                <span className="text-[8px] md:text-[15px]">
                                     USDC
                                 </span>
                             </b>
                         </p>
                         {donorInfo.vote === null ? (
-                            <div
-                                className="
-             w-full flex flex-row items-center justify-between mt-2 text-xs font-bold text-white
-             md:mt-4 md:text-xl"
-                            >
+                            <div className="w-full flex flex-row items-center justify-between mt-2 text-xs font-bold text-white md:mt-4 md:text-xl">
                                 <button
                                     onClick={() => {
                                         submitVote(false);
@@ -188,11 +160,7 @@ const Voting = ({
                                 </button>
                             </div>
                         ) : (
-                            <p
-                                className=" mt-5
-                text-[8px] mb-2
-                md:text-[15px] md:mb-4"
-                            >
+                            <p className="mt-5 text-[8px] mb-2 md:text-[15px] md:mb-4">
                                 Kamu memilih{' '}
                                 {donorInfo.vote.agree ? (
                                     <b className="text-green-600">menyetujui</b>

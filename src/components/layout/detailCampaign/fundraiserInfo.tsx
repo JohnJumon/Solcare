@@ -39,32 +39,14 @@ const FundraiserInfo = (props: any) => {
         return null;
     }
     return (
-        <div
-            className="
-            mt-2
-            md:mt-4"
-        >
-            <h2
-                className="
-                mb-2 text-xs font-bold
-                md:hidden"
-            >
+        <div className="mt-2 md:mt-4">
+            <h2 className="mb-2 text-xs font-bold md:hidden">
                 Info Fundraiser
             </h2>
-            <div
-                className="
-                flex flex-row items-center
-                md:flex-col"
-            >
-                <div
-                    className="
-                    flex flex-col items-center mr-2 pr-1
-                    md:mr-0 md:pr-0"
-                >
+            <div className="flex flex-row items-center md:flex-col">
+                <div className="flex flex-col items-center mr-2 pr-1 md:mr-0 md:pr-0">
                     <img
-                        className="
-                        w-8 h-8 rounded-full
-                        md:w-32 md:h-32"
+                        className="w-8 h-8 rounded-full md:w-32 md:h-32"
                         src={
                             fundraiserData.profilePicture === ''
                                 ? ProfilePlaceholder
@@ -72,11 +54,7 @@ const FundraiserInfo = (props: any) => {
                         }
                         alt="placeholder"
                     />
-                    <div
-                        className="
-                        text-[8px]
-                        md:text-[15px] mt-2"
-                    >
+                    <div className="text-[8px] md:text-[15px] mt-2">
                         {fundraiserData.isWarned ? (
                             <p className="text-red-600 text-bold">
                                 Diperingati
@@ -85,11 +63,7 @@ const FundraiserInfo = (props: any) => {
                             <> </>
                         )}
                     </div>
-                    <div
-                        className="
-                        text-[8px]
-                        md:text-[15px]"
-                    >
+                    <div className="text-[8px] md:text-[15px]">
                         {fundraiserData.isVerified
                             ? 'Terverifikasi'
                             : 'Belum Terverifikasi'}
@@ -97,16 +71,10 @@ const FundraiserInfo = (props: any) => {
                 </div>
                 <div className="divider" />
 
-                <div
-                    className="
-                    flex flex-col pl-1
-                    md:pl-0 md:self-start"
-                >
+                <div className="flex flex-col pl-1 md:pl-0 md:self-start">
                     <p
                         id="address-tag"
-                        className="
-                        text-xs font-bold
-                        md:text-xl"
+                        className="text-xs font-bold md:text-xl"
                     >
                         {/* Nama Fundraiser */}
                         {fundraiserData.firstName === '' ||
@@ -114,22 +82,13 @@ const FundraiserInfo = (props: any) => {
                             ? '-'
                             : `${fundraiserData.firstName} ${fundraiserData.lastName}`}
                     </p>
-                    <p
-                        className="
-                        text-[8px]
-                        md:text-[15px] mb-2"
-                    >
+                    <p className="text-[8px] md:text-[15px] mb-2">
                         {/* E-mail Fundraiser */}
                         {fundraiserData.email === ''
                             ? '-'
                             : fundraiserData.email}
                     </p>
-                    <p
-                        id="address-tag"
-                        className="
-                        text-[8px]
-                        md:text-[15px]"
-                    >
+                    <p id="address-tag" className="text-[8px] md:text-[15px]">
                         {/* Wallet Fundraiser */}
                         {campaign.ownerAddress}
                     </p>

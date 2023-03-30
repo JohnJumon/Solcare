@@ -29,8 +29,7 @@ const Category = (props: any) => {
                                         searchParams.get('categoryId') == null)
                                         ? 'text-white bg-[#007BC7]'
                                         : 'text-[#007BC7] bg-white'
-                                } hover:border-solid hover:border-2 hover:border-[#007BC7]
-                            md:p-4 md:text-xl`}
+                                } hover:border-solid hover:border-2 hover:border-[#007BC7] md:p-4 md:text-xl`}
                                 value={e.id}
                                 onClick={() => {
                                     searchParams.set('categoryId', e.id);

@@ -2,6 +2,7 @@ import CampaignValidationTable from './table/campaignValidationTable';
 import { API_BASE_URL } from '../../../utils';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+
 const CampaignValidation = () => {
     const [campaignData, setCampaignData] = useState();
     const fetchCampaign = async () => {

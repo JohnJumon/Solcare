@@ -43,15 +43,9 @@ const InVoting: React.FC<CampaignInVotingCardProps> = (props) => {
                         Suara
                     </p>
                 </div>
-                <div
-                    className="
-                                col-span-4 bg-green-600 rounded-full h-2 my-2
-                                sm:h-4 sm:my-4"
-                >
+                <div className="col-span-4 bg-green-600 rounded-full h-2 my-2 sm:h-4 sm:my-4">
                     <div
-                        className="
-                                    bg-red-600 h-2 rounded-full
-                                    sm:h-4"
+                        className="bg-red-600 h-2 rounded-full sm:h-4"
                         style={{
                             width: countDisagreePercentage().toString() + '%',
                         }}

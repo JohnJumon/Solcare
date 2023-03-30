@@ -10,7 +10,6 @@ const VerificationTable = (props: any) => {
     const refetch = props.refetch;
 
     const [page, setPage] = useState('1');
-    const [url, setUrl] = useState();
 
     const saveZip = (data: any) => {
         const zip = new JSZip();

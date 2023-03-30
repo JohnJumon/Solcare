@@ -82,7 +82,7 @@ const DetailCampaign = () => {
     const fetchCampaignDetail = async () => {
         const response = await axios.get(API_BASE_URL + '/v1/campaign/' + id);
         const responseData = response.data.data;
-        console.log(responseData)
+        // console.log(responseData)
 
         const campaign = await smartContract.account.campaign.fetchNullable(
             responseData.address

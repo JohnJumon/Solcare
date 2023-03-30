@@ -22,10 +22,17 @@ const ReportTable = (props: any) => {
                         {i + 1}
                     </th>
                     <td className="py-4 px-6">{reportData[i].campaignTitle}</td>
-                    <td id="address-tag" className="py-4 px-6">{reportData[i].ownerAddress}</td>
-                    <td className="py-4 px-6 text-center">{reportData[i].total}</td>
+                    <td id="address-tag" className="py-4 px-6">
+                        {reportData[i].ownerAddress}
+                    </td>
+                    <td className="py-4 px-6 text-center">
+                        {reportData[i].total}
+                    </td>
                     <td className="py-4 px-6">
-                        <ReportActions id={reportData[i].campaignAddress} title={reportData[i].title}/>
+                        <ReportActions
+                            id={reportData[i].campaignAddress}
+                            title={reportData[i].title}
+                        />
                     </td>
                 </tr>
             );
@@ -64,11 +71,7 @@ const ReportTable = (props: any) => {
     }
 
     return (
-        <div
-            className="
-            mt-2
-            md:mt-6"
-        >
+        <div className="mt-2 md:mt-6">
             <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
                 <table className="w-full text-xs lg:text-lg text-left text-gray-500">
                     <thead className="text-xs lg:text-lg text-center bg-[#007BC7] text-white">
@@ -106,11 +109,15 @@ const ReportTable = (props: any) => {
                 >
                     Showing{' '}
                     <span className="font-bold text-gray-900">
-                        {parseInt(currentValue) * ITEM_PER_PAGE - ITEM_PER_PAGE + 1}-
-                        {parseInt(currentValue) * reportData.length}
+                        {parseInt(currentValue) * ITEM_PER_PAGE -
+                            ITEM_PER_PAGE +
+                            1}
+                        -{parseInt(currentValue) * reportData.length}
                     </span>{' '}
                     of{' '}
-                    <span className="font-bold text-gray-900">{reportData.length}</span>
+                    <span className="font-bold text-gray-900">
+                        {reportData.length}
+                    </span>
                 </span>
                 <ul className="inline-flex items-center -space-x-px">
                     <li>

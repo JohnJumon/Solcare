@@ -29,25 +29,16 @@ const Sort = () => {
     };
 
     return (
-        <div
-            className="
-            flex flex-col mt-6 flex-col-reverse"
-        >
-            <div
-                className="
-                flex flex-row flex-end items-center justify-end"
-            >
+        <div className="flex flex-col mt-6 flex-col-reverse">
+            <div className="flex flex-row flex-end items-center justify-end">
                 <label
                     htmlFor="sortFilter"
-                    className="
-                    text-xs font-bold mr-5
-                    xl:text-xl"
+                    className="text-xs font-bold mr-5 xl:text-xl"
                 >
                     Urutkan berdasarkan
                 </label>
                 <Select
-                    className="w-[200px] text-xs
-                        xl:text-xl xl:w-[300px]"
+                    className="w-[200px] text-xs xl:text-xl xl:w-[300px]"
                     options={options}
                     defaultValue={options[defaultOption]}
                     isSearchable={false}

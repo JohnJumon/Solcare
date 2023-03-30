@@ -47,15 +47,9 @@ const InProgress: React.FC<CampaignInProgressCardProps> = (props) => {
                 <p className="line-clamp-1 text-start max-[369px]:text-[8px]">
                     PROGRESS PENDANAAN
                 </p>
-                <div
-                    className="
-                                col-span-4 bg-gray-200 rounded-full h-2 dark:bg-gray-700 mb-2
-                                sm:h-4 sm:mb-4"
-                >
+                <div className="col-span-4 bg-gray-200 rounded-full h-2 dark:bg-gray-700 mb-2 sm:h-4 sm:mb-4">
                     <div
-                        className="
-                                    bg-[#007BC7] h-2 rounded-full
-                                    sm:h-4"
+                        className="bg-[#007BC7] h-2 rounded-full sm:h-4"
                         style={{
                             width:
                                 Math.floor(

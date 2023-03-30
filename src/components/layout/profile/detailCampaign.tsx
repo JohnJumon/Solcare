@@ -91,8 +91,8 @@ const MyDetailCampaign = (props: any) => {
             return (
                 <div className="flex flex-col">
                     <label
-                        className="text-center mt-4 self-end bg-[#007BC7] opacity-50 w-full text-xs p-2 border border-[2px] border-[#007BC7] text-white font-bold rounded-[5px]
-                    md:text-xl md:p-4 md:rounded-[10px] cursor-not-allowed"
+                        className="text-center mt-4 self-end bg-[#007BC7] opacity-50 w-full text-xs p-2 border border-[2px] 
+                        border-[#007BC7] text-white font-bold rounded-[5px] md:text-xl md:p-4 md:rounded-[10px] cursor-not-allowed"
                     >
                         Belum Bisa Mengajukan Pencairan Dana
                     </label>
@@ -109,8 +109,8 @@ const MyDetailCampaign = (props: any) => {
             return (
                 <div className="flex flex-col">
                     <label
-                        className="text-center mt-4 self-end bg-[#007BC7] opacity-50 w-full text-xs p-2 border border-[2px] border-[#007BC7] text-white font-bold rounded-[5px]
-                    md:text-xl md:p-4 md:rounded-[10px] cursor-not-allowed"
+                        className="text-center mt-4 self-end bg-[#007BC7] opacity-50 w-full text-xs p-2 border border-[2px] 
+                        border-[#007BC7] text-white font-bold rounded-[5px] md:text-xl md:p-4 md:rounded-[10px] cursor-not-allowed"
                     >
                         Dalam Masa Voting
                     </label>
@@ -131,10 +131,11 @@ const MyDetailCampaign = (props: any) => {
                         refetch={props.refetch}
                     />
                 );
-            } else if (campaign.statusEvidence === EVIDENCE_STATUS_REQUESTED) {
-            } else if (campaign.statusEvidence === EVIDENCE_STATUS_SUCCESS) {
-            } else if (campaign.statusEvidence === EVIDENCE_STATUS_FAILED) {
             }
+            // else if (campaign.statusEvidence === EVIDENCE_STATUS_REQUESTED) {
+            // } else if (campaign.statusEvidence === EVIDENCE_STATUS_SUCCESS) {
+            // } else if (campaign.statusEvidence === EVIDENCE_STATUS_FAILED) {
+            // }
         }
     };
 
@@ -180,30 +181,18 @@ const MyDetailCampaign = (props: any) => {
                     className="w-screen max-h-[250px] object-fit mb-1 md:max-h-[300px] lg:max-h-[350px] md:rounded-[20px] md:mb-4"
                     src={`${API_BASE_URL}/${campaign.banner}`}
                 />
-                <h2
-                    className="
-                    text-md font-bold my-2
-                    md:text-3xl"
-                >
+                <h2 className="text-md font-bold my-2 md:text-3xl">
                     {campaign.title}
                 </h2>
 
                 <div className="divider my-2" />
 
-                <h1
-                    className="
-                    text-md font-bold mb-2 md:mb-4
-                    md:text-xl"
-                >
+                <h1 className="text-md font-bold mb-2 md:mb-4 md:text-xl">
                     {campaign.status === STATUS_FUNDED
                         ? showEvidenceStatus(campaign.statusEvidence)
                         : showStatus(campaign.status)}
                 </h1>
-                <p
-                    className="
-                text-xs
-                md:text-xl mb-2"
-                >
+                <p className="text-xs md:text-xl mb-2">
                     Dibantu <b>{funders.length}</b> funders
                 </p>
 

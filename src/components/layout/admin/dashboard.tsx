@@ -96,21 +96,11 @@ const Dashboard = () => {
                     <p className="text-xs font-bold xl:text-base">
                         Total Campaign
                     </p>
-                    <p
-                        className="
-                    text-2xl font-bold
-                    xl:text-4xl xl:my-4"
-                    >
-                        X
-                    </p>
+                    <p className="text-2xl font-bold xl:text-4xl xl:my-4">X</p>
                 </div>
                 <div>
                     <p className="text-xs font-bold xl:text-base">Total User</p>
-                    <p
-                        className="
-                    text-2xl font-bold
-                    xl:text-4xl xl:my-4"
-                    >
+                    <p className="text-2xl font-bold xl:text-4xl xl:my-4">
                         {totalUsers}
                     </p>
                 </div>
@@ -118,11 +108,7 @@ const Dashboard = () => {
                     <p className="text-xs font-bold xl:text-base">
                         Total User Diperingati
                     </p>
-                    <p
-                        className="
-                    text-2xl font-bold
-                    xl:text-4xl xl:my-4"
-                    >
+                    <p className="text-2xl font-bold xl:text-4xl xl:my-4">
                         {totalWarnedUsers}
                     </p>
                 </div>
@@ -130,11 +116,7 @@ const Dashboard = () => {
                     <p className="text-xs font-bold xl:text-base">
                         Total Laporan User
                     </p>
-                    <p
-                        className="
-                    text-2xl font-bold
-                    xl:text-4xl xl:my-4"
-                    >
+                    <p className="text-2xl font-bold xl:text-4xl xl:my-4">
                         {totalReports}
                     </p>
                 </div>
@@ -142,11 +124,7 @@ const Dashboard = () => {
                     <p className="text-xs font-bold xl:text-base">
                         Total Campaign Terlapor
                     </p>
-                    <p
-                        className="
-                    text-2xl font-bold
-                    xl:text-4xl xl:my-4"
-                    >
+                    <p className="text-2xl font-bold xl:text-4xl xl:my-4">
                         {totalReportedCampaign}
                     </p>
                 </div>

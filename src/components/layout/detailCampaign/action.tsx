@@ -54,9 +54,7 @@ const Action = ({ campaignAddress }: { campaignAddress: string }) => {
             <button>
                 <label htmlFor="my-modal-4" className="">
                     <svg
-                        className="
-                w-5 h-5 rounded-full mr-2 hover:text-red-600
-                md:w-8 md:h-8 md:mr-4"
+                        className="w-5 h-5 rounded-full mr-2 hover:text-red-600 md:w-8 md:h-8 md:mr-4"
                         aria-hidden="true"
                         fill="currentColor"
                         viewBox="0 0 20 20"
@@ -69,9 +67,7 @@ const Action = ({ campaignAddress }: { campaignAddress: string }) => {
 
             <button onClick={saveURL}>
                 <svg
-                    className="
-                w-5 h-5 rounded-full hover:text-[#007BC7]
-                md:w-8 md:h-8"
+                    className="w-5 h-5 rounded-full hover:text-[#007BC7] md:w-8 md:h-8"
                     aria-hidden="true"
                     fill="currentColor"
                     viewBox="0 0 20 20"

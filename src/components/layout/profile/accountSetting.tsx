@@ -72,11 +72,7 @@ const AccountSetting = () => {
 
     return (
         <div className="flex flex-col">
-            <div
-                className="
-                flex flex-col
-                md:flex-row items-center shadow-[0px_4px_6px_2px_rgba(0,123,199,0.5)] p-8 rounded-[10px] py-8"
-            >
+            <div className="flex flex-col md:flex-row items-center shadow-[0px_4px_6px_2px_rgba(0,123,199,0.5)] p-8 rounded-[10px] py-8">
                 <label
                     htmlFor="dropzone-file"
                     style={{
@@ -130,11 +126,7 @@ const AccountSetting = () => {
                     </div>
                 </label>
                 <div className="basis-10/12 shrink flex flex-col items-center md:items-start my-4 md:my-0 md:mx-4">
-                    <div
-                        className="text-center text-sm 
-                        md:self-start md:text-right md:basis-1/12 text-gray-500
-                        "
-                    >
+                    <div className="text-center text-sm md:self-start md:text-right md:basis-1/12 text-gray-500">
                         {userInfo.isVerified ? (
                             <p className="text-green-600 text-base">
                                 Terverifikasi
@@ -146,10 +138,7 @@ const AccountSetting = () => {
 
                     <div className="divider my-1" />
 
-                    <h2
-                        className="text-lg font-bold flex flex-row items-center
-                            md:text-xl"
-                    >
+                    <h2 className="text-lg font-bold flex flex-row items-center md:text-xl">
                         <span className="mr-2 md:w-[20px] w-[18px]">
                             {userInfo.gender ? (
                                 <svg
@@ -182,24 +171,14 @@ const AccountSetting = () => {
                                 : userInfo.firstName + ' ' + userInfo.lastName}
                         </span>
                     </h2>
-                    <p
-                        className="text-sm mb-2
-                            md:text-base"
-                    >
+                    <p className="text-sm mb-2 md:text-base">
                         {userInfo.email === '' ? '-' : userInfo.email}
                     </p>
-                    <p
-                        id="address-tag"
-                        className="text-xs
-                        md:text-base"
-                    >
+                    <p id="address-tag" className="text-xs md:text-base">
                         {userInfo.address}
                     </p>
                 </div>
-                <div
-                    className="text-sm text-center 
-                            md:self-start md:text-right md:basis-1/12"
-                >
+                <div className="text-sm text-center md:self-start md:text-right md:basis-1/12">
                     {userInfo.isWarned ? (
                         <p className="text-red-600 text-bold">Diperingati</p>
                     ) : (

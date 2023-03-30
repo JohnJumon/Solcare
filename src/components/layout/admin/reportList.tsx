@@ -18,7 +18,7 @@ const ReportList = (props: any) => {
     }, []);
     return (
         <div>
-            <ReportTable reportData = {reportData}/>
+            <ReportTable reportData={reportData} />
         </div>
     );
 };

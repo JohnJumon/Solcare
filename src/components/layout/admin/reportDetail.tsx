@@ -1,31 +1,31 @@
 import ReportCard from './card/reportCard';
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { API_BASE_URL, ITEM_PER_PAGE } from '../../../utils';
 import { toast } from 'react-toastify';
 const ReportDetail = () => {
     const { id } = useParams();
-    
+
     const [currentValue, setValue] = useState('1');
     const [reportData, setReportData] = useState();
     const [reportLength, setReportLength] = useState(0);
-    const [title, setTitle] = useState()
-    const [delisted, setDelisted] = useState(true)
+    const [title, setTitle] = useState();
+    const [delisted, setDelisted] = useState(true);
 
     const fetchCampaign = async () => {
         const response = await axios.get(API_BASE_URL + '/v1/campaign/' + id);
         const responseData = response.data.data;
-        setTitle(responseData.title)
-        setDelisted(responseData.delisted)
-    }
+        setTitle(responseData.title);
+        setDelisted(responseData.delisted);
+    };
 
     const fetchReports = async () => {
         const resp = await axios.get(`${API_BASE_URL}/v1/report/group/${id}`);
 
         if (resp.data.status === 200) {
             setReportData(resp.data.data);
-            setReportLength(resp.data.data.length)
+            setReportLength(resp.data.data.length);
         }
     };
 
@@ -67,13 +67,14 @@ const ReportDetail = () => {
         }
     };
 
-    const acceptReports = async() => {
+    const acceptReports = async () => {
         let token = localStorage.getItem('token');
 
         const headers = {
             Authorization: `Bearer ${token}`,
         };
-        const resp = await axios.post(`${API_BASE_URL}/v1/admins/reports/verify`,
+        const resp = await axios.post(
+            `${API_BASE_URL}/v1/admins/reports/verify`,
             {
                 campaignAddress: id,
                 isAccepted: true,
@@ -86,7 +87,7 @@ const ReportDetail = () => {
         }
         toast.success('Campaign berhasil didelisted!');
         fetchCampaign();
-    }
+    };
 
     useEffect(() => {
         fetchReports();
@@ -111,9 +112,10 @@ const ReportDetail = () => {
                 >
                     {title}
                 </h1>
-                <button className="w-6 h-6 md:w-12 md:h-12 stroke-black hover:stroke-[#007BC7]"
+                <button
+                    className="w-6 h-6 md:w-12 md:h-12 stroke-black hover:stroke-[#007BC7]"
                     onClick={() => {
-                        window.open('/campaign/'+id, '_blank', 'noreferrer')
+                        window.open('/campaign/' + id, '_blank', 'noreferrer');
                     }}
                 >
                     <svg viewBox="0 0 24 24">
@@ -144,11 +146,15 @@ const ReportDetail = () => {
                 >
                     Showing{' '}
                     <span className="font-bold text-gray-900">
-                        {parseInt(currentValue) * ITEM_PER_PAGE - ITEM_PER_PAGE+1}-
-                        {parseInt(currentValue) * reportLength}
+                        {parseInt(currentValue) * ITEM_PER_PAGE -
+                            ITEM_PER_PAGE +
+                            1}
+                        -{parseInt(currentValue) * reportLength}
                     </span>{' '}
                     of{' '}
-                    <span className="font-bold text-gray-900">{reportLength}</span>
+                    <span className="font-bold text-gray-900">
+                        {reportLength}
+                    </span>
                 </span>
                 <ul className="inline-flex items-center -space-x-px">
                     <li>
@@ -224,14 +230,18 @@ const ReportDetail = () => {
                 >
                     Tolak Laporan
                 </button>*/}
-                {delisted ? <></> : <button
-                    className="
+                {delisted ? (
+                    <></>
+                ) : (
+                    <button
+                        className="
                     self-end bg-[#007BC7] text-xs w-full p-2 border border-[2px] border-[#007BC7] text-white font-bold rounded-[5px]
                     md:text-xl md:p-4 md:rounded-[10px]"
-                    onClick={acceptReports}
-                >
-                    Terima Laporan
-                </button>}
+                        onClick={acceptReports}
+                    >
+                        Terima Laporan
+                    </button>
+                )}
             </div>
         </div>
     );

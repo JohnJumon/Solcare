@@ -25,25 +25,11 @@ const CollectedFund = (props: any) => {
         }
     };
     return (
-        <div
-            className="
-            mb-[3px]
-            md:mb-3"
-        >
-            <p
-                className="
-                text-base leading-none
-                md:text-3xl"
-            >
+        <div className="mb-[3px] md:mb-3">
+            <p className="text-base leading-none md:text-3xl">
                 <b>
                     {campaign.collected}
-                    <span
-                        className="
-                    text-[8px]
-                    md:text-[15px]"
-                    >
-                        USDC
-                    </span>
+                    <span className="text-[8px] md:text-[15px]">USDC</span>
                 </b>
             </p>
             <p>

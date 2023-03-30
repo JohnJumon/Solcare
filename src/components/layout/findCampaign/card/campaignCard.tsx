@@ -43,25 +43,16 @@ const CampaignCard = (props: any) => {
         <Link to={`/campaign/${campaign.address}`}>
             <div className="w-full h-[100%] rounded-[20px] shadow-[0px_4px_4px_0px_rgba(0,123,199,0.25)] hover:shadow-[0px_10px_10px_0px_rgba(0,123,199,0.5)]">
                 <img
-                    className="
-                w-screen h-[200px] object-cover rounded-[20px]
-                xl:max-h-[300px]"
+                    className="w-screen h-[200px] object-cover rounded-[20px] xl:max-h-[300px]"
                     src={`${API_BASE_URL}/${campaign.banner}`}
                 />
                 <div className="p-6">
-                    <h1
-                        className="
-                    line-clamp-1 text-md font-bold my-2
-                    xl:text-2xl xl:my-4"
-                    >
+                    <h1 className="line-clamp-1 text-md font-bold my-2 xl:text-2xl xl:my-4">
                         {campaign.title}
                     </h1>
 
                     {campaign.collected === campaign.target ? (
-                        <p
-                            className="text-xs
-                        xl:text-base"
-                        >
+                        <p className="text-xs xl:text-base">
                             <b className="text-green-600">
                                 {campaign.collected} USDC
                             </b>{' '}
@@ -69,15 +60,9 @@ const CampaignCard = (props: any) => {
                         </p>
                     ) : (
                         <div className="grid grid-cols-5 gap-4 mb-3 items-center">
-                            <div
-                                className="
-                        col-span-4 bg-gray-200 rounded-full h-2 dark:bg-gray-700
-                        xl:h-4"
-                            >
+                            <div className="col-span-4 bg-gray-200 rounded-full h-2 dark:bg-gray-700 xl:h-4">
                                 <div
-                                    className="
-                            bg-[#007BC7] h-2 rounded-full
-                            xl:h-4"
+                                    className="bg-[#007BC7] h-2 rounded-full xl:h-4"
                                     style={{
                                         width:
                                             Math.floor(
@@ -91,11 +76,7 @@ const CampaignCard = (props: any) => {
                                     }}
                                 />
                             </div>
-                            <p
-                                className="
-                        font-bold text-xs text-center
-                        xl:text-lg"
-                            >
+                            <p className="font-bold text-xs text-center xl:text-lg">
                                 {Math.floor(
                                     Math.min(
                                         100,
@@ -107,12 +88,7 @@ const CampaignCard = (props: any) => {
                             </p>
                         </div>
                     )}
-                    <div
-                        className="
-                    text-xs
-                    xl:text-base
-                    "
-                    >
+                    <div className="text-xs xl:text-base ">
                         {campaign.collected === campaign.target ? (
                             <></>
                         ) : (
@@ -122,11 +98,7 @@ const CampaignCard = (props: any) => {
                         )}
                     </div>
 
-                    <p
-                        className="
-                    line-clamp-4 text-xs text-justify my-4
-                    xl:text-base "
-                    >
+                    <p className="line-clamp-4 text-xs text-justify my-4 xl:text-base ">
                         {campaign.description}
                     </p>
                 </div>

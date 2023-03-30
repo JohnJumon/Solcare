@@ -47,15 +47,9 @@ const UserDetail = () => {
 
     return (
         <div className="flex flex-col">
-            <div
-                className="
-                flex flex-col
-                md:flex-row items-center shadow-[0px_4px_6px_2px_rgba(0,123,199,0.5)] p-8 rounded-[10px]"
-            >
+            <div className="flex flex-col md:flex-row items-center shadow-[0px_4px_6px_2px_rgba(0,123,199,0.5)] p-8 rounded-[10px]">
                 <img
-                    className="
-                        md:basis-1/12 w-24 h-24 rounded-full
-                        md:w-28 md:h-28"
+                    className="md:basis-1/12 w-24 h-24 rounded-full md:w-28 md:h-28"
                     src={
                         userData.profilePicture === ''
                             ? ProfilePlaceholder
@@ -64,11 +58,7 @@ const UserDetail = () => {
                     alt="placeholder"
                 />
                 <div className="md:basis-10/12 flex flex-col items-center md:items-start my-4 md:my-0 md:mx-4">
-                    <div
-                        className="text-center text-sm 
-                        md:self-start md:text-right md:basis-1/12 text-gray-500
-                        "
-                    >
+                    <div className="text-center text-sm md:self-start md:text-right md:basis-1/12 text-gray-500">
                         {userData.isVerified ? (
                             <p className="text-green-600 text-base">
                                 Terverifikasi
@@ -80,10 +70,7 @@ const UserDetail = () => {
 
                     <div className="divider my-1" />
 
-                    <h2
-                        className="text-lg font-bold flex flex-row items-center
-                            md:text-xl"
-                    >
+                    <h2 className="text-lg font-bold flex flex-row items-centermd:text-xl">
                         <span className="mr-2 md:w-[20px] w-[18px]">
                             {userData.gender ? (
                                 <svg
@@ -116,25 +103,15 @@ const UserDetail = () => {
                                 : userData.firstName + ' ' + userData.lastName}
                         </span>
                     </h2>
-                    <p
-                        className="text-sm mb-2
-                            md:text-base"
-                    >
+                    <p className="text-sm mb-2 md:text-base">
                         {userData.email === '' ? '-' : userData.email}
                     </p>
-                    <p
-                        id="address-tag"
-                        className="text-sm
-                            md:text-base"
-                    >
+                    <p id="address-tag" className="text-sm md:text-base">
                         {userData.address}
                     </p>
                 </div>
 
-                <div
-                    className="text-sm text-center 
-                            md:self-start md:text-right md:basis-1/12"
-                >
+                <div className="text-sm text-center md:self-start md:text-right md:basis-1/12">
                     {userData.isWarned ? (
                         <p className="text-red-600 text-bold">Diperingati</p>
                     ) : (
@@ -179,9 +156,8 @@ const UserDetail = () => {
             </div>
             {userData.isVerified === true ? (
                 <button
-                    className="
-                                mt-4 self-end bg-[#007BC7] text-xs w-full p-2 border border-[2px] border-[#007BC7] text-white font-bold rounded-[5px]
-                                md:text-xl md:p-4 md:rounded-[10px]"
+                    className="mt-4 self-end bg-[#007BC7] text-xs w-full p-2 border border-[2px] border-[#007BC7] text-white 
+                    font-bold rounded-[5px] md:text-xl md:p-4 md:rounded-[10px]"
                     onClick={() => removeVerification()}
                 >
                     Cabut Verifikasi

@@ -158,9 +158,8 @@ const KYC = () => {
             <div className="mt-2">
                 <p className="text-xs md:text-lg">No. KTP</p>
                 <input
-                    className="
-                        text-xs p-2 w-full rounded-[5px] border border-gray-300 hover:bg-gray-100 hover:text-gray-700 focus:outline-none
-                        md:text-xl md:p-4 md:rounded-[10px]"
+                    className="text-xs p-2 w-full rounded-[5px] border border-gray-300 hover:bg-gray-100 hover:text-gray-700 
+                    focus:outline-none md:text-xl md:p-4 md:rounded-[10px]"
                     type="text"
                     name="nik"
                     onChange={handleInputChange}
@@ -407,9 +406,8 @@ const KYC = () => {
             </div>
             <div className="flex flex-row gap-4 items-center mt-4">
                 <button
-                    className="
-                    basis-1/2 self-end bg-[#007BC7] text-xs w-full p-2 border border-[2px] border-[#007BC7] text-white font-bold rounded-[5px]
-                    md:text-xl md:p-4 md:rounded-[10px] disabled:opacity-50"
+                    className="basis-1/2 self-end bg-[#007BC7] text-xs w-full p-2 border border-[2px] border-[#007BC7] 
+                    text-white font-bold rounded-[5px] md:text-xl md:p-4 md:rounded-[10px] disabled:opacity-50"
                     disabled={
                         KYCInfo?.status === STATUS_KYC_PENDING ||
                         KYCInfo?.status === STATUS_KYC_ACCEPTED
