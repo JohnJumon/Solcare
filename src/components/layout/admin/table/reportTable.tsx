@@ -14,7 +14,10 @@ const ReportTable = (props: any) => {
             i++
         ) {
             rows.push(
-                <tr className="bg-white hover:bg-[rgba(0,123,199,0.25)]">
+                <tr
+                    className="bg-white hover:bg-[rgba(0,123,199,0.25)]"
+                    key={i}
+                >
                     <th
                         scope="row"
                         className="text-center py-4 px-6 font-medium text-gray-900 whitespace-nowrap"

@@ -22,17 +22,17 @@ ChartJS.register(
     Colors
 );
 
-const labels = ['Sukses', 'Gagal', 'Pending'];
+// const labels = ['Sukses', 'Gagal', 'Pending'];
 
-const data = {
-    labels,
-    datasets: [
-        {
-            label: 'Total Campaign',
-            data: [100, 200, 300],
-        },
-    ],
-};
+// const data = {
+//     labels,
+//     datasets: [
+//         {
+//             label: 'Total Campaign',
+//             data: [100, 200, 300],
+//         },
+//     ],
+// };
 
 const options = {
     responsive: true,
@@ -44,8 +44,25 @@ const options = {
     },
 };
 
-const PieChart = () => {
-    return <Pie options={options} data={data} />;
+const PieChart = (props: any) => {
+    return (
+        <Pie
+            options={options}
+            data={{
+                labels: [props.title, props.titleWarned],
+                datasets: [
+                    {
+                        label: props.label,
+                        data: [props.data, props.warnedData],
+                        backgroundColor: [
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 99, 132)',
+                        ],
+                    },
+                ],
+            }}
+        />
+    );
 };
 
 export default PieChart;

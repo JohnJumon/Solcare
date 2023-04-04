@@ -46,6 +46,28 @@ const options = {
     maintainAspectRatio: false,
 };
 
+// const HorizontalStackedBarChart = (props: any) => {
+//     return (
+//         <Bar
+//             options={options}
+//             data={{
+//                 labels: [props.title],
+//                 datasets: [
+//                     {
+//                         label: 'Hari Ini',
+//                         data: [100],
+//                     },
+//                     {
+//                         label: 'Semalam',
+//                         data: [200],
+//                     },
+//                 ],
+//             }}
+//             height={50}
+//         />
+//     );
+// };
+
 const HorizontalStackedBarChart = (props: any) => {
     return (
         <Bar
@@ -54,16 +76,16 @@ const HorizontalStackedBarChart = (props: any) => {
                 labels: [props.title],
                 datasets: [
                     {
-                        label: 'Hari Ini',
-                        data: [100],
+                        label: `${props.label}`,
+                        data: [props.data],
                     },
                     {
-                        label: 'Semalam',
-                        data: [200],
+                        label: `${props.labelWarned}`,
+                        data: [props.warnedData],
                     },
                 ],
             }}
-            height={50}
+            height={60}
         />
     );
 };

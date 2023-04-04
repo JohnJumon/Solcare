@@ -28,9 +28,12 @@ const Dashboard = () => {
     let filter = searchParams.get('order');
 
     const [totalUsers, setTotalUsers] = useState(0);
-    const [totalWarnedUsers, setTotalWarnedUsers] = useState(0);
+    const [totalUsersWarned, setTotalUsersWarned] = useState(0);
+
     const [totalReports, setTotalReports] = useState(0);
-    const [totalReportedCampaign, setTotalReportedCampaign] = useState(0);
+    const [totalReportedCampaigns, setTotalReportedCampaigns] = useState(0);
+
+    const [totalCampaigns, setTotalCampaigns] = useState(0);
 
     const fetchTotalUsers = async () => {
         const resp = await axios.get(`${API_BASE_URL}/v1/users`);
@@ -46,7 +49,8 @@ const Dashboard = () => {
                     warnedUsers += 1;
                 }
             });
-            setTotalWarnedUsers(warnedUsers);
+
+            setTotalUsersWarned(warnedUsers);
         }
     };
 
@@ -56,7 +60,7 @@ const Dashboard = () => {
         if (resp.data.status === 200) {
             respData = resp.data.data;
 
-            setTotalReportedCampaign(respData.length);
+            setTotalReportedCampaigns(respData.length);
 
             let reportAmount = 0;
             respData.forEach((e: any) => {
@@ -67,9 +71,19 @@ const Dashboard = () => {
         }
     };
 
+    const fetchTotalCampaign = async () => {
+        const resp = await axios.get(`${API_BASE_URL}/v1/campaign/summary`);
+        if (resp.data.status === 200) {
+            const respData = resp.data.data;
+
+            setTotalCampaigns(respData.totalCampaigns);
+        }
+    };
+
     useEffect(() => {
         fetchTotalUsers();
         fetchTotalReports();
+        fetchTotalCampaign();
     }, []);
 
     const handleInputChange = (e: any) => {
@@ -78,7 +92,7 @@ const Dashboard = () => {
     };
     return (
         <div>
-            <div className="grid grid-cols-2 gap-4 sm:gap-8 sm:grid-cols-3">
+            <div className="grid grid-cols-2 gap-4 sm:gap-8 sm:grid-cols-2">
                 {/* <div>
                     <p className="text-xs font-bold xl:text-base">
                         Total Donasi
@@ -94,43 +108,49 @@ const Dashboard = () => {
                 </div> */}
                 <div>
                     <p className="text-xs font-bold xl:text-base">
-                        Total Campaign
+                        Jumlah User
                     </p>
-                    <p className="text-2xl font-bold xl:text-4xl xl:my-4">X</p>
-                </div>
-                <div>
-                    <p className="text-xs font-bold xl:text-base">Total User</p>
                     <p className="text-2xl font-bold xl:text-4xl xl:my-4">
                         {totalUsers}
                     </p>
                 </div>
                 <div>
                     <p className="text-xs font-bold xl:text-base">
-                        Total User Diperingati
+                        Jumlah User Diperingati
                     </p>
                     <p className="text-2xl font-bold xl:text-4xl xl:my-4">
-                        {totalWarnedUsers}
+                        {totalUsersWarned}
+                    </p>
+                </div>
+
+                <div>
+                    <p className="text-xs font-bold xl:text-base">
+                        Jumlah Campaign
+                    </p>
+                    <p className="text-2xl font-bold xl:text-4xl xl:my-4">
+                        {totalCampaigns}
                     </p>
                 </div>
                 <div>
                     <p className="text-xs font-bold xl:text-base">
-                        Total Laporan User
+                        Jumlah Campaign Terlapor
+                    </p>
+                    <p className="text-2xl font-bold xl:text-4xl xl:my-4">
+                        {totalReportedCampaigns}
+                    </p>
+                </div>
+
+                <div>
+                    <p className="text-xs font-bold xl:text-base">
+                        Jumlah Laporan User
                     </p>
                     <p className="text-2xl font-bold xl:text-4xl xl:my-4">
                         {totalReports}
                     </p>
                 </div>
-                <div>
-                    <p className="text-xs font-bold xl:text-base">
-                        Total Campaign Terlapor
-                    </p>
-                    <p className="text-2xl font-bold xl:text-4xl xl:my-4">
-                        {totalReportedCampaign}
-                    </p>
-                </div>
             </div>
             <div className="sm:grid mt-4 sm:mt-0 sm:gap-8 sm:grid-cols-3">
-                <div className="sm:col-span-2 sm:grid sm:grid-cols-2 sm:items-center">
+                {/* <div className="sm:col-span-2 sm:grid sm:grid-cols-2 sm:items-center">
                     <div>
                         <p className="text-xs font-bold xl:text-base">
                             Jumlah Donasi
@@ -180,30 +200,61 @@ const Dashboard = () => {
                     <div className="sm:col-span-2 mt-4">
                         <VerticalBarChart />
                     </div>
+                </div> */}
+                {/* <div>
+                    <p className="text-xs font-bold xl:text-base mb-4">
+                        Jumlah User
+                    </p>
+                    <PieChart
+                        label={'Jumlah User'}
+                        title={'User Tidak Diperingati'}
+                        titleWarned={'User Diperingati'}
+                        data={totalUsers-totalUsersWarned}
+                        warnedData={totalUsersWarned}
+                    />
                 </div>
+                <div />
                 <div>
                     <p className="text-xs font-bold xl:text-base mb-4">
-                        Persentase Campaign
+                        Jumlah Campaign
                     </p>
-                    <PieChart />
-                </div>
+                    <PieChart
+                        label={'Jumlah Campaign'}
+                        title={'Campaign Tidak Diperingati'}
+                        titleWarned={'Campaign Diperingati'}
+                        data={totalCampaigns-totalReportedCampaigns}
+                        warnedData={totalReportedCampaigns}
+                    />
+                </div> */}
             </div>
             <div>
                 <p className="text-xs font-bold xl:text-base mb-4 mt-4">
-                    Aktivitas Hari Ini
+                    Aktivitas Solcare
                 </p>
                 <div className="grid grid-cols-4">
                     <p className="text-xs xl:text-base col-span-1">
-                        Jumlah Donasi
+                        Jumlah User
                     </p>
                     <div className="col-span-3">
-                        <HorizontalStackedBarChart title={'Jumlah Donasi'} />
+                        <HorizontalStackedBarChart
+                            title={'Jumlah User'}
+                            label={'User Yang Tidak Diperingati '}
+                            labelWarned={'User Yang Diperingati '}
+                            data={totalUsers - totalUsersWarned}
+                            warnedData={totalUsersWarned}
+                        />
                     </div>
                     <p className="text-xs xl:text-base col-span-1">
                         Jumlah Campaign
                     </p>
                     <div className="col-span-3">
-                        <HorizontalStackedBarChart title={'Jumlah Campaign'} />
+                        <HorizontalStackedBarChart
+                            title={'Jumlah Campaign'}
+                            label={'Campaign Yang Tidak Diperingati '}
+                            labelWarned={'Campaign Yang Diperingati '}
+                            data={totalCampaigns - totalReportedCampaigns}
+                            warnedData={totalReportedCampaigns}
+                        />
                     </div>
                 </div>
             </div>

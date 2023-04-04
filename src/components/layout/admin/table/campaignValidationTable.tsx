@@ -18,6 +18,7 @@ const CampaignValidationTable = (props: any) => {
                     <th
                         scope="row"
                         className="text-center py-4 px-6 font-medium text-gray-900 whitespace-nowrap"
+                        key={i}
                     >
                         {i + 1}
                     </th>

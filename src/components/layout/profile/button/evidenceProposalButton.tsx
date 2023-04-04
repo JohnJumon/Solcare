@@ -107,8 +107,8 @@ const EvidenceProposalButton = (props: any) => {
         <div className="flex flex-col">
             <label
                 htmlFor="my-modal-4"
-                className="text-center self-end bg-[#007BC7] w-full text-xs p-2 border border-[2px] border-[#007BC7] text-white font-bold rounded-[5px]
-                    md:text-xl md:p-4 md:rounded-[10px] cursor-pointer"
+                className="text-center self-end bg-[#007BC7] w-full text-xs p-2 border border-[2px] border-[#007BC7] text-white 
+                font-bold rounded-[5px] md:text-xl md:p-4 md:rounded-[10px] cursor-pointer"
             >
                 Ajukan Bukti Keberhasilan Proyek
             </label>

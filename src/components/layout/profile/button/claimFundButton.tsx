@@ -128,7 +128,8 @@ const ClaimFundButton = ({
     return (
         <div className="flex flex-col">
             <button
-                className="btn bg-[#007BC7] mt-5 border-[2px] border-[#007BC7]"
+                className="text-center self-end bg-[#007BC7] w-full text-xs p-2 border border-[2px] border-[#007BC7] text-white 
+                font-bold rounded-[5px] md:text-xl md:p-4 md:rounded-[10px] cursor-pointer"
                 onClick={() => claimFund()}
             >
                 Klaim dana
