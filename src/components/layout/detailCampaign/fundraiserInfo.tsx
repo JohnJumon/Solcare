@@ -46,7 +46,7 @@ const FundraiserInfo = (props: any) => {
             <div className="flex flex-row items-center md:flex-col">
                 <div className="flex flex-col items-center mr-2 pr-1 md:mr-0 md:pr-0">
                     <img
-                        className="w-8 h-8 rounded-full md:w-32 md:h-32"
+                        className="w-8 h-8 rounded-full md:w-32 md:h-32 object-cover"
                         src={
                             fundraiserData.profilePicture === ''
                                 ? ProfilePlaceholder
