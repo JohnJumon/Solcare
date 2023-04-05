@@ -7,7 +7,7 @@ const CampaignSlider = (props: any) => {
     const settings = {
         arrows: false,
         dots: true,
-        infinite: true,
+        infinite: false,
         speed: 500,
         slidesToShow: 3,
         slidesToScroll: 3,
@@ -32,16 +32,13 @@ const CampaignSlider = (props: any) => {
         ],
     };
 
-    const generateCard = (count: number, type: string) => {
-        let components = [];
-        for (let i = 0; i < count; i++) {
-            components.push(<CampaignCard type={type} />);
-        }
-        return components;
-    };
     return (
         <div className="w-full">
-            <Slider {...settings}>{generateCard(6, props.type)}</Slider>
+            <Slider {...settings}>{
+                props.data.map((e: any) => {
+                    return <CampaignCard key={e.campaign.toBase58()} type={props.type} data={e} />
+                })
+            }</Slider>
         </div>
     );
 };
