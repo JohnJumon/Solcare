@@ -22,14 +22,14 @@ const ValidationActions = (props: any) => {
         );
         if (resp.data.status !== 200) {
             toast.error(
-                `Verifikasi proyek gagal dilakukan. Silahkan coba kembali.`
+                `Validasi campaign gagal dilakukan. Silahkan coba kembali`
             );
             return;
         }
         if (isApproved) {
-            toast.success('Proyek dinyatakan sudah berhasil!');
+            toast.success('Campaign dinyatakan berhasil!');
         } else {
-            toast.success('Proyek dinyatakan gagal.');
+            toast.success('Campaign dinyatakan gagal');
         }
 
         refetch();
