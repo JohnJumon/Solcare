@@ -110,7 +110,7 @@ const EvidenceProposalButton = (props: any) => {
                 className="text-center self-end bg-[#007BC7] w-full text-xs p-2 border border-[2px] border-[#007BC7] text-white 
                 font-bold rounded-[5px] md:text-xl md:p-4 md:rounded-[10px] cursor-pointer"
             >
-                Ajukan Bukti Keberhasilan Proyek
+                Ajukan Bukti Keberhasilan Campaign
             </label>
             <div>
                 <input
@@ -128,7 +128,7 @@ const EvidenceProposalButton = (props: any) => {
                         </h1>
                         <div className="divider" />
                         <p className="text-xs md:text-xl font-bold">
-                            Upload Berkas Keberhasilan Proyek
+                            Upload Berkas Keberhasilan Campaign
                         </p>
                         <label
                             htmlFor="dropzone-file"

@@ -36,7 +36,7 @@ const ReportDetail = () => {
             i < Math.min(ITEM_PER_PAGE * page, reportData.length);
             i++
         ) {
-            components.push(<ReportCard data={reportData[i]} />);
+            components.push(<ReportCard key={i} data={reportData[i]} />);
         }
         return components;
     };
@@ -94,7 +94,7 @@ const ReportDetail = () => {
         fetchCampaign();
     }, []);
 
-    if (reportData === undefined && title === undefined) {
+    if (reportData === undefined || title === undefined) {
         return <progress className="progress w-[90%] flex mx-auto my-20" />;
     }
 

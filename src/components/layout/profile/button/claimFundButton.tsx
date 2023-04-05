@@ -132,7 +132,7 @@ const ClaimFundButton = ({
                 font-bold rounded-[5px] md:text-xl md:p-4 md:rounded-[10px] cursor-pointer"
                 onClick={() => claimFund()}
             >
-                Klaim dana
+                Klaim Dana
             </button>
         </div>
     );

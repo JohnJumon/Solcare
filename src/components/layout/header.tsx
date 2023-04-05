@@ -142,7 +142,7 @@ const Header = () => {
                         )}
                         {connected ? (
                             <li>
-                                <Link to="/profile">Profile</Link>
+                                <Link to="/profile">Profil</Link>
                             </li>
                         ) : (
                             <></>
@@ -201,7 +201,7 @@ const Header = () => {
                                 to="/profile"
                                 className="rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white"
                             >
-                                Profile
+                                Profil
                             </Link>
                         </li>
                     ) : (
