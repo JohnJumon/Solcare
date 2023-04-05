@@ -24,10 +24,13 @@ const Donation = (props: any) => {
     const [amount, setAmount] = useState(1);
 
     const submitDonation = async (e: any) => {
-        if (amount === 0) {
+        if (!connected) {
+            return toast.error('Hubungkan wallet anda terlebih dahulu');
+        }
+        else if (amount === 0) {
             return toast.error('Jumlah donasi minimal 1 USDC');
         }
-        if (amount > campaign.target - campaign.collected) {
+        else if (amount > campaign.target - campaign.collected) {
             return toast.error(`Jumlah donasi melebihi yang dibutuhkan`);
         }
         if (!connected || !publicKey) return;
