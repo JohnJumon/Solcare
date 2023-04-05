@@ -77,7 +77,7 @@ const MainProfile = () => {
             <div className="flex flex-col">
                 <div className="flex flex-col md:flex-row items-center shadow-[0px_4px_6px_2px_rgba(0,123,199,0.5)] p-8 rounded-[10px]">
                     <img
-                        className="md:basis-1/12 w-24 h-24 rounded-full md:w-28 md:h-28 object-cover"
+                        className="shrink-0 w-24 h-24 rounded-full md:w-28 md:h-28 object-cover"
                         src={
                             userInfo.profilePicture === ''
                                 ? ProfilePlaceholder
@@ -85,7 +85,7 @@ const MainProfile = () => {
                         }
                         alt="placeholder"
                     />
-                    <div className="md:basis-10/12 flex flex-col items-center md:items-start my-4 md:my-0 md:mx-4">
+                    <div className="basis-10/12 flex flex-col items-center md:items-start my-4 md:my-0 md:mx-4">
                         <div className="text-center text-sm md:self-start md:text-right md:basis-1/12 text-gray-500">
                             {userInfo.isVerified ? (
                                 <p className="text-green-600 text-base">
