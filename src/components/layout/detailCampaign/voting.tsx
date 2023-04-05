@@ -148,7 +148,7 @@ const Voting = ({
                                     }}
                                     className="basis-3/6 bg-red-600 h-8 rounded-[5px] mr-[2px] md:h-16 md:rounded-[10px] md:mr-[6px]"
                                 >
-                                    Tidak
+                                    Tolak
                                 </button>
                                 <button
                                     onClick={() => {
