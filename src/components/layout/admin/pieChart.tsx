@@ -49,12 +49,13 @@ const PieChart = (props: any) => {
         <Pie
             options={options}
             data={{
-                labels: [props.title, props.titleWarned],
+                labels: props.title,
                 datasets: [
                     {
                         label: props.label,
-                        data: [props.data, props.warnedData],
+                        data: props.data,
                         backgroundColor: [
+                            'rgb(34, 197, 94)',
                             'rgb(54, 162, 235)',
                             'rgb(255, 99, 132)',
                         ],

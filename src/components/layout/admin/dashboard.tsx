@@ -104,7 +104,7 @@ const Dashboard = () => {
             let countFailedCampaings = 0;
             await Promise.all(campaigns.map(async (v) => {
                 if (v.account.status === STATUS_ACTIVE) {
-                    if (now() > v.account.createdAt.toNumber() + v.account.heldDuration.toNumber()){
+                    if (now() > v.account.createdAt.toNumber() + v.account.heldDuration.toNumber()) {
                         countFailedCampaings++;
                     }
                 } else if (v.account.status === STATUS_VOTING) {
@@ -115,7 +115,7 @@ const Dashboard = () => {
                     const proposal = await smartContract.account.proposal.fetchNullable(proposalDerivedAccount.publicKey)
                     if (proposal) {
                         if (v.account.fundedAmount.lte(proposal.agree.add(proposal.disagree)) || now() > proposal.createdAt.toNumber() + proposal.duration.toNumber()) {
-                            if (!(proposal.agree.eqn(0) && proposal.disagree.eqn(0)) && proposal.agree.lt(proposal.disagree))  {
+                            if (!(proposal.agree.eqn(0) && proposal.disagree.eqn(0)) && proposal.agree.lt(proposal.disagree)) {
                                 countFailedCampaings++;
                             }
                         }
@@ -250,31 +250,17 @@ const Dashboard = () => {
                         <VerticalBarChart />
                     </div>
                 </div> */}
-                {/* <div>
-                    <p className="text-xs font-bold xl:text-base mb-4">
-                        Jumlah User
-                    </p>
-                    <PieChart
-                        label={'Jumlah User'}
-                        title={'User Tidak Diperingati'}
-                        titleWarned={'User Diperingati'}
-                        data={totalUsers-totalUsersWarned}
-                        warnedData={totalUsersWarned}
-                    />
-                </div>
-                <div />
+                
                 <div>
                     <p className="text-xs font-bold xl:text-base mb-4">
                         Jumlah Campaign
                     </p>
                     <PieChart
                         label={'Jumlah Campaign'}
-                        title={'Campaign Tidak Diperingati'}
-                        titleWarned={'Campaign Diperingati'}
-                        data={totalCampaigns-totalReportedCampaigns}
-                        warnedData={totalReportedCampaigns}
+                        title={['Sukses', 'Pending', 'Gagal']}
+                        data={[totalSuccessCampaign, totalCampaigns - totalSuccessCampaign - totalFailedCampaign, totalFailedCampaign]}
                     />
-                </div> */}
+                </div>
             </div>
             <div>
                 <p className="text-xs font-bold xl:text-base mb-4 mt-4">
