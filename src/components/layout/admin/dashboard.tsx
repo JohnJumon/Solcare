@@ -6,7 +6,14 @@ import PieChart from './pieChart';
 import VerticalBarChart from './verticalBarChart';
 import HorizontalStackedBarChart from './horizontalStackedBarChart';
 import axios from 'axios';
-import { API_BASE_URL, PROPOSAL_SEED, STATUS_ACTIVE, STATUS_VOTING, getDerivedAccount, now } from '../../../utils';
+import {
+    API_BASE_URL,
+    PROPOSAL_SEED,
+    STATUS_ACTIVE,
+    STATUS_VOTING,
+    getDerivedAccount,
+    now,
+} from '../../../utils';
 import { useSmartContract } from '../../../context/connection';
 import { ACCOUNT_DISCRIMINATOR_SIZE, utils } from '@project-serum/anchor';
 
@@ -35,7 +42,7 @@ const Dashboard = () => {
     const [totalReports, setTotalReports] = useState(0);
     const [totalReportedCampaigns, setTotalReportedCampaigns] = useState(0);
 
-    const { smartContract } = useSmartContract()
+    const { smartContract } = useSmartContract();
 
     const [totalCampaigns, setTotalCampaigns] = useState(0);
     const [totalSuccessCampaign, setTotalSuccessCampaign] = useState(0);
@@ -85,47 +92,89 @@ const Dashboard = () => {
             const votingCampaigns = await smartContract.account.campaign.all([
                 {
                     memcmp: {
-                        offset: ACCOUNT_DISCRIMINATOR_SIZE + 32 + 8 + 8 + 8 + 8 + 32,
-                        bytes: utils.bytes.bs58.encode(new Uint8Array([STATUS_VOTING])),
+                        offset:
+                            ACCOUNT_DISCRIMINATOR_SIZE +
+                            32 +
+                            8 +
+                            8 +
+                            8 +
+                            8 +
+                            32,
+                        bytes: utils.bytes.bs58.encode(
+                            new Uint8Array([STATUS_VOTING])
+                        ),
                     },
                 },
             ]);
             const activeCampaigns = await smartContract.account.campaign.all([
                 {
                     memcmp: {
-                        offset: ACCOUNT_DISCRIMINATOR_SIZE + 32 + 8 + 8 + 8 + 8 + 32,
-                        bytes: utils.bytes.bs58.encode(new Uint8Array([STATUS_VOTING])),
+                        offset:
+                            ACCOUNT_DISCRIMINATOR_SIZE +
+                            32 +
+                            8 +
+                            8 +
+                            8 +
+                            8 +
+                            32,
+                        bytes: utils.bytes.bs58.encode(
+                            new Uint8Array([STATUS_VOTING])
+                        ),
                     },
                 },
             ]);
 
-            const campaigns = [...votingCampaigns, ...activeCampaigns]
+            const campaigns = [...votingCampaigns, ...activeCampaigns];
 
             let countFailedCampaings = 0;
-            await Promise.all(campaigns.map(async (v) => {
-                if (v.account.status === STATUS_ACTIVE) {
-                    if (now() > v.account.createdAt.toNumber() + v.account.heldDuration.toNumber()) {
-                        countFailedCampaings++;
-                    }
-                } else if (v.account.status === STATUS_VOTING) {
-                    const proposalDerivedAccount = getDerivedAccount(
-                        [PROPOSAL_SEED, v.publicKey],
-                        smartContract.programId
-                    );
-                    const proposal = await smartContract.account.proposal.fetchNullable(proposalDerivedAccount.publicKey)
-                    if (proposal) {
-                        if (v.account.fundedAmount.lte(proposal.agree.add(proposal.disagree)) || now() > proposal.createdAt.toNumber() + proposal.duration.toNumber()) {
-                            if (!(proposal.agree.eqn(0) && proposal.disagree.eqn(0)) && proposal.agree.lt(proposal.disagree)) {
-                                countFailedCampaings++;
+            await Promise.all(
+                campaigns.map(async (v) => {
+                    if (v.account.status === STATUS_ACTIVE) {
+                        if (
+                            now() >
+                            v.account.createdAt.toNumber() +
+                                v.account.heldDuration.toNumber()
+                        ) {
+                            countFailedCampaings++;
+                        }
+                    } else if (v.account.status === STATUS_VOTING) {
+                        const proposalDerivedAccount = getDerivedAccount(
+                            [PROPOSAL_SEED, v.publicKey],
+                            smartContract.programId
+                        );
+                        const proposal =
+                            await smartContract.account.proposal.fetchNullable(
+                                proposalDerivedAccount.publicKey
+                            );
+                        if (proposal) {
+                            if (
+                                v.account.fundedAmount.lte(
+                                    proposal.agree.add(proposal.disagree)
+                                ) ||
+                                now() >
+                                    proposal.createdAt.toNumber() +
+                                        proposal.duration.toNumber()
+                            ) {
+                                if (
+                                    !(
+                                        proposal.agree.eqn(0) &&
+                                        proposal.disagree.eqn(0)
+                                    ) &&
+                                    proposal.agree.lt(proposal.disagree)
+                                ) {
+                                    countFailedCampaings++;
+                                }
                             }
                         }
                     }
-                }
-            }));
+                })
+            );
 
             setTotalCampaigns(respData.totalCampaigns);
             setTotalSuccessCampaign(respData.totalSuccessCampaigns);
-            setTotalFailedCampaign(respData.totalFailedCampaigns + countFailedCampaings);
+            setTotalFailedCampaign(
+                respData.totalFailedCampaigns + countFailedCampaings
+            );
         }
     };
 
@@ -250,7 +299,7 @@ const Dashboard = () => {
                         <VerticalBarChart />
                     </div>
                 </div> */}
-                
+
                 <div>
                     <p className="text-xs font-bold xl:text-base mb-4">
                         Jumlah Campaign
@@ -258,7 +307,13 @@ const Dashboard = () => {
                     <PieChart
                         label={'Jumlah Campaign'}
                         title={['Sukses', 'Pending', 'Gagal']}
-                        data={[totalSuccessCampaign, totalCampaigns - totalSuccessCampaign - totalFailedCampaign, totalFailedCampaign]}
+                        data={[
+                            totalSuccessCampaign,
+                            totalCampaigns -
+                                totalSuccessCampaign -
+                                totalFailedCampaign,
+                            totalFailedCampaign,
+                        ]}
                     />
                 </div>
             </div>

@@ -6,11 +6,13 @@ import { BN } from '@project-serum/anchor';
 const CampaignCard = (props: any) => {
     const campaign = props.data;
 
-    const [textTime, setTextTime] = useState("0D 0J 0M 0D");
+    const [textTime, setTextTime] = useState('0D 0J 0M 0D');
 
     const countRemainingTime = () => {
         const remainingTime = Math.max(
-            campaign.createdAt.toNumber() + campaign.duration.toNumber() - now(),
+            campaign.createdAt.toNumber() +
+                campaign.duration.toNumber() -
+                now(),
             0
         );
         return remainingTime;
@@ -30,16 +32,15 @@ const CampaignCard = (props: any) => {
         }
     };
 
-
     useEffect(() => {
         const timer = setTimeout(() => {
-            setTextTime(getTimers())
+            setTextTime(getTimers());
         }, 1000);
 
         return () => {
-            clearTimeout(timer)
-        }
-    })
+            clearTimeout(timer);
+        };
+    });
 
     const getTimers = () => {
         const DAY_IN_SECOND = 60 * 60 * 24;
@@ -53,7 +54,7 @@ const CampaignCard = (props: any) => {
             const minutes = Math.floor(remainingTime / 60);
             remainingTime = remainingTime % 60;
             const seconds = remainingTime;
-            return `${days}H ${hours}J ${minutes}M ${seconds}D`
+            return `${days}H ${hours}J ${minutes}M ${seconds}D`;
         } else {
             return 'Habis';
         }
@@ -71,12 +72,12 @@ const CampaignCard = (props: any) => {
                         {campaign.title}
                     </h1>
                     {props.type === 'Voting' ? (
-                        <p className="text-xs xl:text-base text-center">
+                        <div className="text-xs xl:text-base text-center">
                             <p>Sisa waktu</p>
                             <p className="font-bold">{textTime}</p>
-                        </p>
+                        </div>
                     ) : (
-                        <p className="text-xs xl:text-base">
+                        <div className="text-xs xl:text-base">
                             <p>
                                 <span className="font-bold">
                                     {campaign.collected}
@@ -87,19 +88,26 @@ const CampaignCard = (props: any) => {
                                 terkumpulkan
                             </p>
                             <p>
-                                <span className="font-bold">{Math.floor(
-                                    Math.min(
-                                        100,
-                                        (campaign.collected /
-                                            campaign.target) *
-                                        100
-                                    )
-                                ).toString()}%</span> terpenuhi
+                                <span className="font-bold">
+                                    {Math.floor(
+                                        Math.min(
+                                            100,
+                                            (campaign.collected /
+                                                campaign.target) *
+                                                100
+                                        )
+                                    ).toString()}
+                                    %
+                                </span>{' '}
+                                terpenuhi
                             </p>
                             <p>
-                                <span className="font-bold">{showRemainingDays()}</span> hari tersisa
+                                <span className="font-bold">
+                                    {showRemainingDays()}
+                                </span>{' '}
+                                hari tersisa
                             </p>
-                        </p>
+                        </div>
                     )}
                 </div>
             </div>

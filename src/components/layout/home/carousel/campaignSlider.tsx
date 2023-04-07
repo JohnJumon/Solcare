@@ -34,11 +34,17 @@ const CampaignSlider = (props: any) => {
 
     return (
         <div className="w-full">
-            <Slider {...settings}>{
-                props.data.map((e: any) => {
-                    return <CampaignCard key={e.campaign.toBase58()} type={props.type} data={e} />
-                })
-            }</Slider>
+            <Slider {...settings}>
+                {props.data.map((e: any) => {
+                    return (
+                        <CampaignCard
+                            key={e.campaign.toBase58()}
+                            type={props.type}
+                            data={e}
+                        />
+                    );
+                })}
+            </Slider>
         </div>
     );
 };

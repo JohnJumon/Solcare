@@ -54,10 +54,6 @@ const Detail = (props: any) => {
         }
     }, []);
 
-    useEffect(() => {
-        setInitializing(false);
-    }, []);
-
     const countRemainingTime = () => {
         let remainingTime = 0;
         remainingTime = Math.max(
@@ -189,8 +185,12 @@ const Detail = (props: any) => {
         return <p>Unknown</p>;
     };
 
-    if (initializing === true) {
-        return null;
+    useEffect(() => {
+        setInitializing(false);
+    }, []);
+
+    if (initializing) {
+        return <progress className="progress w-[90%] flex mx-auto my-20" />;
     }
 
     return (

@@ -35,7 +35,7 @@ const FundraiserInfo = (props: any) => {
         fetchFundraiser();
     }, []);
 
-    if (initializing === true || fundraiserData === undefined) {
+    if (initializing || fundraiserData === undefined) {
         return null;
     }
     return (
