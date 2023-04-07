@@ -20,10 +20,14 @@ const Home = () => {
     const { connected, publicKey } = useWallet();
     const { smartContract } = useSmartContract();
 
+    const [initializing, setInitializing] = useState(true);
+
     const [donatedCampaigns, setDonatedCampaigns] = useState(new Array<any>());
     const [ongoingProposal, setOngoingProposal] = useState(new Array<any>());
 
     const fetchDonatedCampaign = async () => {
+        setInitializing(true);
+
         if (connected && publicKey) {
             const newDonatedCampaigns: any[] = [];
             const newOngoingProposal: any[] = [];
@@ -109,13 +113,25 @@ const Home = () => {
             setOngoingProposal(newOngoingProposal);
             setDonatedCampaigns(newDonatedCampaigns);
         }
+        setInitializing(false);
     };
 
     useEffect(() => {
         if (connected && publicKey) {
             fetchDonatedCampaign();
         }
+
+        return () => setInitializing(false);
     }, [connected, publicKey]);
+
+    if (initializing) {
+        return (
+            <main className="flex flex-col items-center">
+                <Intro />
+                <progress className="progress w-[90%] flex mx-auto my-20" />
+            </main>
+        );
+    }
 
     return (
         <main className="flex flex-col items-center">

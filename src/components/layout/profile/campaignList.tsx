@@ -45,7 +45,7 @@ interface Campaign {
     proposal: ProposalInfo | null;
 }
 
-const CampaignList = (props: any) => {
+const CampaignList = () => {
     const { connected, publicKey } = useWallet();
     const { smartContract } = useSmartContract();
 

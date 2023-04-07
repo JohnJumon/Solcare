@@ -176,6 +176,7 @@ const Dashboard = () => {
                 respData.totalFailedCampaigns + countFailedCampaings
             );
         }
+        // console.log(totalCampaigns);
     };
 
     useEffect(() => {
@@ -188,6 +189,11 @@ const Dashboard = () => {
         searchParams.set('order', e.value);
         setSearchParams(searchParams);
     };
+
+    if (totalCampaigns === 0) {
+        return <progress className="progress w-[90%] flex mx-auto my-20" />;
+    }
+
     return (
         <div>
             <div className="grid grid-cols-2 gap-4 sm:gap-8 sm:grid-cols-2">
