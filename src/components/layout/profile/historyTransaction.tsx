@@ -31,21 +31,14 @@ const HistoryTransaction = () => {
         setCurrentDateTo(event.target.value);
     };
 
-    const generateCard = (count: number) => {
-        let components = [];
-        for (let i = 0; i < count; i++) {
-            components.push(<HistoryCard />);
-        }
-        return components;
-    };
-
-    const [historyData, setHistoryData] = useState<HistoryProps>();
+    const [historyData, setHistoryData] = useState<HistoryProps[]>([]);
 
     const fetchHistory = async() => {
         const resp = await axios.get(`${API_BASE_URL}/v1/transaction/${publicKey}`)
+        
         if (resp.data.status === 200) {
             setHistoryData(resp.data.data);
-        }
+        }        
     } 
 
     useEffect(() => {
@@ -54,7 +47,7 @@ const HistoryTransaction = () => {
 
     if (historyData === undefined) {
         return <progress className="progress w-[90%] flex mx-auto my-20" />;
-    }
+    }    
 
     return (
         <div className="flex flex-col">
@@ -100,7 +93,11 @@ const HistoryTransaction = () => {
             <p className="text-left font-bold text-xs mt-2 sm:text-lg sm:mt-4">
                 Daftar Transaksi
             </p>
-            <div className="flex flex-col">{generateCard(5)}</div>
+            <div className="flex flex-col">{historyData.map((data)=>{
+                return (
+                    <HistoryCard key={data.createdAt} data={data}/>
+                )
+            })}</div>
         </div>
     );
 };
