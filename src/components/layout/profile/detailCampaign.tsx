@@ -29,6 +29,7 @@ import {
     web3,
 } from '@project-serum/anchor';
 import ClaimFundButton from './button/claimFundButton';
+import axios from 'axios';
 
 const MyDetailCampaign = (props: any) => {
     let campaign = props.campaign;
@@ -120,6 +121,7 @@ const MyDetailCampaign = (props: any) => {
             return (
                 <ClaimFundButton
                     campaignAddress={campaign.address}
+                    amount={campaign.collected}
                     refetch={props.refetch}
                 />
             );
@@ -142,6 +144,15 @@ const MyDetailCampaign = (props: any) => {
     const [funders, setFunders] = useState<FunderInfo[]>([]);
     const { smartContract } = useSmartContract();
 
+    const fetchUser = async (props: any) => {
+        const resp = await axios.get(`${API_BASE_URL}/v1/users/info/${props}`);
+
+        if (resp.data.status === 200) {
+            return resp.data.data;
+        }
+        return resp.data.data;
+    };
+
     const fetchFunders = async () => {
         const donors = await smartContract.account.donor.all([
             {
@@ -155,18 +166,23 @@ const MyDetailCampaign = (props: any) => {
         ]);
 
         setFunders(
-            donors.map((e) => {
-                return {
-                    address: e.publicKey.toBase58(),
-                    owner: e.account.donor.toBase58(),
-                    name: '-',
-                    amount: e.account.donatedAmount
-                        .div(new BN(Math.pow(10, USDC_DECIMALS)))
-                        .toNumber(),
-                    date: e.account.updatedAt.toNumber(),
-                    profilePicture: '',
-                };
-            })
+            await Promise.all(
+                donors.map(async (e) => {
+                    let user = await fetchUser(e.account.donor.toBase58());
+                    return {
+                        address: e.publicKey.toBase58(),
+                        owner: e.account.donor.toBase58(),
+                        name: user.firstName === '' || user.lastName === ''
+                            ? '-'
+                            : `${user.firstName} ${user.lastName}`,
+                        amount: e.account.donatedAmount
+                            .div(new BN(Math.pow(10, USDC_DECIMALS)))
+                            .toNumber(),
+                        date: e.account.updatedAt.toNumber(),
+                        profilePicture: user.profilePicture,
+                    };
+                })
+            )
         );
     };
 

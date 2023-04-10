@@ -13,12 +13,15 @@ import {
     PROPOSAL_SEED,
     USDC_MINT,
 } from '../../../../utils';
+import axios from 'axios';
 
 const ClaimFundButton = ({
     campaignAddress,
+    amount,
     refetch,
 }: {
     campaignAddress: string;
+    amount: number;
     refetch: () => void;
 }) => {
     const { publicKey, connected, sendTransaction } = useWallet();
@@ -110,6 +113,22 @@ const ClaimFundButton = ({
                 tx,
                 smartContract.provider.connection
             );
+
+            let token = localStorage.getItem('token');
+            const headers = {
+                Authorization: `Bearer ${token}`,
+            };
+
+            await axios.post(
+                `${API_BASE_URL}/v1/transaction`,
+                {
+                    signature: txSignature,
+                    campaignAddress: campaignAddress,
+                    amount: amount,
+                    type: 2
+                },
+                { headers }
+            )
 
             toast.update(toastId.current, { progress: 1 });
             toastDone();

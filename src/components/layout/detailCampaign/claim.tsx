@@ -129,7 +129,7 @@ const Refund = ({
                     signature: txSignature,
                     campaignAddress: campaignPubkey,
                     amount: donorInfo?.amount,
-                    type: 2
+                    type: 1
                 },
                 { headers }
             )
