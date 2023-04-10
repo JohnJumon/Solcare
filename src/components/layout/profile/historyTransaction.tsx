@@ -1,8 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import HistoryCard from './card/historyCard';
+import axios from 'axios';
+import { API_BASE_URL } from '../../../utils';
+import { useWallet } from '@solana/wallet-adapter-react';
+
+interface HistoryProps {
+    signature: string;
+    userAddress: string;
+    campaignAddress: string;
+    createdAt: number;
+    amount: number;
+    type: number;
+}
 
 const HistoryTransaction = () => {
     let today = new Date();
+    const { publicKey } = useWallet();
     const [currentDateFrom, setCurrentDateFrom] = useState(
         today.toISOString().substring(0, 10)
     );
@@ -25,6 +38,23 @@ const HistoryTransaction = () => {
         }
         return components;
     };
+
+    const [historyData, setHistoryData] = useState<HistoryProps>();
+
+    const fetchHistory = async() => {
+        const resp = await axios.get(`${API_BASE_URL}/v1/transaction/${publicKey}`)
+        if (resp.data.status === 200) {
+            setHistoryData(resp.data.data);
+        }
+    } 
+
+    useEffect(() => {
+        fetchHistory();
+    }, []);
+
+    if (historyData === undefined) {
+        return <progress className="progress w-[90%] flex mx-auto my-20" />;
+    }
 
     return (
         <div className="flex flex-col">
