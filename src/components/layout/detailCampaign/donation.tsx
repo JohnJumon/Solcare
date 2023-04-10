@@ -11,8 +11,10 @@ import {
     getDerivedAccount,
     USDC_DECIMALS,
     USDC_MINT,
+    API_BASE_URL
 } from '../../../utils';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const Donation = (props: any) => {
     const campaignAddress = props.campaignAddress;
@@ -108,6 +110,23 @@ const Donation = (props: any) => {
                 tx,
                 smartContract.provider.connection
             );
+
+            let token = localStorage.getItem('token');
+            const headers = {
+                Authorization: `Bearer ${token}`,
+            };
+
+            await axios.post(
+                `${API_BASE_URL}/v1/transaction`,
+                {
+                    signature: txSignature,
+                    campaignAddress: campaignAddress,
+                    amount: amount,
+                    type: 0
+                },
+                { headers }
+            )
+
             toast(`Donasi berhasil!\nTx signature: ${txSignature}`);
             refetch();
         } catch (e) {

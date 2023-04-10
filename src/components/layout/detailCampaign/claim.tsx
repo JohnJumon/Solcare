@@ -5,6 +5,7 @@ import { useRef } from 'react';
 import { Id, toast } from 'react-toastify';
 import { useSmartContract } from '../../../context/connection';
 import {
+    API_BASE_URL,
     CAMPAIGN_AUTHORITY_SEED,
     DONOR_SEED,
     getDerivedAccount,
@@ -12,6 +13,7 @@ import {
     USDC_MINT,
 } from '../../../utils';
 import { DonorInfo } from '../../../views/DetailCampaign';
+import axios from 'axios';
 
 const Refund = ({
     campaignPubkey,
@@ -115,6 +117,22 @@ const Refund = ({
                 tx,
                 smartContract.provider.connection
             );
+
+            let token = localStorage.getItem('token');
+            const headers = {
+                Authorization: `Bearer ${token}`,
+            };
+
+            await axios.post(
+                `${API_BASE_URL}/v1/transaction`,
+                {
+                    signature: txSignature,
+                    campaignAddress: campaignPubkey,
+                    amount: donorInfo?.amount,
+                    type: 2
+                },
+                { headers }
+            )
 
             toast.update(toastId.current, { progress: 1 });
             toastDone();
