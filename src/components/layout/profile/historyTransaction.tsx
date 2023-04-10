@@ -3,6 +3,7 @@ import HistoryCard from './card/historyCard';
 import axios from 'axios';
 import { API_BASE_URL } from '../../../utils';
 import { useWallet } from '@solana/wallet-adapter-react';
+import { toast } from 'react-toastify';
 
 interface HistoryProps {
     signature: string;
@@ -15,13 +16,24 @@ interface HistoryProps {
 
 const HistoryTransaction = () => {
     let today = new Date();
+    let tomorrow = today
+    tomorrow.setDate(tomorrow.getDate() + 1)
     const { publicKey } = useWallet();
+
     const [currentDateFrom, setCurrentDateFrom] = useState(
         today.toISOString().substring(0, 10)
     );
     const [currentDateTo, setCurrentDateTo] = useState(
         today.toISOString().substring(0, 10)
     );
+
+    const [dateFrom, setDateFrom] = useState(
+        currentDateFrom
+    )
+
+    const [dateTo, setDateTo] = useState(
+        currentDateTo
+    )
 
     const handleDateFrom = (event: React.ChangeEvent<HTMLInputElement>) => {
         setCurrentDateFrom(event.target.value);
@@ -40,6 +52,43 @@ const HistoryTransaction = () => {
             setHistoryData(resp.data.data);
         }        
     } 
+
+    const generateCard = () => {
+        let components = [];
+        let txData = [];
+        txData.push(...historyData)
+        for (let d = new Date(dateFrom); d <= new Date(dateTo); d.setDate(d.getDate() + 1)) {
+            let datas = [];
+            let tempTxData = [];
+            tempTxData.push(...historyData)
+            for(let i = 0; i < tempTxData.length; i++){
+                const dataDate = new Date(tempTxData[i].createdAt * 1000)
+                if(
+                    dataDate.getDate() == d.getDate() &&
+                    dataDate.getMonth() == d.getMonth() &&
+                    dataDate.getFullYear() == d.getFullYear()
+                ){
+                    datas.push(tempTxData[i])
+                    const delIndex = txData.indexOf(tempTxData[i])
+                    txData.splice(delIndex, 1)
+                }
+            }
+            if(datas.length > 0){
+                components.push(<HistoryCard key={d} date={d.getTime()} data={datas}/>)
+            }
+        }
+        return components;
+    };
+
+    const filterHistory = () => {
+        if(currentDateFrom > currentDateTo){
+            toast.error(`Tanggal pencarian awal lebih besar dibandingkan tanggal pencarian akhir. Silahkan set ulang!`);
+        } 
+        else {
+            setDateFrom(currentDateFrom)
+            setDateTo(currentDateTo)
+        }
+    }
 
     useEffect(() => {
         fetchHistory();
@@ -63,7 +112,7 @@ const HistoryTransaction = () => {
                         sm:text-xl sm:p-4 sm:rounded-[10px]"
                             type="date"
                             defaultValue={currentDateFrom}
-                            max={today.toISOString().substring(0, 10)}
+                            max={tomorrow.toISOString().substring(0, 10)}
                             onChange={handleDateFrom}
                         />
                     </div>
@@ -77,7 +126,7 @@ const HistoryTransaction = () => {
                     sm:text-xl sm:p-4 sm:rounded-[10px]"
                             type="date"
                             defaultValue={currentDateTo}
-                            max={today.toISOString().substring(0, 10)}
+                            max={tomorrow.toISOString().substring(0, 10)}
                             onChange={handleDateTo}
                         />
                     </div>
@@ -86,6 +135,7 @@ const HistoryTransaction = () => {
                     className="
                     sm:ml-2 sm:basis-1/5 self-end bg-[#007BC7] text-xs w-full p-2 border border-[2px] border-[#007BC7] text-white font-bold rounded-[5px]
                     sm:text-xl sm:p-4 sm:rounded-[10px]"
+                    onClick={filterHistory}
                 >
                     Cari
                 </button>
@@ -93,11 +143,7 @@ const HistoryTransaction = () => {
             <p className="text-left font-bold text-xs mt-2 sm:text-lg sm:mt-4">
                 Daftar Transaksi
             </p>
-            <div className="flex flex-col">{historyData.map((data)=>{
-                return (
-                    <HistoryCard key={data.createdAt} data={data}/>
-                )
-            })}</div>
+            <div className="flex flex-col">{generateCard()}</div>
         </div>
     );
 };
