@@ -22,32 +22,18 @@ ChartJS.register(
     Colors
 );
 
-// const labels = ['Sukses', 'Gagal', 'Pending'];
-
-// const data = {
-//     labels,
-//     datasets: [
-//         {
-//             label: 'Total Campaign',
-//             data: [100, 200, 300],
-//         },
-//     ],
-// };
-
-const options = {
-    responsive: true,
-    plugins: {
-        legend: {
-            position: 'bottom' as const,
-            align: 'start',
-        },
-    },
-};
-
 const PieChart = (props: any) => {
     return (
         <Pie
-            options={options}
+            options={{
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom' as const,
+                        align: 'start',
+                    },
+                },
+            }}
             data={{
                 labels: props.title,
                 datasets: [

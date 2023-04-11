@@ -133,11 +133,18 @@ const MyDetailCampaign = (props: any) => {
                         refetch={props.refetch}
                     />
                 );
+            } else if (campaign.statusEvidence === EVIDENCE_STATUS_REQUESTED) {
+                return (
+                    <div className="flex flex-col">
+                        <label
+                            className="text-center mt-4 self-end bg-[#007BC7] opacity-50 w-full text-xs p-2 border border-[2px] 
+                            border-[#007BC7] text-white font-bold rounded-[5px] md:text-xl md:p-4 md:rounded-[10px] cursor-not-allowed"
+                        >
+                            Menunggu Verifikasi Kesuksesan Campaign
+                        </label>
+                    </div>
+                );
             }
-            // else if (campaign.statusEvidence === EVIDENCE_STATUS_REQUESTED) {
-            // } else if (campaign.statusEvidence === EVIDENCE_STATUS_SUCCESS) {
-            // } else if (campaign.statusEvidence === EVIDENCE_STATUS_FAILED) {
-            // }
         }
     };
 
@@ -172,9 +179,10 @@ const MyDetailCampaign = (props: any) => {
                     return {
                         address: e.publicKey.toBase58(),
                         owner: e.account.donor.toBase58(),
-                        name: user.firstName === '' || user.lastName === ''
-                            ? '-'
-                            : `${user.firstName} ${user.lastName}`,
+                        name:
+                            user.firstName === '' || user.lastName === ''
+                                ? '-'
+                                : `${user.firstName} ${user.lastName}`,
                         amount: e.account.donatedAmount
                             .div(new BN(Math.pow(10, USDC_DECIMALS)))
                             .toNumber(),

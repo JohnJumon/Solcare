@@ -1,4 +1,4 @@
-import BestCampaignsSlider from './carousel/bestCampaignsSlider';
+import BestCampaignsSlider from './carousel/bestCampaignsSlider(R)';
 
 const BestCampaigns = () => {
     return (
