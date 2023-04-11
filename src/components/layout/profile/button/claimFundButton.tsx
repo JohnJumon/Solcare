@@ -125,10 +125,10 @@ const ClaimFundButton = ({
                     signature: txSignature,
                     campaignAddress: campaignAddress,
                     amount: amount,
-                    type: 2
+                    type: 2,
                 },
                 { headers }
-            )
+            );
 
             toast.update(toastId.current, { progress: 1 });
             toastDone();

@@ -16,8 +16,8 @@ interface HistoryProps {
 
 const HistoryTransaction = () => {
     let today = new Date();
-    let tomorrow = today
-    tomorrow.setDate(tomorrow.getDate() + 1)
+    let tomorrow = today;
+    tomorrow.setDate(tomorrow.getDate() + 1);
     const { publicKey } = useWallet();
 
     const [currentDateFrom, setCurrentDateFrom] = useState(
@@ -27,13 +27,9 @@ const HistoryTransaction = () => {
         today.toISOString().substring(0, 10)
     );
 
-    const [dateFrom, setDateFrom] = useState(
-        currentDateFrom
-    )
+    const [dateFrom, setDateFrom] = useState(currentDateFrom);
 
-    const [dateTo, setDateTo] = useState(
-        currentDateTo
-    )
+    const [dateTo, setDateTo] = useState(currentDateTo);
 
     const handleDateFrom = (event: React.ChangeEvent<HTMLInputElement>) => {
         setCurrentDateFrom(event.target.value);
@@ -45,50 +41,59 @@ const HistoryTransaction = () => {
 
     const [historyData, setHistoryData] = useState<HistoryProps[]>([]);
 
-    const fetchHistory = async() => {
-        const resp = await axios.get(`${API_BASE_URL}/v1/transaction/${publicKey}`)
-        
+    const fetchHistory = async () => {
+        const resp = await axios.get(
+            `${API_BASE_URL}/v1/transaction/${publicKey}`
+        );
+
         if (resp.data.status === 200) {
             setHistoryData(resp.data.data);
-        }        
-    } 
+        }
+    };
 
     const generateCard = () => {
         let components = [];
         let txData = [];
-        txData.push(...historyData)
-        for (let d = new Date(dateFrom); d <= new Date(dateTo); d.setDate(d.getDate() + 1)) {
+        txData.push(...historyData);
+        for (
+            let d = new Date(dateFrom);
+            d <= new Date(dateTo);
+            d.setDate(d.getDate() + 1)
+        ) {
             let datas = [];
             let tempTxData = [];
-            tempTxData.push(...historyData)
-            for(let i = 0; i < tempTxData.length; i++){
-                const dataDate = new Date(tempTxData[i].createdAt * 1000)
-                if(
+            tempTxData.push(...historyData);
+            for (let i = 0; i < tempTxData.length; i++) {
+                const dataDate = new Date(tempTxData[i].createdAt * 1000);
+                if (
                     dataDate.getDate() == d.getDate() &&
                     dataDate.getMonth() == d.getMonth() &&
                     dataDate.getFullYear() == d.getFullYear()
-                ){
-                    datas.push(tempTxData[i])
-                    const delIndex = txData.indexOf(tempTxData[i])
-                    txData.splice(delIndex, 1)
+                ) {
+                    datas.push(tempTxData[i]);
+                    const delIndex = txData.indexOf(tempTxData[i]);
+                    txData.splice(delIndex, 1);
                 }
             }
-            if(datas.length > 0){
-                components.push(<HistoryCard key={d} date={d.getTime()} data={datas}/>)
+            if (datas.length > 0) {
+                components.push(
+                    <HistoryCard key={d} date={d.getTime()} data={datas} />
+                );
             }
         }
         return components;
     };
 
     const filterHistory = () => {
-        if(currentDateFrom > currentDateTo){
-            toast.error(`Tanggal pencarian awal lebih besar dibandingkan tanggal pencarian akhir. Silahkan set ulang!`);
-        } 
-        else {
-            setDateFrom(currentDateFrom)
-            setDateTo(currentDateTo)
+        if (currentDateFrom > currentDateTo) {
+            toast.error(
+                `Tanggal pencarian awal lebih besar dibandingkan tanggal pencarian akhir. Silahkan set ulang!`
+            );
+        } else {
+            setDateFrom(currentDateFrom);
+            setDateTo(currentDateTo);
         }
-    }
+    };
 
     useEffect(() => {
         fetchHistory();
@@ -96,7 +101,7 @@ const HistoryTransaction = () => {
 
     if (historyData === undefined) {
         return <progress className="progress w-[90%] flex mx-auto my-20" />;
-    }    
+    }
 
     return (
         <div className="flex flex-col">

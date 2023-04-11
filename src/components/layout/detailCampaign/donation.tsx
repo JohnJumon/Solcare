@@ -11,7 +11,7 @@ import {
     getDerivedAccount,
     USDC_DECIMALS,
     USDC_MINT,
-    API_BASE_URL
+    API_BASE_URL,
 } from '../../../utils';
 import { toast } from 'react-toastify';
 import axios from 'axios';
@@ -122,10 +122,10 @@ const Donation = (props: any) => {
                     signature: txSignature,
                     campaignAddress: campaignAddress,
                     amount: amount,
-                    type: 0
+                    type: 0,
                 },
                 { headers }
-            )
+            );
 
             toast(`Donasi berhasil!\nTx signature: ${txSignature}`);
             refetch();

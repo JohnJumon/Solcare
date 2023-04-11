@@ -129,10 +129,10 @@ const Refund = ({
                     signature: txSignature,
                     campaignAddress: campaignPubkey,
                     amount: donorInfo?.amount,
-                    type: 1
+                    type: 1,
                 },
                 { headers }
-            )
+            );
 
             toast.update(toastId.current, { progress: 1 });
             toastDone();

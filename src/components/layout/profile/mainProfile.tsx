@@ -14,11 +14,10 @@ import {
     USDC_DECIMALS,
     getDerivedAccount,
     now,
-    USDC_MINT
+    USDC_MINT,
 } from '../../../utils';
 
 import { ACCOUNT_DISCRIMINATOR_SIZE, BN, utils } from '@project-serum/anchor';
-
 
 export interface ProfileProps {
     firstName: string;
@@ -33,7 +32,7 @@ export interface ProfileProps {
     isWarned: boolean;
 }
 
-const MainProfile = () => {    
+const MainProfile = () => {
     const { connected, publicKey } = useWallet();
     const { smartContract } = useSmartContract();
 
@@ -86,8 +85,6 @@ const MainProfile = () => {
                 })
             );
 
-            
-
             setDonatedCampaigns(newDonatedCampaigns);
         }
     };
@@ -132,7 +129,7 @@ const MainProfile = () => {
         const resp = await axios.get(
             API_BASE_URL + '/v1/campaign/user/' + publicKey.toBase58()
         );
-        
+
         if (resp.data.status === 200) {
             setCreatedCampaign(resp.data.data.length);
         }
@@ -145,7 +142,7 @@ const MainProfile = () => {
         fetchDonatedCampaign();
     }, []);
 
-    if (userInfo !== undefined) {        
+    if (userInfo !== undefined) {
         return (
             <div className="flex flex-col">
                 <div className="flex flex-col md:flex-row items-center shadow-[0px_4px_6px_2px_rgba(0,123,199,0.5)] p-8 rounded-[10px]">
