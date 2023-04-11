@@ -3,10 +3,8 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProfilePlaceholder from '../../../image/profilePic.png';
-// import { API_BASE_URL, USDC_DECIMALS, USDC_MINT } from '../../../utils';
 import * as spl from '@solana/spl-token';
 import { useSmartContract } from '../../../context/connection';
-// import { BN } from 'bn.js';
 import axios from 'axios';
 import {
     API_BASE_URL,

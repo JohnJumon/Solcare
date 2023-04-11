@@ -1,14 +1,23 @@
 import ProfilePlaceholder from '../../../image/profilePic.png';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { API_BASE_URL } from '../../../utils';
+import { API_BASE_URL, USDC_DECIMALS } from '../../../utils';
 import { useParams } from 'react-router';
 import { ProfileProps } from '../profile/mainProfile';
 import { toast } from 'react-toastify';
+import { useSmartContract } from '../../../context/connection';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { ACCOUNT_DISCRIMINATOR_SIZE, BN, utils } from '@project-serum/anchor';
+
+
 const UserDetail = () => {
     const { address } = useParams();
+    const { connected, publicKey } = useWallet();
+    const { smartContract } = useSmartContract();
 
     const [userData, setUserData] = useState<ProfileProps>();
+    const [createCampaign, setCreatedCampaign] = useState();
+    const [donatedCampaigns, setDonatedCampaigns] = useState(new Array<any>());
 
     const fetchUser = async () => {
         const resp = await axios.get(
@@ -17,6 +26,63 @@ const UserDetail = () => {
 
         if (resp.data.status === 200) {
             setUserData(resp.data.data);
+        }
+    };
+
+    const fetchCreatedCampaign = async () => {
+        const resp = await axios.get(
+            `${API_BASE_URL}/v1/campaign/user/${address}`
+        );
+
+        if (resp.data.status === 200) {
+            setCreatedCampaign(resp.data.data.length);
+        }
+    };
+
+    const fetchDonatedCampaign = async () => {
+        if (connected && publicKey) {
+            const newDonatedCampaigns: any[] = [];
+
+            const donors = await smartContract.account.donor.all([
+                {
+                    memcmp: {
+                        offset: ACCOUNT_DISCRIMINATOR_SIZE,
+                        bytes: utils.bytes.bs58.encode(publicKey.toBuffer()),
+                    },
+                },
+            ]);
+
+            await Promise.all(
+                donors.map(async (e) => {
+                    try {
+                        const campaignData =
+                            await smartContract.account.campaign.fetch(
+                                e.account.campaign
+                            );
+
+                        const response = await axios.get(
+                            API_BASE_URL + '/v1/campaign/' + e.account.campaign
+                        );
+                        const responseData = response.data.data;
+
+                        newDonatedCampaigns.push({
+                            ...campaignData,
+                            campaign: e.account.campaign,
+                            collected: campaignData.fundedAmount
+                                .div(new BN(Math.pow(10, USDC_DECIMALS)))
+                                .toNumber(),
+                            target: campaignData.targetAmount
+                                .div(new BN(Math.pow(10, USDC_DECIMALS)))
+                                .toNumber(),
+                            duration: campaignData.heldDuration,
+                            title: responseData.title,
+                            banner: responseData.banner,
+                        });
+                    } catch (e) {}
+                })
+            );
+
+            setDonatedCampaigns(newDonatedCampaigns);
         }
     };
 
@@ -39,6 +105,8 @@ const UserDetail = () => {
 
     useEffect(() => {
         fetchUser();
+        fetchCreatedCampaign();
+        fetchDonatedCampaign();
     }, []);
 
     if (userData === undefined) {
@@ -126,30 +194,16 @@ const UserDetail = () => {
 
             <div className="grid grid-cols-1 gap-6 font-bold text-xs sm:text-lg md:grid-cols-2 md:grid-rows-2 md:gap-4 items-center">
                 <div className="col-span-1">
-                    <p>Total Donasi</p>
+                    <p>Campaign Yang Dibuat</p>
                     <div className="text-3xl">
-                        <p>xx</p>
-                        <p className="text-[15px] leading-none">USDC</p>
-                    </div>
-                </div>
-                <div className="col-span-1">
-                    <p>Total Pendapatan</p>
-                    <div className="text-3xl">
-                        <p>xx</p>
-                        <p className="text-[15px] leading-none">USDC</p>
-                    </div>
-                </div>
-                <div className="col-span-1">
-                    <p>Campaign Yang Didonasi</p>
-                    <div className="text-3xl">
-                        <p>xx</p>
+                        <p>{createCampaign}</p>
                         <p className="text-[15px] leading-none">Campaign</p>
                     </div>
                 </div>
                 <div className="col-span-1">
                     <p>Campaign Yang Dibuat</p>
                     <div className="text-3xl">
-                        <p>xx</p>
+                        <p>{donatedCampaigns.length}</p>
                         <p className="text-[15px] leading-none">Campaign</p>
                     </div>
                 </div>

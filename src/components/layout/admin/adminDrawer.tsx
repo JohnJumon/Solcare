@@ -21,6 +21,7 @@ const AdminDrawer = (props: any) => {
                 {props.page}
             </h1>
             <div className="drawer drawer-mobile max-h-[32rem] w-full">
+            {/* <div className="drawer drawer-mobile h-full w-full"> */}
                 <input
                     type="checkbox"
                     className="drawer-toggle"
