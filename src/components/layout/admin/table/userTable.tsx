@@ -109,7 +109,7 @@ const UserTable = (props: any) => {
                                         scope="col"
                                         className="py-3 px-6 border-r"
                                     >
-                                        Wallet Address
+                                        Wallet Address Pemilik
                                     </th>
                                     <th scope="col" className="py-3 px-6">
                                         Aksi
@@ -132,8 +132,8 @@ const UserTable = (props: any) => {
                         >
                             Showing{' '}
                             <span className="font-bold text-gray-900">
-                                {parseInt(page) * 10 - 10 + 1}-
-                                {Math.min(parseInt(page) * 10, userData.length)}
+                                {parseInt(page) * ITEM_PER_PAGE - ITEM_PER_PAGE + 1}-
+                                {Math.min(parseInt(page) * ITEM_PER_PAGE, userData.length)}
                             </span>{' '}
                             of{' '}
                             <span className="font-bold text-gray-900">

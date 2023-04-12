@@ -62,8 +62,9 @@ const ReportTable = (props: any) => {
 
     const increase = () => {
         var value = parseInt(currentValue);
-        if (value + 1 > 20) {
-            setValue('20');
+        const maxPage = Math.ceil(reportData.length / ITEM_PER_PAGE);
+        if (value + 1 > maxPage) {
+            setValue(maxPage.toString());
         } else {
             setValue((value + 1).toString());
         }
@@ -86,7 +87,7 @@ const ReportTable = (props: any) => {
                                 Nama Campaign
                             </th>
                             <th scope="col" className="py-3 px-6 border-r">
-                                Owner Address
+                                Wallet Address Pemilik
                             </th>
                             <th scope="col" className="py-3 px-6 border-r">
                                 Jumlah Laporan

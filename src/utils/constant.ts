@@ -42,4 +42,4 @@ export const EVIDENCE_STATUS_FAILED = 3;
 
 export const OPACITY = 0.5;
 
-export const ITEM_PER_PAGE = 10;
+export const ITEM_PER_PAGE = 5;
