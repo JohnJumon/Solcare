@@ -252,6 +252,9 @@ const Dashboard = () => {
                     </p>
                 </div>
             </div>
+            <p className="text-xs font-bold xl:text-base my-4">
+                        Status Progres Campaign
+                    </p>
             <div className="sm:grid mt-4 sm:mt-0 sm:gap-8 sm:grid-cols-3">
                 {/* <div className="sm:col-span-2 sm:grid sm:grid-cols-2 sm:items-center">
                     <div>
@@ -306,9 +309,6 @@ const Dashboard = () => {
                 </div> */}
 
                 <div>
-                    <p className="text-xs font-bold xl:text-base mb-4">
-                        Status Progres Campaign
-                    </p>
                     <PieChart
                         label={'Jumlah Campaign'}
                         title={['Sukses', 'Pending', 'Gagal']}
@@ -321,11 +321,37 @@ const Dashboard = () => {
                         ]}
                     />
                 </div>
+                <div className="grid grid-cols-3">
+                    <p className="text-xs xl:text-base col-span-2">
+                        Jumlah User
+                    </p>
+                    <div className="col-span-1">
+                        <HorizontalStackedBarChart
+                            title={'Jumlah User'}
+                            label={'User Yang Tidak Diperingati '}
+                            labelWarned={'User Yang Diperingati '}
+                            data={totalUsers - totalUsersWarned}
+                            warnedData={totalUsersWarned}
+                        />
+                    </div>
+                    <p className="text-xs xl:text-base col-span-2">
+                        Status Keamanan Campaign
+                    </p>
+                    <div className="col-span-1">
+                        <HorizontalStackedBarChart
+                            title={'Jumlah Campaign'}
+                            label={'Campaign Yang Tidak Diperingati '}
+                            labelWarned={'Campaign Yang Diperingati '}
+                            data={totalCampaigns - totalReportedCampaigns}
+                            warnedData={totalReportedCampaigns}
+                        />
+                    </div>
+                </div>
             </div>
-            <div>
+            {/*<div>
                 {/* <p className="text-xs font-bold xl:text-base mb-4 mt-4">
                     Aktivitas Solcare
-                </p> */}
+                </p> */}{/*
                 <div className="grid grid-cols-4">
                     <p className="text-xs xl:text-base col-span-1">
                         Jumlah User
@@ -352,7 +378,7 @@ const Dashboard = () => {
                         />
                     </div>
                 </div>
-            </div>
+            </div>*/}
         </div>
     );
 };
