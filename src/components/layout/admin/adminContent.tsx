@@ -19,13 +19,13 @@ const AdminContent: React.FC<AdminContentProps> = (props) => {
         if (props.page == 'Manajemen User') {
             return <UserList />;
         }
-        if (props.page == 'Campaign') {
+        if (props.page == 'Verifikasi Kesuksesan Campaign') {
             return <CampaignValidation />;
         }
-        if (props.page == 'Laporan') {
+        if (props.page == 'Pengaduan') {
             return <ReportList />;
         }
-        if (props.page == 'Detail Laporan') {
+        if (props.page == 'Detail Pengaduan') {
             return <ReportDetail />;
         }
         if (props.page == 'Detail User') {

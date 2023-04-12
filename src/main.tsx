@@ -32,7 +32,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                         }
                     />
                     <Route path="/" element={<Home />} />
-                    {/* <Route path="/admin" element={<Admin />} /> */}
 
                     <Route
                         path="/admin"
@@ -81,30 +80,30 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                         path="/admin/manage-campaign"
                         element={
                             <PrivateRoute forAdmin={true}>
-                                <Admin page="Campaign">
-                                    <AdminContent page="Campaign" />
+                                <Admin page="Verifikasi Kesuksesan Campaign">
+                                    <AdminContent page="Verifikasi Kesuksesan Campaign" />
                                 </Admin>
                             </PrivateRoute>
                         }
                     />
 
                     <Route
-                        path="/admin/manage-laporan"
+                        path="/admin/manage-pengaduan"
                         element={
                             <PrivateRoute forAdmin={true}>
-                                <Admin page="Laporan">
-                                    <AdminContent page="Laporan" />
+                                <Admin page="Pengaduan">
+                                    <AdminContent page="Pengaduan" />
                                 </Admin>
                             </PrivateRoute>
                         }
                     />
 
                     <Route
-                        path="/admin/manage-laporan/detail/:id"
+                        path="/admin/manage-pengaduan/detail/:id"
                         element={
                             <PrivateRoute forAdmin={true}>
-                                <Admin page="Detail Laporan">
-                                    <AdminContent page="Detail Laporan" />
+                                <Admin page="Detail Pengaduan">
+                                    <AdminContent page="Detail Pengaduan" />
                                 </Admin>
                             </PrivateRoute>
                         }

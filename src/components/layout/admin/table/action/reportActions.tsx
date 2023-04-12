@@ -44,7 +44,7 @@ const ReportActions = (props: any) => {
     return (
         <div className="flex flex-row justify-center">
             <Link
-                to={`/admin/manage-laporan/detail/${props.id}`}
+                to={`/admin/manage-pengaduan/detail/${props.id}`}
                 className="hover:stroke-[#007BC7] stroke-black"
             >
                 <svg

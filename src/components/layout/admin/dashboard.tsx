@@ -176,7 +176,6 @@ const Dashboard = () => {
                 respData.totalFailedCampaigns + countFailedCampaings
             );
         }
-        // console.log(totalCampaigns);
     };
 
     useEffect(() => {
@@ -308,7 +307,7 @@ const Dashboard = () => {
 
                 <div>
                     <p className="text-xs font-bold xl:text-base mb-4">
-                        Jumlah Campaign
+                        Status Progres Campaign
                     </p>
                     <PieChart
                         label={'Jumlah Campaign'}
@@ -324,9 +323,9 @@ const Dashboard = () => {
                 </div>
             </div>
             <div>
-                <p className="text-xs font-bold xl:text-base mb-4 mt-4">
+                {/* <p className="text-xs font-bold xl:text-base mb-4 mt-4">
                     Aktivitas Solcare
-                </p>
+                </p> */}
                 <div className="grid grid-cols-4">
                     <p className="text-xs xl:text-base col-span-1">
                         Jumlah User
@@ -341,7 +340,7 @@ const Dashboard = () => {
                         />
                     </div>
                     <p className="text-xs xl:text-base col-span-1">
-                        Jumlah Campaign
+                        Status Keamanan Campaign
                     </p>
                     <div className="col-span-3">
                         <HorizontalStackedBarChart

@@ -234,7 +234,7 @@ const AdminDrawer = (props: any) => {
 
                         <li>
                             <Link
-                                to="/admin/manage-laporan"
+                                to="/admin/manage-pengaduan"
                                 onClick={handleClick}
                                 className="active:bg-[#007BC7] stroke-black active:stroke-white"
                             >
@@ -267,7 +267,7 @@ const AdminDrawer = (props: any) => {
                                         </svg>
                                     </span>
 
-                                    <span>Laporan</span>
+                                    <span>Pengaduan</span>
                                 </div>
                             </Link>
                         </li>
