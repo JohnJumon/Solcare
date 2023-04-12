@@ -17,6 +17,7 @@ import FundraiserDetailCampaign from './views/FundraiserDetailCampaign';
 import AdminContent from './components/layout/admin/adminContent';
 import ReportDetail from './components/layout/admin/reportDetail';
 import DetailCampaignReports from './views/DetailCampaignReports';
+import KYCGuide from './components/layout/profile/kycGuide';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
@@ -163,6 +164,13 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                                     <ProfileContent page="Pengaturan Akun" />
                                 </Profile>
                             </PrivateRoute>
+                        }
+                    />
+
+                    <Route
+                        path="/profile/settings/kyc-guide"
+                        element={
+                            <KYCGuide />
                         }
                     />
 

@@ -15,6 +15,7 @@ import {
 } from '../../../utils';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { FractalWalletAdapter } from '@solana/wallet-adapter-wallets';
+import { Link } from 'react-router-dom';
 const KYC = () => {
     const { connected, disconnecting, publicKey } = useWallet();
     const [input, setInput] = useState<{ [string: string]: any }>({
@@ -178,6 +179,23 @@ const KYC = () => {
                     maxLength={16}
                 />
             </div>
+
+            {/* <Link to={`/profile/settings/kyc-guide`}>
+                <p className="mt-3 font-bold text-xs md:text-lg underline">Mohon perhatikan tata cara pengambilan gambar yang benar</p>
+            </Link> */}
+            <button
+                    className="w-full mt-2 p-2 underline decoration-1"
+                    onClick={() => {
+                        window.open(
+                            '/profile/settings/kyc-guide',
+                            '_blank',
+                            'noreferrer'
+                        );
+                    }}
+                >
+                    Mohon perhatikan tata cara pengambilan gambar yang benar
+                </button>
+
             <div className="mt-4 flex flex-col md:flex-row gap-4">
                 <div>
                     <p className="text-xs md:text-lg">
