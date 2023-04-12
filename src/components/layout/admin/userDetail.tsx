@@ -117,22 +117,22 @@ const UserDetail = () => {
 
     const getTotalDonation = () => {
         let total = 0;
-        for(let i=0; i < donationData.length; i++){
-            if(donationData[i].type == 0){
+        for (let i = 0; i < donationData.length; i++) {
+            if (donationData[i].type == 0) {
                 total += donationData[i].amount
             }
-            if(donationData[i].type == 1){
+            if (donationData[i].type == 1) {
                 total -= donationData[i].amount
             }
-            
+
         }
         return total
     }
 
     const getTotalIncome = () => {
         let total = 0;
-        for(let i=0; i < donationData.length; i++){
-            if(donationData[i].type == 2){
+        for (let i = 0; i < donationData.length; i++) {
+            if (donationData[i].type == 2) {
                 total += donationData[i].amount
             }
         }
@@ -263,13 +263,54 @@ const UserDetail = () => {
                 </div>
             </div>
             {userData.isVerified === true ? (
-                <button
-                    className="mt-4 self-end bg-[#007BC7] text-xs w-full p-2 border border-[2px] border-[#007BC7] text-white 
-                    font-bold rounded-[5px] md:text-xl md:p-4 md:rounded-[10px]"
-                    onClick={() => removeVerification()}
-                >
-                    Cabut Verifikasi
-                </button>
+                <>
+                    <label
+                        htmlFor="my-modal-4"
+                        className="mt-4 self-end bg-[#007BC7] text-xs w-full p-2 border border-[2px] border-[#007BC7] text-white 
+                        font-bold rounded-[5px] md:text-xl md:p-4 md:rounded-[10px] hover:cursor-pointer text-center"
+                    >
+                        Cabut Verifikasi
+                    </label>
+                    <div>
+                        <input
+                            type="checkbox"
+                            id="my-modal-4"
+                            className="modal-toggle"
+                        />
+                        <label
+                            htmlFor="my-modal-4"
+                            className="modal max-[768px]:modal-bottom cursor-pointer px-0 md:px-12"
+                        >
+                            <label className="modal-box relative rounded-t-[10px] md:rounded-[20px] w-[42rem] max-w-screen-2xl md:max-h-screen-2xl">
+                                <h1 className="text-md font-bold md:text-3xl">
+                                    Konfirmasi Tindakan
+                                </h1>
+                                <div className="divider" />
+                                <p className="text-xs md:text-xl">
+                                    Apakah anda yakin untuk mencabut verifikasi user bernama <b>{userData.firstName === '' ||
+                                        userData.firstName === ''
+                                        ? 'Anonymous'
+                                        : userData.firstName + ' ' + userData.lastName}</b> dengan wallet address <b>{userData.address}</b>?
+                                </p>
+                                <div className="flex flex-row justify-end font-bold text-white text-center mt-4">
+                                    <label
+                                        htmlFor="my-modal-4"
+                                        className="basis-6/12 md:basis-3/12 text-[#007BC7] border-solid border-2 border-white hover:border-[#007BC7] p-2 md:p-4 text-[8px] md:text-[15px] rounded-[5px] md:rounded-[10px]"
+                                    >
+                                        Batal
+                                    </label>
+                                    <label
+                                        onClick={removeVerification}
+                                        className="basis-6/12 md:basis-3/12 rounded-[5px] md:rounded-[10px] p-2 md:p-4 text-[8px] md:text-[15px] ml-1 md:ml-2 bg-[#007BC7] border border-2 border-white hover:bg-[#007BC7] hover:border-[#007BC7]"
+                                    >
+                                        Cabut
+                                    </label>
+                                </div>
+                            </label>
+                        </label>
+                    </div>
+                </>
+
             ) : (
                 <></>
             )}

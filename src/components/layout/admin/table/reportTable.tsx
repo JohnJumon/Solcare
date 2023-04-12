@@ -34,7 +34,8 @@ const ReportTable = (props: any) => {
                     <td className="py-4 px-6">
                         <ReportActions
                             id={reportData[i].campaignAddress}
-                            title={reportData[i].title}
+                            owner={reportData[i].ownerAddress}
+                            title={reportData[i].campaignTitle}
                         />
                     </td>
                 </tr>

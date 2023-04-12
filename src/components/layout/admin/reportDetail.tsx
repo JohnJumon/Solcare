@@ -233,14 +233,51 @@ const ReportDetail = () => {
                 {delisted ? (
                     <></>
                 ) : (
-                    <button
-                        className="
-                    self-end bg-[#007BC7] text-xs w-full p-2 border border-[2px] border-[#007BC7] text-white font-bold rounded-[5px]
-                    md:text-xl md:p-4 md:rounded-[10px]"
-                        onClick={acceptReports}
-                    >
-                        Terima Laporan
-                    </button>
+                    <>
+                        <label
+                            htmlFor="my-modal-4"
+                            className="self-end bg-[#007BC7] text-xs w-full p-2 border border-[2px] border-[#007BC7] text-white font-bold rounded-[5px]
+                    md:text-xl md:p-4 md:rounded-[10px] text-center hover:cursor-pointer"
+                        >
+                            Terima Laporan
+                        </label>
+                        <div>
+                            <input
+                                type="checkbox"
+                                id="my-modal-4"
+                                className="modal-toggle"
+                            />
+                            <label
+                                htmlFor="my-modal-4"
+                                className="modal max-[768px]:modal-bottom cursor-pointer px-0 md:px-12"
+                            >
+                                <label className="modal-box relative rounded-t-[10px] md:rounded-[20px] w-[42rem] max-w-screen-2xl md:max-h-screen-2xl">
+                                    <h1 className="text-md font-bold md:text-3xl text-black">
+                                        Konfirmasi Tindakan
+                                    </h1>
+                                    <div className="divider" />
+                                    <p className="text-xs md:text-xl text-black">
+                                        Apakah anda yakin untuk menerima pengaduan oleh user kepada campaign <b>{title}</b>?
+                                    </p>
+                                    <div className="flex flex-row justify-end font-bold text-white text-center mt-4">
+                                        <label
+                                            htmlFor="my-modal-4"
+                                            className="basis-6/12 md:basis-3/12 text-[#007BC7] border-solid border-2 border-white hover:border-[#007BC7] p-2 md:p-4 text-[8px] md:text-[15px] rounded-[5px] md:rounded-[10px]"
+                                        >
+                                            Tutup
+                                        </label>
+                                        <label
+                                            onClick={() => { acceptReports }}
+                                            className="basis-6/12 md:basis-3/12 rounded-[5px] md:rounded-[10px] p-2 md:p-4 text-[8px] md:text-[15px] ml-1 md:ml-2 bg-[#007BC7] border border-2 border-white hover:bg-[#007BC7] hover:border-[#007BC7]"
+                                        >
+                                            Terima
+                                        </label>
+                                    </div>
+                                </label>
+                            </label>
+                        </div>
+                    </>
+
                 )}
             </div>
         </div>
