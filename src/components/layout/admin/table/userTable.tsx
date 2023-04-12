@@ -132,8 +132,14 @@ const UserTable = (props: any) => {
                         >
                             Showing{' '}
                             <span className="font-bold text-gray-900">
-                                {parseInt(page) * ITEM_PER_PAGE - ITEM_PER_PAGE + 1}-
-                                {Math.min(parseInt(page) * ITEM_PER_PAGE, userData.length)}
+                                {parseInt(page) * ITEM_PER_PAGE -
+                                    ITEM_PER_PAGE +
+                                    1}
+                                -
+                                {Math.min(
+                                    parseInt(page) * ITEM_PER_PAGE,
+                                    userData.length
+                                )}
                             </span>{' '}
                             of{' '}
                             <span className="font-bold text-gray-900">

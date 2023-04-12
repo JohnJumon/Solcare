@@ -169,9 +169,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 
                     <Route
                         path="/profile/settings/kyc-guide"
-                        element={
-                            <KYCGuide />
-                        }
+                        element={<KYCGuide />}
                     />
 
                     <Route

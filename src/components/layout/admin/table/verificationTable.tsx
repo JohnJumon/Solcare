@@ -63,7 +63,8 @@ const VerificationTable = (props: any) => {
                     <td className="py-4 px-6 text-center">
                         <button
                             onClick={() => saveZip(userVerificationData[i])}
-                            className="hover:stroke-[#007BC7] stroke-black"
+                            className="hover:stroke-[#007BC7] stroke-black tooltip"
+                            data-tip="Unduh"
                         >
                             <svg
                                 width="24"

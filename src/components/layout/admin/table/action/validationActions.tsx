@@ -39,7 +39,8 @@ const ValidationActions = (props: any) => {
             <>
                 <label
                     htmlFor="my-modal-4"
-                    className="ml-2 hover:stroke-[#007BC7] stroke-black"
+                    className="ml-2 hover:stroke-[#007BC7] stroke-black tooltip"
+                    data-tip="Terima"
                 >
                     <svg
                         width="24"
@@ -72,7 +73,10 @@ const ValidationActions = (props: any) => {
                             </h1>
                             <div className="divider" />
                             <p className="text-xs md:text-xl text-black">
-                                Apakah anda yakin untuk menerima bukti keberhasilan campaign dengan address <b>{campaignData.address}</b> dengan owner address <b>{campaignData.ownerAddress}</b>?
+                                Apakah anda yakin untuk menerima bukti
+                                keberhasilan campaign dengan address{' '}
+                                <b>{campaignData.address}</b> dengan owner
+                                address <b>{campaignData.ownerAddress}</b>?
                             </p>
                             <div className="flex flex-row justify-end font-bold text-white text-center mt-4">
                                 <label
@@ -82,7 +86,9 @@ const ValidationActions = (props: any) => {
                                     Tutup
                                 </label>
                                 <label
-                                    onClick={() => {verifyEvidence(true)}}
+                                    onClick={() => {
+                                        verifyEvidence(true);
+                                    }}
                                     className="basis-6/12 md:basis-3/12 rounded-[5px] md:rounded-[10px] p-2 md:p-4 text-[8px] md:text-[15px] ml-1 md:ml-2 bg-[#007BC7] border border-2 border-white hover:bg-[#007BC7] hover:border-[#007BC7]"
                                 >
                                     Terima
@@ -95,7 +101,8 @@ const ValidationActions = (props: any) => {
             <>
                 <label
                     htmlFor="my-modal-4"
-                    className="ml-2 hover:stroke-[#007BC7] stroke-black"
+                    className="ml-2 hover:stroke-[#007BC7] stroke-black tooltip"
+                    data-tip="Tolak"
                 >
                     <svg
                         width="24"
@@ -134,7 +141,10 @@ const ValidationActions = (props: any) => {
                             </h1>
                             <div className="divider" />
                             <p className="text-xs md:text-xl text-black">
-                                Apakah anda yakin untuk menolak bukti keberhasilan campaign dengan address <b>{campaignData.address}</b> dengan owner address <b>{campaignData.ownerAddress}</b>?
+                                Apakah anda yakin untuk menolak bukti
+                                keberhasilan campaign dengan address{' '}
+                                <b>{campaignData.address}</b> dengan owner
+                                address <b>{campaignData.ownerAddress}</b>?
                             </p>
                             <div className="flex flex-row justify-end font-bold text-white text-center mt-4">
                                 <label
@@ -144,7 +154,9 @@ const ValidationActions = (props: any) => {
                                     Tutup
                                 </label>
                                 <label
-                                    onClick={() => {verifyEvidence(false)}}
+                                    onClick={() => {
+                                        verifyEvidence(false);
+                                    }}
                                     className="basis-6/12 md:basis-3/12 rounded-[5px] md:rounded-[10px] p-2 md:p-4 text-[8px] md:text-[15px] ml-1 md:ml-2 bg-[#007BC7] border border-2 border-white hover:bg-[#007BC7] hover:border-[#007BC7]"
                                 >
                                     Tolak

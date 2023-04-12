@@ -2,7 +2,6 @@ import GuideKTP from '../../../image/KYC_Guide_KTP.jpg';
 import GuideFace from '../../../image/KYC_Guide_Face.jpg';
 import GuideFaceKTP from '../../../image/KYC_Guide_FaceKTP.jpg';
 
-
 const KYCGuide = () => {
     return (
         <div className="max-w-screen-xl mx-auto mt-2 md:mt-6">
@@ -23,6 +22,6 @@ const KYCGuide = () => {
             </div>
         </div>
     );
-}
+};
 
 export default KYCGuide;

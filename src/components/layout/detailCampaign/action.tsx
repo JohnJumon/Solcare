@@ -51,8 +51,8 @@ const Action = ({ campaignAddress }: { campaignAddress: string }) => {
 
     return (
         <div className="flex flex-row mb-3 pl-12 md:mb-6">
-            <button>
-                <label htmlFor="my-modal-4" className="">
+            <button className="tooltip tooltip-bottom" data-tip="Pengaduan">
+                <label htmlFor="my-modal-4" className="hover:cursor-pointer">
                     <svg
                         className="w-5 h-5 rounded-full mr-2 hover:text-red-600 md:w-8 md:h-8 md:mr-4"
                         aria-hidden="true"
@@ -65,7 +65,11 @@ const Action = ({ campaignAddress }: { campaignAddress: string }) => {
                 </label>
             </button>
 
-            <button onClick={saveURL}>
+            <button
+                onClick={saveURL}
+                className="tooltip tooltip-bottom"
+                data-tip="Copy URL"
+            >
                 <svg
                     className="w-5 h-5 rounded-full hover:text-[#007BC7] md:w-8 md:h-8"
                     aria-hidden="true"

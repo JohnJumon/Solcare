@@ -78,7 +78,7 @@ const UserDetail = () => {
                             title: responseData.title,
                             banner: responseData.banner,
                         });
-                    } catch (e) { }
+                    } catch (e) {}
                 })
             );
 
@@ -119,25 +119,24 @@ const UserDetail = () => {
         let total = 0;
         for (let i = 0; i < donationData.length; i++) {
             if (donationData[i].type == 0) {
-                total += donationData[i].amount
+                total += donationData[i].amount;
             }
             if (donationData[i].type == 1) {
-                total -= donationData[i].amount
+                total -= donationData[i].amount;
             }
-
         }
-        return total
-    }
+        return total;
+    };
 
     const getTotalIncome = () => {
         let total = 0;
         for (let i = 0; i < donationData.length; i++) {
             if (donationData[i].type == 2) {
-                total += donationData[i].amount
+                total += donationData[i].amount;
             }
         }
-        return total
-    }
+        return total;
+    };
 
     useEffect(() => {
         fetchUser();
@@ -203,7 +202,7 @@ const UserDetail = () => {
                         </span>
                         <span>
                             {userData.firstName === '' ||
-                                userData.firstName === ''
+                            userData.firstName === ''
                                 ? 'Nama'
                                 : userData.firstName + ' ' + userData.lastName}
                         </span>
@@ -287,10 +286,18 @@ const UserDetail = () => {
                                 </h1>
                                 <div className="divider" />
                                 <p className="text-xs md:text-xl">
-                                    Apakah anda yakin untuk mencabut verifikasi user bernama <b>{userData.firstName === '' ||
+                                    Apakah anda yakin untuk mencabut verifikasi
+                                    user bernama{' '}
+                                    <b>
+                                        {userData.firstName === '' ||
                                         userData.firstName === ''
-                                        ? 'Anonymous'
-                                        : userData.firstName + ' ' + userData.lastName}</b> dengan wallet address <b>{userData.address}</b>?
+                                            ? 'Anonymous'
+                                            : userData.firstName +
+                                              ' ' +
+                                              userData.lastName}
+                                    </b>{' '}
+                                    dengan wallet address{' '}
+                                    <b>{userData.address}</b>?
                                 </p>
                                 <div className="flex flex-row justify-end font-bold text-white text-center mt-4">
                                     <label
@@ -310,7 +317,6 @@ const UserDetail = () => {
                         </label>
                     </div>
                 </>
-
             ) : (
                 <></>
             )}

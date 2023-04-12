@@ -37,7 +37,8 @@ const UserActions = (props: any) => {
         <div className="flex flex-row justify-center">
             <Link
                 to={`/admin/manage-user/detail/${userData.address}`}
-                className="hover:stroke-[#007BC7] stroke-black"
+                className="hover:stroke-[#007BC7] stroke-black tooltip"
+                data-tip="Detail"
             >
                 <svg
                     width="24"
@@ -65,7 +66,8 @@ const UserActions = (props: any) => {
                 <>
                     <label
                         htmlFor="my-modal-4"
-                        className="ml-2 hover:stroke-[#007BC7] stroke-black"
+                        className="ml-2 hover:stroke-[#007BC7] stroke-black tooltip"
+                        data-tip="Cabut"
                     >
                         <svg
                             width="24"
@@ -102,12 +104,20 @@ const UserActions = (props: any) => {
                                 <h1 className="text-md font-bold md:text-3xl text-black text-left">
                                     Konfirmasi Tindakan
                                 </h1>
-                                <div className="divider" /> 
+                                <div className="divider" />
                                 <p className="text-xs md:text-xl text-black text-left">
-                                    Apakah anda yakin untuk mencabut verifikasi user bernama <b>{userData.firstName === '' ||
+                                    Apakah anda yakin untuk mencabut verifikasi
+                                    user bernama{' '}
+                                    <b>
+                                        {userData.firstName === '' ||
                                         userData.firstName === ''
-                                        ? 'Anonymous'
-                                        : userData.firstName + ' ' + userData.lastName}</b> dengan wallet address <b>{userData.address}</b>?
+                                            ? 'Anonymous'
+                                            : userData.firstName +
+                                              ' ' +
+                                              userData.lastName}
+                                    </b>{' '}
+                                    dengan wallet address{' '}
+                                    <b>{userData.address}</b>?
                                 </p>
                                 <div className="flex flex-row justify-end font-bold text-white text-center mt-4">
                                     <label

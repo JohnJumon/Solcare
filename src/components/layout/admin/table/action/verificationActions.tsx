@@ -55,7 +55,8 @@ const VerificationActions = (props: any) => {
             <>
                 <label
                     htmlFor="my-modal-4"
-                    className="ml-2 hover:stroke-[#007BC7] stroke-black"
+                    className="ml-2 hover:stroke-[#007BC7] stroke-black tooltip"
+                    data-tip="Terima"
                 >
                     <svg
                         width="24"
@@ -88,9 +89,15 @@ const VerificationActions = (props: any) => {
                             </h1>
                             <div className="divider" />
                             <p className="text-xs md:text-xl text-black">
-                                Apakah anda yakin untuk menerima permintaan verifikasi user bernama <b>{userData.name === ''
-                                    ? 'Anonymous'
-                                    : userData.name}</b> dengan wallet address <b>{userData.usersWalletAddress}</b>?
+                                Apakah anda yakin untuk menerima permintaan
+                                verifikasi user bernama{' '}
+                                <b>
+                                    {userData.name === ''
+                                        ? 'Anonymous'
+                                        : userData.name}
+                                </b>{' '}
+                                dengan wallet address{' '}
+                                <b>{userData.usersWalletAddress}</b>?
                             </p>
                             <div className="flex flex-row justify-end font-bold text-white text-center mt-4">
                                 <label
@@ -113,7 +120,8 @@ const VerificationActions = (props: any) => {
             <>
                 <label
                     htmlFor="my-modal-4"
-                    className="ml-2 hover:stroke-[#007BC7] stroke-black"
+                    className="ml-2 hover:stroke-[#007BC7] stroke-black tooltip"
+                    data-tip="Tolak"
                 >
                     <svg
                         width="24"
@@ -152,9 +160,15 @@ const VerificationActions = (props: any) => {
                             </h1>
                             <div className="divider" />
                             <p className="text-xs md:text-xl text-black">
-                                Apakah anda yakin untuk menolak permintaan verifikasi user bernama <b>{userData.name === ''
-                                    ? 'Anonymous'
-                                    : userData.name}</b> dengan wallet address <b>{userData.usersWalletAddress}</b>?
+                                Apakah anda yakin untuk menolak permintaan
+                                verifikasi user bernama{' '}
+                                <b>
+                                    {userData.name === ''
+                                        ? 'Anonymous'
+                                        : userData.name}
+                                </b>{' '}
+                                dengan wallet address{' '}
+                                <b>{userData.usersWalletAddress}</b>?
                             </p>
                             <div className="flex flex-row justify-end font-bold text-white text-center mt-4">
                                 <label

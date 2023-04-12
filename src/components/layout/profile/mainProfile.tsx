@@ -156,27 +156,26 @@ const MainProfile = () => {
 
     const getTotalDonation = () => {
         let total = 0;
-        for(let i=0; i < donationData.length; i++){
-            if(donationData[i].type == 0){
-                total += donationData[i].amount
+        for (let i = 0; i < donationData.length; i++) {
+            if (donationData[i].type == 0) {
+                total += donationData[i].amount;
             }
-            if(donationData[i].type == 1){
-                total -= donationData[i].amount
+            if (donationData[i].type == 1) {
+                total -= donationData[i].amount;
             }
-            
         }
-        return total
-    }
+        return total;
+    };
 
     const getTotalIncome = () => {
         let total = 0;
-        for(let i=0; i < donationData.length; i++){
-            if(donationData[i].type == 2){
-                total += donationData[i].amount
+        for (let i = 0; i < donationData.length; i++) {
+            if (donationData[i].type == 2) {
+                total += donationData[i].amount;
             }
         }
-        return total
-    }
+        return total;
+    };
     useEffect(() => {
         fetchUsdc();
         fetchUserData();

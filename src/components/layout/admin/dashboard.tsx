@@ -253,8 +253,8 @@ const Dashboard = () => {
                 </div>
             </div>
             <p className="text-xs font-bold xl:text-base my-4">
-                        Status Progres Campaign
-                    </p>
+                Status Progres Campaign
+            </p>
             <div className="sm:grid mt-4 sm:mt-0 sm:gap-8 sm:grid-cols-3">
                 {/* <div className="sm:col-span-2 sm:grid sm:grid-cols-2 sm:items-center">
                     <div>
@@ -351,7 +351,8 @@ const Dashboard = () => {
             {/*<div>
                 {/* <p className="text-xs font-bold xl:text-base mb-4 mt-4">
                     Aktivitas Solcare
-                </p> */}{/*
+                </p> */}
+            {/*
                 <div className="grid grid-cols-4">
                     <p className="text-xs xl:text-base col-span-1">
                         Jumlah User

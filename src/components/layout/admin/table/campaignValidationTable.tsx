@@ -32,7 +32,8 @@ const CampaignValidationTable = (props: any) => {
                     </td>
                     <td className="py-4 px-6 text-center">
                         <button
-                            className="hover:stroke-[#007BC7] stroke-black"
+                            className="hover:stroke-[#007BC7] stroke-black tooltip"
+                            data-tip="Lihat"
                             onClick={(e) => {
                                 window.open(
                                     API_BASE_URL +
