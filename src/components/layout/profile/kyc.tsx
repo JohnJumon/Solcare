@@ -180,23 +180,7 @@ const KYC = () => {
                 />
             </div>
 
-            {/* <Link to={`/profile/settings/kyc-guide`}>
-                <p className="mt-3 font-bold text-xs md:text-lg underline">Mohon perhatikan tata cara pengambilan gambar yang benar</p>
-            </Link> */}
-            <button
-                    className="w-full mt-2 p-2 underline decoration-1"
-                    onClick={() => {
-                        window.open(
-                            '/profile/settings/kyc-guide',
-                            '_blank',
-                            'noreferrer'
-                        );
-                    }}
-                >
-                    Mohon perhatikan tata cara pengambilan gambar yang benar
-                </button>
-
-            <div className="mt-4 flex flex-col md:flex-row gap-4">
+            <div className="mt-4 flex flex-col md:flex-row gap-4 items-center">
                 <div>
                     <p className="text-xs md:text-lg">
                         Upload
@@ -421,6 +405,18 @@ const KYC = () => {
                         {uploadedPic.faceWithIdCard}
                     </p>
                 </div>
+                <button
+                    className="h-[50%] underline decoration-1 font-semibold"
+                    onClick={() => {
+                        window.open(
+                            '/profile/settings/kyc-guide',
+                            '_blank',
+                            'noreferrer'
+                        );
+                    }}
+                >
+                    Mohon perhatikan contoh pengambilan foto yang benar
+                </button>
             </div>
             <div className="flex flex-row gap-4 items-center mt-4">
                 <button
