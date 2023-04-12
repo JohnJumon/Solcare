@@ -17,6 +17,15 @@ import {
 
 import { ACCOUNT_DISCRIMINATOR_SIZE, BN, utils } from '@project-serum/anchor';
 
+export interface TransactionProps {
+    signature: string;
+    userAddress: string;
+    campaignAddress: string;
+    createdAt: number;
+    amount: number;
+    type: number;
+}
+
 export interface ProfileProps {
     firstName: string;
     lastName: string;
@@ -133,11 +142,47 @@ const MainProfile = () => {
         }
     };
 
+    const [donationData, setDonationData] = useState<TransactionProps[]>([]);
+
+    const fetchTransaction = async () => {
+        const resp = await axios.get(
+            `${API_BASE_URL}/v1/transaction/${publicKey}`
+        );
+
+        if (resp.data.status === 200) {
+            setDonationData(resp.data.data);
+        }
+    };
+
+    const getTotalDonation = () => {
+        let total = 0;
+        for(let i=0; i < donationData.length; i++){
+            if(donationData[i].type == 0){
+                total += donationData[i].amount
+            }
+            if(donationData[i].type == 1){
+                total -= donationData[i].amount
+            }
+            
+        }
+        return total
+    }
+
+    const getTotalIncome = () => {
+        let total = 0;
+        for(let i=0; i < donationData.length; i++){
+            if(donationData[i].type == 2){
+                total += donationData[i].amount
+            }
+        }
+        return total
+    }
     useEffect(() => {
         fetchUsdc();
         fetchUserData();
         fetchCreatedCampaign();
         fetchDonatedCampaign();
+        fetchTransaction();
     }, []);
 
     if (userInfo !== undefined) {
@@ -234,6 +279,22 @@ const MainProfile = () => {
                         </span>
                     </p>
                     <p className="sm:hidden text-[15px] text-[#007BC7]">USDC</p>
+                </div>
+                <div className="grid grid-cols-1 gap-6 font-bold text-xs sm:text-lg md:grid-cols-2 md:gap-4 items-center mb-4">
+                    <div className="col-span-1">
+                        <p>Total Donasi</p>
+                        <div className="text-3xl">
+                            <p>{getTotalDonation()}</p>
+                            <p className="text-[15px] leading-none">USDC</p>
+                        </div>
+                    </div>
+                    <div className="col-span-1">
+                        <p>Total Pendapatan</p>
+                        <div className="text-3xl">
+                            <p>{getTotalIncome()}</p>
+                            <p className="text-[15px] leading-none">USDC</p>
+                        </div>
+                    </div>
                 </div>
                 <div className="grid grid-cols-1 gap-6 font-bold text-xs sm:text-lg md:grid-cols-2 md:gap-4 items-center">
                     <div className="col-span-1">

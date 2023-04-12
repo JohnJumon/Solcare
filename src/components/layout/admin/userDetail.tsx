@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { useSmartContract } from '../../../context/connection';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { ACCOUNT_DISCRIMINATOR_SIZE, BN, utils } from '@project-serum/anchor';
-
+import { TransactionProps } from '../profile/mainProfile';
 
 const UserDetail = () => {
     const { address } = useParams();
@@ -78,7 +78,7 @@ const UserDetail = () => {
                             title: responseData.title,
                             banner: responseData.banner,
                         });
-                    } catch (e) {}
+                    } catch (e) { }
                 })
             );
 
@@ -103,10 +103,47 @@ const UserDetail = () => {
         fetchUser();
     };
 
+    const [donationData, setDonationData] = useState<TransactionProps[]>([]);
+
+    const fetchTransaction = async () => {
+        const resp = await axios.get(
+            `${API_BASE_URL}/v1/transaction/${address}`
+        );
+
+        if (resp.data.status === 200) {
+            setDonationData(resp.data.data);
+        }
+    };
+
+    const getTotalDonation = () => {
+        let total = 0;
+        for(let i=0; i < donationData.length; i++){
+            if(donationData[i].type == 0){
+                total += donationData[i].amount
+            }
+            if(donationData[i].type == 1){
+                total -= donationData[i].amount
+            }
+            
+        }
+        return total
+    }
+
+    const getTotalIncome = () => {
+        let total = 0;
+        for(let i=0; i < donationData.length; i++){
+            if(donationData[i].type == 2){
+                total += donationData[i].amount
+            }
+        }
+        return total
+    }
+
     useEffect(() => {
         fetchUser();
         fetchCreatedCampaign();
         fetchDonatedCampaign();
+        fetchTransaction();
     }, []);
 
     if (userData === undefined) {
@@ -166,7 +203,7 @@ const UserDetail = () => {
                         </span>
                         <span>
                             {userData.firstName === '' ||
-                            userData.firstName === ''
+                                userData.firstName === ''
                                 ? 'Nama'
                                 : userData.firstName + ' ' + userData.lastName}
                         </span>
@@ -192,6 +229,23 @@ const UserDetail = () => {
 
             <div className="divider" />
 
+            <div className="grid grid-cols-1 gap-6 font-bold text-xs sm:text-lg md:grid-cols-2 md:gap-4 items-center mb-4">
+                <div className="col-span-1">
+                    <p>Total Donasi</p>
+                    <div className="text-3xl">
+                        <p>{getTotalDonation()}</p>
+                        <p className="text-[15px] leading-none">USDC</p>
+                    </div>
+                </div>
+                <div className="col-span-1">
+                    <p>Total Pendapatan</p>
+                    <div className="text-3xl">
+                        <p>{getTotalIncome()}</p>
+                        <p className="text-[15px] leading-none">USDC</p>
+                    </div>
+                </div>
+            </div>
+
             <div className="grid grid-cols-1 gap-6 font-bold text-xs sm:text-lg md:grid-cols-2 md:grid-rows-2 md:gap-4 items-center">
                 <div className="col-span-1">
                     <p>Campaign Yang Dibuat</p>
@@ -201,7 +255,7 @@ const UserDetail = () => {
                     </div>
                 </div>
                 <div className="col-span-1">
-                    <p>Campaign Yang Dibuat</p>
+                    <p>Campaign Yang Dibantu</p>
                     <div className="text-3xl">
                         <p>{donatedCampaigns.length}</p>
                         <p className="text-[15px] leading-none">Campaign</p>
