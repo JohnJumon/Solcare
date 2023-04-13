@@ -10,7 +10,7 @@ import {
     Colors,
 } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
-
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -19,7 +19,8 @@ ChartJS.register(
     Title,
     Tooltip,
     Legend,
-    Colors
+    Colors,
+    ChartDataLabels
 );
 
 const PieChart = (props: any) => {
@@ -32,6 +33,10 @@ const PieChart = (props: any) => {
                         position: 'bottom' as const,
                         align: 'start',
                     },
+                    datalabels: {
+                        display: true,
+                        color: 'white'
+                    }
                 },
             }}
             data={{

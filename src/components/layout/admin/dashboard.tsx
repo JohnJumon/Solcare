@@ -133,7 +133,7 @@ const Dashboard = () => {
                         if (
                             now() >
                             v.account.createdAt.toNumber() +
-                                v.account.heldDuration.toNumber()
+                            v.account.heldDuration.toNumber()
                         ) {
                             countFailedCampaings++;
                         }
@@ -152,8 +152,8 @@ const Dashboard = () => {
                                     proposal.agree.add(proposal.disagree)
                                 ) ||
                                 now() >
-                                    proposal.createdAt.toNumber() +
-                                        proposal.duration.toNumber()
+                                proposal.createdAt.toNumber() +
+                                proposal.duration.toNumber()
                             ) {
                                 if (
                                     !(
@@ -217,14 +217,14 @@ const Dashboard = () => {
                         {totalUsers}
                     </p>
                 </div>
-                <div>
+                {/*<div>
                     <p className="text-xs font-bold xl:text-base">
                         Jumlah User Diperingati
                     </p>
                     <p className="text-2xl font-bold xl:text-4xl xl:my-4">
                         {totalUsersWarned}
                     </p>
-                </div>
+                </div>*/}
 
                 <div>
                     <p className="text-xs font-bold xl:text-base">
@@ -234,23 +234,23 @@ const Dashboard = () => {
                         {totalCampaigns}
                     </p>
                 </div>
-                <div>
+                {/*<div>
                     <p className="text-xs font-bold xl:text-base">
                         Jumlah Campaign Terlapor
                     </p>
                     <p className="text-2xl font-bold xl:text-4xl xl:my-4">
                         {totalReportedCampaigns}
                     </p>
-                </div>
+                </div>*/}
 
-                <div>
+                {/*<div>
                     <p className="text-xs font-bold xl:text-base">
                         Jumlah Laporan User
                     </p>
                     <p className="text-2xl font-bold xl:text-4xl xl:my-4">
                         {totalReports}
                     </p>
-                </div>
+                </div>*/}
             </div>
             <p className="text-xs font-bold xl:text-base my-4">
                 Status Progres Campaign
@@ -308,44 +308,51 @@ const Dashboard = () => {
                     </div>
                 </div> */}
 
-                <div>
+                <div className='sm:col-span-1 items-center'>
                     <PieChart
                         label={'Jumlah Campaign'}
                         title={['Sukses', 'Pending', 'Gagal']}
                         data={[
                             totalSuccessCampaign,
                             totalCampaigns -
-                                totalSuccessCampaign -
-                                totalFailedCampaign,
+                            totalSuccessCampaign -
+                            totalFailedCampaign,
                             totalFailedCampaign,
                         ]}
                     />
                 </div>
-                <div className="grid grid-cols-3">
-                    <p className="text-xs xl:text-base col-span-2">
-                        Jumlah User
-                    </p>
-                    <div className="col-span-1">
-                        <HorizontalStackedBarChart
-                            title={'Jumlah User'}
-                            label={'User Yang Tidak Diperingati '}
-                            labelWarned={'User Yang Diperingati '}
-                            data={totalUsers - totalUsersWarned}
-                            warnedData={totalUsersWarned}
-                        />
+                <div className="grid grid-rows-2 gap-4">
+                    <div className='grid grid-cols-3 justify-center items-end'>
+                        <p className="text-xs xl:text-base col-span-2 font-bold">
+                            Status Peringatan Pada User
+                        </p>
+                        <div className="col-span-1">
+                            <HorizontalStackedBarChart
+                                title={'Jumlah User'}
+                                label={'User Yang Tidak Diperingati '}
+                                labelWarned={'User Yang Diperingati '}
+                                data={totalUsers - totalUsersWarned}
+                                warnedData={totalUsersWarned}
+                            />
+                        </div>
                     </div>
-                    <p className="text-xs xl:text-base col-span-2">
-                        Status Keamanan Campaign
-                    </p>
-                    <div className="col-span-1">
-                        <HorizontalStackedBarChart
-                            title={'Jumlah Campaign'}
-                            label={'Campaign Yang Tidak Diperingati '}
-                            labelWarned={'Campaign Yang Diperingati '}
-                            data={totalCampaigns - totalReportedCampaigns}
-                            warnedData={totalReportedCampaigns}
-                        />
+
+                    <div className='grid grid-cols-3 justify-center items-start'>
+                        <p className="text-xs xl:text-base col-span-2 font-bold">
+                            Status Keamanan Campaign
+                        </p>
+                        <div className="col-span-1">
+                            <HorizontalStackedBarChart
+                                title={'Jumlah Campaign'}
+                                label={'Campaign Yang Tidak Diperingati '}
+                                labelWarned={'Campaign Yang Diperingati '}
+                                data={totalCampaigns - totalReportedCampaigns}
+                                warnedData={totalReportedCampaigns}
+                            />
+                            <HorizontalStackedBarChart legendUsage={true}/>
+                        </div>
                     </div>
+
                 </div>
             </div>
             {/*<div>
