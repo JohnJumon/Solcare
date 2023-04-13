@@ -133,7 +133,7 @@ const Dashboard = () => {
                         if (
                             now() >
                             v.account.createdAt.toNumber() +
-                            v.account.heldDuration.toNumber()
+                                v.account.heldDuration.toNumber()
                         ) {
                             countFailedCampaings++;
                         }
@@ -152,8 +152,8 @@ const Dashboard = () => {
                                     proposal.agree.add(proposal.disagree)
                                 ) ||
                                 now() >
-                                proposal.createdAt.toNumber() +
-                                proposal.duration.toNumber()
+                                    proposal.createdAt.toNumber() +
+                                        proposal.duration.toNumber()
                             ) {
                                 if (
                                     !(
@@ -308,23 +308,23 @@ const Dashboard = () => {
                     </div>
                 </div> */}
 
-                <div className='sm:col-span-1 items-center'>
+                <div className="sm:col-span-1 items-center">
                     <PieChart
                         label={'Jumlah Campaign'}
                         title={['Sukses', 'Pending', 'Gagal']}
                         data={[
                             totalSuccessCampaign,
                             totalCampaigns -
-                            totalSuccessCampaign -
-                            totalFailedCampaign,
+                                totalSuccessCampaign -
+                                totalFailedCampaign,
                             totalFailedCampaign,
                         ]}
                     />
                 </div>
                 <div className="grid grid-rows-2 gap-4">
-                    <div className='grid grid-cols-3 justify-center items-end'>
+                    <div className="grid grid-cols-3 justify-center items-end">
                         <p className="text-xs xl:text-base col-span-2 font-bold">
-                            Status Peringatan Pada User
+                            Status Peringatan User
                         </p>
                         <div className="col-span-1">
                             <HorizontalStackedBarChart
@@ -337,7 +337,7 @@ const Dashboard = () => {
                         </div>
                     </div>
 
-                    <div className='grid grid-cols-3 justify-center items-start'>
+                    <div className="grid grid-cols-3 justify-center items-start">
                         <p className="text-xs xl:text-base col-span-2 font-bold">
                             Status Keamanan Campaign
                         </p>
@@ -349,10 +349,9 @@ const Dashboard = () => {
                                 data={totalCampaigns - totalReportedCampaigns}
                                 warnedData={totalReportedCampaigns}
                             />
-                            <HorizontalStackedBarChart legendUsage={true}/>
+                            <HorizontalStackedBarChart legendUsage={true} />
                         </div>
                     </div>
-
                 </div>
             </div>
             {/*<div>

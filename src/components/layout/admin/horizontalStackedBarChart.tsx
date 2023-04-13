@@ -41,37 +41,15 @@ const options = {
     responsive: false,
     plugins: {
         legend: {
-            display: false
+            display: false,
         },
         datalabels: {
             display: true,
-            color: 'white'
-        }
+            color: 'white',
+        },
     },
     maintainAspectRatio: false,
 };
-
-// const HorizontalStackedBarChart = (props: any) => {
-//     return (
-//         <Bar
-//             options={options}
-//             data={{
-//                 labels: [props.title],
-//                 datasets: [
-//                     {
-//                         label: 'Hari Ini',
-//                         data: [100],
-//                     },
-//                     {
-//                         label: 'Semalam',
-//                         data: [200],
-//                     },
-//                 ],
-//             }}
-//             height={50}
-//         />
-//     );
-// };
 
 const HorizontalStackedBarChart = (props: any) => {
     if (props.legendUsage) {
@@ -84,7 +62,7 @@ const HorizontalStackedBarChart = (props: any) => {
                             stacked: true,
                             ticks: {
                                 display: false,
-                            }
+                            },
                         },
                         y: {
                             stacked: true,
@@ -101,8 +79,8 @@ const HorizontalStackedBarChart = (props: any) => {
                         },
                         datalabels: {
                             display: true,
-                            color: 'white'
-                        }
+                            color: 'white',
+                        },
                     },
                     maintainAspectRatio: false,
                 }}
@@ -110,24 +88,20 @@ const HorizontalStackedBarChart = (props: any) => {
                     labels: [props.title],
                     datasets: [
                         {
-                            label: 'Belum Terperingati',
+                            label: 'Belum Diperingati',
                             data: 0,
-                            backgroundColor: [
-                                'rgb(34, 197, 94)',
-                            ],
+                            backgroundColor: ['rgb(34, 197, 94)'],
                         },
                         {
-                            label: 'Terperingati',
+                            label: 'Diperingati',
                             data: 0,
-                            backgroundColor: [
-                                'rgb(255, 99, 132)',
-                            ],
+                            backgroundColor: ['rgb(255, 99, 132)'],
                         },
                     ],
                 }}
                 height={60}
             />
-        )
+        );
     }
     return (
         <Bar
@@ -138,16 +112,12 @@ const HorizontalStackedBarChart = (props: any) => {
                     {
                         label: `${props.label}`,
                         data: [props.data],
-                        backgroundColor: [
-                            'rgb(34, 197, 94)',
-                        ],
+                        backgroundColor: ['rgb(34, 197, 94)'],
                     },
                     {
                         label: `${props.labelWarned}`,
                         data: [props.warnedData],
-                        backgroundColor: [
-                            'rgb(255, 99, 132)',
-                        ],
+                        backgroundColor: ['rgb(255, 99, 132)'],
                     },
                 ],
             }}

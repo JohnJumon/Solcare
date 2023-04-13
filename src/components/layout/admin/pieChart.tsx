@@ -35,8 +35,8 @@ const PieChart = (props: any) => {
                     },
                     datalabels: {
                         display: true,
-                        color: 'white'
-                    }
+                        color: 'white',
+                    },
                 },
             }}
             data={{
