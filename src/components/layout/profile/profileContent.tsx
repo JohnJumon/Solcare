@@ -26,6 +26,6 @@ const ProfileContent: React.FC<ProfileContentProps> = (props) => {
             return <AccountSetting />;
         }
     };
-    return <div>{generatePage()}</div>;
+    return <div className="min-h-[70vh] lg:ml-[20rem]">{generatePage()}</div>;
 };
 export default ProfileContent;

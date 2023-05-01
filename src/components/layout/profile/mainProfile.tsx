@@ -295,7 +295,7 @@ const MainProfile = () => {
                         </div>
                     </div>
                 </div>
-                <div className="grid grid-cols-1 gap-6 font-bold text-xs sm:text-lg md:grid-cols-2 md:gap-4 items-center">
+                <div className="grid grid-cols-1 gap-6 font-bold text-xs sm:text-lg md:grid-cols-2 md:gap-4 items-center mb-4">
                     <div className="col-span-1">
                         <p>Campaign Yang Dibuat</p>
                         <div className="text-3xl">

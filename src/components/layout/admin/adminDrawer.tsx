@@ -17,11 +17,7 @@ const AdminDrawer = (props: any) => {
 
     return (
         <div className="lg:pt-[50px]">
-            <h1 className="font-bold max-[1023px]:hidden text-3xl text-[#007BC7]">
-                {props.page}
-            </h1>
-            <div className="drawer drawer-mobile max-h-[32rem] w-full">
-                {/* <div className="drawer drawer-mobile h-full w-full"> */}
+                <div className="drawer drawer-mobile h-full w-full">
                 <input
                     type="checkbox"
                     className="drawer-toggle"
@@ -57,9 +53,10 @@ const AdminDrawer = (props: any) => {
                     </div>
                 </div>
 
-                <div className="drawer-side">
+                <div className="drawer-side lg:fixed lg:z-30">
                     <label className="drawer-overlay"></label>
                     <ul className="menu p-4 w-64 sm:w-80 bg-base-100 text-base-content">
+                        <li className="font-bold max-[1023px]:hidden text-3xl text-[#007BC7] mb-5">{props.page}</li>
                         <li
                             onClick={handleClick}
                             className="w-12 h-12 lg:hidden"
@@ -94,7 +91,7 @@ const AdminDrawer = (props: any) => {
                                 onClick={handleClick}
                                 className="active:bg-[#007BC7] stroke-black active:stroke-white"
                             >
-                                <div className="text-lg font-bold flex items-center">
+                                <div className="text-lg font-bold flex items-center gap-2">
                                     <span className="pr-1">
                                         <svg
                                             width="24"
@@ -129,7 +126,6 @@ const AdminDrawer = (props: any) => {
                                             />
                                         </svg>
                                     </span>
-
                                     <span>Dashboard</span>
                                 </div>
                             </Link>
@@ -138,7 +134,7 @@ const AdminDrawer = (props: any) => {
                         <div className="collapse collapse-arrow">
                             <input type="checkbox" />
                             <div className="collapse-title">
-                                <a className="active:bg-[#007BC7] !flex !flex-row items-center text-lg font-bold stroke-black active:stroke-white">
+                                <a className="active:bg-[#007BC7] !flex !flex-row items-center text-lg font-bold stroke-black active:stroke-white gap-2">
                                     <svg
                                         width="24"
                                         height="24"
@@ -191,7 +187,7 @@ const AdminDrawer = (props: any) => {
                                 onClick={handleClick}
                                 className="active:bg-[#007BC7] stroke-black active:stroke-white"
                             >
-                                <div className="text-lg font-bold flex items-center">
+                                <div className="text-lg font-bold flex items-center gap-2">
                                     <span className="pr-1">
                                         <svg
                                             width="24"
@@ -226,7 +222,6 @@ const AdminDrawer = (props: any) => {
                                             />
                                         </svg>
                                     </span>
-
                                     <span>Campaign</span>
                                 </div>
                             </Link>
@@ -238,7 +233,7 @@ const AdminDrawer = (props: any) => {
                                 onClick={handleClick}
                                 className="active:bg-[#007BC7] stroke-black active:stroke-white"
                             >
-                                <div className="text-lg font-bold flex items-center">
+                                <div className="text-lg font-bold flex items-center gap-2">
                                     <span className="pr-1">
                                         <svg
                                             width="24"
@@ -266,7 +261,6 @@ const AdminDrawer = (props: any) => {
                                             />
                                         </svg>
                                     </span>
-
                                     <span>Pengaduan</span>
                                 </div>
                             </Link>

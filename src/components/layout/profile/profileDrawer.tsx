@@ -16,11 +16,7 @@ const ProfileDrawer = (props: any) => {
     };
     return (
         <div className="lg:pt-[50px]">
-            <h1 className="font-bold max-[1023px]:hidden text-3xl text-[#007BC7]">
-                {props.page}
-            </h1>
-            <div className="drawer drawer-mobile lg:max-h-[32rem] w-full">
-                {/* <div className="drawer drawer-mobile w-full h-full"> */}
+            <div className="drawer drawer-mobile w-full h-full">
                 <input
                     type="checkbox"
                     className="drawer-toggle"
@@ -55,9 +51,10 @@ const ProfileDrawer = (props: any) => {
                         {props.children}
                     </div>
                 </div>
-                <div className="drawer-side">
+                <div className="drawer-side lg:fixed lg:z-30">
                     <label className="drawer-overlay"></label>
                     <ul className="menu p-4 w-64 sm:w-80 bg-base-100 text-base-content">
+                        <li className="font-bold max-[1023px]:hidden text-3xl text-[#007BC7] mb-5">{props.page}</li>
                         <li
                             onClick={handleClick}
                             className="w-12 h-12 lg:hidden"
@@ -91,7 +88,7 @@ const ProfileDrawer = (props: any) => {
                                 onClick={handleClick}
                                 className="active:bg-[#007BC7] stroke-black active:stroke-white"
                             >
-                                <div className="text-lg font-bold flex items-center">
+                                <div className="text-lg font-bold flex items-center gap-2">
                                     <span className="pr-1">
                                         <svg
                                             width="24"
@@ -130,7 +127,7 @@ const ProfileDrawer = (props: any) => {
                                 onClick={handleClick}
                                 className="active:bg-[#007BC7] stroke-black active:stroke-white"
                             >
-                                <div className="text-lg font-bold flex items-center">
+                                <div className="text-lg font-bold flex items-center gap-2">
                                     <span className="pr-1">
                                         <svg
                                             width="24"
@@ -164,7 +161,7 @@ const ProfileDrawer = (props: any) => {
                                                 strokeLinejoin="round"
                                             />
                                         </svg>
-                                    </span>{' '}
+                                    </span>
                                     <span>Campaign Anda</span>
                                 </div>
                             </Link>
@@ -175,7 +172,7 @@ const ProfileDrawer = (props: any) => {
                                 onClick={handleClick}
                                 className="active:bg-[#007BC7] stroke-black active:stroke-white"
                             >
-                                <div className="text-lg font-bold flex items-center">
+                                <div className="text-lg font-bold flex items-center gap-2">
                                     <span className="pr-1">
                                         <svg
                                             width="24"
@@ -209,7 +206,7 @@ const ProfileDrawer = (props: any) => {
                                                 strokeLinejoin="round"
                                             />
                                         </svg>
-                                    </span>{' '}
+                                    </span>
                                     <span>Riwayat Transaksi</span>
                                 </div>
                             </Link>
@@ -220,7 +217,7 @@ const ProfileDrawer = (props: any) => {
                                 onClick={handleClick}
                                 className="active:bg-[#007BC7] stroke-black active:stroke-white"
                             >
-                                <div className="text-lg font-bold flex items-center">
+                                <div className="text-lg font-bold flex items-center gap-2">
                                     <span className="pr-1">
                                         <svg
                                             className=""
@@ -243,7 +240,7 @@ const ProfileDrawer = (props: any) => {
                                                 strokeLinejoin="round"
                                             />
                                         </svg>
-                                    </span>{' '}
+                                    </span>
                                     <span>Pengaturan Akun</span>
                                 </div>
                             </Link>
