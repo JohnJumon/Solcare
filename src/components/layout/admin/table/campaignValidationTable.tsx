@@ -3,7 +3,7 @@ import ValidationActions from './action/validationActions';
 import { ITEM_PER_PAGE } from '../../../../utils';
 import { API_BASE_URL } from '../../../../utils';
 const CampaignValidationTable = (props: any) => {
-    let campaignData = props.campaignData;
+    const campaignData = props.campaignData;
     const [currentValue, setValue] = useState('1');
 
     const generateTable = (page: number) => {

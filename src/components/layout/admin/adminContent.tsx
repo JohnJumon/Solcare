@@ -32,6 +32,6 @@ const AdminContent: React.FC<AdminContentProps> = (props) => {
             return <UserDetail />;
         }
     };
-    return <div className="min-h-[70vh] lg:ml-[20rem]">{generatePage()}</div>;
+    return <div className="min-h-[70vh]">{generatePage()}</div>;
 };
 export default AdminContent;

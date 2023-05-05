@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 const UserActions = (props: any) => {
     const [userData, setUserData] = useState(props.data);
-    // console.log(userData);
+    console.log(userData);
 
     const fetchUser = async () => {
         const resp = await axios.get(
