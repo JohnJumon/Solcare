@@ -16,7 +16,7 @@ const ProfileDrawer = (props: any) => {
     };
     return (
         <div className="lg:pt-[50px]">
-            <div className="drawer drawer-mobile w-full h-full">
+            <div className="drawer drawer-mobile">
                 <input
                     type="checkbox"
                     className="drawer-toggle"

@@ -12,18 +12,21 @@ interface ProfileContentProps {
 }
 const ProfileContent: React.FC<ProfileContentProps> = (props) => {
     const generatePage = () => {
-        if (props.page === 'Profil') {
-            return <MainProfile />;
-        } else if (props.page === 'Campaign Anda') {
-            return <CampaignList />;
-        } else if (props.page === 'Buat Campaign') {
-            return <CreateCampaign />;
-        } else if (props.page === 'Detail Campaign') {
-            return <DetailCampaign status={' '} />;
-        } else if (props.page === 'Riwayat Transaksi') {
-            return <HistoryTransaction />;
-        } else {
-            return <AccountSetting />;
+        switch (props.page) {
+            case 'Profil':
+                return <MainProfile />;
+            case 'Campaign Anda':
+                return <CampaignList />;
+            case 'Buat Campaign':
+                return <CreateCampaign />;
+            case 'Detail Campaign':
+                return <DetailCampaign status={' '} />;
+            case 'Riwayat Transaksi':
+                return <HistoryTransaction />;
+            case 'Pengaturan Akun':
+                return <AccountSetting />
+            default:
+                return <MainProfile />;
         }
     };
     return <div className="min-h-[70vh] lg:ml-[20rem]">{generatePage()}</div>;
