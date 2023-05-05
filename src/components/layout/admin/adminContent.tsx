@@ -10,26 +10,21 @@ interface AdminContentProps {
 }
 const AdminContent: React.FC<AdminContentProps> = (props) => {
     const generatePage = () => {
-        if (props.page == 'Dashboard') {
-            return <Dashboard />;
-        }
-        if (props.page == 'Verifikasi User') {
-            return <UserVerification />;
-        }
-        if (props.page == 'Manajemen User') {
-            return <UserList />;
-        }
-        if (props.page == 'Verifikasi Kesuksesan Campaign') {
-            return <CampaignValidation />;
-        }
-        if (props.page == 'Pengaduan') {
-            return <ReportList />;
-        }
-        if (props.page == 'Detail Pengaduan') {
-            return <ReportDetail />;
-        }
-        if (props.page == 'Detail User') {
-            return <UserDetail />;
+        switch (props.page) {
+            case 'Dashboard':
+                return <Dashboard />;
+            case 'Verifikasi User':
+                return <UserVerification />;
+            case 'Manajemen User':
+                return <UserList />;
+            case 'Verifikasi Kesuksesan Campaign':
+                return <CampaignValidation />;
+            case 'Pengaduan':
+                return <ReportList />;
+            case 'Detail Pengaduan':
+                return <ReportDetail />;
+            default:
+                return <Dashboard />;
         }
     };
     return <div className="min-h-[70vh]">{generatePage()}</div>;

@@ -83,7 +83,8 @@ const VerificationActions = (props: any) => {
                         htmlFor="my-modal-4"
                         className="modal max-[768px]:modal-bottom cursor-pointer px-0 md:px-12"
                     >
-                        <label className="modal-box relative rounded-t-[10px] md:rounded-[20px] w-[42rem] max-w-screen-2xl md:max-h-screen-2xl">
+                        {/* <label className="modal-box relative rounded-t-[10px] md:rounded-[20px] w-[42rem] max-w-screen-2xl md:max-h-screen-2xl"> */}
+                        <label className="modal-box relative rounded-t-[10px] md:rounded-[20px]">
                             <h1 className="text-md font-bold md:text-3xl text-black">
                                 Konfirmasi Tindakan
                             </h1>
