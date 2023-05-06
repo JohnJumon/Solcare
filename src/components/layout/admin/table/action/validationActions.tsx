@@ -39,7 +39,7 @@ const ValidationActions = (props: any) => {
             <>
                 <label
                     htmlFor={`${campaignData.address}-validation-modal-true`}
-                    className="ml-2 hover:stroke-[#007BC7] stroke-black tooltip"
+                    className="ml-2 hover:stroke-[#007BC7] stroke-black tooltip cursor-pointer"
                     data-tip="Terima"
                 >
                     <svg
@@ -101,7 +101,7 @@ const ValidationActions = (props: any) => {
             <>
                 <label
                     htmlFor={`${campaignData.address}-validation-modal-false`}
-                    className="ml-2 hover:stroke-[#007BC7] stroke-black tooltip"
+                    className="ml-2 hover:stroke-[#007BC7] stroke-black tooltip cursor-pointer"
                     data-tip="Tolak"
                 >
                     <svg

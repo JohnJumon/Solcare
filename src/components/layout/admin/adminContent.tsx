@@ -17,6 +17,8 @@ const AdminContent: React.FC<AdminContentProps> = (props) => {
                 return <UserVerification />;
             case 'Manajemen User':
                 return <UserList />;
+            case 'Detail User':
+                return <UserDetail />;
             case 'Verifikasi Kesuksesan Campaign':
                 return <CampaignValidation />;
             case 'Pengaduan':

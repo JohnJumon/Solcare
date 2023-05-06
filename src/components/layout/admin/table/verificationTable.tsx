@@ -138,13 +138,11 @@ const VerificationTable = (props: any) => {
     }
 
     return (
-        <div
-            className="
-            mt-2
-            md:mt-6"
-        >
+        <div className="mt-2 md:mt-6">
             {userVerificationData.length === 0 ? (
-                <h2>Tidak ada permintaan verifikasi oleh user saat ini</h2>
+                <h2 className="text-center text-xl font-bold lg:mt-52">
+                    Tidak ada permintaan verifikasi  saat ini
+                </h2>
             ) : (
                 <>
                     <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
@@ -184,15 +182,11 @@ const VerificationTable = (props: any) => {
                         </table>
                     </div>
                     <nav
-                        className="
-                flex flex-col-reverse items-center py-4
-                md:py-8 md:flex-row md:justify-between"
+                        className="flex flex-col-reverse items-center py-4 md:py-8 md:flex-row md:justify-between"
                         aria-label="Table navigation"
                     >
                         <span
-                            className="
-                    text-sm font-normal text-gray-500 pt-2
-                    md:text-xl md:pt-4"
+                            className="text-sm font-normal text-gray-500 pt-2 md:text-xl md:pt-4"
                         >
                             Showing{' '}
                             <span className="font-bold text-gray-900">
@@ -211,15 +205,11 @@ const VerificationTable = (props: any) => {
                             <li>
                                 <button
                                     onClick={decrease}
-                                    className="
-                            block py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700
-                            md:py-4 md:px-6"
+                                    className="block py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 md:py-4 md:px-6"
                                 >
                                     <span className="sr-only">Previous</span>
                                     <svg
-                                        className="
-                                w-5 h-5
-                                md:w-8 md:h-8"
+                                        className="w-5 h-5 md:w-8 md:h-8"
                                         aria-hidden="true"
                                         fill="currentColor"
                                         viewBox="0 0 20 20"
@@ -239,24 +229,18 @@ const VerificationTable = (props: any) => {
                                     min="1"
                                     max="20"
                                     onChange={handleChange}
-                                    className="
-                            text-center py-2 min-w-[75px] max-w-[100px] px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 focus:outline-none
-                            md:px-6 md:py-4 md:text-2xl"
+                                    className="text-center py-2 min-w-[75px] max-w-[100px] px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 focus:outline-none md:px-6 md:py-4 md:text-2xl"
                                     value={page}
                                 />
                             </li>
                             <li>
                                 <button
                                     onClick={increase}
-                                    className="
-                            block py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700
-                            md:py-4 md:px-6"
+                                    className="block py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 md:py-4 md:px-6"
                                 >
                                     <span className="sr-only">Next</span>
                                     <svg
-                                        className="
-                                w-5 h-5
-                                md:w-8 md:h-8"
+                                        className="w-5 h-5 md:w-8 md:h-8"
                                         aria-hidden="true"
                                         fill="currentColor"
                                         viewBox="0 0 20 20"

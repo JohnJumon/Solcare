@@ -97,7 +97,7 @@ const ReportActions = (props: any) => {
                 <>
                     <label
                         htmlFor={`${props.id}-validation-modal-true`}
-                        className="ml-2 hover:stroke-[#007BC7] stroke-black tooltip"
+                        className="ml-2 hover:stroke-[#007BC7] stroke-black tooltip cursor-pointer"
                         data-tip="Terima"
                     >
                         <svg

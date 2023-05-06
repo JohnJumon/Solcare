@@ -36,7 +36,7 @@ const UserActions = (props: any) => {
         <div className="flex flex-row justify-center">
             <Link
                 to={`/admin/manage-user/detail/${userData.address}`}
-                className="hover:stroke-[#007BC7] stroke-black tooltip"
+                className="hover:stroke-[#007BC7] stroke-black tooltip cursor-pointer"
                 data-tip="Detail"
             >
                 <svg
@@ -65,7 +65,7 @@ const UserActions = (props: any) => {
                 <>
                     <label
                         htmlFor={`${userData.address}-validation-modal-true`}
-                        className="ml-2 hover:stroke-[#007BC7] stroke-black tooltip"
+                        className="ml-2 hover:stroke-[#007BC7] stroke-black tooltip cursor-pointer"
                         data-tip="Cabut"
                     >
                         <svg
