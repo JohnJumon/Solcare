@@ -23,7 +23,7 @@ const ProfileDrawer = (props: any) => {
                     readOnly
                     checked={currentDrawerStatus}
                 />
-                <div className="drawer-content flex flex-col items-start justify-start max-[1023px]:pt-[25px] px-10 lg:pl-6 lg:!z-20">
+                <div className="drawer-content flex flex-col items-start justify-start max-[1023px]:pt-[25px] px-10 lg:pl-6 lg:ml-[20rem] lg:!z-20">
                     <div className="flex flex-col w-full">
                         <div className="flex flex-row items-center mb-2">
                             <button
@@ -51,7 +51,7 @@ const ProfileDrawer = (props: any) => {
                         {props.children}
                     </div>
                 </div>
-                <div className="drawer-side lg:fixed lg:z-30">
+                <div className="drawer-side lg:fixed lg:z-10">
                     <label className="drawer-overlay"></label>
                     <ul className="menu p-4 w-64 sm:w-80 bg-base-100 text-base-content">
                         <li className="font-bold max-[1023px]:hidden text-3xl text-[#007BC7] mb-5">
