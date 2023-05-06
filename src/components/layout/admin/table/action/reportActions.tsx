@@ -96,7 +96,7 @@ const ReportActions = (props: any) => {
             ) : (
                 <>
                     <label
-                        htmlFor="my-modal-4"
+                        htmlFor={`${props.id}-validation-modal-true`}
                         className="ml-2 hover:stroke-[#007BC7] stroke-black tooltip"
                         data-tip="Terima"
                     >
@@ -124,11 +124,11 @@ const ReportActions = (props: any) => {
                     <div>
                         <input
                             type="checkbox"
-                            id="my-modal-4"
+                            id={`${props.id}-validation-modal-true`}
                             className="modal-toggle"
                         />
                         <label
-                            htmlFor="my-modal-4"
+                            htmlFor={`${props.id}-validation-modal-true`}
                             className="modal max-[768px]:modal-bottom cursor-pointer px-0 md:px-12"
                         >
                             <label className="modal-box relative rounded-t-[10px] md:rounded-[20px] w-[42rem] max-w-screen-2xl md:max-h-screen-2xl">
@@ -144,7 +144,7 @@ const ReportActions = (props: any) => {
                                 </p>
                                 <div className="flex flex-row justify-end font-bold text-white text-center mt-4">
                                     <label
-                                        htmlFor="my-modal-4"
+                                        htmlFor={`${props.id}-validation-modal-true`}
                                         className="basis-6/12 md:basis-3/12 text-[#007BC7] border-solid border-2 border-white hover:border-[#007BC7] p-2 md:p-4 text-[8px] md:text-[15px] rounded-[5px] md:rounded-[10px]"
                                     >
                                         Tutup
