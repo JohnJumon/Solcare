@@ -79,9 +79,7 @@ const UserTable = (props: any) => {
     }
 
     return (
-        <div
-            className="mt-2 md:mt-6"
-        >
+        <div className="mt-2 md:mt-6">
             {userData.length === 0 ? (
                 <h2 className="text-center text-xl font-bold lg:mt-52">
                     Tidak ada user terdaftar saat ini
@@ -122,9 +120,7 @@ const UserTable = (props: any) => {
                         className="flex flex-col-reverse items-center py-4 md:py-8 md:flex-row md:justify-between"
                         aria-label="Table navigation"
                     >
-                        <span
-                            className="text-sm font-normal text-gray-500 pt-2 md:text-xl md:pt-4"
-                        >
+                        <span className="text-sm font-normal text-gray-500 pt-2 md:text-xl md:pt-4">
                             Showing{' '}
                             <span className="font-bold text-gray-900">
                                 {parseInt(page) * ITEM_PER_PAGE -

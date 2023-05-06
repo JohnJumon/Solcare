@@ -24,7 +24,7 @@ const ProfileContent: React.FC<ProfileContentProps> = (props) => {
             case 'Riwayat Transaksi':
                 return <HistoryTransaction />;
             case 'Pengaturan Akun':
-                return <AccountSetting />
+                return <AccountSetting />;
             default:
                 return <MainProfile />;
         }
