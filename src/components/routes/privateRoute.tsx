@@ -13,7 +13,6 @@ const PrivateRoute = (props: any) => {
     const { state } = useContext(AdminContext);
     const { connected, publicKey, disconnecting } = useWallet();
     const { isAdmin } = state;
-
     return (
         <>
             {props.forAdmin ? (
@@ -41,7 +40,13 @@ const PrivateRoute = (props: any) => {
                     </div>
                 )
             ) : connected ? (
-                props.children
+                isAdmin ? (
+                    <div className="min-h-[70vh] flex flex-wrap flex-col content-center justify-center bg-gray-100">
+                        <p className="text-xl text-center px-8">
+                            Anda Tidak Punya Akses di Halaman Ini
+                        </p>
+                    </div>
+                ) : props.children
             ) : (
                 <div className="min-h-[70vh] flex flex-wrap flex-col content-center justify-center bg-gray-100">
                     <p className="text-xl text-center px-8">

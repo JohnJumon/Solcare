@@ -32,7 +32,11 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                             </p>
                         }
                     />
-                    <Route path="/" element={<Home />} />
+                    <Route path="/" element={
+                        <PrivateRoute forAdmin={false}>
+                            <Home />
+                        </PrivateRoute>
+                    } />
 
                     <Route
                         path="/admin"
@@ -110,8 +114,13 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                         }
                     />
 
-                    <Route path="/explore" element={<FindCampaign />} />
-                    <Route path="/campaign/:id" element={<DetailCampaign />} />
+                    <Route path="/explore" element={
+                        <PrivateRoute forAdmin={false}>
+                            <FindCampaign />
+                        </PrivateRoute>
+                    } />
+                    <Route path="/campaign/:id" element={
+                        <DetailCampaign />} />
                     <Route
                         path="/campaign/reports/:id"
                         element={<DetailCampaignReports />}
@@ -119,7 +128,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                     <Route
                         path="/profile"
                         element={
-                            <PrivateRoute>
+                            <PrivateRoute forAdmin={false}>
                                 <Profile page="Profil">
                                     <ProfileContent page="Profil" />
                                 </Profile>
@@ -129,7 +138,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                     <Route
                         path="/profile/my-campaign"
                         element={
-                            <PrivateRoute>
+                            <PrivateRoute forAdmin={false}>
                                 <Profile page="Campaign Anda">
                                     <ProfileContent page="Campaign Anda" />
                                 </Profile>
@@ -139,7 +148,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                     <Route
                         path="/profile/my-campaign/create"
                         element={
-                            <PrivateRoute>
+                            <PrivateRoute forAdmin={false}>
                                 <Profile page="Buat Campaign">
                                     <ProfileContent page="Buat Campaign" />
                                 </Profile>
@@ -149,7 +158,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                     <Route
                         path="/profile/transaction-history"
                         element={
-                            <PrivateRoute>
+                            <PrivateRoute forAdmin={false}>
                                 <Profile page="Riwayat Transaksi">
                                     <ProfileContent page="Riwayat Transaksi" />
                                 </Profile>
@@ -159,7 +168,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                     <Route
                         path="/profile/settings"
                         element={
-                            <PrivateRoute>
+                            <PrivateRoute forAdmin={false}>
                                 <Profile page="Pengaturan Akun">
                                     <ProfileContent page="Pengaturan Akun" />
                                 </Profile>
@@ -169,13 +178,17 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 
                     <Route
                         path="/profile/settings/kyc-guide"
-                        element={<KYCGuide />}
+                        element={
+                            <PrivateRoute forAdmin={false}>
+                                <KYCGuide/>
+                            </PrivateRoute>
+                        }
                     />
 
                     <Route
                         path="/profile/my-campaign/detail/:id"
                         element={
-                            <PrivateRoute>
+                            <PrivateRoute forAdmin={false}>
                                 <FundraiserDetailCampaign />
                             </PrivateRoute>
                         }

@@ -56,9 +56,12 @@ const Header = () => {
                     if (tokenTemp) {
                         const tokenDetail = decodeJwt(tokenTemp);
                         if (typeof tokenDetail.isAdmin == 'boolean') {
-                            tokenDetail.isAdmin
-                                ? dispatch({ type: ActionType.IsAdmin })
-                                : dispatch({ type: ActionType.NotAdmin });
+                            if (tokenDetail.isAdmin) {
+                                dispatch({ type: ActionType.IsAdmin })
+                                navigate('/admin')
+                            } else {
+                                dispatch({ type: ActionType.NotAdmin })
+                            }
                         }
                     }
                 } catch (e) {
@@ -121,6 +124,7 @@ const Header = () => {
                             />
                         </svg>
                     </label>
+
                     <ul
                         tabIndex={0}
                         className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
@@ -131,6 +135,7 @@ const Header = () => {
                         <li>
                             <Link to="/explore">Cari Campaign</Link>
                         </li>
+
                         {connected ? (
                             <li>
                                 <Link to="/profile/my-campaign/create">
@@ -149,7 +154,7 @@ const Header = () => {
                         )}
                         {connected && isAdmin ? (
                             <li>
-                                <Link to="/admin">Admin</Link>
+                                <Link to="/admin">Dashboard</Link>
                             </li>
                         ) : (
                             <></>
@@ -167,23 +172,26 @@ const Header = () => {
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
-                    <li>
-                        <Link
-                            to="/"
-                            className="rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white"
-                        >
-                            Home
-                        </Link>
-                    </li>
-                    <li className="ml-5">
-                        <Link
-                            to="/explore"
-                            className="rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white"
-                        >
-                            Cari Campaign
-                        </Link>
-                    </li>
-                    {connected ? (
+                    {!isAdmin ? (<>
+                        <li>
+                            <Link
+                                to="/"
+                                className="rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white"
+                            >
+                                Home
+                            </Link>
+                        </li>
+                        <li className="ml-5">
+                            <Link
+                                to="/explore"
+                                className="rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white"
+                            >
+                                Cari Campaign
+                            </Link>
+                        </li>
+                    </>) : (<></>)}
+
+                    {connected && !isAdmin ? (
                         <li className="ml-5">
                             <Link
                                 to="/profile/my-campaign/create"
@@ -195,7 +203,7 @@ const Header = () => {
                     ) : (
                         <></>
                     )}
-                    {connected ? (
+                    {connected && !isAdmin ? (
                         <li className="ml-5">
                             <Link
                                 to="/profile"
@@ -213,7 +221,7 @@ const Header = () => {
                                 to="/admin"
                                 className="rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white"
                             >
-                                Admin
+                                Dashboard
                             </Link>
                         </li>
                     ) : (
