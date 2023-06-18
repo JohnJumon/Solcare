@@ -6,7 +6,7 @@ export const API_BASE_URL = 'http://34.238.156.194';
 export const RPC_API_KEY =
     'https://solana-devnet.g.alchemy.com/v2/bIPuobg6X0eDu34Afyg_24zQsQAjPoLE';
 
-export const PROGRAM_ADDRESS = 'DqBjFvgYa8drGBcKdSSQ51jLEWWnr6z14MzXKxGu5JvX';
+export const PROGRAM_ADDRESS = '7Ji9oG6aVk8SJutzwRP3nFZJYXtq7FaDqkVWvmBbc4z';
 
 export const CAMPAIGN_SEED = 'campaign_seed';
 export const CAMPAIGN_AUTHORITY_SEED = 'campaign_authority_seed';
