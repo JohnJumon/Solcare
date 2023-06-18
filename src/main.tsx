@@ -33,7 +33,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                         }
                     />
                     <Route path="/" element={
-                        <PrivateRoute forAdmin={false}>
+                        <PrivateRoute forAdmin={false} showsEvenDisconnected={true}>
                             <Home />
                         </PrivateRoute>
                     } />
@@ -115,7 +115,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                     />
 
                     <Route path="/explore" element={
-                        <PrivateRoute forAdmin={false}>
+                        <PrivateRoute forAdmin={false} showsEvenDisconnected={true}>
                             <FindCampaign />
                         </PrivateRoute>
                     } />

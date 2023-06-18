@@ -39,7 +39,7 @@ const PrivateRoute = (props: any) => {
                         </WalletMultiButton>
                     </div>
                 )
-            ) : connected ? (
+            ) : props.showsEvenDisconnected ? (props.children) : connected ? (
                 isAdmin ? (
                     <div className="min-h-[70vh] flex flex-wrap flex-col content-center justify-center bg-gray-100">
                         <p className="text-xl text-center px-8">
