@@ -129,14 +129,19 @@ const Header = () => {
                         tabIndex={0}
                         className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
                     >
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/explore">Cari Campaign</Link>
-                        </li>
+                        {!isAdmin ? (
+                            <>
+                                <li>
+                                    <Link to="/">Home</Link>
+                                </li>
+                                <li>
+                                    <Link to="/explore">Cari Campaign</Link>
+                                </li>
+                            </>
+                        ) : (<></>)}
 
-                        {connected ? (
+
+                        {connected && !isAdmin ? (
                             <li>
                                 <Link to="/profile/my-campaign/create">
                                     Buat Campaign
@@ -145,7 +150,7 @@ const Header = () => {
                         ) : (
                             <></>
                         )}
-                        {connected ? (
+                        {connected && !isAdmin ? (
                             <li>
                                 <Link to="/profile">Profil</Link>
                             </li>
