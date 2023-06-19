@@ -87,7 +87,7 @@ const Dashboard = () => {
                 },
             ]);
 
-            const campaigns = [...votingCampaigns, ...activeCampaigns];
+            const campaigns = [...votingCampaigns, ...activeCampaigns];            
 
             let countFailedCampaings = 0;
             await Promise.all(
