@@ -91,7 +91,7 @@ const Dashboard = () => {
 
             setTotalCampaigns(respData.totalCampaigns);
             setTotalSuccessCampaign(respData.totalSuccessCampaigns);
-            
+
             const votingCampaigns = await smartContract.account.campaign.all([
                 {
                     memcmp: {

@@ -32,11 +32,17 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                             </p>
                         }
                     />
-                    <Route path="/" element={
-                        <PrivateRoute forAdmin={false} showsEvenDisconnected={true}>
-                            <Home />
-                        </PrivateRoute>
-                    } />
+                    <Route
+                        path="/"
+                        element={
+                            <PrivateRoute
+                                forAdmin={false}
+                                showsEvenDisconnected={true}
+                            >
+                                <Home />
+                            </PrivateRoute>
+                        }
+                    />
 
                     <Route
                         path="/admin"
@@ -114,13 +120,18 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                         }
                     />
 
-                    <Route path="/explore" element={
-                        <PrivateRoute forAdmin={false} showsEvenDisconnected={true}>
-                            <FindCampaign />
-                        </PrivateRoute>
-                    } />
-                    <Route path="/campaign/:id" element={
-                        <DetailCampaign />} />
+                    <Route
+                        path="/explore"
+                        element={
+                            <PrivateRoute
+                                forAdmin={false}
+                                showsEvenDisconnected={true}
+                            >
+                                <FindCampaign />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route path="/campaign/:id" element={<DetailCampaign />} />
                     <Route
                         path="/campaign/reports/:id"
                         element={<DetailCampaignReports />}
@@ -180,7 +191,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
                         path="/profile/settings/kyc-guide"
                         element={
                             <PrivateRoute forAdmin={false}>
-                                <KYCGuide/>
+                                <KYCGuide />
                             </PrivateRoute>
                         }
                     />

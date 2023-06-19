@@ -5,7 +5,7 @@ const Description = (props: any) => {
 
     const [currentText, setCurrentText] = useState('line-clamp-none');
     const [currentLabel, setCurrentLabel] = useState('Tutup deskripsi');
-    const [currentDisplay, setCurrentDisplay] = useState(true)
+    const [currentDisplay, setCurrentDisplay] = useState(true);
 
     const showText = () => {
         if (currentLabel === 'Baca selengkapnya') {
@@ -17,23 +17,22 @@ const Description = (props: any) => {
         }
     };
 
-    
     const countLine = () => {
         let doc = document.getElementById('desc');
-        let fontSize = window.innerWidth < 768 ? 8 : 15
+        let fontSize = window.innerWidth < 768 ? 8 : 15;
         let divHeight = doc!!.offsetHeight;
-        let lineHeight = fontSize * 1.5
+        let lineHeight = fontSize * 1.5;
         let lines = divHeight / lineHeight;
-        return lines
-    }
+        return lines;
+    };
 
     useEffect(() => {
-        if(countLine() > 6){
-            setCurrentDisplay(false)
-            setCurrentLabel('Baca selengkapnya')
-            setCurrentText('line-clamp-6')
+        if (countLine() > 6) {
+            setCurrentDisplay(false);
+            setCurrentLabel('Baca selengkapnya');
+            setCurrentText('line-clamp-6');
         }
-    },[])
+    }, []);
 
     return (
         <div className="mt-2 text-[8px] text-right md:mt-6 md:text-[15px]">

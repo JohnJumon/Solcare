@@ -57,10 +57,10 @@ const Header = () => {
                         const tokenDetail = decodeJwt(tokenTemp);
                         if (typeof tokenDetail.isAdmin == 'boolean') {
                             if (tokenDetail.isAdmin) {
-                                dispatch({ type: ActionType.IsAdmin })
-                                navigate('/admin')
+                                dispatch({ type: ActionType.IsAdmin });
+                                navigate('/admin');
                             } else {
-                                dispatch({ type: ActionType.NotAdmin })
+                                dispatch({ type: ActionType.NotAdmin });
                             }
                         }
                     }
@@ -172,24 +172,28 @@ const Header = () => {
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
-                    {!isAdmin ? (<>
-                        <li>
-                            <Link
-                                to="/"
-                                className="rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white"
-                            >
-                                Home
-                            </Link>
-                        </li>
-                        <li className="ml-5">
-                            <Link
-                                to="/explore"
-                                className="rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white"
-                            >
-                                Cari Campaign
-                            </Link>
-                        </li>
-                    </>) : (<></>)}
+                    {!isAdmin ? (
+                        <>
+                            <li>
+                                <Link
+                                    to="/"
+                                    className="rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white"
+                                >
+                                    Home
+                                </Link>
+                            </li>
+                            <li className="ml-5">
+                                <Link
+                                    to="/explore"
+                                    className="rounded-[5px] lg:rounded-[10px] active:bg-[#007BC7] active:text-white"
+                                >
+                                    Cari Campaign
+                                </Link>
+                            </li>
+                        </>
+                    ) : (
+                        <></>
+                    )}
 
                     {connected && !isAdmin ? (
                         <li className="ml-5">
