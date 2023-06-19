@@ -81,7 +81,7 @@ const Dashboard = () => {
                             8 +
                             32,
                         bytes: utils.bytes.bs58.encode(
-                            new Uint8Array([STATUS_VOTING])
+                            new Uint8Array([STATUS_ACTIVE])
                         ),
                     },
                 },
