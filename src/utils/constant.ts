@@ -4,7 +4,7 @@ export const LOGIN_MESSAGE = 's3cretseedsforlogin';
 export const API_BASE_URL = 'http://34.238.156.194';
 // export const API_BASE_URL = 'http://localhost:8000';
 export const RPC_API_KEY =
-    'https://solana-devnet.g.alchemy.com/v2/bIPuobg6X0eDu34Afyg_24zQsQAjPoLE';
+    'https://sleek-blue-liquid.solana-devnet.quiknode.pro/36e54bb0b3be1f41d0d78439827c8bd97771533e/';
 
 export const PROGRAM_ADDRESS = '7Ji9oG6aVk8SJutzwRP3nFZJYXtq7FaDqkVWvmBbc4z';
 
