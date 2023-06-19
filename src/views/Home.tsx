@@ -3,7 +3,7 @@ import ConnectWallet from '../components/layout/home/connectWallet';
 import Campaigns from '../components/layout/home/campaigns';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useSmartContract } from '../context/connection';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ACCOUNT_DISCRIMINATOR_SIZE, BN, utils } from '@project-serum/anchor';
 import { PublicKey } from '@solana/web3.js';
 import {
@@ -14,15 +14,19 @@ import {
     now,
 } from '../utils';
 import axios from 'axios';
+import { AdminContext } from '../utils/state';
 
 const Home = () => {
     const { connected, publicKey } = useWallet();
     const { smartContract } = useSmartContract();
 
-    const [initializing, setInitializing] = useState(true);
+    const [initializing, setInitializing] = useState(false);
 
     const [donatedCampaigns, setDonatedCampaigns] = useState(new Array<any>());
     const [ongoingProposal, setOngoingProposal] = useState(new Array<any>());
+
+    const { state } = useContext(AdminContext);
+    const { isAdmin } = state;
 
     const fetchDonatedCampaign = async () => {
         setInitializing(true);
@@ -78,6 +82,7 @@ const Home = () => {
                     } catch (e) {}
                 })
             );
+            setDonatedCampaigns(newDonatedCampaigns);
 
             const proposals =
                 await smartContract.account.proposal.fetchMultiple(
@@ -108,9 +113,7 @@ const Home = () => {
                     }
                 })
             );
-
             setOngoingProposal(newOngoingProposal);
-            setDonatedCampaigns(newDonatedCampaigns);
         }
         setInitializing(false);
     };
@@ -136,10 +139,14 @@ const Home = () => {
         <main className="flex flex-col items-center">
             <Intro />
             {connected ? (
-                <>
-                    <Campaigns type="Voting" data={ongoingProposal} />
-                    <Campaigns type="Helped" data={donatedCampaigns} />
-                </>
+                isAdmin ? (
+                    <></>
+                ) : (
+                    <>
+                        <Campaigns type="Voting" data={ongoingProposal} />
+                        <Campaigns type="Helped" data={donatedCampaigns} />
+                    </>
+                )
             ) : (
                 <ConnectWallet />
             )}

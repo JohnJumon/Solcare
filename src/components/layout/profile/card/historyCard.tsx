@@ -13,7 +13,7 @@ const HistoryCard = (props: any) => {
     const generateInfo = () => {
         let components = [];
         for (let i = 0; i < props.data.length; i++) {
-            components.push(<TransactionInfo data={props.data[i]} />);
+            components.push(<TransactionInfo key={i} data={props.data[i]} />);
         }
         return components;
     };

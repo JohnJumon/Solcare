@@ -67,8 +67,8 @@ const CampaignCard = (props: any) => {
                     className="w-screen h-[200px] object-cover rounded-[20px] xl:h-[300px]"
                     src={`${API_BASE_URL}/${campaign.banner}`}
                 />
-                <div className="p-6">
-                    <h1 className="line-clamp-1 text-md font-bold mb-2 xl:text-2xl xl:my-4">
+                <div className="py-4 px-6">
+                    <h1 className="line-clamp-1 text-md font-bold mb-2 xl:text-2xl xl:my-2">
                         {campaign.title}
                     </h1>
                     {props.type === 'Voting' ? (

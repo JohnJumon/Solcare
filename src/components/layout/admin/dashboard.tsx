@@ -89,6 +89,9 @@ const Dashboard = () => {
         if (resp.data.status === 200) {
             const respData = resp.data.data;
 
+            setTotalCampaigns(respData.totalCampaigns);
+            setTotalSuccessCampaign(respData.totalSuccessCampaigns);
+            
             const votingCampaigns = await smartContract.account.campaign.all([
                 {
                     memcmp: {
@@ -170,8 +173,6 @@ const Dashboard = () => {
                 })
             );
 
-            setTotalCampaigns(respData.totalCampaigns);
-            setTotalSuccessCampaign(respData.totalSuccessCampaigns);
             setTotalFailedCampaign(
                 respData.totalFailedCampaigns + countFailedCampaings
             );
