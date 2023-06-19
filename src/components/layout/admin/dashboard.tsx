@@ -43,24 +43,6 @@ const Dashboard = () => {
         }
     };
 
-    const fetchDelistedCampaign = async () => {
-        const resp = await axios.get(`${API_BASE_URL}/v1/campaign`);
-        if (resp.data.status === 200) {
-            const respData = resp.data.data;
-            
-
-            // let delistedCampaigns = 0;
-            // respData.forEach((e: any) => {                
-            //     if (e.delisted === true) {
-            //         console.log(e);
-                    
-            //         delistedCampaigns += 1;
-            //     }
-            // });
-            // setTotalDelistedCampaigns(delistedCampaigns);
-        }
-    };
-
     const fetchTotalCampaign = async () => {
         const resp = await axios.get(`${API_BASE_URL}/v1/campaign/summary`);
         if (resp.data.status === 200) {
@@ -68,6 +50,7 @@ const Dashboard = () => {
 
             setTotalCampaigns(respData.totalCampaigns);
             setTotalSuccessCampaign(respData.totalSuccessCampaigns);
+            setTotalDelistedCampaigns(respData.totalDelistedCampaigns)
 
             const votingCampaigns = await smartContract.account.campaign.all([
                 {
@@ -158,7 +141,6 @@ const Dashboard = () => {
 
     useEffect(() => {
         fetchTotalUsers();
-        fetchDelistedCampaign();
         fetchTotalCampaign();
     }, []);
 
