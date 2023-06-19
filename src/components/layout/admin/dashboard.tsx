@@ -81,13 +81,13 @@ const Dashboard = () => {
                             8 +
                             32,
                         bytes: utils.bytes.bs58.encode(
-                            new Uint8Array([STATUS_VOTING])
+                            new Uint8Array([STATUS_ACTIVE])
                         ),
                     },
                 },
             ]);
 
-            const campaigns = [...votingCampaigns, ...activeCampaigns];
+            const campaigns = [...votingCampaigns, ...activeCampaigns];            
 
             let countFailedCampaings = 0;
             await Promise.all(
