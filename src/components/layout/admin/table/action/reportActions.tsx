@@ -69,28 +69,6 @@ const ReportActions = (props: any) => {
                     />
                 </svg>
             </Link>
-            {/*<button className="ml-2 hover:stroke-[#007BC7] stroke-black">
-                <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 32 32"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        d="M8.97949 12.4644H3.97949V7.46436"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
-                    <path
-                        d="M8.22213 23.7782C9.76051 25.3166 11.7205 26.3642 13.8543 26.7886C15.9881 27.2131 18.1998 26.9952 20.2098 26.1627C22.2198 25.3301 23.9378 23.9202 25.1465 22.1113C26.3552 20.3023 27.0003 18.1756 27.0003 16C27.0003 13.8244 26.3552 11.6977 25.1465 9.88873C23.9378 8.07979 22.2198 6.66989 20.2098 5.83733C18.1998 5.00477 15.9881 4.78693 13.8543 5.21137C11.7205 5.6358 9.76051 6.68345 8.22213 8.22183L3.97949 12.4645"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
-                </svg>
-            </button>*/}
             {delisted ? (
                 <></>
             ) : (
@@ -145,15 +123,13 @@ const ReportActions = (props: any) => {
                                 <div className="flex flex-row justify-end font-bold text-white text-center mt-4">
                                     <label
                                         htmlFor={`${props.id}-validation-modal-true`}
-                                        className="basis-6/12 md:basis-3/12 text-[#007BC7] border-solid border-2 border-white hover:border-[#007BC7] p-2 md:p-4 text-[8px] md:text-[15px] rounded-[5px] md:rounded-[10px]"
+                                        className="basis-6/12 md:basis-3/12 text-[#007BC7] border-solid border-2 border-white hover:border-[#007BC7] p-2 md:p-4 text-[8px] md:text-[15px] rounded-[5px] md:rounded-[10px] cursor-pointer"
                                     >
                                         Tutup
                                     </label>
                                     <label
-                                        onClick={() => {
-                                            acceptReports;
-                                        }}
-                                        className="basis-6/12 md:basis-3/12 rounded-[5px] md:rounded-[10px] p-2 md:p-4 text-[8px] md:text-[15px] ml-1 md:ml-2 bg-[#007BC7] border border-2 border-white hover:bg-[#007BC7] hover:border-[#007BC7]"
+                                        onClick={acceptReports}
+                                        className="basis-6/12 md:basis-3/12 rounded-[5px] md:rounded-[10px] p-2 md:p-4 text-[8px] md:text-[15px] ml-1 md:ml-2 bg-[#007BC7] border border-2 border-white hover:bg-[#007BC7] hover:border-[#007BC7] cursor-pointer"
                                     >
                                         Terima
                                     </label>
