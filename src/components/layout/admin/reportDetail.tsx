@@ -270,9 +270,7 @@ const ReportDetail = () => {
                                             Tutup
                                         </label>
                                         <label
-                                            onClick={() => {
-                                                acceptReports;
-                                            }}
+                                            onClick={acceptReports}
                                             className="basis-6/12 md:basis-3/12 rounded-[5px] md:rounded-[10px] p-2 md:p-4 text-[8px] md:text-[15px] ml-1 md:ml-2 bg-[#007BC7] border border-2 border-white hover:bg-[#007BC7] hover:border-[#007BC7]"
                                         >
                                             Terima

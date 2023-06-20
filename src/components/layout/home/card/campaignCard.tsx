@@ -64,7 +64,7 @@ const CampaignCard = (props: any) => {
         <Link to={`/campaign/${campaign.campaign.toBase58()}`}>
             <div className="mx-3 rounded-[20px] text-black h-max shadow-[0px_4px_4px_0px_rgba(0,123,199,0.25)] hover:shadow-[0px_10px_10px_0px_rgba(0,123,199,0.5)] mb-4">
                 <img
-                    className="w-screen h-[200px] object-cover rounded-[20px] xl:h-[300px]"
+                    className="w-screen h-[200px] object-cover rounded-[20px]"
                     src={`${API_BASE_URL}/${campaign.banner}`}
                 />
                 <div className="py-4 px-6">

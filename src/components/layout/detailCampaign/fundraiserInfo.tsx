@@ -79,13 +79,13 @@ const FundraiserInfo = (props: any) => {
                         {/* Nama Fundraiser */}
                         {fundraiserData.firstName === '' ||
                         fundraiserData.lastName === ''
-                            ? '-'
+                            ? 'User'
                             : `${fundraiserData.firstName} ${fundraiserData.lastName}`}
                     </p>
                     <p className="text-[8px] md:text-[15px] mb-2">
                         {/* E-mail Fundraiser */}
                         {fundraiserData.email === ''
-                            ? '-'
+                            ? <></>
                             : fundraiserData.email}
                     </p>
                     <p id="address-tag" className="text-[8px] md:text-[15px]">
