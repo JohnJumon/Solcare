@@ -138,8 +138,9 @@ const Header = () => {
                                     <Link to="/explore">Cari Campaign</Link>
                                 </li>
                             </>
-                        ) : (<></>)}
-
+                        ) : (
+                            <></>
+                        )}
 
                         {connected && !isAdmin ? (
                             <li>

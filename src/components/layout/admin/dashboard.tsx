@@ -50,7 +50,7 @@ const Dashboard = () => {
 
             setTotalCampaigns(respData.totalCampaigns);
             setTotalSuccessCampaign(respData.totalSuccessCampaigns);
-            setTotalDelistedCampaigns(respData.totalDelistedCampaigns)
+            setTotalDelistedCampaigns(respData.totalDelistedCampaigns);
 
             const votingCampaigns = await smartContract.account.campaign.all([
                 {
@@ -87,7 +87,7 @@ const Dashboard = () => {
                 },
             ]);
 
-            const campaigns = [...votingCampaigns, ...activeCampaigns];            
+            const campaigns = [...votingCampaigns, ...activeCampaigns];
 
             let countFailedCampaings = 0;
             await Promise.all(

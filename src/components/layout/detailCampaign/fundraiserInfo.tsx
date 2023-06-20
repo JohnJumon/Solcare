@@ -84,9 +84,11 @@ const FundraiserInfo = (props: any) => {
                     </p>
                     <p className="text-[8px] md:text-[15px] mb-2">
                         {/* E-mail Fundraiser */}
-                        {fundraiserData.email === ''
-                            ? <></>
-                            : fundraiserData.email}
+                        {fundraiserData.email === '' ? (
+                            <></>
+                        ) : (
+                            fundraiserData.email
+                        )}
                     </p>
                     <p id="address-tag" className="text-[8px] md:text-[15px]">
                         {/* Wallet Fundraiser */}

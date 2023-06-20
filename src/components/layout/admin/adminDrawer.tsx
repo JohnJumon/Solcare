@@ -57,7 +57,7 @@ const AdminDrawer = (props: any) => {
                     <ul className="menu p-4 w-64 sm:w-80 bg-base-100 text-base-content">
                         <li className="font-bold max-[1023px]:hidden text-3xl text-[#007BC7] mb-5">
                             {props.page}
-                        </li> 
+                        </li>
                         <li
                             onClick={handleClick}
                             className="w-12 h-12 lg:hidden"
