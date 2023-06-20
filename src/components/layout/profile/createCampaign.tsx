@@ -194,7 +194,7 @@ const CreateCampaign = () => {
             toast.update(toastId.current, { progress: 0.5 });
             toastDone();
             toast(`🚀 Campaign berhasil dibuat! Signature transaksi: ${tx}`);
-            navigate(`/profile/my-campaign`);
+            navigate(`/profile`);
         } catch (e) {
             toastDone();
             console.log('Error: ', e);
