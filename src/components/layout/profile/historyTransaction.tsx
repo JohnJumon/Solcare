@@ -15,16 +15,18 @@ interface HistoryProps {
 }
 
 const HistoryTransaction = () => {
-    let today = new Date();
-    let tomorrow = today;
-    tomorrow.setDate(tomorrow.getDate() + 1);
     const { publicKey } = useWallet();
+
+    let today = new Date();
+    let tomorrow = new Date();
+    today.setDate(tomorrow.getDate());
+    tomorrow.setDate(tomorrow.getDate() + 1);
 
     const [currentDateFrom, setCurrentDateFrom] = useState(
         today.toISOString().substring(0, 10)
     );
     const [currentDateTo, setCurrentDateTo] = useState(
-        today.toISOString().substring(0, 10)
+        tomorrow.toISOString().substring(0, 10)
     );
 
     const [dateFrom, setDateFrom] = useState(currentDateFrom);

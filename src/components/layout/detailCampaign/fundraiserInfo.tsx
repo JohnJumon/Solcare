@@ -64,9 +64,13 @@ const FundraiserInfo = (props: any) => {
                         )}
                     </div>
                     <div className="text-[8px] md:text-[15px]">
-                        {fundraiserData.isVerified
-                            ? 'Terverifikasi'
-                            : 'Belum Terverifikasi'}
+                        {fundraiserData.isVerified ? (
+                            <p className="text-green-600 text-base">
+                                Terverifikasi
+                            </p>
+                        ) : (
+                            'Belum Terverifikasi'
+                        )}
                     </div>
                 </div>
                 <div className="divider" />
