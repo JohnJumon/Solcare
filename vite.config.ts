@@ -98,7 +98,7 @@ export default defineConfig(({ command, mode }) => {
       },
     },
     define: {
-      global: {},
+      global: "globalThis",
       'process.env': Object.assign(process.env ?? {}, env),
     },
   };
