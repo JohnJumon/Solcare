@@ -1,7 +1,7 @@
 import * as anchor from '@project-serum/anchor';
 
 export const LOGIN_MESSAGE = 's3cretseedsforlogin';
-export const API_BASE_URL = 'http://34.238.156.194';
+export const API_BASE_URL = 'https://34.238.156.194.nip.io';
 // export const API_BASE_URL = 'http://localhost:8000';
 export const RPC_API_KEY =
     'https://sleek-blue-liquid.solana-devnet.quiknode.pro/36e54bb0b3be1f41d0d78439827c8bd97771533e/';
