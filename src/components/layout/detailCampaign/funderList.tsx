@@ -34,7 +34,7 @@ const FunderList = ({ funders }: { funders: FunderInfo[] }) => {
                         className="flex items-center py-1 text-gray-900 md:py-2"
                     >
                         <img
-                            className="w-8 h-10 bg-cover bg-center rounded-full md:w-16 md:h-16"
+                            className="w-8 h-8 object-cover rounded-full md:w-16 md:h-16"
                             src={
                                 funders[i].profilePicture === '' ||
                                 funders[i].profilePicture === undefined
