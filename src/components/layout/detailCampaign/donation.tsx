@@ -27,7 +27,7 @@ const Donation = (props: any) => {
 
     const submitDonation = async (e: any) => {
         if (!connected) {
-            return toast.error('Hubungkan wallet anda terlebih dahulu');
+            return toast.error('Select Wallet anda terlebih dahulu');
         } else if (amount === 0) {
             return toast.error('Jumlah donasi minimal 1 USDC');
         } else if (amount > campaign.target - campaign.collected) {

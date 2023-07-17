@@ -29,13 +29,13 @@ const PrivateRoute = (props: any) => {
                 ) : (
                     <div className="min-h-[70vh] flex flex-wrap flex-col content-center justify-center bg-gray-100">
                         <p className="text-xl text-center px-8">
-                            Silahkan Hubungkan Wallet Terlebih Dahulu
+                            Silahkan Select Wallet Terlebih Dahulu
                         </p>
                         <WalletMultiButton
                             style={{ backgroundColor: '#007BC7' }}
                             className="btn !text-xs capitalize !bg-[#007BC7] !rounded-[5px] !h-12 xl:!h-16 !w-[11rem] xl:!rounded-[10px] xl:!w-[22rem] xl:!text-xl mx-auto mt-5"
                         >
-                            Hubungkan Wallet
+                            Select Wallet
                         </WalletMultiButton>
                     </div>
                 )
@@ -54,13 +54,13 @@ const PrivateRoute = (props: any) => {
             ) : (
                 <div className="min-h-[70vh] flex flex-wrap flex-col content-center justify-center bg-gray-100">
                     <p className="text-xl text-center px-8">
-                        Silahkan Hubungkan Wallet Terlebih Dahulu
+                        Silahkan Select Wallet Terlebih Dahulu
                     </p>
                     <WalletMultiButton
                         style={{ backgroundColor: '#007BC7' }}
                         className="btn !text-xs capitalize !bg-[#007BC7] !rounded-[5px] !h-12 xl:!h-16 !w-[11rem] xl:!rounded-[10px] xl:!w-[22rem] xl:!text-xl mx-auto mt-5"
                     >
-                        Hubungkan Wallet
+                        Select Wallet
                     </WalletMultiButton>
                 </div>
             )}

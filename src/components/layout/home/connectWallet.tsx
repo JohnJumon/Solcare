@@ -15,7 +15,7 @@ const ConnectWallet = () => {
                     style={{ backgroundColor: '#007BC7' }}
                     className="btn !text-xs capitalize !bg-[#007BC7] !rounded-[5px] !h-12 xl:!h-16 !w-[11rem] xl:!rounded-[10px] xl:!w-[22rem] xl:!text-xl mx-auto"
                 >
-                    Hubungkan Wallet
+                    Select Wallet
                 </WalletMultiButton>
             </div>
         </article>
