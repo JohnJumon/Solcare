@@ -4,28 +4,38 @@
   "constants": [
     {
       "name": "CAMPAIGN_SEED",
-      "type": "bytes",
-      "value": "[99, 97, 109, 112, 97, 105, 103, 110, 95, 115, 101, 101, 100]"
+      "type": {
+        "defined": "&[u8]"
+      },
+      "value": "b\"campaign_seed\""
     },
     {
       "name": "CAMPAIGN_AUTHORITY_SEED",
-      "type": "bytes",
-      "value": "[99, 97, 109, 112, 97, 105, 103, 110, 95, 97, 117, 116, 104, 111, 114, 105, 116, 121, 95, 115, 101, 101, 100]"
+      "type": {
+        "defined": "&[u8]"
+      },
+      "value": "b\"campaign_authority_seed\""
     },
     {
       "name": "DONOR_SEED",
-      "type": "bytes",
-      "value": "[100, 111, 110, 111, 114, 95, 115, 101, 101, 100]"
+      "type": {
+        "defined": "&[u8]"
+      },
+      "value": "b\"donor_seed\""
     },
     {
       "name": "PROPOSAL_SEED",
-      "type": "bytes",
-      "value": "[112, 114, 111, 112, 111, 115, 97, 108, 95, 115, 101, 101, 100]"
+      "type": {
+        "defined": "&[u8]"
+      },
+      "value": "b\"proposal_seed\""
     },
     {
       "name": "VOTE_SEED",
-      "type": "bytes",
-      "value": "[118, 111, 116, 101, 95, 115, 101, 101, 100]"
+      "type": {
+        "defined": "&[u8]"
+      },
+      "value": "b\"vote_seed\""
     },
     {
       "name": "STATUS_ACTIVE",
@@ -557,69 +567,53 @@
       }
     }
   ],
-  "errors": [
+  "types": [
     {
-      "code": 6000,
-      "name": "InvalidHeldDuration",
-      "msg": "Invalid held duration"
-    },
-    {
-      "code": 6001,
-      "name": "InvalidTargetAmount",
-      "msg": "Invalid target amount"
-    },
-    {
-      "code": 6002,
-      "name": "CampaignIsNotActive",
-      "msg": "Campaign is not active"
-    },
-    {
-      "code": 6003,
-      "name": "CampaignFailedToRaiseFunds",
-      "msg": "Campaign is failed to raise funds"
-    },
-    {
-      "code": 6004,
-      "name": "CampaignIsNotFilled",
-      "msg": "Campaign is not filled"
-    },
-    {
-      "code": 6005,
-      "name": "CampaignIsNotInVotingPeriod",
-      "msg": "Campaign is not in voting period"
-    },
-    {
-      "code": 6006,
-      "name": "DonatedAmountGreaterThanTarget",
-      "msg": "Donated amount greater than target"
-    },
-    {
-      "code": 6007,
-      "name": "VotingHasNotEnd",
-      "msg": "Voting has not end"
-    },
-    {
-      "code": 6008,
-      "name": "CantClaimFund",
-      "msg": "Can't claim fund"
-    },
-    {
-      "code": 6009,
-      "name": "CantDoRefund",
-      "msg": "Can't do refund"
-    },
-    {
-      "code": 6010,
-      "name": "DonationHasBeenRefunded",
-      "msg": "Donation has been refunded"
-    },
-    {
-      "code": 6011,
-      "name": "BalanceIsNotEnough",
-      "msg": "Balance is not enough"
+      "name": "CustomError",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "InvalidHeldDuration"
+          },
+          {
+            "name": "InvalidTargetAmount"
+          },
+          {
+            "name": "CampaignIsNotActive"
+          },
+          {
+            "name": "CampaignFailedToRaiseFunds"
+          },
+          {
+            "name": "CampaignIsNotFilled"
+          },
+          {
+            "name": "CampaignIsNotInVotingPeriod"
+          },
+          {
+            "name": "DonatedAmountGreaterThanTarget"
+          },
+          {
+            "name": "VotingHasNotEnd"
+          },
+          {
+            "name": "CantClaimFund"
+          },
+          {
+            "name": "NotInRefundableState"
+          },
+          {
+            "name": "DonationHasBeenRefunded"
+          },
+          {
+            "name": "BalanceIsNotEnough"
+          }
+        ]
+      }
     }
   ],
   "metadata": {
-    "address": "DqBjFvgYa8drGBcKdSSQ51jLEWWnr6z14MzXKxGu5JvX"
+    "address": "7Ji9oG6aVk8SJutzwRP3nFZJYXtq7FaDqkVWvmBbc4z"
   }
 }
