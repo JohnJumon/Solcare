@@ -7,7 +7,6 @@ import { BN } from 'bn.js';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSmartContract } from '../../../context/connection';
-import { Solcare } from '../../../resources/solcare.types';
 import {
     API_BASE_URL,
     getDerivedAccount,

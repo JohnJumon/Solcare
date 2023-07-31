@@ -161,6 +161,14 @@ const Dashboard = () => {
                 </div>
                 <div>
                     <p className="text-xs font-bold xl:text-base">
+                        Jumlah User Diperingati
+                    </p>
+                    <p className="text-2xl font-bold xl:text-4xl xl:my-4">
+                        {totalUsersWarned}
+                    </p>
+                </div>
+                <div>
+                    <p className="text-xs font-bold xl:text-base">
                         Jumlah Campaign
                     </p>
                     <p className="text-2xl font-bold xl:text-4xl xl:my-4">
