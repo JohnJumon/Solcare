@@ -156,7 +156,7 @@ const Dashboard = () => {
                         Jumlah User
                     </p>
                     <p className="text-2xl font-bold xl:text-4xl xl:my-4">
-                        {totalUsers}
+                        {totalUsers-totalUsersWarned}
                     </p>
                 </div>
                 <div>
