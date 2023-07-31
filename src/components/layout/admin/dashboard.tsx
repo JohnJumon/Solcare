@@ -156,6 +156,14 @@ const Dashboard = () => {
                         Jumlah User
                     </p>
                     <p className="text-2xl font-bold xl:text-4xl xl:my-4">
+                        {totalUsers}
+                    </p>
+                </div>
+                {/* <div>
+                    <p className="text-xs font-bold xl:text-base">
+                        Jumlah User Tidak Diperingati
+                    </p>
+                    <p className="text-2xl font-bold xl:text-4xl xl:my-4">
                         {totalUsers-totalUsersWarned}
                     </p>
                 </div>
@@ -166,7 +174,7 @@ const Dashboard = () => {
                     <p className="text-2xl font-bold xl:text-4xl xl:my-4">
                         {totalUsersWarned}
                     </p>
-                </div>
+                </div> */}
                 <div>
                     <p className="text-xs font-bold xl:text-base">
                         Jumlah Campaign
