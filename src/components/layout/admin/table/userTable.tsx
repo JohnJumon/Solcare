@@ -106,7 +106,7 @@ const UserTable = (props: any) => {
                                         scope="col"
                                         className="py-3 px-6 border-r"
                                     >
-                                        Wallet Address Pemilik
+                                        Wallet Address
                                     </th>
                                     <th scope="col" className="py-3 px-6">
                                         Aksi

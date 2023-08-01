@@ -137,7 +137,7 @@ const CampaignValidationTable = (props: any) => {
                                         scope="col"
                                         className="py-3 px-6 border-r"
                                     >
-                                        Wallet Address Pemilik
+                                        Wallet Address Fundraiser
                                     </th>
                                     <th
                                         scope="col"

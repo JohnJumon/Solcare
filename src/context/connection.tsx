@@ -7,7 +7,7 @@ import { PROGRAM_ADDRESS, RPC_API_KEY } from '../utils';
 import NodeWallet from '@project-serum/anchor/dist/cjs/nodewallet';
 
 const scDefaultValue = () => {
-    console.log(SolcareIdl)
+    console.log(SolcareIdl);
     const connection = new anchor.web3.Connection(RPC_API_KEY, {
         commitment: 'processed',
     });
